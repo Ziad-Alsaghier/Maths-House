@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\PaymentRequestController;
 use App\Http\Controllers\Admin\ReportIssuesController;
 use App\Http\Controllers\Admin\Ad_ReportsController;
 use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\Admin\LogoutUsersController;
 use App\Http\Controllers\Admin\PackagesController as Ad_PackagesController;
 
 use App\Http\Controllers\Student\Stu_DashboardController;
@@ -344,13 +345,19 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Question/Filter','filter_question')->name('filter_question');
         Route::get('/Question/Del/{id}','del_q')->name('del_q');
     });
-
+    
     //Course Setting
     Route::controller(CourseSettingController::class)->middleware('can:Settings')->group(function(){
         Route::get('/Courses/CodeExam','course_setting')->name('course_setting');
         Route::post('/Courses/CodeExam/Add','code_exam_add')->name('code_exam_add');
         Route::post('/Courses/CodeExam/Edit/{id}','examCodeEdit')->name('examCodeEdit');
         Route::get('/Courses/CodeExam/Del/{id}','examCodeDelete')->name('examCodeDelete');
+    });
+    
+    // Logout Users
+    Route::controller(LogoutUsersController::class)->middleware('can:Settings')->group(function(){
+        Route::get('/LogoutUsers','index')->name('logout_users');
+        Route::get('/LogoutUsers/{id}','logout')->name('logout_account_users');
     });
 
     // Diagnostic Exam 
