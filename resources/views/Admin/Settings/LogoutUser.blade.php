@@ -5,34 +5,8 @@
     }
 @endphp
 <x-default-layout>
-    @error('name')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
-    @enderror
-    @error('email')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
-    @enderror
-    @error('phone')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
-    @enderror
-    @error('parent_email')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
-    @enderror
-    @error('parent_phone')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
-    @enderror
-    @include('Admin.Users.stu_header')
     @include('success')
-    @section('title', 'Students')
+    @section('title', 'Logout Users')
     <style>
         #ship-list_filter>label {
             display: flex;
@@ -109,18 +83,19 @@
                     <th scope="row">Name</th>
                     <th scope="row">Phone</th>
                     <th scope="row">Email</th>
+                    <th scope="row">Position</th>
                     <th scope="row">Action</th>
             </thead>
             <tbody id="myTable">
                 @foreach ($students as $item)
                     <tr>
-                        <td style="width: 25%;">
+                        <td style="width: 20%;">
                             <p>
 
                                 {{ $item->f_name . ' ' . $item->l_name . ' (' . $item->nick_name . ')' }}
                             </p>
                         </td>
-                        <td style="width: 25%;">
+                        <td style="width: 15%;">
                             <p>
                                 {{ $item->phone }}
                             </p>
@@ -131,8 +106,14 @@
                                 {{ $item->email }}
                             </p>
                         </td>
+                        <td style="width: 20%;">
+                            <p>
 
-                        <td  style="width: 25%;">
+                                {{ $item->position }}
+                            </p>
+                        </td>
+
+                        <td  style="width: 20%;">
                             <a href="{{route('logout_account_users', ['id' => $item->id])}}" class="btn btn-danger">
                                 Logout
                             </a>

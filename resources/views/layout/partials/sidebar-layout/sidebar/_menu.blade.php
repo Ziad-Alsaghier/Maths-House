@@ -502,7 +502,7 @@
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
-							<span class="menu-title">Logout Students</span>
+							<span class="menu-title">Logout Users</span>
 						</a>
 
 					</div>
