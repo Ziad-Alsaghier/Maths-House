@@ -288,6 +288,7 @@ class CoursesController extends Controller
 
     public function Use_Promocode( Request $req ){
         $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode($chapters);
         $course_id = $chapters[0]->course_id;
         $uses = UsagePromo::where('user_id', auth()->user()->id)
         ->where('promo', $req->promo_code)
@@ -434,7 +435,7 @@ class CoursesController extends Controller
             }
         }
         elseif ( isset($course_data->chapter_name) ) {
-
+ 
             $data = json_decode(Cookie::get('marketing'));
             $chapters_price = Cookie::get('chapters_price');
             $chapter_discount = 0;
@@ -458,7 +459,8 @@ class CoursesController extends Controller
             Cookie::queue('chapters_price', json_encode($chapters_price), 10000);
             Cookie::queue('price_arr', json_encode($price_arr), 10000);
             $price_arr = json_encode($price_arr);
-            $chapters = [json_decode(Cookie::get('marketing'))];
+            $chapters = json_decode(Cookie::get('marketing'));
+            $chapters = [json_decode($chapters)];
             
             return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
        
@@ -490,6 +492,7 @@ class CoursesController extends Controller
         Cookie::queue('price_arr', json_encode($price_arr), 10000);
         $price_arr = json_encode($price_arr);
         $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode($chapters);
         return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
     }
 

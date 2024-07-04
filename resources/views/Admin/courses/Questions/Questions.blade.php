@@ -1228,7 +1228,7 @@
                                                     <!--begin::Input-->
                                                     <select name="q_code" class="form-control sel_qcode"
                                                         id="sel_qcode{{ $question->q_id ? $question->q_id : $question->id }}">
-                                                        @if ( $question->code->exam_code )
+                                                        @if ( @$question->code->exam_code )
                                                             <option value="{{ $question->q_code }}" selected>
                                                             {{ @$question->code->exam_code }}</option>
                                                         @else
@@ -1237,7 +1237,7 @@
                                                         @endif
                                                         @foreach ($exams as $exam)
                                                             <option value="{{ $exam->id }}">
-                                                                {{ $exam->exam_code }}</option>
+                                                                {{ @$exam->exam_code }}</option>
                                                         @endforeach
                                                     </select>
                                                     <!--end::Input-->
