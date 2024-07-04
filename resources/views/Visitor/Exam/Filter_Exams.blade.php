@@ -2,6 +2,22 @@
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 
+<style>
+    .empty-question-message {
+    color: #ff0000; /* Red color for the text */
+    font-size: 18px; /* Font size */
+    font-weight: bold; /* Bold font */
+    background-color: #ffe6e6; /* Light red background */
+    padding: 10px; /* Padding around the text */
+    border: 1px solid #ff0000; /* Border with the same color as the text */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center align the text */
+    width: fit-content; /* Fit the width to the content */
+    margin: 20px auto; /* Center the div horizontally */
+}
+
+</style>
+
 <form action="{{route('filter_exam')}}" method="GET">
     <div style="padding: 100px 100px 0 100px">
         <div class="d-flex my-2">
@@ -102,6 +118,11 @@
 </form>
 
 <table class="table">
+    @if ( !isset($exam_items[0]) )
+        <div class="empty-question-message">
+            Exam is empty
+        </div>
+    @endif
     @foreach ( $exam_items as $item )
     <tr>
         <td class="px-5">

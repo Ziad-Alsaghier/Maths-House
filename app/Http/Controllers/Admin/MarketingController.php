@@ -235,17 +235,21 @@ class MarketingController extends Controller
             'code'      => 'required',
         ]);
         $promo = PromoCode::create($arr);
-        foreach ($req->courses as $course) {
-            PromoCourse::create([
-                'promo_id' => $promo->id,
-                'course_id' => $course
-            ]);
+        if ( $req->courses ) {
+            foreach ($req->courses as $course) {
+                PromoCourse::create([
+                    'promo_id' => $promo->id,
+                    'course_id' => $course
+                ]);
+            }
         }
-        foreach ($req->packages as $package) {
-            PromoPackage::create([
-                'promo_id' => $promo->id,
-                'package_id' => $package
-            ]);
+        if ( $req->packages ) {
+            foreach ($req->packages as $package) {
+                PromoPackage::create([
+                    'promo_id' => $promo->id,
+                    'package_id' => $package
+                ]);
+            }
         }
 
         return redirect()->back();
@@ -280,17 +284,22 @@ class MarketingController extends Controller
         PromoPackage::where('promo_id', $id)
         ->delete();
 
-        foreach ($req->courses as $course) {
-            PromoCourse::create([
-                'promo_id' => $id,
-                'course_id' => $course
-            ]);
+        if ( $req->courses ) {
+            foreach ($req->courses as $course) {
+                PromoCourse::create([
+                    'promo_id' => $id,
+                    'course_id' => $course
+                ]);
+            }
         }
-        foreach ($req->packages as $package) {
-            PromoPackage::create([
-                'promo_id' => $id,
-                'package_id' => $package
-            ]);
+        
+        if ( $req->packages ) {
+            foreach ($req->packages as $package) {
+                PromoPackage::create([
+                    'promo_id' => $id,
+                    'package_id' => $package
+                ]);
+            }
         }
 
         return redirect()->back();

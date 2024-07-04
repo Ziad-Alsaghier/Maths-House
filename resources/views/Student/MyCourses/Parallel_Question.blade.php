@@ -28,18 +28,35 @@
                 <hr class="hr" />
                 <h3>{{ $loop->iteration }}.
                     @if (!empty($question->question))
-                        {{ $question->question }}
+                        {!! $question->question !!}
                     @endif
-                    @if( !empty($question->q_url))
-                        <img style="width: 200px; height: 200px;"
-                            src="{{ asset('images/questions/' . $question->q_url) }}" />
+                    @if( !empty($question->q_url))<!-- Image Element -->
+                    <img style="width: 200px; height: 200px;"
+                         data-bs-toggle="modal" data-bs-target="#showImage{{ $question->id }}" 
+                         src="{{ asset('images/questions/' . $question->q_url) }}" />
+                    
+                    <!-- Modal View Image -->
+                    <div class="modal fade" id="showImage{{ $question->id }}" tabindex="-1" aria-labelledby="showImageLabel{{ $question->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="showImageLabel{{ $question->id }}">Show Question</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="display: flex; align-items: center; justify-content: center;">
+                                    <img class="img-fluid" src="{{ asset('images/questions/' . $question->q_url) }}" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     @endif
                 </h3>
                 <div class="row">
                     @if ($question->ans_type == 'MCQ')
-                    @php
-                        $arr = ['A', 'B', 'C', 'D'];
-                    @endphp
                         @foreach ($question->mcq as $mcq)
                             <div class="form-check mx-3">
                                 <input class="form-check-input" type="radio" 
@@ -48,7 +65,7 @@
                                     name="ans{{$question->id}}" />
                                 <label class="form-check-label"
                                     for="flexCheckChecked{{ $mcq->id }}">
-                                    {{ @$arr[$loop->iteration - 1] . ' . ' . $mcq->mcq_ans }}
+                                    {{ $mcq->mcq_num . ' . ' . $mcq->mcq_ans }}
                                 </label>
                             </div>
                         @endforeach

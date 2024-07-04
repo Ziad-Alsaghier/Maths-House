@@ -3,6 +3,22 @@
 @include('Visitor.inc.menu')
 @include('success')
 
+<style>
+    .empty-question-message {
+    color: #ff0000; /* Red color for the text */
+    font-size: 18px; /* Font size */
+    font-weight: bold; /* Bold font */
+    background-color: #ffe6e6; /* Light red background */
+    padding: 10px; /* Padding around the text */
+    border: 1px solid #ff0000; /* Border with the same color as the text */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center align the text */
+    width: fit-content; /* Fit the width to the content */
+    margin: 20px auto; /* Center the div horizontally */
+}
+
+</style>
+
 <form action="{{route('v_filter_question')}}" method="GET">
     <div style="padding: 100px 100px 0 100px">
         <div class="d-flex my-2">
@@ -107,6 +123,11 @@
 </form>
 
 <table class="table">
+    @if ( !isset($q_items[0]) )
+        <div class="empty-question-message">
+            Question is empty
+        </div>
+    @endif
     @foreach ( $q_items as $item )
     <tr>
         <td class="px-5">

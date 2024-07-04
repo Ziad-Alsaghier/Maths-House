@@ -74,12 +74,37 @@
                     {{$question->g_ans[0]->grid_ans}}
                     @endif
                     </b>
-                    <br />
+                    <br /> 
                     @foreach ( $question->q_ans as $q_ans )
+                    <div class="d-flex">
+                    @if ( !empty($q_ans->ans_pdf) )
+                    <!-- Image Element -->
+                    <img style="width: 400px; margin: 20px; height: 350px;"
+                         data-bs-toggle="modal" data-bs-target="#showImage{{ $q_ans->id }}{{ $question->id }}" 
+                         src="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" />
+                    
+                    <!-- Modal View Image -->
+                    <div class="modal fade" id="showImage{{ $q_ans->id }}{{ $question->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalCenterTitle">Show Question</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" style="display: flex; align-items: center; justify-content: center;">
+                                    <img class="img-fluid" src="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     @if ( !empty($q_ans->ans_video) )
                     <iframe width="560" height="315" src="{{$q_ans->ans_video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                
                     @endif
+                    </div>
                     @endforeach
                   </div>
                 @foreach ( $question->q_ans as $q_ans)

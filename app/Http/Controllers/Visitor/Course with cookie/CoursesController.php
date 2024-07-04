@@ -165,7 +165,7 @@ class CoursesController extends Controller
             return view('Visitor.Login.login');
         }
         else{
-            $chapters = json_decode($data); 
+            $chapters = json_decode(Cookie::get('marketing')); 
             return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
         }
     }
@@ -387,7 +387,6 @@ class CoursesController extends Controller
 
     public function check_out( Request $req ){
         $chapters = json_decode(Cookie::get('marketing'));
-        $chapters = json_decode($chapters);
         Cookie::queue('chapters_price', $req->chapters_pricing, 10000);
         $price = json_decode(Cookie::get('chapters_price'));
         $payment_methods = PaymentMethod::
@@ -544,7 +543,6 @@ class CoursesController extends Controller
             }
         }
         $chapters = json_decode(Cookie::get('marketing'));
-        $chapters = json_decode($chapters);
         $price = json_decode(Cookie::get('chapters_price'));
         if ( $req->payment_method_id == 'Wallet' ) {
             $wallet = Wallet::
