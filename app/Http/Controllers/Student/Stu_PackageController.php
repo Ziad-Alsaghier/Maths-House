@@ -19,7 +19,7 @@ use App\Models\UsagePromo;
 use App\Models\PromoCode;
 use App\Models\User;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 
 class Stu_PackageController extends Controller
 {
@@ -28,11 +28,11 @@ class Stu_PackageController extends Controller
         $payment_methods = PaymentMethod::all();
         $package = Package::where('id', $id)
         ->first();
-        $promo_code = Cache::get('promo_code');
+        $promo_code = json_decode(Cookie::get('promo_code'));
         if ( !empty($promo_code) && $package->id == $promo_code->id ) {
-            $package = Cache::get('package');
+            $package = json_decode(Cookie::get('package'));
         }
-        Cache::store('file')->put('package', $package, 10000);
+        Cookie::queue('package', json_encode($package), 10000);
         
         return view('Student.PackageCheckout.Checkout' ,compact('package', 'payment_methods'));
     }
@@ -90,7 +90,7 @@ class Stu_PackageController extends Controller
         }
         $p_request = PaymentRequest::create($arr);
         $p_method = isset($p_request->method->payment) ? $p_request->method->payment : 'Wallet';
-        $package_data = Cache::get('package');
+        $package_data = json_decode(Cookie::get('package'));
         if ( $req->payment_method_id == 'Wallet' ) {
             $commision = 0;
             $service = null;
@@ -98,7 +98,7 @@ class Stu_PackageController extends Controller
                 $user_acc = User::where('id', auth()->user()->id)
                 ->first();
                 $commision = Commission::where('name', 'Exams')
-                ->where('user_id', Cache::get('affilate'))
+                ->where('user_id', intval(Cookie::get('affilate')) )
                 ->where('state', 1)
                 ->first();
                 $commision = empty($commision) ? 0 : $commision->precentage;
@@ -109,7 +109,7 @@ class Stu_PackageController extends Controller
                 $user_acc = User::where('id', auth()->user()->id)
                 ->first();
                 $commision = Commission::where('name', 'Questions')
-                ->where('user_id', Cache::get('affilate'))
+                ->where('user_id', intval(Cookie::get('affilate')))
                 ->where('state', 1)
                 ->first();
                 $commision = empty($commision) ? 0 : $commision->precentage;
@@ -120,7 +120,7 @@ class Stu_PackageController extends Controller
                 $user_acc = User::where('id', auth()->user()->id)
                 ->first();
                 $commision = Commission::where('name', 'Live Session')
-                ->where('user_id', Cache::get('affilate'))
+                ->where('user_id', intval(Cookie::get('affilate')))
                 ->where('state', 1)
                 ->first();
                 $commision = empty($commision) ? 0 : $commision->precentage;
@@ -128,8 +128,8 @@ class Stu_PackageController extends Controller
                 $service = 'Live Session';
             }
 
-            if ( !empty(Cache::get('affilate')) ) { 
-                $affilate = Affilate::where('id', Cache::get('affilate'))
+            if ( !empty(Cookie::get('affilate')) ) { 
+                $affilate = Affilate::where('id', intval(Cookie::get('affilate')))
                 ->first();
                 $affilate->update([
                     'wallet' => $affilate->wallet + $commision
@@ -163,12 +163,12 @@ class Stu_PackageController extends Controller
                 'date' => now(),
                 'user_id' => auth()->user()->id,
             ]);
-            if ( !empty(Cache::get('affilate')) ) {
+            if ( !empty(Cookie::get('affilate')) ) {
                 $commision = 0;
                 $service = null;
                 if ( $package->module == 'Exam' ) {
                     $commision = Commission::where('name', 'Exams')
-                    ->where('user_id', Cache::get('affilate'))
+                    ->where('user_id', intval(Cookie::get('affilate')))
                     ->where('state', 1)
                     ->first();
                     $commision = empty($commision) ? 0 : $commision->precentage;
@@ -177,7 +177,7 @@ class Stu_PackageController extends Controller
                 }
                 elseif ( $package->module == 'Question' ) {
                     $commision = Commission::where('name', 'Questions')
-                    ->where('user_id', Cache::get('affilate'))
+                    ->where('user_id', intval(Cookie::get('affilate')))
                     ->where('state', 1)
                     ->first();
                     $commision = empty($commision) ? 0 : $commision->precentage;
@@ -186,7 +186,7 @@ class Stu_PackageController extends Controller
                 }
                 elseif ( $package->module == 'Live' ) {
                     $commision = Commission::where('name', 'Live Session')
-                    ->where('user_id', Cache::get('affilate'))
+                    ->where('user_id', intval(Cookie::get('affilate')))
                     ->where('state', 1)
                     ->first();
                     $commision = empty($commision) ? 0 : $commision->precentage;
@@ -194,7 +194,7 @@ class Stu_PackageController extends Controller
                     $service = 'Exams';
                 }
                 AffilateRequest::create([
-                    'affilate_id' => Cache::get('affilate'),
+                    'affilate_id' => intval(Cookie::get('affilate')),
                     'service' => $service,
                     'earned' => $commision,
                     'payment_req_id' => $p_request->id
@@ -208,8 +208,8 @@ class Stu_PackageController extends Controller
     }
 
     public function package_use_promocode( Request $req ){
-        $package = Cache::get('package');
-        Cache::store('file')->put('promo_code', $package, 10000);
+        $package = json_decode(Cookie::get('package'));
+        Cookie::queue('promo_code', json_encode($package), 10000);
         
         
         $uses = UsagePromo::where('user_id', auth()->user()->id)
@@ -229,8 +229,8 @@ class Stu_PackageController extends Controller
                 if ( !empty($promo_package) ) {
                     $price = $package->price;
                     $price = $price - $price * $promo->discount	/ 100;
-                    $package['price'] = $price;
-                    Cache::store('file')->put('package', $package, 10000);
+                    $package['price'] = $price; 
+                    Cookie::queue('package', json_encode($package), 10000);
                     PromoCode::where('id', $promo->id)
                     ->update([
                         'num_usage' => $promo->num_usage - 1

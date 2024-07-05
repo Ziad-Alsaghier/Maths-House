@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -335,8 +335,8 @@ class Stu_MyCourseController extends Controller
         $chapter_discount = $min->price - ($min->price * $min->discount / 100);
         $chapters->ch_price = $chapters_price;
         $ch = json_encode([$chapters]);
-        Cache::store('file')->put('marketing', $ch, 10000);
-        Cache::store('file')->put('chapters_price', $chapters_price, 10000);
+        Cookie::queue('marketing', $ch, 10000);
+        Cookie::queue('chapters_price', $chapters_price, 10000); 
         if ( empty(auth()->user()) ) {
             return view('Visitor.Login.login');
         }
@@ -367,10 +367,9 @@ class Stu_MyCourseController extends Controller
             $price_arr[] = $min;
             $chapter_discount += $min->price - ($min->price * $min->discount / 100);
         }
-        
-        Cache::store('file')->put('marketing', $chapters, 10000);
-        Cache::store('file')->put('chapters_price', $chapters_price, 10000);
-        Cache::store('file')->put('price_arr', $price_arr, 10000);
+        Cookie::queue('marketing', json_encode($chapters), 10000);
+        Cookie::queue('chapters_price', $chapters_price, 10000);
+        Cookie::queue('price_arr', json_encode($price_arr), 10000);
          
         if ( empty(auth()->user()) ) {
             return view('Visitor.Login.login');
