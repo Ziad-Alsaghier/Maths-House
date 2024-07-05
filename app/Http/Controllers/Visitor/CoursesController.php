@@ -377,7 +377,7 @@ class CoursesController extends Controller
     }
 
     public function promo_check_out_course( Request $req ){
-        $course = json_encode(Cookie::get('marketing')); 
+        $course = json_decode(Cookie::get('marketing'));
         $price = floatval(Cookie::get('chapters_price'));
         $payment_methods = PaymentMethod::
         where('statue', 1)
@@ -390,7 +390,7 @@ class CoursesController extends Controller
         $chapters = json_decode(Cookie::get('marketing'));
         $chapters = json_decode($chapters);
         Cookie::queue('chapters_price', $req->chapters_pricing, 10000);
-        $price = json_decode(Cookie::get('chapters_price'));
+        $price = $req->chapters_pricing;
         $payment_methods = PaymentMethod::
         where('statue', 1)
         ->get();
@@ -585,7 +585,7 @@ class CoursesController extends Controller
                 foreach ( $chapters[$i]->price as $item ) {
                     if ( $item->price == $chapters[$i]->ch_price ) {
                         $duration = $item->duration;
-                        $total += $item->price;
+                        $total += ($item->price - $item->price * $item->discount / 100);
                     }
                 }
                 PaymentOrder::create( 
@@ -603,6 +603,12 @@ class CoursesController extends Controller
                 $commision = empty($commision) ? 0 : $commision->precentage;
                 $commision = $total * $commision / 100;
                 $service = 'Chapter';
+                $affilate = Affilate::
+                where('id', intval(Cookie::get('affilate')))
+                ->first();
+                $affilate->update([
+                    'wallet' => $affilate->wallet + $commision
+                ]);
                     
                 AffilateService::create([
                     'affilate_id' => intval(Cookie::get('affilate')),

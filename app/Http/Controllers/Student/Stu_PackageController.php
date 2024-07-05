@@ -38,8 +38,14 @@ class Stu_PackageController extends Controller
     }
 
     public function payment_package( $id, Request $req ){
-        $package = Package::where('id', $id)
-        ->first();
+        
+        if ( json_decode(Cookie::get('package')) && json_decode(Cookie::get('package'))->id == $id ) {
+            $package = json_decode(Cookie::get('package'));
+        }
+        else {
+            $package = Package::where('id', $id)
+            ->first();
+        }
         $price = $package->price;
         $arr['price'] = $package->price;
         $arr['module'] = 'Package';
@@ -229,7 +235,7 @@ class Stu_PackageController extends Controller
                 if ( !empty($promo_package) ) {
                     $price = $package->price;
                     $price = $price - $price * $promo->discount	/ 100;
-                    $package['price'] = $price; 
+                    $package->price = $price; 
                     Cookie::queue('package', json_encode($package), 10000);
                     PromoCode::where('id', $promo->id)
                     ->update([
