@@ -443,23 +443,7 @@
 @include('Visitor.inc.menu')
 <div class="wrapper">
     <div class="preloader"></div>
- 
-    <!-- Modal --> 
-    <!-- Modal Search Button Bacground Overlay -->
-    <div class="search_overlay dn-992">
-        <div class="mk-fullscreen-search-overlay" id="mk-search-overlay">
-            <a href="#" class="mk-fullscreen-close" id="mk-fullscreen-close-button"><i
-                    class="fa fa-times"></i></a>
-            <div id="mk-fullscreen-search-wrapper">
-                <form method="get" id="mk-fullscreen-searchform">
-                    <input type="text" value="" placeholder="Search courses..."
-                        id="mk-fullscreen-search-input">
-                    <i class="flaticon-magnifying-glass fullscreen-search-icon"><input value=""
-                            type="submit"></i>
-                </form>
-            </div>
-        </div>
-    </div>
+  
 
     <!-- Main Header Nav For Mobile -->
     @include('Visitor.inc.mobile_menu')
@@ -479,12 +463,6 @@
                             <li class="subtitle">
                                 <p>Product <span class="float-right">Total</span></p>
                             </li>
-                            @foreach ($chapters as $chapter)
-                                <li>
-                                    <p>{{ $chapter->chapter_name }} <span
-                                            class="float-right">{{ $chapter->ch_price }}</span></p>
-                                </li>
-                            @endforeach
                             <li class="subtitle">
                                 <p>Subtotal <span class="float-right">Subtotal</span></p>
                             </li>
