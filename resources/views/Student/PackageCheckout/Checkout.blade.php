@@ -659,18 +659,6 @@
 		</div>
 	</section>
 
-	<!-- Our Footer Bottom Area -->
-	<section class="footer_bottom_area pt25 pb25">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="copyright-widget text-center">
-						<p>Copyright Edumy © 2019. All Rights Reserved.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 @include('Visitor.inc.footer')
