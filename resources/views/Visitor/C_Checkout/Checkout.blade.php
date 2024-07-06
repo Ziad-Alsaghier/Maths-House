@@ -326,11 +326,11 @@
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Subtotal:</span>
-                        <span class=" text-align-center">${{$price}}</span>
+                        <span class=" text-align-center">${{ $price }}</span>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center" style="color: #CF202F">Total:</span>
-                        <span class=" text-align-center">${{$price}}</span>
+                        <span class=" text-align-center">${{ $price }}</span>
                     </div>
                 </div>
                 {{-- Right Section --}}
@@ -338,8 +338,8 @@
                     style="row-gap: 1rem">
                     <h3 style="color: #CF202F">Choose Payment Methods:</h3>
 
-                    @foreach ( $payment_methods as $item )
-                    {{-- <div class="custom-control custom-checkbox my-3">
+                    @foreach ($payment_methods as $item)
+                        {{-- <div class="custom-control custom-checkbox my-3">
                         <input type="radio" name="payment_method_id" value="{{ $item->id }}"
                             class="custom-control-input payment_method_radio"
                             id="customCheck80{{ $item->id }}" checked />
@@ -351,7 +351,7 @@
 
                     </div> --}}
 
-                    {{-- <input type="file" id="reset_img{{ $item->id }}" name="image[]"
+                        {{-- <input type="file" id="reset_img{{ $item->id }}" name="image[]"
                         class="form-control d-none" />
                     <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
                         <div class="bt_details">
@@ -366,16 +366,18 @@
                     </label> --}}
 
 
-                    <div class="radio-button">
-                        <input value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
-                        <label for="radio{{$item->id}}" class="radio-button__label">
-                            <div class="">
-                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
-                                <span class="radio-button__custom"></span>
-                                {{$item->payment}}
-                            </div>
-                        </label>
-                    </div>
+                        <div class="radio-button">
+                            <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
+                                class="radio-button__input" type="radio">
+                            <label for="radio{{ $item->id }}" class="radio-button__label">
+                                <div class="">
+                                    <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
+                                        alt="">
+                                    <span class="radio-button__custom"></span>
+                                    {{ $item->payment }}
+                                </div>
+                            </label>
+                        </div>
                     @endforeach
 
                 </div>
@@ -393,16 +395,8 @@
             <div class="col-9 d-flex align-items-center justify-content-start" style="column-gap: 0.6rem">
                 <label class="containerCheck">
                     {{-- <input type="checkbox" checked="checked"> --}}
-                    <input type="radio" name="payment_method_id" value="Wallet" >
+                    <input type="checkbox" class="walletRadio" name="payment_method_id" value="Wallet">
                     <div class="checkmark"></div>
-                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="celebrate">
-                        <polygon points="0,0 10,10"></polygon>
-                        <polygon points="0,25 10,25"></polygon>
-                        <polygon points="0,50 10,40"></polygon>
-                        <polygon points="50,0 40,10"></polygon>
-                        <polygon points="50,25 40,25"></polygon>
-                        <polygon points="50,50 40,40"></polygon>
-                    </svg>
                 </label>
                 <h3 style="color: #727272;font-weight: 700">Using Wallet</h3>
             </div>
@@ -419,9 +413,28 @@
 </div>
 <script>
     $(document).ready(function() {
+        /* radio-button__input */
         console.log("first")
         $("#selImg").click(function() {
             $("#img").click();
+        })
+        $(".radio-button__input").click(function() {
+            $(".radio-button__input").each((val, ele) => {
+                if ($(".walletRadio").is(':checked')) {
+                    console.log(val)
+                    console.log(ele)
+                    $(ele).removeAttr("checked")
+                }
+            })
+        })
+        $(".walletRadio").click(function() {
+            if ($(this).is(':checked')) {
+                $(".radio-button__input").each((val, ele) => {
+                    console.log(val)
+                    console.log(ele)
+                    $(ele).removeAttr("checked")
+                })
+            }
         })
     })
 </script>
