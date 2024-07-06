@@ -1,6 +1,3 @@
-
-
-
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 <style>
@@ -325,14 +322,13 @@
                     <h3 style="color: #CF202F">Your Order:</h3>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Product:</span>
-                        <span class=" text-align-center">
+                        <ul>
                             @foreach ($chapters as $chapter)
                                 <li>
-                                    <p>{{ $chapter->chapter_name }} <span
-                                            class="float-right">{{ $chapter->ch_price }}</span></p>
+                                    <span class="text-align-center">{{ $chapter->chapter_name }}</span>
                                 </li>
                             @endforeach
-                        </span>
+                            </>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Subtotal:</span>
@@ -376,16 +372,18 @@
                     </label> --}}
 
 
-                    <div class="radio-button">
-                        <input value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
-                        <label for="radio{{$item->id}}" class="radio-button__label">
-                            <div class="">
-                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
-                                <span class="radio-button__custom"></span>
-                                {{$item->payment}}
-                            </div>
-                        </label>
-                    </div>
+                        <div class="radio-button">
+                            <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
+                                class="radio-button__input" type="radio">
+                            <label for="radio{{ $item->id }}" class="radio-button__label">
+                                <div class="">
+                                    <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
+                                        alt="">
+                                    <span class="radio-button__custom"></span>
+                                    {{ $item->payment }}
+                                </div>
+                            </label>
+                        </div>
                     @endforeach
 
                 </div>

@@ -13,6 +13,23 @@
         outline: 0;
         box-shadow: none !important;
     }
+
+    .conBtn {
+        background: #CF202F;
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: 500;
+        padding: 5px 20px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .conBtn:hover {
+        background: #ae101d
+    }
 </style>
 <form action="{{ route('filter_exam') }}" method="GET">
     <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
@@ -160,22 +177,24 @@
     <table class="table col-11  mt-2">
         <thead>
             <tr>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Exam
+                <th class="col-2"  style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Exam
                 </th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Course</th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Code</th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Year</th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Month</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Course</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Code</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Year</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Month</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ( $exam_items as $item )
+            @foreach ($exam_items as $item)
                 <tr>
-                    <td>{{$item->title}}</td>
-                    <td>{{$item->course->course_name}}</td>
-                    <td>{{@$item->code->exam_code}}</td>
-                    <td>{{$item->year}}</td>
-                    <td>{{$item->month}}</td>
+                    <td>{{ $item->title }}</td>
+                    <td>{{ $item->course->course_name }}</td>
+                    <td>{{ @$item->code->exam_code }}</td>
+                    <td>{{ $item->year }}</td>
+                    <td>{{ $item->month }}</td>
+                    <td> <button class="conBtn">Continue</button></td>
                 </tr>
             @endforeach
         </tbody>
