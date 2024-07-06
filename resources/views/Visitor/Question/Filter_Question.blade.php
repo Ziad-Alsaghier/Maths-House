@@ -213,7 +213,35 @@
                     <td>{{ $item->section }}</td>
                     <td>{{ $item->year }}</td>
                     <td>{{ $item->month }}</td>
-                    <td> <button class="conBtn">Continue</button></td>
+                    <td>
+                        
+            <div type="button" class="conBtn text-center wallet_btn" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                Start
+            </div> 
+
+            <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">Question</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Start Question ??
+
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-label-secondary close_wallet_btn" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <a class="btn btn-success"  href="{{route('q_page', ['id' => $item->id])}}">
+                        Start
+                    </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
