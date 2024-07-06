@@ -68,6 +68,14 @@
         object-fit: cover !important;
         object-position: center !important;
     }
+
+    .form-control:focus {
+        color: #B8B8B8 !important;
+        background-color: #fff;
+        border-color: none !important;
+        outline: 0;
+        box-shadow: none !important;
+    }
 </style>
 
 
@@ -95,68 +103,78 @@
 
 
 <form action="{{ route('v_filter_question') }}" method="GET">
-    <div style="padding: 100px 100px 0 100px">
-        <div class="d-flex my-2">
-            <select class="form-control sel_category mx-2" name="category_id">
-                <option disabled selected>
-                    Select Category ...
+    <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control sel_category mx-2" name="category_id">
+            <option disabled selected>
+                Select Category
+            </option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">
+                    {{ $category->cate_name }}
                 </option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">
-                        {{ $category->cate_name }}
-                    </option>
-                @endforeach
-            </select>
-            <select class="form-control mx-2 sel_course" name="course_id">
-                <option disabled selected>
-                    Select Course ...
-                </option>
-            </select>
-        </div>
+            @endforeach
+        </select>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2 sel_course" name="course_id">
+            <option disabled selected>
+                Select Course
+            </option>
+        </select>
         <input type="hidden" value="{{ $categories }}" class="category" />
         <input type="hidden" value="{{ $courses }}" class="course" />
 
-        <div class="d-flex my-2">
-            <select class="form-control mx-2" name="year">
-                <option disabled selected>
-                    Select Year ...
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="year">
+            <option disabled selected>
+                Select Year
+            </option>
+            @for ($i = date('Y'); $i > 1950; $i--)
+                <option value="{{ $i }}">
+                    {{ $i }}
                 </option>
-                @for ($i = date('Y'); $i > 1950; $i--)
-                    <option value="{{ $i }}">
-                        {{ $i }}
-                    </option>
-                @endfor
-            </select>
-            <select class="form-control mx-2" name="month">
-                <option disabled selected>
-                    Select Month ...
+            @endfor
+        </select>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="month">
+            <option disabled selected>
+                Select Month
+            </option>
+            @for ($i = 1; $i <= 12; $i++)
+                <option value="{{ $i }}">
+                    {{ date('M', ($i - 1) * 31 * 24 * 60 * 60) }}
                 </option>
-                @for ($i = 1; $i <= 12; $i++)
-                    <option value="{{ $i }}">
-                        {{ date('M', ($i - 1) * 31 * 24 * 60 * 60) }}
-                    </option>
-                @endfor
-            </select>
-            <input class="form-control mx-2" name="section" placeholder="Section" />
-        </div>
+            @endfor
+        </select>
+        <input
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="section" placeholder="Section" />
 
-        <div class="d-flex my-2">
-            <select name="q_code" class="form-control mx-2">
-                <option selected value="">
-                    Select Code ...
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            name="q_code" class="form-control mx-2">
+            <option selected value="">
+                Select Code
+            </option>
+            @foreach ($codes as $item)
+                <option value="{{ $item->id }}">
+                    {{ $item->exam_code }}
                 </option>
-                @foreach ($codes as $item)
-                    <option value="{{ $item->id }}">
-                        {{ $item->exam_code }}
-                    </option>
-                @endforeach
-            </select>
-            <input class="form-control mx-2" name="q_num" placeholder="Question Number" />
-
-            <button class="btn btn-primary mx-2 px-4">
-                Search
-            </button>
-        </div>
+            @endforeach
+        </select>
+        <input
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="q_num" placeholder="Question Number" />
+    </div>
+    <div class="d-flex align-items-center justify-content-center py-4">
+        <button
+            style="background: #CF202F !important;color: #fff;padding: 10px 40px !important;outline: none;border:none;border-radius: 10px;font-size: 1.5rem;font-weight: bold;cursor: pointer;">
+            Search
+        </button>
     </div>
 </form>
 
@@ -218,7 +236,7 @@
     sel_category.addEventListener('change', () => {
         sel_course.innerHTML = `
         <option disabled selected>
-            Select Course ...
+            Select Course
         </option>`;
         course.forEach(element => {
             if (sel_category.value == element.category_id) {

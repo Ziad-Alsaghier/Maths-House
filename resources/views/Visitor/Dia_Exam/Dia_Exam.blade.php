@@ -403,8 +403,9 @@
                             <input type="hidden" class="category" value="{{ $categories }}" />
                             <input type="hidden" class="course" value="{{ $courses }}" />
 
-                            <button type="button" class="wallet_btn btn btn-primary mx-2">
-                                Submit
+                            <button type="button" class="wallet_btn btn btn-primary mx-2"
+                                style="background: #CF202F !important;border: none !important">
+                                Search
                             </button>
                         </div>
                     </div>

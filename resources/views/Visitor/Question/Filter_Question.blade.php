@@ -1,134 +1,136 @@
-
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 @include('success')
-
 <style>
-    .empty-question-message {
-    color: #ff0000; /* Red color for the text */
-    font-size: 18px; /* Font size */
-    font-weight: bold; /* Bold font */
-    background-color: #ffe6e6; /* Light red background */
-    padding: 10px; /* Padding around the text */
-    border: 1px solid #ff0000; /* Border with the same color as the text */
-    border-radius: 5px; /* Rounded corners */
-    text-align: center; /* Center align the text */
-    width: fit-content; /* Fit the width to the content */
-    margin: 20px auto; /* Center the div horizontally */
-}
+    .table td {
+        font-weight: 600;
+        color: #787878 !important;
+    }
 
+    .form-control:focus {
+        color: #B8B8B8 !important;
+        background-color: #fff;
+        border-color: none !important;
+        outline: 0;
+        box-shadow: none !important;
+    }
 </style>
 
-<form action="{{route('v_filter_question')}}" method="GET">
-    <div style="padding: 100px 100px 0 100px">
-        <div class="d-flex my-2">
-            <select class="form-control sel_category mx-2" name="category_id">
-                <option disabled selected>
-                    Select Category ...
-                </option>
-                @foreach ( $categories as $category )
-                    @if ( @$data['category_id'] == $category->id )
-                    <option value="{{$category->id}}" selected>
-                        {{$category->cate_name}}
+<form action="{{ route('v_filter_question') }}" method="GET">
+    <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control sel_category mx-2" name="category_id">
+            <option disabled selected>
+                Select Category
+            </option>
+            @foreach ($categories as $category)
+                @if (@$data['category_id'] == $category->id)
+                    <option value="{{ $category->id }}" selected>
+                        {{ $category->cate_name }}
                     </option>
+                @else
+                    <option value="{{ $category->id }}">
+                        {{ $category->cate_name }}
+                    </option>
+                @endif
+            @endforeach
+        </select>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2 sel_course" name="course_id">
+            <option disabled selected>
+                Select Course
+            </option>
+            @foreach ($courses as $course)
+                @if (@$data['category_id'] == $course->category_id)
+                    @if (@$data['course_id'] == $course->id)
+                        <option value="{{ $course->id }}" selected>
+                            {{ $course->course_name }}
+                        </option>
                     @else
-                    <option value="{{$category->id}}">
-                        {{$category->cate_name}}
-                    </option>
+                        <option value="{{ $course->id }}">
+                            {{ $course->course_name }}
+                        </option>
                     @endif
-                @endforeach
-            </select>
-            <select class="form-control mx-2 sel_course" name="course_id">
-                <option disabled selected>
-                    Select Course ...
-                </option>
-                @foreach ( $courses as $course )
-                    @if( @$data['category_id'] == $course->category_id )
-                    @if ( @$data['course_id'] == $course->id )
-                    <option value="{{$course->id}}" selected>
-                        {{$course->course_name}}
-                    </option>
-                    @else
-                    <option value="{{$course->id}}">
-                        {{$course->course_name}}
-                    </option>
-                    @endif
-                    @endif
-                @endforeach
-            </select>
-        </div>
+                @endif
+            @endforeach
+        </select>
         <input type="hidden" value="{{ $categories }}" class="category" />
         <input type="hidden" value="{{ $courses }}" class="course" />
 
-        <div class="d-flex my-2">
-            <select class="form-control mx-2" name="year">
-                <option disabled selected>
-                    Select Year ...
-                </option>
-                @for ($i = date('Y'); $i > 1950; $i--)
-                    @if ( @$data['year'] == $i )
-                    <option value="{{$i}}" selected>
-                        {{$i}}
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="year">
+            <option disabled selected>
+                Select Year
+            </option>
+            @for ($i = date('Y'); $i > 1950; $i--)
+                @if (@$data['year'] == $i)
+                    <option value="{{ $i }}" selected>
+                        {{ $i }}
                     </option>
-                    @else
-                    <option value="{{$i}}">
-                        {{$i}}
-                    </option>
-                    @endif
-                @endfor
-            </select>
-            <select class="form-control mx-2" name="month">
-                <option disabled selected>
-                    Select Month ...
-                </option>
-                @for ($i = 1; $i <= 12; $i++)
-                    @if ( @$data['month'] == $i )
-                    <option value="{{$i}}" selected>
-                        {{date('M', ($i - 1)* 31 * 24 * 60 *60)}}
-                    </option>
-                    @else
-                    <option value="{{$i}}">
-                        {{date('M', ($i - 1)* 31 * 24 * 60 *60)}}
-                    </option>
-                    @endif
-                @endfor
-            </select>
-            <input class="form-control mx-2" value="{{@$data['section']}}" name="section" placeholder="Section" />
-        </div>
-        
-        <div class="d-flex my-2">
-            <select name="q_code" class="form-control mx-2">
-                <option selected value="">
-                    Select Code ...
-                </option>
-                @foreach ( $codes as $item )
-                @if ( @$data['q_code'] == $item->id )
-                <option value="{{$item->id}}" selected>
-                    {{$item->exam_code}}
-                </option>
                 @else
-                <option value="{{$item->id}}">
-                    {{$item->exam_code}}
-                </option>
+                    <option value="{{ $i }}">
+                        {{ $i }}
+                    </option>
                 @endif
-                @endforeach
-            </select>
-            <input class="form-control mx-2" value="{{@$data['q_num']}}" name="q_num" placeholder="Question Number" />
+            @endfor
+        </select>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="month">
+            <option disabled selected>
+                Select Month
+            </option>
+            @for ($i = 1; $i <= 12; $i++)
+                @if (@$data['month'] == $i)
+                    <option value="{{ $i }}" selected>
+                        {{ date('M', ($i - 1) * 31 * 24 * 60 * 60) }}
+                    </option>
+                @else
+                    <option value="{{ $i }}">
+                        {{ date('M', ($i - 1) * 31 * 24 * 60 * 60) }}
+                    </option>
+                @endif
+            @endfor
+        </select>
+        <input
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" value="{{ @$data['section'] }}" name="section" placeholder="Section" />
 
-            <button class="btn btn-primary mx-2 px-4">
-                Search
-            </button>
-        </div>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            name="q_code" class="form-control mx-2">
+            <option selected value="">
+                Select Code
+            </option>
+            @foreach ($codes as $item)
+                @if (@$data['q_code'] == $item->id)
+                    <option value="{{ $item->id }}" selected>
+                        {{ $item->exam_code }}
+                    </option>
+                @else
+                    <option value="{{ $item->id }}">
+                        {{ $item->exam_code }}
+                    </option>
+                @endif
+            @endforeach
+        </select>
+        <input
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" value="{{ @$data['q_num'] }}" name="q_num" placeholder="Question Number" />
+    </div>
+    <div class="d-flex align-items-center justify-content-center py-4">
+        <button
+            style="background: #CF202F !important;color: #fff;padding: 10px 40px !important;outline: none;border:none;border-radius: 10px;font-size: 1.5rem;font-weight: bold;cursor: pointer;">
+            Search
+        </button>
     </div>
 </form>
 
-<table class="table">
-    @if ( !isset($q_items[0]) )
-        <div class="empty-question-message">
-            Question is empty
-        </div>
-    @endif
-    @foreach ( $q_items as $item )
+{{-- <table class="table">
+    @foreach ($q_items as $item)
     <tr>
         <td class="px-5">
             <div style="font-size: 19px; color:black;font-weight: bold;" type="button" class="btn btn-primary wallet_btn" data-bs-toggle="modal" data-bs-target="#modalCenter">
@@ -164,8 +166,45 @@
         </td>
     </tr>
     @endforeach
-</table>
+</table> --}}
 
+<div class="col-12 d-flex align-items-center justify-content-center">
+    <table class="table col-11  mt-2">
+        <thead>
+            <tr>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">#Questions
+                </th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Code</th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Section</th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Year</th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Month</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#25477</td>
+                <td>42555</td>
+                <td>Section</td>
+                <td>2024</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>#25477</td>
+                <td>42555</td>
+                <td>Section</td>
+                <td>2024</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>#25477</td>
+                <td>42555</td>
+                <td>Section</td>
+                <td>2024</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <script>
     let wallet_btn = document.querySelectorAll('.wallet_btn');
     let show_wallet = document.querySelectorAll('.show_wallet');
@@ -173,50 +212,50 @@
     let close_wallet_btn = document.querySelectorAll('.close_wallet_btn');
 
     for (let i = 0, end = wallet_btn.length; i < end; i++) {
-        wallet_btn[i].addEventListener('click', ( e ) => {
+        wallet_btn[i].addEventListener('click', (e) => {
             for (let j = 0; j < end; j++) {
-                if ( e.target == wallet_btn[j] ) {
+                if (e.target == wallet_btn[j]) {
                     show_wallet[j].classList.remove('d-none');
                 }
             }
         })
-        btn_close[i].addEventListener('click', ( e ) => {
+        btn_close[i].addEventListener('click', (e) => {
             for (let j = 0; j < end; j++) {
-                if ( e.target == show_wallet[j] ) {
+                if (e.target == show_wallet[j]) {
                     show_wallet[j].classList.add('d-none');
                 }
             }
         })
-        close_wallet_btn[i].addEventListener('click', ( e ) => {
+        close_wallet_btn[i].addEventListener('click', (e) => {
             for (let j = 0; j < end; j++) {
-                if ( e.target == close_wallet_btn[j] ) {
+                if (e.target == close_wallet_btn[j]) {
                     show_wallet[j].classList.add('d-none');
                 }
             }
         })
     }
 
-    
-let sel_category = document.querySelector('.sel_category');
-let sel_course = document.querySelector('.sel_course');
-let category = document.querySelector('.category');
-let course = document.querySelector('.course');
-course = course.value;
-course = JSON.parse(course);
 
-sel_category.addEventListener('change', () => {
-    sel_course.innerHTML = `
+    let sel_category = document.querySelector('.sel_category');
+    let sel_course = document.querySelector('.sel_course');
+    let category = document.querySelector('.category');
+    let course = document.querySelector('.course');
+    course = course.value;
+    course = JSON.parse(course);
+
+    sel_category.addEventListener('change', () => {
+        sel_course.innerHTML = `
     <option disabled selected>
         Select Course ...
     </option>`;
-    course.forEach(element => {
-        if (sel_category.value == element.category_id) {
-            sel_course.innerHTML += `
+        course.forEach(element => {
+            if (sel_category.value == element.category_id) {
+                sel_course.innerHTML += `
             <option value="${element.id}">
                 ${element.course_name}
             </option>`;
-        }
-    });
-})
+            }
+        });
+    })
 </script>
 @include('Visitor.inc.footer')

@@ -1,129 +1,128 @@
-
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
-
 <style>
-    .empty-question-message {
-    color: #ff0000; /* Red color for the text */
-    font-size: 18px; /* Font size */
-    font-weight: bold; /* Bold font */
-    background-color: #ffe6e6; /* Light red background */
-    padding: 10px; /* Padding around the text */
-    border: 1px solid #ff0000; /* Border with the same color as the text */
-    border-radius: 5px; /* Rounded corners */
-    text-align: center; /* Center align the text */
-    width: fit-content; /* Fit the width to the content */
-    margin: 20px auto; /* Center the div horizontally */
-}
+    .table td {
+        font-weight: 600;
+        color: #787878 !important;
+    }
 
+    .form-control:focus {
+        color: #B8B8B8 !important;
+        background-color: #fff;
+        border-color: none !important;
+        outline: 0;
+        box-shadow: none !important;
+    }
 </style>
-
-<form action="{{route('filter_exam')}}" method="GET">
-    <div style="padding: 100px 100px 0 100px">
-        <div class="d-flex my-2">
-            <select name="cate_id" class="form-control mx-2 cate_sel">
-                <option disabled selected>
-                    Select Category ...
-                </option>
-                @foreach ( $categories as $item )
-                    @if( @$data['cate_id'] == $item->id )
-                    <option value="{{$item->id}}" selected>
-                        {{$item->cate_name}}
+<form action="{{ route('filter_exam') }}" method="GET">
+    <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            name="cate_id" class="form-control mx-2 cate_sel">
+            <option disabled selected>
+                Select Category
+            </option>
+            @foreach ($categories as $item)
+                @if (@$data['cate_id'] == $item->id)
+                    <option value="{{ $item->id }}" selected>
+                        {{ $item->cate_name }}
                     </option>
-                    @else
-                    <option value="{{$item->id}}">
-                        {{$item->cate_name}}
-                    </option>
-                    @endif
-                @endforeach
-            </select>
-            
-            <input type="hidden" class="courses_data" value="{{$courses}}" />
-
-            <select class="form-control mx-2 course_sel" name="course_id">
-                <option disabled selected>
-                    Select Course ...
-                </option>
-                @foreach ( $courses as $item )
-                    @if ( @$data['cate_id'] == $item->category_id )
-                    @if ( @$data['course_id'] == $item->id )
-                    <option value="{{$item->id}}" selected>
-                        {{$item->course_name}}
-                    </option>
-                    @else
-                    <option value="{{$item->id}}">
-                        {{$item->course_name}}
-                    </option>
-                    @endif
-                    @endif
-                @endforeach
-            </select>
-        </div>
-        
-        <div class="d-flex my-2">
-            <select class="form-control mx-2" name="year">
-                <option disabled selected>
-                    Select Year ...
-                </option>
-                @for ($i = date('Y'); $i > 1950; $i--)
-                @if ( @$data['year'] == $i )
-                <option value="{{$i}}" selected>
-                    {{$i}}
-                </option>
                 @else
-                <option value="{{$i}}">
-                    {{$i}}
-                </option>
+                    <option value="{{ $item->id }}">
+                        {{ $item->cate_name }}
+                    </option>
                 @endif
-                @endfor
-            </select>
-            <select class="form-control mx-2" name="month">
-                <option disabled selected>
-                    Select Month ...
-                </option>
-                @for ($i = 1; $i <= 12; $i++)
-                    @if ( @$data['month'] == $i )
-                    <option value="{{$i}}" selected>
-                        {{date('M', ($i - 1)* 31 * 24 * 60 *60)}}
-                    </option>
-                    @else
-                    <option value="{{$i}}">
-                        {{date('M', ($i - 1)* 31 * 24 * 60 *60)}}
-                    </option>
-                    @endif
-                @endfor
-            </select>
-            <select class="form-control mx-2" name="code_id">
-                <option disabled selected>
-                    Select Exam Code ...
-                </option>
-                @foreach ( $exam_code as $item )
-                    @if ( @$data['code_id'] == $item->id )
-                        <option value="{{$item->id}}" selected>
-                            {{$item->exam_code}}
+            @endforeach
+        </select>
+
+        <input type="hidden" class="courses_data" value="{{ $courses }}" />
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2 course_sel" name="course_id">
+            <option disabled selected>
+                Select Course
+            </option>
+            @foreach ($courses as $item)
+                @if (@$data['cate_id'] == $item->category_id)
+                    @if (@$data['course_id'] == $item->id)
+                        <option value="{{ $item->id }}" selected>
+                            {{ $item->course_name }}
                         </option>
                     @else
-                    <option value="{{$item->id}}">
-                        {{$item->exam_code}}
-                    </option>
+                        <option value="{{ $item->id }}">
+                            {{ $item->course_name }}
+                        </option>
                     @endif
-                @endforeach
-            </select>
+                @endif
+            @endforeach
+        </select>
 
-            <button class="btn btn-primary mx-2 px-4">
-                Search
-            </button>
-        </div>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="year">
+            <option disabled selected>
+                Select Year
+            </option>
+            @for ($i = date('Y'); $i > 1950; $i--)
+                @if (@$data['year'] == $i)
+                    <option value="{{ $i }}" selected>
+                        {{ $i }}
+                    </option>
+                @else
+                    <option value="{{ $i }}">
+                        {{ $i }}
+                    </option>
+                @endif
+            @endfor
+        </select>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="month">
+            <option disabled selected>
+                Select Month
+            </option>
+            @for ($i = 1; $i <= 12; $i++)
+                @if (@$data['month'] == $i)
+                    <option value="{{ $i }}" selected>
+                        {{ date('M', ($i - 1) * 31 * 24 * 60 * 60) }}
+                    </option>
+                @else
+                    <option value="{{ $i }}">
+                        {{ date('M', ($i - 1) * 31 * 24 * 60 * 60) }}
+                    </option>
+                @endif
+            @endfor
+        </select>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="code_id">
+            <option disabled selected>
+                Select Exam Code
+            </option>
+            @foreach ($exam_code as $item)
+                @if (@$data['code_id'] == $item->id)
+                    <option value="{{ $item->id }}" selected>
+                        {{ $item->exam_code }}
+                    </option>
+                @else
+                    <option value="{{ $item->id }}">
+                        {{ $item->exam_code }}
+                    </option>
+                @endif
+            @endforeach
+        </select>
+
+    </div>
+    <div class="d-flex align-items-center justify-content-center py-4">
+        <button
+            style="background: #CF202F !important;color: #fff;padding: 10px 40px !important;outline: none;border:none;border-radius: 10px;font-size: 1.5rem;font-weight: bold;cursor: pointer;">
+            Search
+        </button>
     </div>
 </form>
 
-<table class="table">
-    @if ( !isset($exam_items[0]) )
-        <div class="empty-question-message">
-            Exam is empty
-        </div>
-    @endif
-    @foreach ( $exam_items as $item )
+{{-- <table class="table">
+    @foreach ($exam_items as $item)
     <tr>
         <td class="px-5">
             <div style="font-size: 19px; color:black;font-weight: bold;" type="button" class="btn btn-primary wallet_btn" data-bs-toggle="modal" data-bs-target="#modalCenter">
@@ -156,7 +155,44 @@
         </td>
     </tr>
     @endforeach
-</table>
+</table> --}}
+<div class="col-12 d-flex align-items-center justify-content-center">
+    <table class="table col-11  mt-2">
+        <thead>
+            <tr>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">#Questions
+                </th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Code</th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Section</th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Year</th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Month</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#25477</td>
+                <td>42555</td>
+                <td>Section</td>
+                <td>2024</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>#25477</td>
+                <td>42555</td>
+                <td>Section</td>
+                <td>2024</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>#25477</td>
+                <td>42555</td>
+                <td>Section</td>
+                <td>2024</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <script>
     let cate_sel = document.querySelector('.cate_sel');
@@ -166,13 +202,13 @@
     courses_data = JSON.parse(courses_data);
 
     cate_sel.addEventListener('change', () => {
-            course_sel.innerHTML = `
+        course_sel.innerHTML = `
             <option disabled selected>
-                Select Course ...
+                Select Course
             </option>
             `;
-        courses_data.forEach( item => {
-            if ( cate_sel.value == item.category_id ) {
+        courses_data.forEach(item => {
+            if (cate_sel.value == item.category_id) {
                 course_sel.innerHTML += `
                 <option value="${item.id}">
                     ${item.course_name}
@@ -190,23 +226,23 @@
     let close_wallet_btn = document.querySelectorAll('.close_wallet_btn');
 
     for (let i = 0, end = wallet_btn.length; i < end; i++) {
-        wallet_btn[i].addEventListener('click', ( e ) => {
+        wallet_btn[i].addEventListener('click', (e) => {
             for (let j = 0; j < end; j++) {
-                if ( e.target == wallet_btn[j] ) {
+                if (e.target == wallet_btn[j]) {
                     show_wallet[j].classList.remove('d-none');
                 }
             }
         })
-        btn_close[i].addEventListener('click', ( e ) => {
+        btn_close[i].addEventListener('click', (e) => {
             for (let j = 0; j < end; j++) {
-                if ( e.target == show_wallet[j] ) {
+                if (e.target == show_wallet[j]) {
                     show_wallet[j].classList.add('d-none');
                 }
             }
         })
-        close_wallet_btn[i].addEventListener('click', ( e ) => {
+        close_wallet_btn[i].addEventListener('click', (e) => {
             for (let j = 0; j < end; j++) {
-                if ( e.target == close_wallet_btn[j] ) {
+                if (e.target == close_wallet_btn[j]) {
                     show_wallet[j].classList.add('d-none');
                 }
             }

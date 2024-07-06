@@ -88,7 +88,7 @@
 
     
         <!-- Ace Responsive Menu -->
-        <nav class="navbar navbar-expand-lg navbar-light sticky-top bg-light p-1">
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top bg-white p-1">
       <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}" class="navbar_brand float-left dn-smd"><img src="{{asset('assets/media/logos/mathshouse_white_logo.png')}}" style="width:150px" alt=""></a>
         <button

@@ -67,6 +67,13 @@
         object-fit: cover !important;
         object-position: center !important;
     }
+    .form-control:focus {
+        color: #B8B8B8 !important;
+        background-color: #fff;
+        border-color: none !important;
+        outline: 0;
+        box-shadow: none !important;
+    }
 </style>
 
 <!-- Hero Page Exams -->
@@ -91,66 +98,109 @@
 </section>
 
 <form action="{{ route('filter_exam') }}" method="GET">
-    <div style="padding: 100px 100px 0 100px">
-        <div class="d-flex my-2">
-            <select name="cate_id" class="form-control mx-2 cate_sel">
-                <option disabled selected>
-                    Select Category ...
-                </option>
-                @foreach ($categories as $item)
+    <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            name="cate_id" class="form-control mx-2 cate_sel">
+            <option disabled selected>
+                Select Category
+            </option>
+            @foreach ($categories as $item)
+                @if (@$data['cate_id'] == $item->id)
+                    <option value="{{ $item->id }}" selected>
+                        {{ $item->cate_name }}
+                    </option>
+                @else
                     <option value="{{ $item->id }}">
                         {{ $item->cate_name }}
                     </option>
-                @endforeach
-            </select>
+                @endif
+            @endforeach
+        </select>
 
-            <input type="hidden" class="courses_data" value="{{ $courses }}" />
+        <input type="hidden" class="courses_data" value="{{ $courses }}" />
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2 course_sel" name="course_id">
+            <option disabled selected>
+                Select Course
+            </option>
+            @foreach ($courses as $item)
+                @if (@$data['cate_id'] == $item->category_id)
+                    @if (@$data['course_id'] == $item->id)
+                        <option value="{{ $item->id }}" selected>
+                            {{ $item->course_name }}
+                        </option>
+                    @else
+                        <option value="{{ $item->id }}">
+                            {{ $item->course_name }}
+                        </option>
+                    @endif
+                @endif
+            @endforeach
+        </select>
 
-            <select class="form-control mx-2 course_sel" name="course_id">
-                <option disabled selected>
-                    Select Course ...
-                </option>
-            </select>
-
-
-        </div>
-
-        <div class="d-flex my-2">
-            <select class="form-control mx-2" name="year">
-                <option disabled selected>
-                    Select Year ...
-                </option>
-                @for ($i = date('Y'); $i > 1950; $i--)
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="year">
+            <option disabled selected>
+                Select Year
+            </option>
+            @for ($i = date('Y'); $i > 1950; $i--)
+                @if (@$data['year'] == $i)
+                    <option value="{{ $i }}" selected>
+                        {{ $i }}
+                    </option>
+                @else
                     <option value="{{ $i }}">
                         {{ $i }}
                     </option>
-                @endfor
-            </select>
-            <select class="form-control mx-2" name="month">
-                <option disabled selected>
-                    Select Month ...
-                </option>
-                @for ($i = 1; $i <= 12; $i++)
+                @endif
+            @endfor
+        </select>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="month">
+            <option disabled selected>
+                Select Month
+            </option>
+            @for ($i = 1; $i <= 12; $i++)
+                @if (@$data['month'] == $i)
+                    <option value="{{ $i }}" selected>
+                        {{ date('M', ($i - 1) * 31 * 24 * 60 * 60) }}
+                    </option>
+                @else
                     <option value="{{ $i }}">
                         {{ date('M', ($i - 1) * 31 * 24 * 60 * 60) }}
                     </option>
-                @endfor
-            </select>
-            <select class="form-control mx-2" name="code_id">
-                <option disabled selected>
-                    Select Exam Code ...
-                </option>
-                @foreach ($exam_code as $item)
+                @endif
+            @endfor
+        </select>
+        <select
+            style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
+            class="form-control mx-2" name="code_id">
+            <option disabled selected>
+                Select Exam Code
+            </option>
+            @foreach ($exam_code as $item)
+                @if (@$data['code_id'] == $item->id)
+                    <option value="{{ $item->id }}" selected>
+                        {{ $item->exam_code }}
+                    </option>
+                @else
                     <option value="{{ $item->id }}">
                         {{ $item->exam_code }}
                     </option>
-                @endforeach
-            </select>
+                @endif
+            @endforeach
+        </select>
 
-            <button class="btn btn-primary mx-2 px-4">
-                Search
-            </button>
-        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-center py-4">
+        <button
+            style="background: #CF202F !important;color: #fff;padding: 10px 40px !important;outline: none;border:none;border-radius: 10px;font-size: 1.5rem;font-weight: bold;cursor: pointer;">
+            Search
+        </button>
     </div>
 </form>
 
