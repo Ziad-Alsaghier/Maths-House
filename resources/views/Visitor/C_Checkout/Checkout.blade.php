@@ -322,15 +322,15 @@
                     <h3 style="color: #CF202F">Your Order:</h3>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Product:</span>
-                        <span class=" text-align-center">Est 1</span>
+                        <span class=" text-align-center">{{ $course->course_name }}</span>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Subtotal:</span>
-                        <span class=" text-align-center">$1200</span>
+                        <span class=" text-align-center">${{$price}}</span>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center" style="color: #CF202F">Total:</span>
-                        <span class=" text-align-center">$1200</span>
+                        <span class=" text-align-center">${{$price}}</span>
                     </div>
                 </div>
                 {{-- Right Section --}}
@@ -338,49 +338,45 @@
                     style="row-gap: 1rem">
                     <h3 style="color: #CF202F">Choose Payment Methods:</h3>
 
+                    @foreach ( $payment_methods as $item )
+                    {{-- <div class="custom-control custom-checkbox my-3">
+                        <input type="radio" name="payment_method_id" value="{{ $item->id }}"
+                            class="custom-control-input payment_method_radio"
+                            id="customCheck80{{ $item->id }}" checked />
+                        <label class="custom-control-label"
+                            for="customCheck80{{ $item->id }}">{{ $item->payment }}
+                            <img style="height:50px; width:70px;"
+                                src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
+                        </label>
+
+                    </div> --}}
+
+                    {{-- <input type="file" id="reset_img{{ $item->id }}" name="image[]"
+                        class="form-control d-none" />
+                    <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
+                        <div class="bt_details">
+                            <p>
+                                {{ $item->description }}
+                            </p>
+                        </div>
+                        <label for="reset_img{{ $item->id }}" class="btn btn-info">
+                            <i class="fa-solid fa-upload mr-2"></i>
+                            Upload Reseipt
+                        </label>
+                    </label> --}}
+
+
                     <div class="radio-button">
-                        <input name="radio-group" id="radio1" class="radio-button__input" type="radio">
-                        <label for="radio1" class="radio-button__label">
+                        <input name="radio-group" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
+                        <label for="radio{{$item->id}}" class="radio-button__label">
                             <div class="">
-                                <img width="30px" src="{{ asset('images/iconPayment/ViseIcon.svg') }}" alt="">
+                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
                                 <span class="radio-button__custom"></span>
-                                Vise
+                                {{$item->payment}}
                             </div>
                         </label>
                     </div>
-                    <div class="radio-button">
-                        <input name="radio-group" id="radio2" class="radio-button__input" type="radio">
-                        <label for="radio2" class="radio-button__label">
-                            <div class="">
-                                <img width="30px" src="{{ asset('images/iconPayment/BinanceIcon.svg') }}"
-                                    alt="">
-                                <span class="radio-button__custom"></span>
-                                Binance
-                            </div>
-                        </label>
-                    </div>
-                    <div class="radio-button">
-                        <input name="radio-group" id="radio3" class="radio-button__input" type="radio">
-                        <label for="radio3" class="radio-button__label">
-                            <div class="">
-                                <img width="30px" src="{{ asset('images/iconPayment/SkrillIcon.svg') }}"
-                                    alt="">
-                                <span class="radio-button__custom"></span>
-                                Skrill
-                            </div>
-                        </label>
-                    </div>
-                    <div class="radio-button">
-                        <input name="radio-group" id="radio4" class="radio-button__input" type="radio">
-                        <label for="radio4" class="radio-button__label">
-                            <div class="">
-                                <img width="30px" src="{{ asset('images/iconPayment/VodafoneIcon.svg') }}"
-                                    alt="">
-                                <span class="radio-button__custom"></span>
-                                Vodafone
-                            </div>
-                        </label>
-                    </div>
+                    @endforeach
 
                 </div>
             </div>
@@ -390,18 +386,14 @@
                     <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
                     <img width="35px" src="{{ asset('images/iconPayment/UploadIcon.svg') }}" alt="">
                 </div>
-                <input type="file" style="visibility: hidden;width: 2px;" id="img" name="img"
+                <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
-                <div class="col-6">
-
-                    <input class="phoneNum" type="text" name="" id="" placeholder="Phone Number">
-                </div>
             </div>
             {{-- Using Wallet --}}
             <div class="col-9 d-flex align-items-center justify-content-start" style="column-gap: 0.6rem">
                 <label class="containerCheck">
                     {{-- <input type="checkbox" checked="checked"> --}}
-                    <input type="checkbox">
+                    <input type="radio" name="payment_method_id" >
                     <div class="checkmark"></div>
                     <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="celebrate">
                         <polygon points="0,0 10,10"></polygon>
