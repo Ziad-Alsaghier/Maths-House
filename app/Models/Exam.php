@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Course;
 use App\Models\Question;
 use App\Models\ScoreSheet;
+use App\Models\ExamCodes;
 
 class Exam extends Model
 {
@@ -42,6 +43,10 @@ class Exam extends Model
 
     public function exam_score(){
         return $this->belongsTo(ScoreSheet::class, 'score_id');
+    }
+
+    public function code(){
+        return $this->belongsTo(ExamCodes::class, 'code_id');
     }
 
 }
