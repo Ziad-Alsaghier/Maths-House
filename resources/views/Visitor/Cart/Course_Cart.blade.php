@@ -461,7 +461,7 @@
                                     <tr>
                                         <th class="col-4"
                                             style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
-                                            scope="col">Chapters</th>
+                                            scope="col">Courses</th>
                                         <th class="col-4"
                                             style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                             scope="col">Duration</th>
@@ -499,7 +499,7 @@
                                         <input type="hidden" class="ch_price" value="{{ $min_price }}" />
                                         <td class="tbl_chapter_price">
                                             <div class="d-flex align-items-center" style="margin-top: 35px !important;">
-                                                {{ $min_price }}$
+                                                ${{ $min_price }}
                                             </div>
                                         </td>
                                     </tr>

@@ -127,66 +127,72 @@
                                         <th class="col-3"
                                             style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                             scope="col">Duration</th>
-                                            <th class="col-2"
-                                                style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
-                                                scope="col">Price</th>
-                                                <th class="col-3"
-                                                    style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
-                                                    scope="col">Action</th>
+                                        <th class="col-2"
+                                            style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                            scope="col">Price</th>
+                                        <th class="col-3"
+                                            style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                            scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($chapters as $chapter)
-                                    <tr>
-                                        <td scope="row">
-                                            <div class="d-flex align-items-center">
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
 
-                                                <img width="132px" height="96px" style="border-radius: 10px"
-                                                src="{{ asset('images/Chapters/' . $chapter->ch_url) }}" />
-                                                <span class="ml-3">
-                                                    {{ $chapter->chapter_name }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td>
+                                                    <img width="132px" height="96px" style="border-radius: 10px"
+                                                        src="{{ asset('images/Chapters/' . $chapter->ch_url) }}" />
+                                                    <span class="ml-3">
+                                                        {{ $chapter->chapter_name }}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
 
-                                            <select name="chapter_duration" class="form-control chapter_duration">
-                                                @php
-                                                    $min = $chapter->price[0];
-                                                    foreach ($chapter->price as $item) {
-                                                        if ($item->duration < $min->duration) {
-                                                            $min = $item;
+                                                <select name="chapter_duration"
+                                                    class="form-control chapter_duration mx-2"
+                                                    style="width: 80%; margin-top: 20px; font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;">
+                                                    @php
+                                                        $min = $chapter->price[0];
+                                                        foreach ($chapter->price as $item) {
+                                                            if ($item->duration < $min->duration) {
+                                                                $min = $item;
+                                                            }
                                                         }
-                                                    }
-                                                @endphp
-                                                <option value="{{ $min->id }}">
-                                                    {{ $min->duration }} Days
-                                                </option>
-                                                @foreach ($chapter->price as $item)
-                                                    <option value="{{ $item->id }}">
-                                                        {{ $item->duration }} Days
+                                                    @endphp
+                                                    <option value="{{ $min->id }}">
+                                                        {{ $min->duration }} Days
                                                     </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <input type="hidden" class="chapters_price"
-                                            value="{{ json_encode($chapter->price) }}" />
-                                        <input type="hidden" class="ch_price" name="ch_price[]"
-                                            value="{{ $chapter->ch_price }}" />
-                                        <input type="hidden" class="ch_price_discount"
-                                            name="ch_price_discount[]" />
-                                        <input type="hidden" class="chapter_data" name="chapter[]"
-                                            value="{{ json_encode($chapter) }}" />
-                                        <td class="tbl_chapter_price">
-                                            {{ $chapter->ch_price }}$
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('remove_course_package', ['id' => $chapter->id]) }}"
-                                                class="btn btn-danger">
-                                                Remove
-                                            </a>
-                                        </td>
-                                    </tr>
+                                                    @foreach ($chapter->price as $item)
+                                                        <option value="{{ $item->id }}">
+                                                            {{ $item->duration }} Days
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <input type="hidden" class="chapters_price"
+                                                value="{{ json_encode($chapter->price) }}" />
+                                            <input type="hidden" class="ch_price" name="ch_price[]"
+                                                value="{{ $chapter->ch_price }}" />
+                                            <input type="hidden" class="ch_price_discount"
+                                                name="ch_price_discount[]" />
+                                            <input type="hidden" class="chapter_data" name="chapter[]"
+                                                value="{{ json_encode($chapter) }}" />
+                                            <td class="tbl_chapter_price">
+                                                <span class="d-flex align-items-center"
+                                                    style="margin-top: 35px !important;">
+
+                                                    ${{ $chapter->ch_price }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('remove_course_package', ['id' => $chapter->id]) }}"
+                                                    class="btn btn-danger" style="margin-top: 30px !important;">
+                                                    Remove
+                                                </a>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -204,51 +210,65 @@
                                 <button type="button" class="btn btn3">Update Cart</button> --}}
 
                                 <div class="footerCardd">
-                                    <div class="secApplayCoupone">
+                                    {{-- <div class="secApplayCoupone">
                                         <img src="{{ asset('images/payment/DiscountIcon.svg') }}" alt="">
-           
+
                                         <input name="promo_code" class="form-control" type="search"
-                                        placeholder="Coupon Code" aria-label="Search">
-                                    <button class="btn btn2">Apply Coupon</button>
-                                    <button type="button" class="btn btn3">Update Cart</button>
-                                </div>
+                                            placeholder="Coupon Code" aria-label="Search">
+                                        <button class="btn btn2">Apply Coupon</button>
+                                        <button type="button" class="btn btn3">Update Cart</button>
+                                    </div> --}}
+
+
+                                    <div class="footerCardd">
+                                        <div class="secApplayCoupone">
+                                            <img src="{{ asset('images/iconPayment/DiscountIcon.svg') }}"
+                                                alt="">
+                                            <input type="search" class="ponIn" name="promo_code"
+                                                placeholder="Discount Code" aria-label="Search">
+                                            <button class="applyBtn">Apply</button>
+                                        </div>
+                                        <button type="button" class="UpdateCard">Update card</button>
+                                    </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-xl-4">
-                    <div class="sideTotal mb30">
-                        <h3 style="color: #CF202F">Cart Totals</h3>
-                        <ul>
-                            <li>
-                                <p>Total <span class="float-right totals color-orose">
-                                        @if (isset($chapter_discount) && $chapter_discount != null && $chapter_discount != 0)
-                                            <del> ${{ $chapters_price }} </del>
-                                            <span class="text-success ch_total_discount">
-                                                ${{ $chapter_discount }}
-                                            </span>
-                                        @else
-                                            <span class="text-success ch_total_discount">
-                                                ${{ $chapters_price }}
-                                            </span>
-                                        @endif
-                                    </span></p>
-                            </li>
-                        </ul>
-                    </div>
-                    <form method="POST" action="{{ route('check_out') }}">
-                        @csrf
-                        @if (isset($chapter_discount) && $chapter_discount != null && $chapter_discount != 0)
-                            <input type="hidden" class="chapters_pricing" name="chapters_pricing"
-                            value="{{ $chapter_discount }}" />
-                        @else
-                            <input type="hidden" class="chapters_pricing" name="chapters_pricing"
-                                value="{{ $chapters_price }}" />
-                        @endif
-                        <button class="btn dbxshad btn-lg btn-thm3 circle btn-block">Proceed To Checkout</button>
-                        </div>
-                    </form>
+            </div>
+            <div class="col-lg-4 col-xl-4">
+                <div class="sideTotal mb30">
+                    <h3 style="color: #CF202F">Cart Totals</h3>
+                    <ul>
+                        <li>
+                            <p
+                                style="display: flex;align-items: center;justify-content: space-between;font-size: 1.5rem;font-weight: 600;">
+                                Total <span class="float-right totals color-orose">
+                                    @if (isset($chapter_discount) && $chapter_discount != null && $chapter_discount != 0)
+                                        <del style="margin-right: 10px;color: #787878 !important">
+                                            ${{ $chapters_price }} </del>
+                                        <span class="text-success ch_total_discount" style="color: #CF202F !important">
+                                            ${{ $chapter_discount }}
+                                        </span>
+                                    @else
+                                        <span class="text-success ch_total_discount" style="color: #CF202F !important">
+                                            ${{ $chapters_price }}
+                                        </span>
+                                    @endif
+                                </span></p>
+                        </li>
+                    </ul>
                 </div>
+                <form method="POST" action="{{ route('check_out') }}">
+                    @csrf
+                    @if (isset($chapter_discount) && $chapter_discount != null && $chapter_discount != 0)
+                        <input type="hidden" class="chapters_pricing" name="chapters_pricing"
+                            value="{{ $chapter_discount }}" />
+                    @else
+                        <input type="hidden" class="chapters_pricing" name="chapters_pricing"
+                            value="{{ $chapters_price }}" />
+                    @endif
+                    <button class="btnCheckout">Proceed To Checkout</button>
+                </form>
             </div>
         </div>
     </section>
@@ -309,4 +329,3 @@
     }
 </script>
 @include('Visitor.inc.footer')
-
