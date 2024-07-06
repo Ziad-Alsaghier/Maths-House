@@ -868,7 +868,7 @@ class CoursesController extends Controller
         ->first();
 
         return response()->json([
-            'description' => $description
+         $description
         ]);
     }
     
