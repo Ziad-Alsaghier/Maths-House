@@ -860,5 +860,16 @@ class CoursesController extends Controller
             'pdf' => count($videos_pdf),
         ]);
     }
+
+    public function api_chechout_description( Request $req ){
+        $description = PaymentMethod::
+        select('description')
+        ->where('id', $req->id)
+        ->first();
+
+        return response()->json([
+            'description' => $description
+        ]);
+    }
     
 }
