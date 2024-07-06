@@ -662,7 +662,6 @@ class CoursesController extends Controller
     }
 
     public function course_payment_money( Request $req ){
-        return $req->all();
         $arr['price'] = floatval(Cookie::get('chapters_price'));
         $arr['user_id'] = auth()->user()->id;
         $img_state = true;
