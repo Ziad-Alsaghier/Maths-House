@@ -14,6 +14,23 @@
         outline: 0;
         box-shadow: none !important;
     }
+
+    .conBtn {
+        background: #CF202F;
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: 500;
+        padding: 5px 20px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .conBtn:hover {
+        background: #ae101d
+    }
 </style>
 
 <form action="{{ route('v_filter_question') }}" method="GET">
@@ -172,23 +189,32 @@
     <table class="table col-11  mt-2">
         <thead>
             <tr>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">#Questions
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">#Questions
                 </th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Code</th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Section</th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Year</th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Month</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Code</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Section</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Year</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Month</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Actionn</th>
+
             </tr>
         </thead>
         <tbody>
-            @foreach ( $q_items as $item )
-            <tr>
-                <td>{{$item->q_num}}</td>
-                <td>{{@$item->code->exam_code}}</td>
-                <td>{{$item->section}}</td>
-                <td>{{$item->year}}</td>
-                <td>{{$item->month}}</td>
-            </tr>
+            @foreach ($q_items as $item)
+                <tr>
+                    <td>{{ $item->q_num }}</td>
+                    <td>{{ @$item->code->exam_code }}</td>
+                    <td>{{ $item->section }}</td>
+                    <td>{{ $item->year }}</td>
+                    <td>{{ $item->month }}</td>
+                    <td> <button class="conBtn">Continue</button></td>
+                </tr>
             @endforeach
         </tbody>
     </table>
