@@ -418,6 +418,23 @@
         $("#selImg").click(function() {
             $("#img").click();
         })
+
+        $(".radio-button__input").click(function() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('api_checkout_description') }}",
+                data: {
+                    id,
+                    $(this).val()
+                },
+                success: function(data) {
+                    console.log(data)
+                }
+            })
+        })
+
+
+
         $(".radio-button__input").click(function() {
             $(".radio-button__input").each((val, ele) => {
                 if ($(".walletRadio").is(':checked')) {
