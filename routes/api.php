@@ -43,6 +43,7 @@ Route::get('/lessons_api', [LessonController::class, 'lessons'])->name('lessons'
 Route::get('/quize_del_q', [QuizzeController::class, 'quize_del_q'])->name('quize_del_q');
 Route::get('/quize_add_q', [QuizzeController::class, 'quize_add_q'])->name('quize_add_q');
 Route::get('/buy_chapters', [CoursesController::class, 'buy_chapters'])->name('buy_chapters');
+Route::get('/api_courses_data', [CoursesController::class, 'api_courses_data'])->name('api_courses_data');
 Route::get('/sel_duration_course', [CoursesController::class, 'sel_duration_course'])->name('sel_duration_course');
 Route::get('/exam_data', [ExamController::class, 'exam_data'])->name('exam_data');
 Route::get('/ScoreSheet/Edit',[ExamController::class, 'scoreEdit'])->name('scoreEdit'); 

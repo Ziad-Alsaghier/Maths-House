@@ -843,5 +843,24 @@ class CoursesController extends Controller
             'req' => $arr
         ]);
     }
+
+    public function api_courses_data( Request $req ){
+        $chapters = Chapter::whereIn('id', $req->chapters)
+        ->pluck('id');
+        $lessons = Lesson::whereIn('chapter_id', $chapters)
+        ->pluck('id');
+        $questions = Question::whereIn('lesson_id', $lessons)
+        ->pluck('id');
+        $videos_pdf = IdeaLesson::whereIn('lesson_id', $lessons)
+        ->pluck('id');
+
+        return response()->json([
+            'chapters' => count($chapters),
+            'lessons' => count($lessons),
+            'questions' => count($questions),
+            'videos' => count($videos_pdf),
+            'pdf' => count($videos_pdf),
+        ]);
+    }
     
 }
