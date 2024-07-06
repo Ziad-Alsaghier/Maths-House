@@ -670,6 +670,7 @@ class CoursesController extends Controller
         $img_name = null;
         $tmp = null;
         if ( !empty($name) ) {
+            $img_state = false;
             $extention_arr = ['jpg', 'jpeg', 'png', 'svg'];
             $extention = explode('.', $name);
             $extention = end($extention);

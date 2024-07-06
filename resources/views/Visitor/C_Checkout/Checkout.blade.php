@@ -367,7 +367,7 @@
 
 
                     <div class="radio-button">
-                        <input name="radio-group" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
+                        <input name="radio-group" value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
                         <label for="radio{{$item->id}}" class="radio-button__label">
                             <div class="">
                                 <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
@@ -393,7 +393,7 @@
             <div class="col-9 d-flex align-items-center justify-content-start" style="column-gap: 0.6rem">
                 <label class="containerCheck">
                     {{-- <input type="checkbox" checked="checked"> --}}
-                    <input type="radio" name="payment_method_id" >
+                    <input type="radio" name="payment_method_id" value="Wallet" >
                     <div class="checkmark"></div>
                     <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="celebrate">
                         <polygon points="0,0 10,10"></polygon>
