@@ -383,16 +383,18 @@
                     </label> --}}
 
 
-                    <div class="radio-button">
-                        <input value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
-                        <label for="radio{{$item->id}}" class="radio-button__label">
-                            <div class="">
-                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
-                                <span class="radio-button__custom"></span>
-                                {{$item->payment}}
-                            </div>
-                        </label>
-                    </div>
+                        <div class="radio-button">
+                            <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
+                                class="radio-button__input" type="radio">
+                            <label for="radio{{ $item->id }}" class="radio-button__label">
+                                <div class="">
+                                    <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
+                                        alt="">
+                                    <span class="radio-button__custom"></span>
+                                    {{ $item->payment }}
+                                </div>
+                            </label>
+                        </div>
                     @endforeach
 
                 </div>
@@ -448,8 +450,13 @@
                 },
                 success: function(data) {
                     console.log(data)
-                    $(".secDescription").removeClass("d-none")
-                    $(".desPay").text(data[0].description)
+                    $(".desPay").text(data.description)
+                    if ($(".walletRadio").is(':checked')) {
+                        $(".secDescription").addClass("d-none")
+                    } else {
+                        $(".secDescription").removeClass("d-none")
+
+                    }
                 }
             })
         })
@@ -461,17 +468,18 @@
                 if ($(".walletRadio").is(':checked')) {
                     console.log(val)
                     console.log(ele)
+                    $(".secDescription").addClass("d-none")
                     $(ele).removeAttr("checked")
                 }
             })
         })
         $(".walletRadio").click(function() {
-            $(".secDescription").addClass("d-none")
             if ($(this).is(':checked')) {
                 $(".radio-button__input").each((val, ele) => {
                     console.log(val)
                     console.log(ele)
                     $(ele).removeAttr("checked")
+                    $(".secDescription").addClass("d-none")
                 })
             }
         })
