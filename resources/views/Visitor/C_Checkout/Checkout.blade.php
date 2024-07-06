@@ -383,16 +383,18 @@
                     </label> --}}
 
 
-                    <div class="radio-button">
-                        <input value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
-                        <label for="radio{{$item->id}}" class="radio-button__label">
-                            <div class="">
-                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
-                                <span class="radio-button__custom"></span>
-                                {{$item->payment}}
-                            </div>
-                        </label>
-                    </div>
+                        <div class="radio-button">
+                            <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
+                                class="radio-button__input" type="radio">
+                            <label for="radio{{ $item->id }}" class="radio-button__label">
+                                <div class="">
+                                    <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
+                                        alt="">
+                                    <span class="radio-button__custom"></span>
+                                    {{ $item->payment }}
+                                </div>
+                            </label>
+                        </div>
                     @endforeach
 
                 </div>
@@ -406,7 +408,7 @@
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
-                <div class="col-6 secDescription">
+                <div class="col-6 secDescription d-none">
                     <h3>Description:</h3>
                     <p class="desPay"></p>
                 </div>
@@ -448,7 +450,13 @@
                 },
                 success: function(data) {
                     console.log(data)
-                    $(".desPay").text(data.des)
+                    $(".desPay").text(data.description)
+                    if ($(".walletRadio").is(':checked')) {
+                        $(".secDescription").addClass("d-none")
+                    } else {
+                        $(".secDescription").removeClass("d-none")
+
+                    }
                 }
             })
         })
@@ -460,6 +468,7 @@
                 if ($(".walletRadio").is(':checked')) {
                     console.log(val)
                     console.log(ele)
+                    $(".secDescription").addClass("d-none")
                     $(ele).removeAttr("checked")
                 }
             })
@@ -470,6 +479,7 @@
                     console.log(val)
                     console.log(ele)
                     $(ele).removeAttr("checked")
+                    $(".secDescription").addClass("d-none")
                 })
             }
         })
