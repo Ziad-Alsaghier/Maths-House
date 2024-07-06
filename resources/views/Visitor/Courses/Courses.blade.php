@@ -10,17 +10,18 @@
     .inner_page_breadcrumb {
         background-image: url("{{ asset('img/amin.jpg') }}");
         width: 1550px !important;
-        height: 400px !important
-        background-position:center;
+        height: 400px !important;
+        background-position: center;
         background-repeat: no-repeat;
-        background-size:cover;  
-        }
-        /* .inner_page_breadcrumb::before{
+        background-size: cover;
+    }
+
+    /* .inner_page_breadcrumb::before{
             content: "" !important;
             background-image: url("{{ asset('img/amin.jpg') }}") !important;
             background-position:center;
             background-repeat: no-repeat;
-            background-size:cover;  
+            background-size:cover;
     } */
 
     .thumb {
@@ -30,6 +31,10 @@
         height: 250px;
     }
 
+    /*     width: 100% !important;
+    height: 100%;
+    object-fit: fill;
+    object-position: center; */
     .thumb .details {
         width: 100%;
         height: 100%;
@@ -38,7 +43,7 @@
     .img-whp {
         width: 100% !important;
         height: 100%;
-        object-fit: cover;
+        object-fit: fill;
         object-position: center;
     }
 </style>
@@ -118,7 +123,7 @@
                                                         Course</a>
                                                 </div>
                                             </div>
-                                            <div class="ml-3 tc_content">
+                                            <div class="ml-3 tc_content col-8">
                                                 <p>
                                                     {{ @$course->teacher->name }}
                                                 </p>
