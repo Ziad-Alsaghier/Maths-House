@@ -207,6 +207,23 @@
             display: none;
         }
     }
+
+    .secDescription {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 20px;
+    }
+
+    .secDescription>h3 {
+        color: #CF202F;
+    }
+
+    .secDescription>p {
+        color: #B9B9B9;
+        font-weight: 600;
+    }
 </style>
 <div class="wrapper">
     <div class="preloader"></div>
@@ -381,13 +398,18 @@
                 </div>
             </div>
             {{-- Receipt && Phone --}}
-            <div class="col-9 d-flex align-items-center justify-content-between" style="column-gap: 1rem">
-                <div id="selImg" class="d-flex align-items-center justify-content-center" style="column-gap: 0.3rem">
+            <div class="col-9 d-flex align-items-start justify-content-between" style="column-gap: 1rem">
+                <div id="selImg" class="d-flex align-items-center justify-content-center"
+                    style="height: 70px; column-gap: 0.3rem">
                     <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
                     <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
+                <div class="col-6 secDescription">
+                    <h3>Description:</h3>
+                    <p class="desPay"></p>
+                </div>
             </div>
             {{-- Using Wallet --}}
             <div class="col-9 d-flex align-items-center justify-content-start" style="column-gap: 0.6rem">
@@ -420,13 +442,13 @@
         $(".radio-button__input").click(function() {
             $.ajax({
                 type: "GET",
-                url: "{{ route('api_checkout_description') }}",
+                url: "{{ route('api_chechout_description') }}",
                 data: {
-                    id,
-                    $(this).val()
+                    id: $(this).val()
                 },
                 success: function(data) {
                     console.log(data)
+                    $(".desPay").text(data.des)
                 }
             })
         })
