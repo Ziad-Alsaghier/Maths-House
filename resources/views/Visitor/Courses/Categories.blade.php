@@ -75,6 +75,25 @@
         object-fit: cover !important;
         object-position: center !important;
     }
+
+    .tc_content {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+
+    .tc_content::-webkit-scrollbar {
+        width: 0.3rem;
+    }
+
+    .tc_content::-webkit-scrollbar-track {
+        background-color: #fff;
+    }
+
+    .tc_content::-webkit-scrollbar-thumb {
+        background: #CF202F;
+        /* outline: 1px solid slategrey; */
+        border-radius: 10px;
+    }
 </style>
 
 <div class="wrapper">
@@ -244,7 +263,7 @@
                                                 src="{{ asset('images/category/' . $category->cate_url) }}"
                                                 alt="t1.jpg">
                                             <div class="overlay">
-                                                <div class="tag">Best Seller</div>
+                                                {{-- <div class="tag">Best Seller</div> --}}
                                                 <div class="icon"><span class="flaticon-like"></span></div>
                                                 <a class="tc_preview_course"
                                                     href="{{ route('v_courses', ['id' => $category->id]) }}">Preview
@@ -261,7 +280,11 @@
                                                         {{ $category->cate_name }}
                                                     </a>
                                                 </h5>
-                                                <p>
+                                                <p class="overViewP">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
+                                                    rem laboriosam fuga reprehenderit atque libero reiciendis distinctio
+                                                    sapiente, ad adipisci quam autem, eos placeat? Fuga possimus
+                                                    voluptates quidem illum in.
                                                     {{ $category->cate_des }}
                                                 </p>
                                             </div>
