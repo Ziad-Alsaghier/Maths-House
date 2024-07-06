@@ -1,108 +1,4 @@
-@include('Visitor.inc.header')
-@include('Visitor.inc.menu')
-<div class="wrapper">
-    <div class="preloader"></div>
 
-    <!-- Shop Checkouts Content -->
-    <section class="shop-checkouts">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-lg-8 col-xl-8">
-                </div>
-                <div class="col-lg-4 col-xl-4">
-                    <div class="order_sidebar_widget mb30">
-                        <h4 class="title">Your Order</h4>
-                        <ul>
-                            <li class="subtitle">
-                                <p>Product <span class="float-right">Total</span></p>
-                            </li>
-                            @foreach ($chapters as $chapter)
-                                <li>
-                                    <p>{{ $chapter->chapter_name }} <span
-                                            class="float-right">{{ $chapter->ch_price }}</span></p>
-                                </li>
-                            @endforeach
-                            <li class="subtitle">
-                                <p>Subtotal <span class="float-right">Subtotal</span></p>
-                            </li>
-                            <li class="subtitle">
-                                <p>Total <span class="float-right totals color-orose">${{ $price }}</span></p>
-                            </li>
-                        </ul>
-                    </div>
-                    <form action="{{ route('payment_money') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="payment_widget">
-                            <div class="ui_kit_checkbox style2">
-                                @foreach ($payment_methods as $item)
-                                    <div class="custom-control custom-checkbox my-3">
-                                        <input type="radio" name="payment_method_id" value="{{ $item->id }}"
-                                            class="custom-control-input payment_method_radio"
-                                            id="customCheck80{{ $item->id }}" checked />
-                                        <label class="custom-control-label"
-                                            for="customCheck80{{ $item->id }}">{{ $item->payment }}
-                                            <img style="height:50px; width:70px;"
-                                                src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
-                                        </label>
-
-                                    </div>
-
-                                    <input type="file" id="reset_img{{ $item->id }}" name="image[]"
-                                        class="form-control d-none" />
-                                    <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
-                                        <div class="bt_details">
-                                            <p>
-                                                {{ $item->description }}
-                                            </p>
-                                        </div>
-                                        <label for="reset_img{{ $item->id }}" class="btn btn-info">
-                                            <i class="fa-solid fa-upload mr-2"></i>
-                                            Upload Reseipt
-                                        </label>
-                                    </label>
-                                @endforeach
-
-                                <div class="custom-control custom-checkbox">
-                                    <input type="radio" name="payment_method_id" value="Wallet"
-                                        class="custom-control-input payment_method_radio" id="customCheck80"
-                                        checked />
-                                    <label class="custom-control-label" for="customCheck80">
-                                        <h3>
-                                            Using Wallet
-                                        </h3>
-                                    </label>
-
-                                </div>
-                                <script>
-                                    let payment_method_radio = document.querySelectorAll('.payment_method_radio');
-                                    let upload_img = document.querySelectorAll('.upload_img');
-                                    for (let i = 0, end = payment_method_radio.length; i < end; i++) {
-                                        payment_method_radio[i].addEventListener('change', (e) => {
-                                            for (let j = 0; j < end; j++) {
-                                                if (e.target == payment_method_radio[j]) {
-                                                    upload_img[j].classList.remove('d-none');
-                                                } else {
-                                                    upload_img[j].classList.add('d-none');
-                                                }
-                                            }
-                                        })
-                                    }
-                                </script>
-                            </div>
-                        </div>
-                        <div class="ui_kit_button payment_widget_btn">
-                            <button class="btn dbxshad btn-lg btn-thm3 circle btn-block">Place Order</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
-</div>
-@include('Visitor.inc.footer')
 
 
 @include('Visitor.inc.header')
@@ -534,7 +430,7 @@
         $(".radio-button__input").click(function() {
             $.ajax({
                 type: "GET",
-                url: "{{ route('api_checkout_description') }}",
+                url: "{{ route('api_chechout_description') }}",
                 data: {
                     id,
                     $(this).val()

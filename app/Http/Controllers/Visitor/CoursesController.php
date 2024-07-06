@@ -807,6 +807,7 @@ class CoursesController extends Controller
 
     public function remove_course_package( $id ){
         $chapters = json_decode(Cookie::get('marketing'));
+       
         $price = json_decode(Cookie::get('chapters_price'));
         $arr = [];
         $price = 0;
