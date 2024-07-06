@@ -867,9 +867,7 @@ class CoursesController extends Controller
         ->where('id', $req->id)
         ->first();
 
-        return response()->json([
-           $description
-        ]);
+        return response()->json($description );
     }
     
 }

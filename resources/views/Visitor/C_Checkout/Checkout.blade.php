@@ -383,18 +383,16 @@
                     </label> --}}
 
 
-                        <div class="radio-button">
-                            <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
-                                class="radio-button__input" type="radio">
-                            <label for="radio{{ $item->id }}" class="radio-button__label">
-                                <div class="">
-                                    <img width="30px" src="{{ asset('images/iconPayment/' . $item->logo) }}"
-                                        alt="">
-                                    <span class="radio-button__custom"></span>
-                                    {{ $item->payment }}
-                                </div>
-                            </label>
-                        </div>
+                    <div class="radio-button">
+                        <input value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
+                        <label for="radio{{$item->id}}" class="radio-button__label">
+                            <div class="">
+                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
+                                <span class="radio-button__custom"></span>
+                                {{$item->payment}}
+                            </div>
+                        </label>
+                    </div>
                     @endforeach
 
                 </div>
@@ -404,7 +402,7 @@
                 <div id="selImg" class="d-flex align-items-center justify-content-center"
                     style="height: 70px; column-gap: 0.3rem">
                     <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
-                    <img width="35px" src="{{ asset('images/iconPayment/UploadIcon.svg') }}" alt="">
+                    <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
