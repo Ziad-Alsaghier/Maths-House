@@ -367,7 +367,7 @@
 
 
                     <div class="radio-button">
-                        <input name="radio-group" value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
+                        <input value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
                         <label for="radio{{$item->id}}" class="radio-button__label">
                             <div class="">
                                 <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
