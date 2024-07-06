@@ -49,6 +49,7 @@ class V_QuestionController extends Controller
         ->leftJoin('lessons', 'questions.lesson_id', '=', 'lessons.id')
         ->leftJoin('chapters', 'lessons.chapter_id', '=', 'chapters.id')
         ->where('chapters.course_id', $req->course_id)
+        ->where('q_type', 'Trail')
         ->get();
 
         $q_items = $question;

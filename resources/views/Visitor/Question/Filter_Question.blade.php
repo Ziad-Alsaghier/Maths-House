@@ -181,27 +181,15 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ( $q_items as $item )
             <tr>
-                <td>#25477</td>
-                <td>42555</td>
-                <td>Section</td>
-                <td>2024</td>
-                <td>3</td>
+                <td>{{$item->q_num}}</td>
+                <td>{{@$item->code->exam_code}}</td>
+                <td>{{$item->section}}</td>
+                <td>{{$item->year}}</td>
+                <td>{{$item->month}}</td>
             </tr>
-            <tr>
-                <td>#25477</td>
-                <td>42555</td>
-                <td>Section</td>
-                <td>2024</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>#25477</td>
-                <td>42555</td>
-                <td>Section</td>
-                <td>2024</td>
-                <td>3</td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

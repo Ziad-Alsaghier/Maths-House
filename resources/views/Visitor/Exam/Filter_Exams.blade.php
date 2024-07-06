@@ -160,36 +160,24 @@
     <table class="table col-11  mt-2">
         <thead>
             <tr>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">#Questions
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Exam
                 </th>
+                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Course</th>
                 <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Code</th>
-                <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Section</th>
                 <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Year</th>
                 <th style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Month</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>#25477</td>
-                <td>42555</td>
-                <td>Section</td>
-                <td>2024</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>#25477</td>
-                <td>42555</td>
-                <td>Section</td>
-                <td>2024</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>#25477</td>
-                <td>42555</td>
-                <td>Section</td>
-                <td>2024</td>
-                <td>3</td>
-            </tr>
+            @foreach ( $exam_items as $item )
+                <tr>
+                    <td>{{$item->title}}</td>
+                    <td>{{$item->course->course_name}}</td>
+                    <td>{{@$item->code->exam_code}}</td>
+                    <td>{{$item->year}}</td>
+                    <td>{{$item->month}}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
