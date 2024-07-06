@@ -1,13 +1,12 @@
-
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 
 
 <div class="wrapper">
-	<div class="preloader"></div>
+    <div class="preloader"></div>
 
-	<!-- Main Header Nav -->
-	<header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu">
+    <!-- Main Header Nav -->
+    {{-- <header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu">
 		<div class="container-fluid">
 		    <!-- Ace Responsive Menu -->
 		    <nav>
@@ -202,9 +201,9 @@
 	            </ul><!-- Button trigger modal -->
 		    </nav>
 		</div>
-	</header>
-	<!-- Modal -->
-	<div class="sign_up_modal modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+	</header> --}}
+    <!-- Modal -->
+    {{-- <div class="sign_up_modal modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
 	  	<div class="modal-dialog modal-dialog-centered" role="document">
 	    	<div class="modal-content">
 		      	<div class="modal-header">
@@ -289,25 +288,27 @@
 				</div>
 	    	</div>
 	  	</div>
-	</div>
-	<!-- Modal Search Button Bacground Overlay -->
+	</div> --}}
+    <!-- Modal Search Button Bacground Overlay -->
     <div class="search_overlay dn-992">
-		<div class="mk-fullscreen-search-overlay" id="mk-search-overlay">
-		    <a href="#" class="mk-fullscreen-close" id="mk-fullscreen-close-button"><i class="fa fa-times"></i></a>
-		    <div id="mk-fullscreen-search-wrapper">
-		      <form method="get" id="mk-fullscreen-searchform">
-		        <input type="text" value="" placeholder="Search courses..." id="mk-fullscreen-search-input">
-		        <i class="flaticon-magnifying-glass fullscreen-search-icon"><input value="" type="submit"></i>
-		      </form>
-		    </div>
-		</div>
-	</div>
+        <div class="mk-fullscreen-search-overlay" id="mk-search-overlay">
+            <a href="#" class="mk-fullscreen-close" id="mk-fullscreen-close-button"><i class="fa fa-times"></i></a>
+            <div id="mk-fullscreen-search-wrapper">
+                <form method="get" id="mk-fullscreen-searchform">
+                    <input type="text" value="" placeholder="Search courses..."
+                        id="mk-fullscreen-search-input">
+                    <i class="flaticon-magnifying-glass fullscreen-search-icon"><input value=""
+                            type="submit"></i>
+                </form>
+            </div>
+        </div>
+    </div>
 
-	<!-- Main Header Nav For Mobile -->
-		@include('Visitor.inc.mobile_menu')
+    <!-- Main Header Nav For Mobile -->
+    @include('Visitor.inc.mobile_menu')
 
-	<!-- Inner Page Breadcrumb -->
-	<section class="inner_page_breadcrumb csv1">
+    <!-- Inner Page Breadcrumb -->
+    {{-- <section class="inner_page_breadcrumb csv1">
 		<div class="container">
 			<div class="row" style="width: 100%;">
 				<div class="col-xl-6 offset-xl-3 text-center">
@@ -322,505 +323,672 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> --}}
 
-	<!-- Our Team Members -->
-	<section class="our-team pb40">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-lg-8 col-xl-9">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="courses_single_container">
-								<div class="cs_row_one">
-									<div class="cs_ins_container">
-										<div class="cs_instructor">
-											<ul class="cs_instrct_list float-left mb0">
-												<li class="list-inline-item"><img class="thumb" src="images/team/4.png" alt="4.png"></li>
-												<li class="list-inline-item"><a href="#">Ali TUFAN</a></li>
-												<li class="list-inline-item"><a href="#">Last updated 11/2019</a></li>
-											</ul>
-											<ul class="cs_watch_list float-right mb0">
-												<li class="list-inline-item"><a href="#"><span class="flaticon-like"></span></a></li>
-												<li class="list-inline-item"><a href="#">Add to Wishlist</a></li>
-												<li class="list-inline-item"><a href="#"><span class="flaticon-share"> Share</span></a></li>
-											</ul>
-										</div>
-										<h3 class="cs_title">Designing a Responsive Mobile Website with Muse</h3>
-										<ul class="cs_review_seller">
-											<li class="list-inline-item"><a href="#"><span>Best Seller</span></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#">4.5 (11,382 Ratings)</a></li>
-										</ul>
-										<ul class="cs_review_enroll">
-											<li class="list-inline-item"><a href="#"><span class="flaticon-profile"></span> 57,869 students enrolled</a></li>
-											<li class="list-inline-item"><a href="#"><span class="flaticon-comment"></span> 25 Review</a></li>
-										</ul>
-										<div class="courses_big_thumb">
-											<div class="thumb">
-												<iframe class="iframe_video" src="//www.youtube.com/embed/57LQI8DKwec" frameborder="0" allowfullscreen></iframe>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="cs_row_two">
-									<div class="cs_overview">
-										<h4 class="title">Overview</h4>
-										<h4 class="subtitle">Course Description</h4>
-										<p class="mb30">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-										<p class="mb20">It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-										<h4 class="subtitle">What you'll learn</h4>
-										<ul class="cs_course_syslebus">
-											<li><i class="fa fa-check"></i><p>Become a UX designer.</p></li>
-											<li><i class="fa fa-check"></i><p>You will be able to add UX designer to your CV</p></li>
-											<li><i class="fa fa-check"></i><p>Become a UI designer.</p></li>
-											<li><i class="fa fa-check"></i><p>Build & test a full website design.</p></li>
-											<li><i class="fa fa-check"></i><p>Build & test a full mobile app.</p></li>
-										</ul>
-										<ul class="cs_course_syslebus2">
-											<li><i class="fa fa-check"></i><p>Learn to design websites & mobile phone apps.</p></li>
-											<li><i class="fa fa-check"></i><p>You'll learn how to choose colors.</p></li>
-											<li><i class="fa fa-check"></i><p>Prototype your designs with interactions.</p></li>
-											<li><i class="fa fa-check"></i><p>Export production ready assets.</p></li>
-											<li><i class="fa fa-check"></i><p>All the techniques used by UX professionals</p></li>
-										</ul>
-										<h4 class="subtitle">Requirements</h4>
-										<ul class="list_requiremetn">
-											<li><i class="fa fa-circle"></i><p>You will need a copy of Adobe XD 2019 or above. A free trial can be downloaded from Adobe.</p></li>
-											<li><i class="fa fa-circle"></i><p>No previous design experience is needed.</p></li>
-											<li><i class="fa fa-circle"></i><p>No previous Adobe XD skills are needed.</p></li>
-										</ul>
-									</div>
-								</div>
-								<div class="cs_row_three">
-									<div class="course_content">
-										<div class="cc_headers">
-											<h4 class="title">Course Content</h4>
-											<ul class="course_schdule float-right">
-												<li class="list-inline-item"><a href="#">92 Lectures</a></li>
-												<li class="list-inline-item"><a href="#">10:56:11</a></li>
-											</ul>
-										</div>
-										<br>
-                        				@foreach( $chapters as $chapter )
-										<div class="details d-flex align-items-center">
-                            				<input type="checkbox" class="chapter_item_check" checked />
-											<input type="hidden" class="chapter_id" value="{{$chapter->id}}" />
-											@php
-												$min = $chapter->price[0]->price;
-												$discount = $chapter->price[0]->discount;
-											@endphp
-											@foreach ( $chapter->price as $ch_price )
-												@if ( $min > $ch_price->price )
-												@php
-													$min = $ch_price->price;
-													$discount = $ch_price->discount;
-												@endphp
-												@endif
-											@endforeach  
-											<input type="hidden" class="chapter_price" value="{{$min}}" />
-											<input type="hidden" class="chapter_discount" value="{{$discount}}" />
-											<input type="hidden" class="chapter_data" value="{{$chapter}}" />
-										  	<div id="accordion" class="panel-group w-100 ml-3 cc_tab">
-											    <div class="panel">
-											      	<div class="panel-heading">
-												      	<h4 class="panel-title">
-												        	<a href="#panelBodyCourseStart" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">{{$chapter->chapter_name}}</a>
-												        </h4>
-											      	</div>
-												    <div id="panelBodyCourseStart" class="panel-collapse collapse">
-												        <div class="panel-body">
-												        	<ul class="cs_list mb0">
-																@foreach( $chapter->lessons as $lesson )
-												        		<li><span class="flaticon-play-button-1 icon"></span>
-																	{{$lesson->lesson_name}}
-																<span class="cs_preiew">Preview</span></li> 
-																@endforeach
-												        	</ul>
-												        </div>
-												    </div>
-											    </div>
-											</div>
-										</div>
-										@endforeach
-									</div>
-								</div>
-								<div class="cs_row_four">
-									<div class="about_ins_container">
-										<h4 class="aii_title">About the instructor</h4>
-										<div class="about_ins_info">
-											<div class="thumb"><img src="images/team/6.png" alt="6.png"></div>
-										</div>
-										<div class="details">
-											<ul class="review_list">
-												<li class="list-inline-item"><i class="fa fa-star"></i></li>
-												<li class="list-inline-item"><i class="fa fa-star"></i></li>
-												<li class="list-inline-item"><i class="fa fa-star"></i></li>
-												<li class="list-inline-item"><i class="fa fa-star"></i></li>
-												<li class="list-inline-item"><i class="fa fa-star"></i></li>
-												<li class="list-inline-item">4.5 Instructor Rating</li>
-											</ul>
-											<ul class="about_info_list">
-												<li class="list-inline-item"><span class="flaticon-comment"></span> 12,197 Reviews </li>
-												<li class="list-inline-item"><span class="flaticon-profile"></span> 141,745 Students </li>
-												<li class="list-inline-item"><span class="flaticon-play-button-1"></span> 5Courses </li>
-											</ul>
-											<h4>Ali Tufan</h4>
-											<p class="subtitle">UX/UI Designer</p>
-											<p class="mb25">UI/UX Designer, with 7+ Years Experience. Guarantee of High Quality Work. </p>
-											<p class="mb25">Skills: Web Design, UI Design, UX/UI Design, Mobile Design, User Interface Design, Sketch, Photoshop, GUI, Html, Css, Grid Systems, Typography, Minimal, Template, English, Bootstrap, Responsive Web Design, Pixel Perfect, Graphic Design, Corporate, Creative, Flat, Luxury and much more.</p>
-											<ul class="about_ins_list mb0">
-												<li><p>Available for:</p></li>
-												<li><a href="#">1. Full Time Office Work</a></li>
-												<li><a href="#">2. Remote Work</a></li>
-												<li><a href="#">3. Freelance</a></li>
-												<li><a href="#">4. Contract</a></li>
-												<li><a href="#">5. Worldwide</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="cs_row_five">
-									<div class="student_feedback_container">
-										<h4 class="aii_title">Student feedback</h4>
-										<div class="s_feeback_content">
-									        <ul class="skills">
-									        	<li class="list-inline-item">Stars 5</li>
-									            <li class="list-inline-item progressbar1" data-width="84" data-target="100">%84</li>
-									        </ul>
-									        <ul class="skills">
-									        	<li class="list-inline-item">Stars 4</li>
-									            <li class="list-inline-item progressbar2" data-width="9" data-target="100">%9</li>
-									        </ul>
-									        <ul class="skills">
-									        	<li class="list-inline-item">Stars 3</li>
-									            <li class="list-inline-item progressbar3" data-width="3" data-target="100">%3</li>
-									        </ul>
-									        <ul class="skills">
-									        	<li class="list-inline-item">Stars 2</li>
-									            <li class="list-inline-item progressbar4" data-width="1" data-target="100">%1</li>
-									        </ul>
-									        <ul class="skills">
-									        	<li class="list-inline-item">Stars 1</li>
-									            <li class="list-inline-item progressbar5" data-width="2" data-target="100">%2</li>
-									        </ul>
-										</div>
-										<div class="aii_average_review text-center">
-											<div class="av_content">
-												<h2>4.5</h2>
-												<ul class="aii_rive_list mb0">
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-												</ul>
-												<p>Course Rating</p>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="cs_row_six">
-									<div class="sfeedbacks">
-										<h4 class="aii_title">Reviews</h4>
-										<div class="mbp_pagination_comments">
-											<div class="mbp_first media csv1">
-												<img src="images/resource/review1.png" class="mr-3" alt="review1.png">
-												<div class="media-body">
-											    	<h4 class="sub_title mt-0">Warren Bethell
-														<span class="sspd_review float-right">
-															<ul>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"></li>
-															</ul>
-														</span>										    		
-											    	</h4>
-											    	<a class="sspd_postdate fz14" href="#">6 months ago</a>
-											    	<p class="fz15 mt20">This is the second Photoshop course I have completed with Cristian. Worth every penny and recommend it highly. To get the most out of this course, its best to to take the Beginner to Advanced course first.</p>
-											    	<p class="fz15 mt25 mb25">The sound and video quality is of a good standard. Thank you Cristian.</p> <div class="ssp_reply float-right"><span class="flaticon-consulting-message"></span><span class="pl10">Reply</span></div>
-											    	<div class="sspd_review_liked"><a href="#"><i class="flaticon-like-1"></i> <span class="text-thm6 pl5 pr5 fz15">15</span> Thank Waren</a></div>
-													<div class="custom_hr style2"></div>
-												    <div class="mbp_sub media csv1">
-												    	<a href="#"><img src="images/resource/review1.png" class="mr-3" alt="review1.png"></a>
-												        <div class="media-body">
-												        	<h4 class="sub_title mt-0">Anton Hilton
-																<span class="sspd_review float-right">
-																	<ul>
-																		<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																		<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																		<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																		<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																		<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																		<li class="list-inline-item"></li>
-																	</ul>
-																</span>	
-												        	</h4>
-													    	<a class="sspd_postdate fz14" href="#">6 months ago</a>
-													    	<p class="fz15 mt20 mb50">This is the second Photoshop course I have completed with Cristian. Worth every penny and recommend it highly. To get the most out of this course, its best to to take the</p>
-													    	<div class="ssp_reply float-right"><span class="flaticon-consulting-message"></span><span class="pl10">Reply</span></div>
-											    			<div class="sspd_review_liked">
-											    				<a href="#"><i class="flaticon-like-1"></i><span class="text-thm6 pl5 pr5 fz15">15</span> Thank Waren</a>
-											    			</div>
-												    	</div>
-												    </div>
-												</div>
-											</div>
-											<div class="custom_hr"></div>
-											<div class="mbp_second media csv1">
-												<img src="images/resource/review1.png" class="align-self-start mr-3" alt="review1.png">
-												<div class="media-body">
-											    	<h4 class="sub_title mt-0">Warren Bethell
-														<span class="sspd_review float-right">
-															<ul>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-																<li class="list-inline-item"></li>
-															</ul>
-														</span>										    		
-											    	</h4>
-											    	<a class="sspd_postdate fz14" href="#">6 months ago</a>
-											    	<p class="fz15 mt20">This is the second Photoshop course I have completed with Cristian. Worth every penny and recommend it highly. To get the most out of this course, its best to to take the Beginner to Advanced course first.</p>
-											    	<p class="fz15 mt25 mb25">The sound and video quality is of a good standard. Thank you Cristian.</p> <div class="ssp_reply float-right"><span class="flaticon-consulting-message"></span><span class="pl10">Reply</span></div>
-											    	<div class="sspd_review_liked"><a href="#"><i class="flaticon-like-1"></i> <span class="text-thm6 pl5 pr5 fz15">15</span> Thank Waren</a></div>
-												</div>
-											</div>
-											<div class="text-center mt50">
-												<div class="custom_hr"></div>
-												<button type="button" class="more-review-btn btn">See more reviews</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="cs_row_seven">
-									<div class="sfeedbacks">
-										<div class="mbp_comment_form style2 pb0">
-											<h4>Add Reviews & Rate</h4>
-											<ul>
-												<li class="list-inline-item pr15"><p>What is it like to Course?</p></li>
-												<li class="list-inline-item">
-													<span class="sspd_review">
-														<ul>
-															<li class="list-inline-item"><a href="#"><i class="fa fa-star fz18"></i></a></li>
-															<li class="list-inline-item"><a href="#"><i class="fa fa-star fz18"></i></a></li>
-															<li class="list-inline-item"><a href="#"><i class="fa fa-star fz18"></i></a></li>
-															<li class="list-inline-item"><a href="#"><i class="fa fa-star fz18"></i></a></li>
-															<li class="list-inline-item"><a href="#"><i class="fa fa-star fz18"></i></a></li>
-															<li class="list-inline-item"></li>
-														</ul>
-													</span>
-												</li>
-											</ul>
-											<form class="comments_form">
-												<div class="form-group">
-											    	<label for="exampleInputName1">Review Title</label>
-											    	<input type="text" class="form-control" id="exampleInputName1" aria-describedby="textHelp">
-												</div>
-												<div class="form-group">
-												    <label for="exampleFormControlTextarea1">Review Content</label>
-												    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-												</div>
-												<button type="submit" class="btn btn-thm">Submit Review <span class="flaticon-right-arrow-1"></span></button>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-12">
-							<h3 class="r_course_title">Related Courses</h3>
-						</div>
-						<div class="col-lg-6 col-xl-4">
-							<div class="top_courses">
-								<div class="thumb">
-									<img class="img-whp" src="images/courses/t1.jpg" alt="t1.jpg">
-									<div class="overlay">
-										<div class="tag">Best Seller</div>
-										<div class="icon"><span class="flaticon-like"></span></div>
-										<a class="tc_preview_course" href="#">Preview Course</a>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-										<p>Ali TUFAN</p>
-										<h5>Introduction Web Design with HTML</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#">(6)</a></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-											<li class="list-inline-item"><a href="#">1548</a></li>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-											<li class="list-inline-item"><a href="#">25</a></li>
-										</ul>
-										<div class="tc_price float-right">$69.95</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 col-xl-4">
-							<div class="top_courses">
-								<div class="thumb">
-									<img class="img-whp" src="images/courses/t2.jpg" alt="t2.jpg">
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<div class="icon"><span class="flaticon-like"></span></div>
-										<a class="tc_preview_course" href="#">Preview Course</a>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-										<p>Ali TUFAN</p>
-										<h5>Designing a Responsive Mobile Website with Muse</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#">(6)</a></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-											<li class="list-inline-item"><a href="#">1548</a></li>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-											<li class="list-inline-item"><a href="#">25</a></li>
-										</ul>
-										<div class="tc_price float-right">$69.95</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 col-xl-4">
-							<div class="top_courses">
-								<div class="thumb">
-									<img class="img-whp" src="images/courses/t3.jpg" alt="t3.jpg">
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<div class="icon"><span class="flaticon-like"></span></div>
-										<a class="tc_preview_course" href="#">Preview Course</a>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-										<p>Ali TUFAN</p>
-										<h5>Adobe XD: Prototyping Tips and Tricks</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#">(6)</a></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-											<li class="list-inline-item"><a href="#">1548</a></li>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-											<li class="list-inline-item"><a href="#">25</a></li>
-										</ul>
-										<div class="tc_price float-right">$69.95</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-xl-3">
-					<div class="instructor_pricing_widget">
-						<div class="price">Price
-							<label><s class="t_price price text-danger">${{$price}}</s></label>
-							<label class="t_discount_price text-success">${{$total_price}}</label>
-						</div>
-						<input class="course_price" type="hidden" value="{{$price}}" />
-						<form method="POST" action="{{route('buy_course')}}">
-							@csrf
-							<input type="hidden" class="course_data" name="course_data" value="{{$course}}" />
-							<input type="hidden" class="chapters_data" name="chapters_data" value="{{$chapters}}" />
-							<input type="hidden" class="chapters_price" name="chapters_price" value="{{$price}}" />
-							<button class="cart_btnss_white">Buy Now</button>
-						</form>
-						<h5 class="subtitle text-left">Includes</h5>
-						<ul class="price_quere_list text-left">
-							<li><a href="#"><span class="flaticon-play-button-1"></span> {{count($videos_count)}} Video</a></li>
-							<li><a href="#"><i class="fa-solid fa-book-open mr-2"></i> {{count($chapters_count)}} Chapter</a></li>
-							<li><a href="#"><i class="fa-solid fa-person-chalkboard mr-2"></i>{{count($lessons_count)}} Lesson</a></li>
-							<li><a href="#"><i class="fa-solid fa-circle-question mr-2"></i>{{$questions}} Question</a></li>
-							<li><a href="#"><i class="fa-solid fa-feather mr-2"></i> {{$quizs}} Quiz</a></li>
-							<li><a href="#"><i class="fa-solid fa-file-pdf mr-2"></i>{{count($videos_count)}} PDF</a></li>
-						</ul>
-					</div>
-					<div class="feature_course_widget">
-						<ul class="list-group">
-							<h4 class="title">Course Features</h4>
-							<li class="d-flex justify-content-between align-items-center">
-						    	Lectures <span class="float-right">6</span>
-							</li>
-							<li class="d-flex justify-content-between align-items-center">
-						    	Quizzes <span class="float-right">1</span>
-							</li>
-							<li class="d-flex justify-content-between align-items-center">
-						    	Duration <span class="float-right">3 hours</span>
-							</li>
-							<li class="d-flex justify-content-between align-items-center">
-						    	Skill level <span class="float-right">All level</span>
-							</li>
-							<li class="d-flex justify-content-between align-items-center">
-						    	Language <span class="float-right">English</span>
-							</li>
-							<li class="d-flex justify-content-between align-items-center">
-						    	Assessments <span class="float-right">Yes</span>
-							</li>
-						</ul>
-					</div>
-					<div class="blog_tag_widget">
-						<h4 class="title">Tags</h4>
-						<ul class="tag_list">
-							<li class="list-inline-item"><a href="#">Photoshop</a></li>
-							<li class="list-inline-item"><a href="#">Sketch</a></li>
-							<li class="list-inline-item"><a href="#">Beginner</a></li>
-							<li class="list-inline-item"><a href="#">UX/UI</a></li>
-						</ul>
-					</div>
-					<div class="selected_filter_widget style2">
-						<span class="float-left"><img class="mr20" src="images/resource/2.png" alt="2.png"></span>
-						<h4 class="mt15 fz20 fw500">Not sure?</h4>
-						<br>
-						<p>Every course comes with a 30-day money-back guarantee</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+    <!-- Our Team Members -->
+    <section class="our-team pb40">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-8 col-xl-9">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="courses_single_container">
+                                <div class="cs_row_one">
+                                    <div class="cs_ins_container">
+                                        <div class="cs_instructor">
+                                            <ul class="cs_instrct_list float-left mb0">
+                                                <li class="list-inline-item"><img class="thumb" src="images/team/4.png"
+                                                        alt="4.png"></li>
+                                                <li class="list-inline-item"><a href="#">Ali TUFAN</a></li>
+                                                <li class="list-inline-item"><a href="#">Last updated 11/2019</a>
+                                                </li>
+                                            </ul>
+                                            <ul class="cs_watch_list float-right mb0">
+                                                <li class="list-inline-item"><a href="#"><span
+                                                            class="flaticon-like"></span></a></li>
+                                                <li class="list-inline-item"><a href="#">Add to Wishlist</a></li>
+                                                <li class="list-inline-item"><a href="#"><span
+                                                            class="flaticon-share"> Share</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <h3 class="cs_title">Designing a Responsive Mobile Website with Muse</h3>
+                                        <ul class="cs_review_seller">
+                                            <li class="list-inline-item"><a href="#"><span>Best Seller</span></a>
+                                            </li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">4.5 (11,382 Ratings)</a></li>
+                                        </ul>
+                                        <ul class="cs_review_enroll">
+                                            <li class="list-inline-item"><a href="#"><span
+                                                        class="flaticon-profile"></span> 57,869 students enrolled</a>
+                                            </li>
+                                            <li class="list-inline-item"><a href="#"><span
+                                                        class="flaticon-comment"></span> 25 Review</a></li>
+                                        </ul>
+                                        <div class="courses_big_thumb">
+                                            <div class="thumb">
+                                                <iframe class="iframe_video" src="//www.youtube.com/embed/57LQI8DKwec"
+                                                    frameborder="0" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cs_row_two">
+                                    <div class="cs_overview">
+                                        <h4 class="title">Overview</h4>
+                                        <h4 class="subtitle">Course Description</h4>
+                                        <p class="mb30">Lorem Ipsum is simply dummy text of the printing and
+                                            typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                            text ever since the 1500s, when an unknown printer took a galley of type and
+                                            scrambled it to make a type specimen book. It has survived not only five
+                                            centuries, but also the leap into electronic typesetting, remaining
+                                            essentially unchanged. </p>
+                                        <p class="mb20">It was popularised in the 1960s with the release of Letraset
+                                            sheets containing Lorem Ipsum passages, and more recently with desktop
+                                            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                        </p>
+                                        <h4 class="subtitle">What you'll learn</h4>
+                                        <ul class="cs_course_syslebus">
+                                            <li><i class="fa fa-check"></i>
+                                                <p>Become a UX designer.</p>
+                                            </li>
+                                            <li><i class="fa fa-check"></i>
+                                                <p>You will be able to add UX designer to your CV</p>
+                                            </li>
+                                            <li><i class="fa fa-check"></i>
+                                                <p>Become a UI designer.</p>
+                                            </li>
+                                            <li><i class="fa fa-check"></i>
+                                                <p>Build & test a full website design.</p>
+                                            </li>
+                                            <li><i class="fa fa-check"></i>
+                                                <p>Build & test a full mobile app.</p>
+                                            </li>
+                                        </ul>
+                                        <ul class="cs_course_syslebus2">
+                                            <li><i class="fa fa-check"></i>
+                                                <p>Learn to design websites & mobile phone apps.</p>
+                                            </li>
+                                            <li><i class="fa fa-check"></i>
+                                                <p>You'll learn how to choose colors.</p>
+                                            </li>
+                                            <li><i class="fa fa-check"></i>
+                                                <p>Prototype your designs with interactions.</p>
+                                            </li>
+                                            <li><i class="fa fa-check"></i>
+                                                <p>Export production ready assets.</p>
+                                            </li>
+                                            <li><i class="fa fa-check"></i>
+                                                <p>All the techniques used by UX professionals</p>
+                                            </li>
+                                        </ul>
+                                        <h4 class="subtitle">Requirements</h4>
+                                        <ul class="list_requiremetn">
+                                            <li><i class="fa fa-circle"></i>
+                                                <p>You will need a copy of Adobe XD 2019 or above. A free trial can be
+                                                    downloaded from Adobe.</p>
+                                            </li>
+                                            <li><i class="fa fa-circle"></i>
+                                                <p>No previous design experience is needed.</p>
+                                            </li>
+                                            <li><i class="fa fa-circle"></i>
+                                                <p>No previous Adobe XD skills are needed.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="cs_row_three">
+                                    <div class="course_content">
+                                        <div class="cc_headers">
+                                            <h4 class="title">Course Content</h4>
+                                            <ul class="course_schdule float-right">
+                                                <li class="list-inline-item"><a href="#">92 Lectures</a></li>
+                                                <li class="list-inline-item"><a href="#">10:56:11</a></li>
+                                            </ul>
+                                        </div>
+                                        <br>
+                                        @foreach ($chapters as $chapter)
+                                            <div class="details d-flex align-items-center">
+                                                <input type="checkbox" class="chapter_item_check" checked />
+                                                <input type="hidden" class="chapter_id"
+                                                    value="{{ $chapter->id }}" />
+                                                @php
+                                                    $min = $chapter->price[0]->price;
+                                                    $discount = $chapter->price[0]->discount;
+                                                @endphp
+                                                @foreach ($chapter->price as $ch_price)
+                                                    @if ($min > $ch_price->price)
+                                                        @php
+                                                            $min = $ch_price->price;
+                                                            $discount = $ch_price->discount;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                <input type="hidden" class="chapter_price"
+                                                    value="{{ $min }}" />
+                                                <input type="hidden" class="chapter_discount"
+                                                    value="{{ $discount }}" />
+                                                <input type="hidden" class="chapter_data"
+                                                    value="{{ $chapter }}" />
+                                                <div id="accordion" class="panel-group w-100 ml-3 cc_tab">
+                                                    <div class="panel">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a href="#panelBodyCourseStart"
+                                                                    class="accordion-toggle link"
+                                                                    data-toggle="collapse"
+                                                                    data-parent="#accordion">{{ $chapter->chapter_name }}</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="panelBodyCourseStart"
+                                                            class="panel-collapse collapse">
+                                                            <div class="panel-body">
+                                                                <ul class="cs_list mb0">
+                                                                    @foreach ($chapter->lessons as $lesson)
+                                                                        <li><span
+                                                                                class="flaticon-play-button-1 icon"></span>
+                                                                            {{ $lesson->lesson_name }}
+                                                                            <span class="cs_preiew">Preview</span>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="cs_row_four">
+                                    <div class="about_ins_container">
+                                        <h4 class="aii_title">About the instructor</h4>
+                                        <div class="about_ins_info">
+                                            <div class="thumb"><img src="images/team/6.png" alt="6.png"></div>
+                                        </div>
+                                        <div class="details">
+                                            <ul class="review_list">
+                                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                <li class="list-inline-item">4.5 Instructor Rating</li>
+                                            </ul>
+                                            <ul class="about_info_list">
+                                                <li class="list-inline-item"><span class="flaticon-comment"></span>
+                                                    12,197 Reviews </li>
+                                                <li class="list-inline-item"><span class="flaticon-profile"></span>
+                                                    141,745 Students </li>
+                                                <li class="list-inline-item"><span
+                                                        class="flaticon-play-button-1"></span> 5Courses </li>
+                                            </ul>
+                                            <h4>Ali Tufan</h4>
+                                            <p class="subtitle">UX/UI Designer</p>
+                                            <p class="mb25">UI/UX Designer, with 7+ Years Experience. Guarantee of
+                                                High Quality Work. </p>
+                                            <p class="mb25">Skills: Web Design, UI Design, UX/UI Design, Mobile
+                                                Design, User Interface Design, Sketch, Photoshop, GUI, Html, Css, Grid
+                                                Systems, Typography, Minimal, Template, English, Bootstrap, Responsive
+                                                Web Design, Pixel Perfect, Graphic Design, Corporate, Creative, Flat,
+                                                Luxury and much more.</p>
+                                            <ul class="about_ins_list mb0">
+                                                <li>
+                                                    <p>Available for:</p>
+                                                </li>
+                                                <li><a href="#">1. Full Time Office Work</a></li>
+                                                <li><a href="#">2. Remote Work</a></li>
+                                                <li><a href="#">3. Freelance</a></li>
+                                                <li><a href="#">4. Contract</a></li>
+                                                <li><a href="#">5. Worldwide</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cs_row_five">
+                                    <div class="student_feedback_container">
+                                        <h4 class="aii_title">Student feedback</h4>
+                                        <div class="s_feeback_content">
+                                            <ul class="skills">
+                                                <li class="list-inline-item">Stars 5</li>
+                                                <li class="list-inline-item progressbar1" data-width="84"
+                                                    data-target="100">%84</li>
+                                            </ul>
+                                            <ul class="skills">
+                                                <li class="list-inline-item">Stars 4</li>
+                                                <li class="list-inline-item progressbar2" data-width="9"
+                                                    data-target="100">%9</li>
+                                            </ul>
+                                            <ul class="skills">
+                                                <li class="list-inline-item">Stars 3</li>
+                                                <li class="list-inline-item progressbar3" data-width="3"
+                                                    data-target="100">%3</li>
+                                            </ul>
+                                            <ul class="skills">
+                                                <li class="list-inline-item">Stars 2</li>
+                                                <li class="list-inline-item progressbar4" data-width="1"
+                                                    data-target="100">%1</li>
+                                            </ul>
+                                            <ul class="skills">
+                                                <li class="list-inline-item">Stars 1</li>
+                                                <li class="list-inline-item progressbar5" data-width="2"
+                                                    data-target="100">%2</li>
+                                            </ul>
+                                        </div>
+                                        <div class="aii_average_review text-center">
+                                            <div class="av_content">
+                                                <h2>4.5</h2>
+                                                <ul class="aii_rive_list mb0">
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                </ul>
+                                                <p>Course Rating</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cs_row_six">
+                                    <div class="sfeedbacks">
+                                        <h4 class="aii_title">Reviews</h4>
+                                        <div class="mbp_pagination_comments">
+                                            <div class="mbp_first media csv1">
+                                                <img src="images/resource/review1.png" class="mr-3"
+                                                    alt="review1.png">
+                                                <div class="media-body">
+                                                    <h4 class="sub_title mt-0">Warren Bethell
+                                                        <span class="sspd_review float-right">
+                                                            <ul>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"></li>
+                                                            </ul>
+                                                        </span>
+                                                    </h4>
+                                                    <a class="sspd_postdate fz14" href="#">6 months ago</a>
+                                                    <p class="fz15 mt20">This is the second Photoshop course I have
+                                                        completed with Cristian. Worth every penny and recommend it
+                                                        highly. To get the most out of this course, its best to to take
+                                                        the Beginner to Advanced course first.</p>
+                                                    <p class="fz15 mt25 mb25">The sound and video quality is of a good
+                                                        standard. Thank you Cristian.</p>
+                                                    <div class="ssp_reply float-right"><span
+                                                            class="flaticon-consulting-message"></span><span
+                                                            class="pl10">Reply</span></div>
+                                                    <div class="sspd_review_liked"><a href="#"><i
+                                                                class="flaticon-like-1"></i> <span
+                                                                class="text-thm6 pl5 pr5 fz15">15</span> Thank
+                                                            Waren</a></div>
+                                                    <div class="custom_hr style2"></div>
+                                                    <div class="mbp_sub media csv1">
+                                                        <a href="#"><img src="images/resource/review1.png"
+                                                                class="mr-3" alt="review1.png"></a>
+                                                        <div class="media-body">
+                                                            <h4 class="sub_title mt-0">Anton Hilton
+                                                                <span class="sspd_review float-right">
+                                                                    <ul>
+                                                                        <li class="list-inline-item"><a
+                                                                                href="#"><i
+                                                                                    class="fa fa-star"></i></a></li>
+                                                                        <li class="list-inline-item"><a
+                                                                                href="#"><i
+                                                                                    class="fa fa-star"></i></a></li>
+                                                                        <li class="list-inline-item"><a
+                                                                                href="#"><i
+                                                                                    class="fa fa-star"></i></a></li>
+                                                                        <li class="list-inline-item"><a
+                                                                                href="#"><i
+                                                                                    class="fa fa-star"></i></a></li>
+                                                                        <li class="list-inline-item"><a
+                                                                                href="#"><i
+                                                                                    class="fa fa-star"></i></a></li>
+                                                                        <li class="list-inline-item"></li>
+                                                                    </ul>
+                                                                </span>
+                                                            </h4>
+                                                            <a class="sspd_postdate fz14" href="#">6 months
+                                                                ago</a>
+                                                            <p class="fz15 mt20 mb50">This is the second Photoshop
+                                                                course I have completed with Cristian. Worth every penny
+                                                                and recommend it highly. To get the most out of this
+                                                                course, its best to to take the</p>
+                                                            <div class="ssp_reply float-right"><span
+                                                                    class="flaticon-consulting-message"></span><span
+                                                                    class="pl10">Reply</span></div>
+                                                            <div class="sspd_review_liked">
+                                                                <a href="#"><i class="flaticon-like-1"></i><span
+                                                                        class="text-thm6 pl5 pr5 fz15">15</span> Thank
+                                                                    Waren</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom_hr"></div>
+                                            <div class="mbp_second media csv1">
+                                                <img src="images/resource/review1.png" class="align-self-start mr-3"
+                                                    alt="review1.png">
+                                                <div class="media-body">
+                                                    <h4 class="sub_title mt-0">Warren Bethell
+                                                        <span class="sspd_review float-right">
+                                                            <ul>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"><a href="#"><i
+                                                                            class="fa fa-star"></i></a></li>
+                                                                <li class="list-inline-item"></li>
+                                                            </ul>
+                                                        </span>
+                                                    </h4>
+                                                    <a class="sspd_postdate fz14" href="#">6 months ago</a>
+                                                    <p class="fz15 mt20">This is the second Photoshop course I have
+                                                        completed with Cristian. Worth every penny and recommend it
+                                                        highly. To get the most out of this course, its best to to take
+                                                        the Beginner to Advanced course first.</p>
+                                                    <p class="fz15 mt25 mb25">The sound and video quality is of a good
+                                                        standard. Thank you Cristian.</p>
+                                                    <div class="ssp_reply float-right"><span
+                                                            class="flaticon-consulting-message"></span><span
+                                                            class="pl10">Reply</span></div>
+                                                    <div class="sspd_review_liked"><a href="#"><i
+                                                                class="flaticon-like-1"></i> <span
+                                                                class="text-thm6 pl5 pr5 fz15">15</span> Thank
+                                                            Waren</a></div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt50">
+                                                <div class="custom_hr"></div>
+                                                <button type="button" class="more-review-btn btn">See more
+                                                    reviews</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cs_row_seven">
+                                    <div class="sfeedbacks">
+                                        <div class="mbp_comment_form style2 pb0">
+                                            <h4>Add Reviews & Rate</h4>
+                                            <ul>
+                                                <li class="list-inline-item pr15">
+                                                    <p>What is it like to Course?</p>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <span class="sspd_review">
+                                                        <ul>
+                                                            <li class="list-inline-item"><a href="#"><i
+                                                                        class="fa fa-star fz18"></i></a></li>
+                                                            <li class="list-inline-item"><a href="#"><i
+                                                                        class="fa fa-star fz18"></i></a></li>
+                                                            <li class="list-inline-item"><a href="#"><i
+                                                                        class="fa fa-star fz18"></i></a></li>
+                                                            <li class="list-inline-item"><a href="#"><i
+                                                                        class="fa fa-star fz18"></i></a></li>
+                                                            <li class="list-inline-item"><a href="#"><i
+                                                                        class="fa fa-star fz18"></i></a></li>
+                                                            <li class="list-inline-item"></li>
+                                                        </ul>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <form class="comments_form">
+                                                <div class="form-group">
+                                                    <label for="exampleInputName1">Review Title</label>
+                                                    <input type="text" class="form-control" id="exampleInputName1"
+                                                        aria-describedby="textHelp">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Review Content</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-thm">Submit Review <span
+                                                        class="flaticon-right-arrow-1"></span></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h3 class="r_course_title">Related Courses</h3>
+                        </div>
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="top_courses">
+                                <div class="thumb">
+                                    <img class="img-whp" src="images/courses/t1.jpg" alt="t1.jpg">
+                                    <div class="overlay">
+                                        <div class="tag">Best Seller</div>
+                                        <div class="icon"><span class="flaticon-like"></span></div>
+                                        <a class="tc_preview_course" href="#">Preview Course</a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p>Ali TUFAN</p>
+                                        <h5>Introduction Web Design with HTML</h5>
+                                        <ul class="tc_review">
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">(6)</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tc_footer">
+                                        <ul class="tc_meta float-left">
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="flaticon-profile"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">1548</a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="flaticon-comment"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">25</a></li>
+                                        </ul>
+                                        <div class="tc_price float-right">$69.95</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="top_courses">
+                                <div class="thumb">
+                                    <img class="img-whp" src="images/courses/t2.jpg" alt="t2.jpg">
+                                    <div class="overlay">
+                                        <div class="tag">Top Seller</div>
+                                        <div class="icon"><span class="flaticon-like"></span></div>
+                                        <a class="tc_preview_course" href="#">Preview Course</a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p>Ali TUFAN</p>
+                                        <h5>Designing a Responsive Mobile Website with Muse</h5>
+                                        <ul class="tc_review">
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">(6)</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tc_footer">
+                                        <ul class="tc_meta float-left">
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="flaticon-profile"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">1548</a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="flaticon-comment"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">25</a></li>
+                                        </ul>
+                                        <div class="tc_price float-right">$69.95</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="top_courses">
+                                <div class="thumb">
+                                    <img class="img-whp" src="images/courses/t3.jpg" alt="t3.jpg">
+                                    <div class="overlay">
+                                        <div class="tag">Top Seller</div>
+                                        <div class="icon"><span class="flaticon-like"></span></div>
+                                        <a class="tc_preview_course" href="#">Preview Course</a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p>Ali TUFAN</p>
+                                        <h5>Adobe XD: Prototyping Tips and Tricks</h5>
+                                        <ul class="tc_review">
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">(6)</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tc_footer">
+                                        <ul class="tc_meta float-left">
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="flaticon-profile"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">1548</a></li>
+                                            <li class="list-inline-item"><a href="#"><i
+                                                        class="flaticon-comment"></i></a></li>
+                                            <li class="list-inline-item"><a href="#">25</a></li>
+                                        </ul>
+                                        <div class="tc_price float-right">$69.95</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3">
+                    <div class="instructor_pricing_widget">
+                        <div class="price">Price
+                            <label><s class="t_price price text-danger">${{ $price }}</s></label>
+                            <label class="t_discount_price text-success">${{ $total_price }}</label>
+                        </div>
+                        <input class="course_price" type="hidden" value="{{ $price }}" />
+                        <form method="POST" action="{{ route('buy_course') }}">
+                            @csrf
+                            <input type="hidden" class="course_data" name="course_data"
+                                value="{{ $course }}" />
+                            <input type="hidden" class="chapters_data" name="chapters_data"
+                                value="{{ $chapters }}" />
+                            <input type="hidden" class="chapters_price" name="chapters_price"
+                                value="{{ $price }}" />
+                            <button class="cart_btnss_white">Buy Now</button>
+                        </form>
+                        <h5 class="subtitle text-left">Includes</h5>
+                        <ul class="price_quere_list text-left">
+                            <li><a href="#"><span class="flaticon-play-button-1"></span>
+                                    {{ count($videos_count) }} Video</a></li>
+                            <li><a href="#"><i class="fa-solid fa-book-open mr-2"></i>
+                                    {{ count($chapters_count) }} Chapter</a></li>
+                            <li><a href="#"><i
+                                        class="fa-solid fa-person-chalkboard mr-2"></i>{{ count($lessons_count) }}
+                                    Lesson</a></li>
+                            <li><a href="#"><i class="fa-solid fa-circle-question mr-2"></i>{{ $questions }}
+                                    Question</a></li>
+                            <li><a href="#"><i class="fa-solid fa-feather mr-2"></i> {{ $quizs }}
+                                    Quiz</a></li>
+                            <li><a href="#"><i class="fa-solid fa-file-pdf mr-2"></i>{{ count($videos_count) }}
+                                    PDF</a></li>
+                        </ul>
+                    </div>
+                    <div class="feature_course_widget">
+                        <ul class="list-group">
+                            <h4 class="title">Course Features</h4>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Lectures <span class="float-right">6</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Quizzes <span class="float-right">1</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Duration <span class="float-right">3 hours</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Skill level <span class="float-right">All level</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Language <span class="float-right">English</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Assessments <span class="float-right">Yes</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="blog_tag_widget">
+                        <h4 class="title">Tags</h4>
+                        <ul class="tag_list">
+                            <li class="list-inline-item"><a href="#">Photoshop</a></li>
+                            <li class="list-inline-item"><a href="#">Sketch</a></li>
+                            <li class="list-inline-item"><a href="#">Beginner</a></li>
+                            <li class="list-inline-item"><a href="#">UX/UI</a></li>
+                        </ul>
+                    </div>
+                    <div class="selected_filter_widget style2">
+                        <span class="float-left"><img class="mr20" src="images/resource/2.png"
+                                alt="2.png"></span>
+                        <h4 class="mt15 fz20 fw500">Not sure?</h4>
+                        <br>
+                        <p>Every course comes with a 30-day money-back guarantee</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+    <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 
 
- 
+
 
 <script>
     let chapter_item_check = document.querySelectorAll('.chapter_item_check');
@@ -829,65 +997,63 @@
     let chapter_id = document.querySelectorAll('.chapter_id');
     let chapter_data = document.querySelectorAll('.chapter_data');
     let t_price = document.querySelector('.t_price');
-	let chapters_data = document.querySelector('.chapters_data');
-	let chapters_price = document.querySelector('.chapters_price');
-	let course_price = document.querySelector('.course_price');
-	let t_discount_price = document.querySelector('.t_discount_price');
-	let price = 0;
-	let discount = 0;
-	let total_price = 0;
-	let arr;
-	let arr_data;
-	let chapter;
-	let checked = true;
-	course_price = course_price.value;
-	course_price = parseFloat(course_price);
-	console.log(course_price);
+    let chapters_data = document.querySelector('.chapters_data');
+    let chapters_price = document.querySelector('.chapters_price');
+    let course_price = document.querySelector('.course_price');
+    let t_discount_price = document.querySelector('.t_discount_price');
+    let price = 0;
+    let discount = 0;
+    let total_price = 0;
+    let arr;
+    let arr_data;
+    let chapter;
+    let checked = true;
+    course_price = course_price.value;
+    course_price = parseFloat(course_price);
+    console.log(course_price);
     for (let i = 0, end = chapter_item_check.length; i < end; i++) {
-        chapter_item_check[i].addEventListener('change', ( e ) => {
-			arr = [];
-			arr_data = [];
+        chapter_item_check[i].addEventListener('change', (e) => {
+            arr = [];
+            arr_data = [];
             for (let j = 0; j < end; j++) {
-                if ( e.target == chapter_item_check[j] || e.target.parentElement == chapter_item_check[j]
-                || e.target.parentElement.parentElement == chapter_item_check[j] ) {
+                if (e.target == chapter_item_check[j] || e.target.parentElement == chapter_item_check[j] ||
+                    e.target.parentElement.parentElement == chapter_item_check[j]) {
                     for (let k = 0; k < end; k++) {
-						if ( chapter_item_check[k].checked ) {
-							chapter = chapter_data[k].value;
-							chapter = JSON.parse(chapter);
-							arr_data = [...arr_data, chapter];
-							let price_item = parseFloat(chapter_price[k].value);
-							discount = parseFloat(chapter_discount[k].value);
-							total_price += price_item - price_item * discount / 100;
-							price += parseFloat(chapter_price[k].value);
-							arr = [...arr, parseInt(chapter_id[k].value)];
-							$.ajax("{{route('buy_chapters')}}", {
-							type: 'GET',
-							data: chapter,
-							success: function (data) {
-								console.log( data );
-							},
-						});
-						}
-						else{
-							checked = false;
-						}
-					}
-					if ( checked ) {
-						price = course_price;
-						total_price = {{$total_price}}
-					}
-					chapters_data.value = JSON.stringify(arr_data);
-					chapters_price.value = price;
-					t_price.innerHTML = price;
-					t_discount_price.innerHTML = total_price;
-					price = 0;
-					total_price = 0;
-					checked = true;
+                        if (chapter_item_check[k].checked) {
+                            chapter = chapter_data[k].value;
+                            chapter = JSON.parse(chapter);
+                            arr_data = [...arr_data, chapter];
+                            let price_item = parseFloat(chapter_price[k].value);
+                            discount = parseFloat(chapter_discount[k].value);
+                            total_price += price_item - price_item * discount / 100;
+                            price += parseFloat(chapter_price[k].value);
+                            arr = [...arr, parseInt(chapter_id[k].value)];
+                            $.ajax("{{ route('buy_chapters') }}", {
+                                type: 'GET',
+                                data: chapter,
+                                success: function(data) {
+                                    console.log(data);
+                                },
+                            });
+                        } else {
+                            checked = false;
+                        }
+                    }
+                    if (checked) {
+                        price = course_price;
+                        total_price = {{ $total_price }}
+                    }
+                    chapters_data.value = JSON.stringify(arr_data);
+                    chapters_price.value = price;
+                    t_price.innerHTML = price;
+                    t_discount_price.innerHTML = total_price;
+                    price = 0;
+                    total_price = 0;
+                    checked = true;
                 }
             }
         })
     }
-
 </script>
 <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
