@@ -1,5 +1,112 @@
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
+<div class="wrapper">
+    <div class="preloader"></div>
+
+    <!-- Shop Checkouts Content -->
+    <section class="shop-checkouts">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-8 col-xl-8">
+                </div>
+                <div class="col-lg-4 col-xl-4">
+                    <div class="order_sidebar_widget mb30">
+                        <h4 class="title">Your Order</h4>
+                        <ul>
+                            <li class="subtitle">
+                                <p>Product <span class="float-right">Total</span></p>
+                            </li>
+                            @foreach ($chapters as $chapter)
+                                <li>
+                                    <p>{{ $chapter->chapter_name }} <span
+                                            class="float-right">{{ $chapter->ch_price }}</span></p>
+                                </li>
+                            @endforeach
+                            <li class="subtitle">
+                                <p>Subtotal <span class="float-right">Subtotal</span></p>
+                            </li>
+                            <li class="subtitle">
+                                <p>Total <span class="float-right totals color-orose">${{ $price }}</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <form action="{{ route('payment_money') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="payment_widget">
+                            <div class="ui_kit_checkbox style2">
+                                @foreach ($payment_methods as $item)
+                                    <div class="custom-control custom-checkbox my-3">
+                                        <input type="radio" name="payment_method_id" value="{{ $item->id }}"
+                                            class="custom-control-input payment_method_radio"
+                                            id="customCheck80{{ $item->id }}" checked />
+                                        <label class="custom-control-label"
+                                            for="customCheck80{{ $item->id }}">{{ $item->payment }}
+                                            <img style="height:50px; width:70px;"
+                                                src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
+                                        </label>
+
+                                    </div>
+
+                                    <input type="file" id="reset_img{{ $item->id }}" name="image[]"
+                                        class="form-control d-none" />
+                                    <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
+                                        <div class="bt_details">
+                                            <p>
+                                                {{ $item->description }}
+                                            </p>
+                                        </div>
+                                        <label for="reset_img{{ $item->id }}" class="btn btn-info">
+                                            <i class="fa-solid fa-upload mr-2"></i>
+                                            Upload Reseipt
+                                        </label>
+                                    </label>
+                                @endforeach
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="radio" name="payment_method_id" value="Wallet"
+                                        class="custom-control-input payment_method_radio" id="customCheck80"
+                                        checked />
+                                    <label class="custom-control-label" for="customCheck80">
+                                        <h3>
+                                            Using Wallet
+                                        </h3>
+                                    </label>
+
+                                </div>
+                                <script>
+                                    let payment_method_radio = document.querySelectorAll('.payment_method_radio');
+                                    let upload_img = document.querySelectorAll('.upload_img');
+                                    for (let i = 0, end = payment_method_radio.length; i < end; i++) {
+                                        payment_method_radio[i].addEventListener('change', (e) => {
+                                            for (let j = 0; j < end; j++) {
+                                                if (e.target == payment_method_radio[j]) {
+                                                    upload_img[j].classList.remove('d-none');
+                                                } else {
+                                                    upload_img[j].classList.add('d-none');
+                                                }
+                                            }
+                                        })
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                        <div class="ui_kit_button payment_widget_btn">
+                            <button class="btn dbxshad btn-lg btn-thm3 circle btn-block">Place Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+</div>
+@include('Visitor.inc.footer')
+
+
+@include('Visitor.inc.header')
+@include('Visitor.inc.menu')
 <style>
     span,
     .col-12,
@@ -309,7 +416,7 @@
 
     <section>
         <form class="col-12 d-flex flex-column justify-content-center align-items-center" style="row-gap: 3rem"
-            action="{{ route('course_payment_money') }}" method="POST" enctype="multipart/form-data">
+            action="{{ route('payment_money') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-9 d-flex align-items-center justify-content-center">
                 <h1 style="color: #CF202F">Check Out</h1>
@@ -322,7 +429,14 @@
                     <h3 style="color: #CF202F">Your Order:</h3>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Product:</span>
-                        <span class=" text-align-center">{{ $course->course_name }}</span>
+                        <span class=" text-align-center">
+                            @foreach ($chapters as $chapter)
+                                <li>
+                                    <p>{{ $chapter->chapter_name }} <span
+                                            class="float-right">{{ $chapter->ch_price }}</span></p>
+                                </li>
+                            @endforeach
+                        </span>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Subtotal:</span>
@@ -370,7 +484,7 @@
                         <input value="{{$item->id}}" name="payment_method_id" id="radio{{$item->id}}" class="radio-button__input" type="radio">
                         <label for="radio{{$item->id}}" class="radio-button__label">
                             <div class="">
-                                <img width="30px" src="{{ asset('images/iconPayment/' . $item->logo) }}" alt="">
+                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
                                 <span class="radio-button__custom"></span>
                                 {{$item->payment}}
                             </div>
@@ -384,7 +498,7 @@
             <div class="col-9 d-flex align-items-center justify-content-between" style="column-gap: 1rem">
                 <div id="selImg" class="d-flex align-items-center justify-content-center" style="column-gap: 0.3rem">
                     <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
-                    <img width="35px" src="{{ asset('images/iconPayment/UploadIcon.svg') }}" alt="">
+                    <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
@@ -416,6 +530,23 @@
         $("#selImg").click(function() {
             $("#img").click();
         })
+
+        $(".radio-button__input").click(function() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('api_checkout_description') }}",
+                data: {
+                    id,
+                    $(this).val()
+                },
+                success: function(data) {
+                    console.log(data)
+                }
+            })
+        })
+
+
+
         $(".radio-button__input").click(function() {
             $(".radio-button__input").each((val, ele) => {
                 if ($(".walletRadio").is(':checked')) {
@@ -436,111 +567,4 @@
         })
     })
 </script>
-@include('Visitor.inc.footer')
-
-
-@include('Visitor.inc.header')
-@include('Visitor.inc.menu')
-<div class="wrapper">
-    <div class="preloader"></div>
-  
-
-    <!-- Main Header Nav For Mobile -->
-    @include('Visitor.inc.mobile_menu')
-
-
-    @include('success')
-    <!-- Shop Checkouts Content -->
-    <section class="shop-checkouts">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-lg-8 col-xl-8">
-                </div>
-                <div class="col-lg-4 col-xl-4">
-                    <div class="order_sidebar_widget mb30">
-                        <h4 class="title">Your Order</h4>
-                        <ul>
-                            <li class="subtitle">
-                                <p>Product <span class="float-right">Total</span></p>
-                            </li>
-                            <li class="subtitle">
-                                <p>Subtotal <span class="float-right">Subtotal</span></p>
-                            </li>
-                            <li class="subtitle">
-                                <p>Total <span class="float-right totals color-orose">${{ $price }}</span></p>
-                            </li>
-                        </ul>
-                    </div>
-                    <form action="{{ route('payment_money') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="payment_widget">
-                            <div class="ui_kit_checkbox style2">
-                                @foreach ($payment_methods as $item)
-                                    <div class="custom-control custom-checkbox my-3">
-                                        <input type="radio" name="payment_method_id" value="{{ $item->id }}"
-                                            class="custom-control-input payment_method_radio"
-                                            id="customCheck80{{ $item->id }}" checked />
-                                        <label class="custom-control-label"
-                                            for="customCheck80{{ $item->id }}">{{ $item->payment }}
-                                            <img style="height:50px; width:70px;"
-                                                src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
-                                        </label>
-
-                                    </div>
-
-                                    <input type="file" id="reset_img{{ $item->id }}" name="image[]"
-                                        class="form-control d-none" />
-                                    <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
-                                        <div class="bt_details">
-                                            <p>
-                                                {{ $item->description }}
-                                            </p>
-                                        </div>
-                                        <label for="reset_img{{ $item->id }}" class="btn btn-info">
-                                            <i class="fa-solid fa-upload mr-2"></i>
-                                            Upload Reseipt
-                                        </label>
-                                    </label>
-                                @endforeach
-
-                                <div class="custom-control custom-checkbox">
-                                    <input type="radio" name="payment_method_id" value="Wallet"
-                                        class="custom-control-input payment_method_radio" id="customCheck80"
-                                        checked />
-                                    <label class="custom-control-label" for="customCheck80">
-                                        <h3>
-                                            Using Wallet
-                                        </h3>
-                                    </label>
-
-                                </div>
-                                <script>
-                                    let payment_method_radio = document.querySelectorAll('.payment_method_radio');
-                                    let upload_img = document.querySelectorAll('.upload_img');
-                                    for (let i = 0, end = payment_method_radio.length; i < end; i++) {
-                                        payment_method_radio[i].addEventListener('change', (e) => {
-                                            for (let j = 0; j < end; j++) {
-                                                if (e.target == payment_method_radio[j]) {
-                                                    upload_img[j].classList.remove('d-none');
-                                                } else {
-                                                    upload_img[j].classList.add('d-none');
-                                                }
-                                            }
-                                        })
-                                    }
-                                </script>
-                            </div>
-                        </div>
-                        <div class="ui_kit_button payment_widget_btn">
-                            <button class="btn dbxshad btn-lg btn-thm3 circle btn-block">Place Order</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
-</div>
 @include('Visitor.inc.footer')
