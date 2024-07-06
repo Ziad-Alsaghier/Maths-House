@@ -408,7 +408,7 @@
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
-                <div class="col-6 secDescription">
+                <div class="col-6 secDescription d-none">
                     <h3>Description:</h3>
                     <p class="desPay"></p>
                 </div>
@@ -450,7 +450,8 @@
                 },
                 success: function(data) {
                     console.log(data)
-                    $(".desPay").text(data.des)
+                    $(".secDescription").removeClass("d-none")
+                    $(".desPay").text(data[0].description)
                 }
             })
         })
@@ -467,6 +468,7 @@
             })
         })
         $(".walletRadio").click(function() {
+            $(".secDescription").addClass("d-none")
             if ($(this).is(':checked')) {
                 $(".radio-button__input").each((val, ele) => {
                     console.log(val)
