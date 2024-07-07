@@ -844,7 +844,7 @@ class CoursesController extends Controller
     }
 
     public function api_courses_data( Request $req ){
-        if ( is_string($req->chapters[0]) == 0 ) {
+        if ( is_string($req->chapters[0]) ) {
             return response()->json([
                 'chapters' => 0,
                 'lessons' => 0,
