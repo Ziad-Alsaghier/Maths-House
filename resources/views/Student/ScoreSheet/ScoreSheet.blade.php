@@ -1,6 +1,7 @@
 
 @php
     $page_name = 'Question History';
+    $chapter_name = null;
 @endphp
 @section('title','Chapters')
 @include('Student.inc.header')
@@ -44,6 +45,18 @@
             <td style="border: 1px solid #ccc">Time</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
         </tr>
+
+        @foreach ( $payment_req as $item )
+            @foreach ($item->chapters_order as $element)
+                <tr>
+                    @if ( $element->chapter->chapter_name ==  )
+                        
+                    @endif
+                    <td style="border: 1px solid #ccc">{{$element->chapter->chapter_name}}</td>
+                    <td style="border: 1px solid #ccc">{{$element->chapter->lessons->lesson_name}}</td>
+                </tr>
+            @endforeach
+        @endforeach
     </tbody>
 </table>
 
