@@ -458,13 +458,17 @@
                                         <br>
                                         @foreach ($chapters as $chapter)
                                             <div class="details d-flex align-items-center">
-                                                <input type="checkbox" class="chapter_item_check" checked />
+                                                <input type="checkbox" class="chapter_item_check"
+                                                    id="{{ $chapter->id }}" checked />
+
                                                 <input type="hidden" class="chapter_id"
                                                     value="{{ $chapter->id }}" />
+
                                                 @php
                                                     $min = $chapter->price[0]->price;
                                                     $discount = $chapter->price[0]->discount;
                                                 @endphp
+
                                                 @foreach ($chapter->price as $ch_price)
                                                     @if ($min > $ch_price->price)
                                                         @php
@@ -473,6 +477,7 @@
                                                         @endphp
                                                     @endif
                                                 @endforeach
+
                                                 <input type="hidden" class="chapter_price"
                                                     value="{{ $min }}" />
                                                 <input type="hidden" class="chapter_discount"
@@ -925,19 +930,36 @@
                         </form>
                         <h5 class="subtitle text-left">Includes</h5>
                         <ul class="price_quere_list text-left">
-                            <li><a href="#"><span class="flaticon-play-button-1"></span>
-                                    {{ count($videos_count) }} Video</a></li>
-                            <li><a href="#"><i class="fa-solid fa-book-open mr-2"></i>
-                                    {{ count($chapters_count) }} Chapter</a></li>
-                            <li><a href="#"><i
-                                        class="fa-solid fa-person-chalkboard mr-2"></i>{{ count($lessons_count) }}
-                                    Lesson</a></li>
-                            <li><a href="#"><i class="fa-solid fa-circle-question mr-2"></i>{{ $questions }}
-                                    Question</a></li>
-                            <li><a href="#"><i class="fa-solid fa-feather mr-2"></i> {{ $quizs }}
-                                    Quiz</a></li>
-                            <li><a href="#"><i class="fa-solid fa-file-pdf mr-2"></i>{{ count($videos_count) }}
-                                    PDF</a></li>
+                            <li>
+                                <a href="#"><span class="flaticon-play-button-1"></span>
+                                    <span>{{ count($videos_count) }} Video</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-book-open mr-2"></i>
+                                    <span>{{ count($chapters_count) }} Chapter</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-person-chalkboard mr-2"></i>
+                                    <span>{{ count($lessons_count) }} Lesson</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-circle-question mr-2"></i>
+                                    <span>{{ $questions }} Question</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-feather mr-2"></i>
+                                    <span>{{ $quizs }} Quiz</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-file-pdf mr-2"></i>
+                                    <span>{{ count($videos_count) }} PDF</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="feature_course_widget">
@@ -1054,6 +1076,30 @@
             }
         })
     }
+</script>
+<script>
+    $(document).ready(function() {
+        var allID = []
+        $(".chapter_item_check").each((val, ele) => {
+            console.log(ele)
+            var EleCheck = $(ele).attr("id");
+            allID.push(EleCheck)
+
+            // console.log("EleCheck", EleCheck)
+        })
+        console.log(allID)
+        $.ajax({
+            url: "{{ route('api_courses_data') }}",
+            type: "GET",
+            data: {
+                chapters: allID
+            },
+            success: function(data) {
+                console.log(data)
+            },
+        })
+
+    })
 </script>
 <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
