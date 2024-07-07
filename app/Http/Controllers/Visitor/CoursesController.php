@@ -853,7 +853,7 @@ class CoursesController extends Controller
         $videos_pdf = IdeaLesson::whereIn('lesson_id', $lessons)
         ->pluck('id');
         $quizs = quizze::whereIn('lesson_id', $lessons)
-        ->get();
+        ->pluck('id');
 
         return response()->json([
             'chapters' => count($chapters),

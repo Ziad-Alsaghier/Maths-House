@@ -48,13 +48,18 @@
 
         @foreach ( $payment_req as $item )
             @foreach ($item->chapters_order as $element)
-                <tr>
-                    @if ( $element->chapter->chapter_name ==  )
-                        
+                    @if ( $element->chapter->chapter_name != $chapter_name )
+                    <tr>
+                        <td rowspan="{{count($element->chapter->lessons)}}" style="border: 1px solid #ccc">{{$element->chapter->chapter_name}}</td>
                     @endif
-                    <td style="border: 1px solid #ccc">{{$element->chapter->chapter_name}}</td>
-                    <td style="border: 1px solid #ccc">{{$element->chapter->lessons->lesson_name}}</td>
+                    @foreach ( $element->chapter->lessons as $value )
+                        <td style="border: 1px solid #ccc">{{->lesson_name}}</td>
+                    @endforeach
                 </tr>
+
+                @php
+                $chapter_name = null;
+                @endphp
             @endforeach
         @endforeach
     </tbody>
