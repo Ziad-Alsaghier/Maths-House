@@ -55,7 +55,7 @@
                     @foreach ( $element->chapter->lessons as $value )
                         <td style="border: 1px solid #ccc">{{$value->lesson_name}}</td>
                         @foreach ( $value->quizze as $quiz )
-                        <td>{{$quiz->student_quizzes(auth()->user()->id)}}</td>
+                        <td>{{$quiz->student_quizzes(auth()->user()->id)->first()}}</td>
                         {{-- <td>{{$quiz->student_quizzes(auth()->user()->id)->time}}</td>
                         <td>
                             <a href="{{route('quizze_mistakes', ['id' => $quiz->student_quizzes(auth()->user()->id)->id])}}" class="btn btn-primary mistake_btn">

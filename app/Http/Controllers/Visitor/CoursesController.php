@@ -854,6 +854,7 @@ class CoursesController extends Controller
                 'quizs' => 0,
             ]);
         }
+        return response()->json($req->chapters);
         $chapters = Chapter::whereIn('id', $req->chapters)
         ->pluck('id');
         $lessons = Lesson::whereIn('chapter_id', $chapters)
