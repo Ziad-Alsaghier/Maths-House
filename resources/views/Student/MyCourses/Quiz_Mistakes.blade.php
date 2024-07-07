@@ -62,6 +62,7 @@
             object-fit: cover;
             object-position: center;
             border-radius: 15px;
+            border:5px solid #CF202F;
         }
 
         .footerMistake {
