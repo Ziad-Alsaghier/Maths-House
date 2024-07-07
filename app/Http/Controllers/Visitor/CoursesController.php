@@ -852,6 +852,8 @@ class CoursesController extends Controller
         ->pluck('id');
         $videos_pdf = IdeaLesson::whereIn('lesson_id', $lessons)
         ->pluck('id');
+        $quizs = quizze::whereIn('lesson_id', $lessons)
+        ->get();
 
         return response()->json([
             'chapters' => count($chapters),
@@ -859,6 +861,7 @@ class CoursesController extends Controller
             'questions' => count($questions),
             'videos' => count($videos_pdf),
             'pdf' => count($videos_pdf),
+            'quizs' => count($quizs),
         ]);
     }
 
