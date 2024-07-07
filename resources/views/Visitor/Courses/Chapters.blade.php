@@ -932,32 +932,32 @@
                         <ul class="price_quere_list text-left">
                             <li>
                                 <a href="#"><span class="flaticon-play-button-1"></span>
-                                    <span>{{ count($videos_count) }} Video</span>
+                                    <span id="courseVideos">{{ count($videos_count) }} Video</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-book-open mr-2"></i>
-                                    <span>{{ count($chapters_count) }} Chapter</span>
+                                    <span id="courseChapters">{{ count($chapters_count) }} Chapter</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-person-chalkboard mr-2"></i>
-                                    <span>{{ count($lessons_count) }} Lesson</span>
+                                    <span id="courseLessons">{{ count($lessons_count) }} Lesson</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-circle-question mr-2"></i>
-                                    <span>{{ $questions }} Question</span>
+                                    <span id="courseQuestions">{{ $questions }} Question</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-feather mr-2"></i>
-                                    <span>{{ $quizs }} Quiz</span>
+                                    <span id="courseQuizs">{{ $quizs }} Quiz</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-file-pdf mr-2"></i>
-                                    <span>{{ count($videos_count) }} PDF</span>
+                                    <span id="coursePdfs">{{ count($videos_count) }} PDF</span>
                                 </a>
                             </li>
                         </ul>
@@ -1096,6 +1096,12 @@
             },
             success: function(data) {
                 console.log(data)
+                $("#courseVideos").text()
+                $("#courseChapters").text()
+                $("#courseLessons").text()
+                $("#courseQuestions").text()
+                $("#courseQuizs").text()
+                $("#coursePdfs").text()
             },
         })
 
