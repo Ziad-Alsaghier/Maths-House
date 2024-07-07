@@ -80,6 +80,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('score_sheet') }}">
+                                <i class="fa-solid fa-cubes" style="width: 17px;margin-right: 10px;"></i>
+                                Score Sheet
+                            </a>
+                        </li>
+                        <li>
                             {{-- Group --}}
                             <span id="show_Child" class="p-0 col-md-12 d-flex align-items-center justify-content-between"
                                 style="color: #5f6c76; cursor: pointer;">

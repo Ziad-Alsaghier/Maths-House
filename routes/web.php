@@ -36,6 +36,7 @@ use App\Http\Controllers\Student\Stu_WalletController;
 use App\Http\Controllers\Student\Stu_MyPackagesController;
 use App\Http\Controllers\Student\Stu_QuestionController;
 use App\Http\Controllers\Student\Stu_LiveController;
+use App\Http\Controllers\Student\ScoreController;
 
 use App\Http\Controllers\Visitor\HomeController;
 use App\Http\Controllers\Visitor\ContactController;
@@ -440,6 +441,10 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
         ->sum('wallet');
 
         return $money;
+    });
+
+    Route::controller(ScoreController::class)->group(function(){
+        Route::get('ScoreSheet','score_sheet')->name('score_sheet');
     });
 
     Route::controller(Stu_DashboardController::class)->group(function(){
