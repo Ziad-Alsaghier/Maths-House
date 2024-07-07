@@ -932,32 +932,38 @@
                         <ul class="price_quere_list text-left">
                             <li>
                                 <a href="#"><span class="flaticon-play-button-1"></span>
-                                    <span id="courseVideos">{{ count($videos_count) }} Video</span>
+                                    <span id="courseVideos">{{ count($videos_count) }}</span>
+                                    <span>Video</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-book-open mr-2"></i>
-                                    <span id="courseChapters">{{ count($chapters_count) }} Chapter</span>
+                                    <span id="courseChapters">{{ count($chapters_count) }}</span>
+                                    <span>Chapter</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-person-chalkboard mr-2"></i>
-                                    <span id="courseLessons">{{ count($lessons_count) }} Lesson</span>
+                                    <span id="courseLessons">{{ count($lessons_count) }}</span>
+                                    <span>Lesson</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-circle-question mr-2"></i>
-                                    <span id="courseQuestions">{{ $questions }} Question</span>
+                                    <span id="courseQuestions">{{ $questions }}</span>
+                                    <span> Question</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-feather mr-2"></i>
-                                    <span id="courseQuizs">{{ $quizs }} Quiz</span>
+                                    <span id="courseQuizs">{{ $quizs }}</span>
+                                    <span>Quiz</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa-solid fa-file-pdf mr-2"></i>
-                                    <span id="coursePdfs">{{ count($videos_count) }} PDF</span>
+                                    <span id="coursePdfs">{{ count($videos_count) }}</span>
+                                    <span>PDF</span>
                                 </a>
                             </li>
                         </ul>
@@ -1050,13 +1056,6 @@
                             total_price += price_item - price_item * discount / 100;
                             price += parseFloat(chapter_price[k].value);
                             arr = [...arr, parseInt(chapter_id[k].value)];
-                            $.ajax("{{ route('buy_chapters') }}", {
-                                type: 'GET',
-                                data: chapter,
-                                success: function(data) {
-                                    console.log(data);
-                                },
-                            });
                         } else {
                             checked = false;
                         }
@@ -1080,30 +1079,41 @@
 <script>
     $(document).ready(function() {
         var allID = []
-        $(".chapter_item_check").each((val, ele) => {
-            console.log(ele)
-            var EleCheck = $(ele).attr("id");
-            allID.push(EleCheck)
+        $(".chapter_item_check").click(function() {
 
-            // console.log("EleCheck", EleCheck)
+            $(".chapter_item_check").each((val, ele) => {
+                console.log(ele)
+                if ($(ele).is(':checked')) {
+                    var EleCheck = $(ele).attr("id");
+                    // console.log(EleCheck)
+                    allID.push(EleCheck)
+                    console.log(allID)
+                }
+                // console.log("EleCheck", EleCheck)
+            })
+             if (!$(".chapter_item_check").is(':checked')) {
+                allID = [];
+                console.log("fild",allID)
+            }
+
+            $.ajax({
+                url: "{{ route('api_courses_data') }}",
+                type: "GET",
+                data: {
+                    chapters: allID
+                },
+                success: function(data) {
+                    console.log(data)
+                    $("#courseVideos").text(data.videos)
+                    $("#courseChapters").text(data.chapters)
+                    $("#courseLessons").text(data.lessons)
+                    $("#courseQuestions").text(data.questions)
+                    $("#courseQuizs").text(data.quizs)
+                    $("#coursePdfs").text(data.pdf)
+                },
+            })
         })
-        console.log(allID)
-        $.ajax({
-            url: "{{ route('api_courses_data') }}",
-            type: "GET",
-            data: {
-                chapters: allID
-            },
-            success: function(data) {
-                console.log(data)
-                $("#courseVideos").text()
-                $("#courseChapters").text()
-                $("#courseLessons").text()
-                $("#courseQuestions").text()
-                $("#courseQuizs").text()
-                $("#coursePdfs").text()
-            },
-        })
+
 
     })
 </script>
