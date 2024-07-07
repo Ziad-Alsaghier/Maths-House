@@ -45,7 +45,7 @@
                                 @endif
                                 @if (!empty($question->q_url))
                                     <!-- Image Element -->
-                                    <img style="width: 200px; height: 200px;" data-bs-toggle="modal"
+                                    <img style="width: 300px; height: 240px;" data-bs-toggle="modal"
                                         data-bs-target="#showImage{{ $question->id }}"
                                         src="{{ asset('images/questions/' . $question->q_url) }}" />
 
