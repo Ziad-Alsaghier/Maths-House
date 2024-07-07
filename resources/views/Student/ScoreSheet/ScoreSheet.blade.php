@@ -14,12 +14,12 @@
     <thead>
         <th style="border: 1px solid #ccc"></th>
         <th style="border: 1px solid #ccc"></th>
-        <th colspan="3" style="border: 1px solid #ccc">Quiz 1</th> 
-        <th colspan="3" style="border: 1px solid #ccc">Quiz 2</th>
-        <th colspan="3" style="border: 1px solid #ccc">Quiz 3</th>
-        <th colspan="3" style="border: 1px solid #ccc">Quiz 4</th>
-        <th colspan="3" style="border: 1px solid #ccc">Quiz 5</th>
-        <th colspan="3" style="border: 1px solid #ccc">Quiz 6</th>
+        <th colspan="4" style="border: 1px solid #ccc">Quiz 1</th> 
+        <th colspan="4" style="border: 1px solid #ccc">Quiz 2</th>
+        <th colspan="4" style="border: 1px solid #ccc">Quiz 3</th>
+        <th colspan="4" style="border: 1px solid #ccc">Quiz 4</th>
+        <th colspan="4" style="border: 1px solid #ccc">Quiz 5</th>
+        <th colspan="4" style="border: 1px solid #ccc">Quiz 6</th>
     </thead>
 
     <tbody>
@@ -28,21 +28,27 @@
             <td style="border: 1px solid #ccc">Lesson</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
+            <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
+            <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
+            <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
+            <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
+            <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
+            <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
         </tr>
 
@@ -53,7 +59,7 @@
                         <td rowspan="{{count($element->chapter->lessons)}}" style="border: 1px solid #ccc">{{$element->chapter->chapter_name}}</td>
                     @endif
                     @foreach ( $element->chapter->lessons as $value )
-                        <td style="border: 1px solid #ccc">{{$value->lesson_name}}</td>
+                        <td style="border: 1px solid #ccc" raw="2">{{$value->lesson_name}}</td>
                         @foreach ( $value->quizze as $quiz )
                         @php
                             $student_quizzes = DB::table('student_quizzes')
@@ -62,9 +68,12 @@
                             ->orderByDesc('id')
                             ->first();
                         @endphp
-                        <td>{{@$student_quizzes->score}}</td>
-                        <td>{{@$student_quizzes->time}}</td>
-                        <td>
+                        <td style="border: 1px solid #ccc">{{@$student_quizzes->score}}</td>
+                        <td style="border: 1px solid #ccc">{{@$student_quizzes->time}}</td>
+                        @if( !empty($student_quizzes->id) )
+                        <td style="border: 1px solid #ccc">{{\Carbon\Carbon::parse($student_quizzes->created_at)->format('d-m-Y')}}</td>
+                        @endif
+                        <td style="border: 1px solid #ccc">
                             @if( !empty($student_quizzes->id) )
                             <a href="{{route('quizze_mistakes', ['id' => $student_quizzes->id])}}" class="btn btn-primary mistake_btn">
                                 View Mistakes
