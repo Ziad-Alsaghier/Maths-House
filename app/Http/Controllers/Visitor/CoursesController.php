@@ -530,21 +530,19 @@ class CoursesController extends Controller
         extract($_FILES['image']);
         $img_name = null;
         $tmp = null;
-        for ($i=0, $end = count($name); $i < $end; $i++) { 
-            if ( !empty($name[$i]) ) {
-                $img_state = false;
-                $extention_arr = ['jpg', 'jpeg', 'png', 'svg'];
-                $extention = explode('.', $name[$i]);
-                $extention = end($extention);
-                $extention = strtolower($extention);
-                if ( in_array($extention, $extention_arr)) {
-                    $img_name = now() . rand(1, 10000) . $name[$i];
-                    $img_name = str_replace([' ', ':', '-'], 'X', $img_name);
-                    $arr['image'] = $img_name;
-                    $tmp = $tmp_name[$i];
-                }
-                
+        if ( !empty($name) ) {
+            $img_state = false;
+            $extention_arr = ['jpg', 'jpeg', 'png', 'svg'];
+            $extention = explode('.', $name);
+            $extention = end($extention);
+            $extention = strtolower($extention);
+            if ( in_array($extention, $extention_arr)) {
+                $img_name = now() . rand(1, 10000) . $name;
+                $img_name = str_replace([' ', ':', '-'], 'X', $img_name);
+                $arr['image'] = $img_name;
+                $tmp = $tmp_name[$i];
             }
+            
         }
         $chapters = json_decode(Cookie::get('marketing'));
         $chapters = json_decode($chapters);
