@@ -57,8 +57,8 @@
         }
 
         .imgMistakeModal {
-            width: auto;
-            height: auto;
+            width: 70%;
+            max-height: 500px;
             object-fit: cover;
             object-position: center;
             border-radius: 15px;
@@ -221,7 +221,7 @@
                             </div>
 
                             <div class='p-3'
-                                style="width: 100% !important;display: flex;align-items: center;justify-content: center;">
+                                style="width: 100% !important;display: flex;align-items: center;justify-content: center;overflow: hidden;">
                                 <img class="imgMistakeModal" src="{{ asset('images/questions/' . $question->q_url) }}" />
                             </div>
 
