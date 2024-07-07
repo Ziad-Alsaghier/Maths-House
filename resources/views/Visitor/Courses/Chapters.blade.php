@@ -1078,23 +1078,23 @@
 </script>
 <script>
     $(document).ready(function() {
-        var allID = []
+        var allID = [];
         $(".chapter_item_check").click(function() {
+            allID = [];
 
             $(".chapter_item_check").each((val, ele) => {
                 console.log(ele)
                 if ($(ele).is(':checked')) {
                     var EleCheck = $(ele).attr("id");
-                    // console.log(EleCheck)
                     allID.push(EleCheck)
-                    console.log(allID)
                 }
                 // console.log("EleCheck", EleCheck)
             })
+
             if (!$(".chapter_item_check").is(':checked')) {
-                allID.push("faild");
+                allID = ["faild"]
             }
-            console.log("fild", allID)
+            console.log("All ID", allID)
 
             $.ajax({
                 url: "{{ route('api_courses_data') }}",
