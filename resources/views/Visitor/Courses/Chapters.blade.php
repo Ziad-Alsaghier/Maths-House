@@ -1091,10 +1091,10 @@
                 }
                 // console.log("EleCheck", EleCheck)
             })
-             if (!$(".chapter_item_check").is(':checked')) {
-                allID = [];
+            if (!$(".chapter_item_check").is(':checked')) {
+                allID.push("faild");
             }
-            console.log("fild",allID)
+            console.log("fild", allID)
 
             $.ajax({
                 url: "{{ route('api_courses_data') }}",
