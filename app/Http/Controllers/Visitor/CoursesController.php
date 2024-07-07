@@ -844,6 +844,16 @@ class CoursesController extends Controller
     }
 
     public function api_courses_data( Request $req ){
+        if ( count($req->chapters) == 0 ) {
+            return response()->json([
+                'chapters' => 0,
+                'lessons' => 0,
+                'questions' => 0,
+                'videos' => 0,
+                'pdf' => 0,
+                'quizs' => 0,
+            ]);
+        }
         $chapters = Chapter::whereIn('id', $req->chapters)
         ->pluck('id');
         $lessons = Lesson::whereIn('chapter_id', $chapters)
