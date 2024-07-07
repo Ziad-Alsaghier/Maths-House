@@ -55,7 +55,22 @@
                     @foreach ( $element->chapter->lessons as $value )
                         <td style="border: 1px solid #ccc">{{$value->lesson_name}}</td>
                         @foreach ( $value->quizze as $quiz )
-                        <td>{{$quiz->student_quizzes(auth()->user()->id)}}</td>
+                        @php
+                            $student_quizzes = DB::table('student_quizzes')
+                            ->where('student_id', auth()->user()->id)
+                            ->where('quizze_id', $quiz->id)
+                            ->orderByDesc('id')
+                            ->first();
+                        @endphp
+                        <td>{{@$student_quizzes->score}}</td>
+                        <td>{{@$student_quizzes->time}}</td>
+                        <td>
+                            @if( !empty($student_quizzes->id) )
+                            <a href="{{route('quizze_mistakes', ['id' => $student_quizzes->id])}}" class="btn btn-primary mistake_btn">
+                                View Mistakes
+                            </a>
+                            @endif
+                        </td>
                         {{-- <td>{{$quiz->student_quizzes(auth()->user()->id)->time}}</td>
                         <td>
                             <a href="{{route('quizze_mistakes', ['id' => $quiz->student_quizzes(auth()->user()->id)->id])}}" class="btn btn-primary mistake_btn">
