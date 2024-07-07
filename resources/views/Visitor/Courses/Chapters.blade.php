@@ -1093,8 +1093,8 @@
             })
              if (!$(".chapter_item_check").is(':checked')) {
                 allID = [];
-                console.log("fild",allID)
             }
+            console.log("fild",allID)
 
             $.ajax({
                 url: "{{ route('api_courses_data') }}",
