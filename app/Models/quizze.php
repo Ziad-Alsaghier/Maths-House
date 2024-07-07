@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Lesson; 
+use App\Models\Lesson;
 use App\Models\Question;
+use App\Models\StudentQuizze;
 
 class quizze extends Model
 {
@@ -41,5 +42,12 @@ class quizze extends Model
     public function mistakes()
     {
         return $this->belongsToMany(Question::class, 'student_quizze_mistakes');
+    }
+
+    public function student_quizzes( $id ){
+        return $this->hasMany(StudentQuizze::class, 'lesson_id')
+        ->where('student_id', $id)
+        ->orderByDesc('created_at')
+        ->first();
     }
 }
