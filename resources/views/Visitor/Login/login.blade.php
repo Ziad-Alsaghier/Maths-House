@@ -1,207 +1,377 @@
-
 @extends('layout.loginMaster')
-		<!--begin::Theme mode setup on page load-->
-		<!--end::Theme mode setup on page load-->
-		<!--begin::Root-->
-		@section('styleCssSection')
-			<style>
-				.py-20 {
-    padding-top: 21rem !important;
-    padding-bottom: 26rem !important;
-}
-			</style>
+<!--begin::Theme mode setup on page load-->
+<!--end::Theme mode setup on page load-->
+<!--begin::Root-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@section('styleCssSection')
+    <style>
+        .parContainer {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            row-gap: 35px;
+        }
 
-			
-		@endsection
-		@section('contentScript')
-		<script>
+        .parContainer>header {
+            width: 95%;
+            display: flex;
+            align-items: flex-start;
+        }
 
-			var defaultThemeMode = "light"; 
-			var themeMode; 
-			if ( document.documentElement ) { 
-				if ( document.documentElement.hasAttribute("data-bs-theme-mode")) { 
-					themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
-				 } else { if ( localStorage.getItem("data-bs-theme") !== null ) {
-					themeMode = localStorage.getItem("data-bs-theme"); 
-				} else {
-					 themeMode = defaultThemeMode; 
-					} } 
-					if (themeMode === "system") { 
-						themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; 
-					} document.documentElement.setAttribute("data-bs-theme", themeMode);
-				 }
-		
-		
-		<!--end::Theme mode setup on page load-->
-		<!--begin::Root-->
-		</script>
-	
-	@endsection
-	@if(auth()->check())
-	already loged in 
-	Your Name Is  : {{ auth()->user()->email }}
-	<br>
-	and Your Name Is  : {{ auth()->user()->name }} <a href="{{ route('logout') }}">Logout</a>
-		@else
-		@section('content')
-	@if(session()->has('success'))
-	{{ session()->get('success') }}
+        .parContainer>header>img {
+            padding-top: 20px;
+        }
+
+        .parContainer>.contentRe {
+            width: 95%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            row-gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .contentRe .headerTitle {
+            width: 50%;
+            font-size: 2.0rem;
+            line-height: 40px;
+            color: #727272;
+            font-weight: bold;
+            word-spacing: 5px;
+
+        }
+
+        .contentRe .headerTitle span:nth-child(2) {
+            color: #CF202F;
+        }
+
+        .contentRe .leftRe {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 !important;
+        }
+
+        .contentRe .centerRe {
+            width: 0.3%;
+            height: 100%;
+            border-radius: 20px;
+            background: #727272;
+
+        }
+
+        .contentRe .rightRe {
+            width: 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contentRe .leftRe .inputs {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 13px;
+            margin-bottom: 30px;
+        }
+
+        .firstInp,
+        .lastInp {
+            position: relative;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            row-gap: 5px;
+
+        }
+
+        .emailInp,
+        .passInp {
+            position: relative;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            row-gap: 5px;
+        }
+
+        .emailInp>input,
+        .passInp>input {
+            width: 100%;
+            outline: none;
+            border: none;
+            border-bottom: solid red;
+            padding: 10px 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .emailInp>span,
+        .passInp>span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: red;
+        }
+
+        .leftRe>button {
+            width: 50%;
+            border: none;
+            background: #CF202F;
+            padding: 10px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .leftRe>button:hover {
+            background: red;
+        }
+
+        .showPass,
+        .hidePass{
+            position: absolute;
+            right: 3%;
+            top: 30%;
+            font-size: 1.4rem !important;
+            cursor: pointer;
+        }
+
+
+        footer {
+            color: #727272;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        footer>a {
+            font-weight: 800 !important;
+            color: #CF202F;
+            transition: all 0.3s ease-in-out;
+        }
+
+        footer>a:hover {
+            color: red;
+        }
+    </style>
+@endsection
+{{-- Content page --}}
+
+@if (session()->has('email_session'))
+<div class="swal2-container swal2-center swal2-backdrop-show " id="alert_success"
+    style="overflow-y: auto;">
+    <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container"
+        class="swal2-popup swal2-modal swal2-icon-success swal2-show" tabindex="-1" role="dialog"
+        aria-live="assertive" aria-modal="true" style="display: grid;"><button type="button"
+            class="swal2-close" aria-label="Close this dialog" style="display: none;">×</button>
+        <ul class="swal2-progress-steps" style="display: none;"></ul>
+        <div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;">
+            <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);">
+            </div>
+            <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
+            <div class="swal2-success-ring"></div>
+            <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+            <div class="swal2-success-circular-line-right"
+                style="background-color: rgb(255, 255, 255);"></div>
+        </div><img class="swal2-image" style="display: none;">
+        <h2 class="swal2-title" id="swal2-title" style="display: block;">Success!</h2>
+        <div class="swal2-html-container" id="swal2-html-container" style="display: block;">
+            You Should Verification Your Account
+        </div><input class="swal2-input" style="display: none;"><input type="file" class="swal2-file"
+            style="display: none;">
+        <div class="swal2-range" style="display: none;"><input type="range"><output></output></div>
+        <select class="swal2-select" style="display: none;"></select>
+        <div class="swal2-radio" style="display: none;"></div><label for="swal2-checkbox"
+            class="swal2-checkbox" style="display: none;"><input type="checkbox"><span
+                class="swal2-label"></span></label>
+        <textarea class="swal2-textarea" style="display: none;"></textarea>
+        <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;">
+        </div>
+        <div class="swal2-actions" style="display: flex;">
+            <div class="swal2-loader"></div>
+            <button type="button" class="swal2-confirm btn btn-primary" id="btn_hidden" aria-label=""
+                style="display: inline-block;">OK</button>
+            <button type="button" class="swal2-deny" aria-label=""
+                style="display: none;">No</button><button type="button" class="swal2-cancel"
+                aria-label="" style="display: none;">Cancel</button>
+        </div>
+        <div class="swal2-footer" style="display: none;"></div>
+        <div class="swal2-timer-progress-bar-container">
+            <div class="swal2-timer-progress-bar" style="display: none;"></div>
+        </div>
+    </div>
+</div>
 @endif
 
+<div class="parContainer">
+    <header>
+        <img alt="Logo" src="{{ asset('assets/media/logos/mathshouse_whiteLogo.png') }}" />
+    </header>
 
+    <div class="contentRe">
+        <form  action="{{route('market_ch')}}" method="POST" novalidate="novalidate" class="leftRe">
+            @csrf
+            <div class="headerTitle">
+                <span>Login to</span>
+                <span>Maths House</span>
+                <div>Welcome Back</div>
+            </div>
 
-<div class="d-flex flex-column flex-root" id="kt_app_root">
-	<!--begin::Page bg image-->
-	<style>body { background-image: url('assets/media/auth/bg4.jpg'); } [data-bs-theme="dark"] body { background-image: url('assets/media/auth/bg4-dark.jpg'); }</style>
-	<!--end::Page bg image-->
-	<!--begin::Authentication - Sign-in -->
-	<div class="d-flex flex-column flex-column-fluid flex-lg-row">
-		<!--begin::Aside-->
-		<div class="d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10">
-			<!--begin::Aside-->
-			<div class="d-flex flex-center flex-lg-start flex-column">
-				<!--begin::Logo-->
-				<a href="index.html" class="mb-7">
-					<img alt="Logo" src="assets/media/logos/Maths-house.png" width = '300px' />
-				</a>
-				<!--end::Logo-->
-				<!--begin::Title-->
-				<h2 class="text-white fw-normal m-0">Welcome To Math House</h2>
-				<!--end::Title-->
-			</div>
-			<!--begin::Aside-->
-		</div>
-		<!--begin::Aside-->
-		<!--begin::Body-->
-		<div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12 p-lg-20">
-			<!--begin::Card-->
-			<div class="bg-body d-flex flex-column align-items-stretch flex-center rounded-4 w-md-600px p-20">
-				<!--begin::Wrapper-->
-				<div class="d-flex flex-center flex-column flex-column-fluid px-lg-10 pb-15 pb-lg-20">
-					<!--begin::Form-->
-					<form class="form w-100" action="{{ route('market_ch') }}" method="POST" novalidate="novalidate" id="kt_sign_in_form">
-						@csrf
-						<!--begin::Heading-->
-						<div class="text-center mb-11">
-							<!--begin::Title-->
-							<h1 class="text-gray-900 fw-bolder mb-3">Sign In</h1>
-							<!--end::Title-->
-							<!--begin::Subtitle-->
-							<div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
-							<!--end::Subtitle=-->
-						</div>
-						<!--begin::Heading-->
-						
-						<!--begin::Separator-->
-						
-						<!--end::Separator-->
-						<!--begin::Input group=-->
-						<div class="fv-row mb-8">
-							@error('error')
-							<span style="color: red">{{ $message }}</span>
-						@enderror
-							<!--begin::Email-->
-							<input type="text" placeholder="Email" name="email" autocomplete="off" value="ziad57@yahoo.com" data-kt-translate="sign-in-input-email" class="form-control form-control-solid" />
-							@error('email')
-							<span> 	{{ $message }} </span>
-							@enderror
-							<!--end::Email-->
-						</div>
-						<!--end::Input group=-->
-						<div class="fv-row mb-3">
-							<!--begin::Password-->
-							<input type="password" placeholder="Password" name="password" value="Makemesmile123" autocomplete="off" data-kt-translate="sign-in-input-password" class="form-control form-control-solid" />
-							@error('password')
-							<span>	{{ $message }} </span>
-								@enderror	
-							<!--end::Password-->
-						</div>
-						<!--end::Input group=-->
-						<!--begin::Wrapper-->
-						<div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-							<div></div>
-							<!--begin::Link-->
-							{{-- <a href="authentication/layouts/creative/reset-password.html" class="link-primary">Forgot Password ?</a> --}}
-							<!--end::Link-->
-						</div>
-						<!--end::Wrapper-->
-						<!--begin::Submit button-->
-						<div class="d-grid mb-10">
-							<button type="submit" value="Sign In"  class="btn btn-primary">
-								Sign In
-							</button>
-						</div>
-						<!--end::Submit button-->
-						<!--begin::Sign up-->
-						<div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet? 
-						<a href="{{ route('sign_up') }}" class="link-primary">Sign up</a></div>
-						<!--end::Sign up-->
-					</form>
-					<!--end::Form-->
-				</div>
-				<!--end::Wrapper-->
-				<!--begin::Footer-->
-				<div class="d-flex flex-stack px-lg-10">
-					<!--begin::Languages-->
-			
-				</div>
-				<!--end::Footer-->
-			</div>
-			<!--end::Card-->
-		</div>
-		<!--end::Body-->
-	</div>
-	<!--end::Authentication - Sign-in-->
+            <div class="inputs">
+
+                @error('error')
+                    <span style="color: red">{{ $message }}</span>
+                @enderror
+                <div class="emailInp">
+                    <input type="email" id="emailInput" name="email" placeholder="Email">
+                    <span class="d-none">Please Set Your Email</span>
+                    <span class="d-none">Please Set '@' After Your Email Name</span>
+                    @error('email')
+                        <span> {{ $message }} </span>
+                    @enderror
+                </div>
+                <div class="passInp">
+                    <input type="password" id="passInput" name="password" placeholder="Password">
+                    <span class="d-none">Please Set Your Password</span>
+                    <i class="fa-solid fa-eye showPass d-none"></i>
+                    <i class="fa-solid fa-eye-slash hidePass"></i>      
+                    @error('password')
+                        <span> {{ $message }} </span>
+                    @enderror
+                </div>
+            </div>
+            <button type="submit" id="sublogin">Log In</button>
+        </form>
+
+        <div class="centerRe"></div>
+        <div class="rightRe">
+            <img alt="Logo" src="{{ asset('assets/media/logos/mathshouse_white_logoHeader.png') }}" />
+        </div>
+    </div>
+
+    <footer>
+        You don't have an account? <a href="{{ route('sign_up') }}">Sign Up</a>
+    </footer>
 </div>
-		
-	@endsection
-	
-	@section('script')
-	 <!--end::Root-->
-		<!--begin::Javascript-->
-		<script>var hostUrl = "assets/";</script>
-		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
-		<script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
-		<script src="{{asset('assets/js/scripts.bundle.js')}}"></script>
-		<!--end::Global Javascript Bundle-->
-		<!--begin::Custom Javascript(used for this page only)-->
-		<script src="{{asset('assets/js/custom/authentication/sign-in/general.js')}}"></script>
-		<script src="{{asset('assets/js/custom/authentication/sign-in/i18n.js')}}"></script>
-		<!--end::Custom Javascript-->
-		<!--end::Javascript-->
-		<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
-		<script src="{{asset('assets/js/all.min.js')}}"></script>
-		<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
-		<script src="{{asset('assets/js/all.min.js')}}"></script>
-	@endsection
-	@endif
-	
-	
+
+@section('script')
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode;
+        if (document.documentElement) {
+            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+            } else {
+                if (localStorage.getItem("data-bs-theme") !== null) {
+                    themeMode = localStorage.getItem("data-bs-theme");
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
+            if (themeMode === "system") {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
+            document.documentElement.setAttribute("data-bs-theme", themeMode);
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $(".hidePass").click(function() {
+                $(this).addClass("d-none")
+                $(".showPass").removeClass("d-none")
+                $("#passInput").attr("type", "text");
+            })
+            $(".showPass").click(function() {
+                $(this).addClass("d-none")
+                $(".hidePass").removeClass("d-none")
+                $("#passInput").attr("type", "password");
+            })
+
+            function checkFaild(ele) {
+                if ($(ele).val() == "") {
+                    $(ele).next().removeClass("d-none")
+                } else {
+                    $(ele).next().addClass("d-none")
+                }
+            }
+
+            function checkFaildEmail(ele) {
+                if ($(ele).val().includes("@")) {
+                    $(ele).next().next().addClass("d-none")
+                } else {
+                    $(ele).next().next().removeClass("d-none")
+                }
+            }
 
 
-
-	
-
-
-
-
-
-
-
+            $("#emailInput").keyup(function() {
+                checkFaild($(this));
+                // checkFaildEmail($(this));
+            })
+            $("#passInput").keyup(function() {
+                checkFaild($(this));
+            })
 
 
+            $("#sublogin").click(function(e) {
+                var userEmail = $("#emailInput").val();
+                var userPass = $("#passInput").val();
 
 
+                if (userEmail == "") {
+                    $("#emailInput").next().removeClass("d-none");
+                    e.preventDefault();
+                } else {
+                    $("#emailInput").next().addClass("d-none");
+                }
 
+                if (userPass == "") {
+                    $("#passInput").next().removeClass("d-none");
+                    e.preventDefault();
+                } else {
+                    $("#passInput").next().addClass("d-none");
+                }
 
-
-
-
-
-
-
-
-
-
-
-
+            })
+        })
+    </script>
+    <script>
+        var hostUrl = "assets/";
+    </script>
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    <script src="assets/js/scripts.bundle.js"></script>
+    <!--end::Global Javascript Bundle-->
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script src="assets/js/custom/authentication/sign-in/general.js"></script>
+    <script src="assets/js/custom/authentication/sign-in/i18n.js"></script>
+    <!--end::Custom Javascript-->
+    <!--end::Javascript-->    
+    @if (session()->has('email_session'))
+        <script>
+            let btn = document.getElementById('btn_hidden');
+            let alert = document.getElementById('alert_success');
+            btn.onclick = function() {
+                alert.classList.add("d-none");
+            };
+        </script>
+        <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+        @php
+            session()->forget('email_session');
+        @endphp
+    @endif
+@endsection
