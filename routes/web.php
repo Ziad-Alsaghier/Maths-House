@@ -423,6 +423,8 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Report/Payment','ad_payment_report')->name('ad_payment_report');
         Route::get('/Report/Course','ad_course_report')->name('ad_course_report');
         Route::get('/Report/Question','ad_exam_report')->name('ad_question_report');
+        Route::get('/Report/ScoreSheet','ad_score_sheet_report')->name('ad_score_sheet_report');
+        Route::get('/Report/ScoreSheet/Show/{id}','score_sheet_student')->name('score_sheet_student');
         Route::get('/Report/Question/Filter','ad_report_filter_exam')->name('ad_report_filter_question');
     });
 
@@ -463,6 +465,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
     });
 
     Route::controller(DomPdfController::class)->group(function(){
+        Route::get('/DiaReport/{id}','dia_exam_report_pdf')->name('dia_exam_report_pdf');
         Route::post('Exam/PDF', 'stu_quize_pdf')->name('stu_quize_pdf');
     });
 

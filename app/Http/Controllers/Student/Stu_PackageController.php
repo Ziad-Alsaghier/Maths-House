@@ -56,21 +56,18 @@ class Stu_PackageController extends Controller
         $img_name = null;
         $image = false;
         $tmp = null;
-        for ($i=0, $end = count($name); $i < $end; $i++) { 
-            if ( !empty($name[$i]) ) {
-                    $img_state = false;
-                    $extention_arr = ['jpg', 'jpeg', 'png', 'svg'];
-                    $extention = explode('.', $name[$i]);
-                    $extention = end($extention);
-                    $extention = strtolower($extention);
-                    if ( in_array($extention, $extention_arr)) {
-                        $img_name = now() . rand(1, 10000) . $name[$i];
-                        $img_name = str_replace([' ', ':', '-'], 'X', $img_name);
-                        $arr['image'] = $img_name;
-                        $image = true;
-                        $tmp = $tmp_name[$i];
-                    }
-
+        if ( !empty($name) ) {
+            $img_state = false;
+            $extention_arr = ['jpg', 'jpeg', 'png', 'svg'];
+            $extention = explode('.', $name);
+            $extention = end($extention);
+            $extention = strtolower($extention);
+            if ( in_array($extention, $extention_arr)) {
+                $img_name = now() . rand(1, 10000) . $name;
+                $img_name = str_replace([' ', ':', '-'], 'X', $img_name);
+                $arr['image'] = $img_name;
+                $image = true;
+                $tmp = $tmp_name;
             }
         }
         
@@ -207,9 +204,8 @@ class Stu_PackageController extends Controller
                 ]);
             }
         }
-        if ( $image ) {
-            move_uploaded_file( $tmp, 'images/payment_reset/' . $img_name);
-        }
+        move_uploaded_file( $tmp, 'images/payment_reset/' . $img_name);
+        
         return view('Student.Order.Order', compact('package', 'price', 'p_method'));
     }
 

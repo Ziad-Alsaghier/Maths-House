@@ -80,12 +80,6 @@
                             </a>
                             @endif
                         </td>
-                        {{-- <td>{{$quiz->student_quizzes(auth()->user()->id)->time}}</td>
-                        <td>
-                            <a href="{{route('quizze_mistakes', ['id' => $quiz->student_quizzes(auth()->user()->id)->id])}}" class="btn btn-primary mistake_btn">
-                                View Mistakes
-                            </a>
-                        </td> --}}
                         @endforeach
                     </tr>
                     @endforeach

@@ -251,4 +251,19 @@ class Ad_ReportsController extends Controller
         'questions', 'exams', 'data', 'exam_items'));
     }
 
+    public function ad_score_sheet_report( Request $req ){
+        $students = User::where('position', 'student')
+        ->get();
+
+        return view('Admin.Reports.ScoreSheet.ScoreSheet', compact('students'));
+    }
+
+    public function score_sheet_student( $user_id ){
+        $payment_req = PaymentRequest::
+        where('user_id', $user_id)
+        ->get();
+
+        return view('Admin.Reports.ScoreSheet.Student_ScoreSheet', compact('payment_req', 'user_id'));
+    } 
+
 }
