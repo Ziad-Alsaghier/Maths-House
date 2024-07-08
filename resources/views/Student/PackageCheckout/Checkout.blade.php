@@ -316,6 +316,7 @@
 				@csrf
 				<input name="promo_code" class="my-3 form-control" type="search" placeholder="Coupon Code" aria-label="Search">
 				<button class="btn btn2">Apply Coupon</button>
+			
 			</form>
 		</div>
 	</div>
