@@ -110,7 +110,7 @@ class V_DiaExamController extends Controller
                 ->first();
                 $grid_ans = @$question->g_ans[0]->grid_ans;
                 $answer = $req->q_grid_ans[$i];
-                if ($grid_ans == $answer) {
+                if ( floatval($grid_ans) == floatval($answer) ) {
                     $deg++;
                 } else {
                     $mistakes[$question->lessons->chapter->course->id] = $question;
