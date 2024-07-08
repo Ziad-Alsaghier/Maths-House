@@ -179,12 +179,23 @@ class Stu_MyCourseController extends Controller
             ->first();
 
             $stu_quizze = StudentQuizze::where('student_id', auth()->user()->id)
-                ->with('quizze')
-                ->get();
+            ->where('score', '>=', $quizze->pass_score)
+            ->with('quizze')
+            ->get();
+
+            $solve_quizze = StudentQuizze::where('student_id', auth()->user()->id)
+            ->where('score', '>=', $quizze->pass_score)
+            ->where('quizze_id', $quizze->id)
+            ->first();
+
+            if ( !empty($solve_quizze) ) {
+                session()->flash('faild', 'You Passed The Quiz Last Time');
+                return redirect()->back();
+            }
 
             foreach ($stu_quizze as $item) {
                 if ($item->quizze->quizze_order < $quizze->quizze_order) {
-                    session()->flash('faild', 'You Must Pass Last Quizze First');
+                    session()->flash('faild', 'You Must Pass Last Quiz First');
                     return redirect()->back();
                 }
             }
