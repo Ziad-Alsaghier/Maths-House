@@ -615,8 +615,7 @@
                      
                      
                          <section>
-                             <form class="col-12 d-flex flex-column justify-content-center align-items-center" style="row-gap: 3rem"
-                                 action="{{ route('course_payment_money') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('payment_package', ['id' => $package->id])}}" class="col-12 d-flex flex-column justify-content-center align-items-center" style="row-gap: 3rem" method="POST" enctype="multipart/form-data">
                                  @csrf
                                  <div class="col-9 d-flex align-items-center justify-content-center">
                                      <h1 style="color: #CF202F">Check Out</h1>
@@ -647,6 +646,19 @@
                      
                                          @foreach ($payment_methods as $item)
                      
+                                         <div class="radio-button">
+                                            <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
+                                                class="radio-button__input" type="radio">
+                                            <label for="radio{{ $item->id }}" class="radio-button__label">
+                                                <div class="">
+                                                    <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
+                                                        alt="">
+                                                    <span class="radio-button__custom"></span>
+                                                    {{ $item->payment }}
+                                                </div>
+                                            </label>
+                                        </div>
+                                        
                                              <div class="radio-button">
                                                  <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
                                                      class="radio-button__input" type="radio">
