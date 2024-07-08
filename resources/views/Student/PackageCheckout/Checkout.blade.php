@@ -368,6 +368,8 @@
                          </section> --}}
 
 
+                     
+                     
                          <section>
                              <form class="col-12 d-flex flex-column justify-content-center align-items-center"
                                  style="row-gap: 3rem" action="{{ route('course_payment_money') }}" method="POST"
@@ -386,17 +388,17 @@
                                          <div class="col-12 d-flex align-items-start justify-content-start"
                                              style="column-gap: 10px;">
                                              <span class="text-align-center">Product:</span>
-                                             <span class=" text-align-center">Package Name</span>
+                                             <span class=" text-align-center">{{$package->name}}</span>
                                          </div>
                                          <div class="col-12 d-flex align-items-start justify-content-start"
                                              style="column-gap: 10px;">
                                              <span class="text-align-center">Subtotal:</span>
-                                             <span class=" text-align-center">$111111</span>
+                                             <span class=" text-align-center">${{$package->price}}</span>
                                          </div>
                                          <div class="col-12 d-flex align-items-start justify-content-start"
                                              style="column-gap: 10px;">
                                              <span class="text-align-center" style="color: #CF202F">Total:</span>
-                                             <span class=" text-align-center">$11111</span>
+                                             <span class=" text-align-center">${{$package->price}}</span>
                                          </div>
                                      </div>
                                      {{-- Right Section --}}
@@ -432,6 +434,7 @@
                                          </label> --}}
 
 
+                     
                                              <div class="radio-button">
                                                  <input value="{{ $item->id }}" name="payment_method_id"
                                                      id="radio{{ $item->id }}" class="radio-button__input"
