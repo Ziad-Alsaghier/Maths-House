@@ -16,6 +16,7 @@
         <th>Date</th> 
         <th>Score</th> 
         <th>Time</th> 
+        <th>Report</th>
         <th>Recommendation</th>
     </thead>
 
@@ -38,42 +39,47 @@
                 {{$item->time}}
             </td> 
             <td>
-            <button class="btn btn-primary mistake_btn">
-                Recommendation
-            </button> 
-            
-<div class="app-email card my-3 mistakes_questions d-none">
-    <div class="border-0">
-        <div class="row g-0  p-3 align-items-center">
-            @php
-                $arr_id = [];
-                $ch_arr = [];
-            @endphp
-            @foreach ( $item->mistakes as $item )
-            @if ( !isset($ch_arr[$item->question->lessons->chapter->chapter_name]) )
-            <table class="table">
-                <tr>
-                    <td>
-                    Chapter => {{$item->question->lessons->chapter->chapter_name}}
-                    </td>
-                    <td>
-                        <a href="{{route('buy_chapter', ['id' => $item->question->lessons->chapter->id])}}" class="btn btn-primary">
-                            Buy
-                        </a>
-                        @php
-                            $arr_id[] = $item->question->lessons->chapter->id;
-                        @endphp
-                    </td>
-                </tr>
-            </table>
-            @endif
-            @php
-                $ch_arr[$item->question->lessons->chapter->chapter_name] = $item->question->lessons->chapter->chapter_name;
-            @endphp
-            @endforeach
-        </div>
-    </div>
-</div>
+                <a href="{{route('dia_exam_report_pdf', ['id' => $item->id])}}" class="btn btn-primary">
+                    Report
+                </a> 
+            </td>
+            <td>
+                <button class="btn btn-primary mistake_btn">
+                    Recommendation
+                </button> 
+                            
+                <div class="app-email card my-3 mistakes_questions d-none">
+                    <div class="border-0">
+                        <div class="row g-0  p-3 align-items-center">
+                            @php
+                                $arr_id = [];
+                                $ch_arr = [];
+                            @endphp
+                            @foreach ( $item->mistakes as $item )
+                            @if ( !isset($ch_arr[$item->question->lessons->chapter->chapter_name]) )
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                    Chapter => {{$item->question->lessons->chapter->chapter_name}}
+                                    </td>
+                                    <td>
+                                        <a href="{{route('buy_chapter', ['id' => $item->question->lessons->chapter->id])}}" class="btn btn-primary">
+                                            Buy
+                                        </a>
+                                        @php
+                                            $arr_id[] = $item->question->lessons->chapter->id;
+                                        @endphp
+                                    </td>
+                                </tr>
+                            </table>
+                            @endif
+                            @php
+                                $ch_arr[$item->question->lessons->chapter->chapter_name] = $item->question->lessons->chapter->chapter_name;
+                            @endphp
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         @endforeach
