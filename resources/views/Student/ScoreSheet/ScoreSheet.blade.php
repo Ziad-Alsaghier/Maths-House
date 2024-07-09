@@ -31,26 +31,32 @@
             <td style="border: 1px solid #ccc">Time</td>
             <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
+            <td style="border: 1px solid #ccc">Report</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
             <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
+            <td style="border: 1px solid #ccc">Report</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
             <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
+            <td style="border: 1px solid #ccc">Report</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
             <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
+            <td style="border: 1px solid #ccc">Report</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
             <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
+            <td style="border: 1px solid #ccc">Report</td>
             <td style="border: 1px solid #ccc">Score</td>
             <td style="border: 1px solid #ccc">Time</td>
             <td style="border: 1px solid #ccc">Date</td>
             <td style="border: 1px solid #ccc">View Mistake</td>
+            <td style="border: 1px solid #ccc">Report</td>
         </tr>
 
         @foreach ( $payment_req as $item )
@@ -81,6 +87,13 @@
                                 @if( !empty($student_quizzes->id) )
                                 <a href="{{route('quizze_mistakes', ['id' => $student_quizzes->id])}}" class="btn btn-primary mistake_btn">
                                     View Mistakes
+                                </a>
+                                @endif
+                            </td>
+                            <td style="border: 1px solid #ccc">
+                                @if( !empty($student_quizzes->id) )
+                                <a href="{{route('quizze_report', ['id' => $student_quizzes->id])}}" class="btn btn-primary mistake_btn">
+                                    Report
                                 </a>
                                 @endif
                             </td>

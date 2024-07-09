@@ -467,6 +467,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
     Route::controller(DomPdfController::class)->group(function(){
         Route::get('/DiaReport/{id}','dia_exam_report_pdf')->name('dia_exam_report_pdf');
         Route::post('Exam/PDF', 'stu_quize_pdf')->name('stu_quize_pdf');
+        Route::get('Quiz/Report/{id}', 'quizze_report')->name('quizze_report');
     });
 
     Route::controller(Stu_PackageController::class)->group(function(){

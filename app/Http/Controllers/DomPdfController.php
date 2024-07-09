@@ -9,6 +9,7 @@ use App\Models\quizze;
 use App\Models\Question;
 use App\Models\DiagnosticExamsHistory;
 use App\Models\DiagnosticExam;
+use App\Models\StudentQuizze;
 
 use PDF;
 
@@ -110,6 +111,60 @@ class DomPdfController extends Controller
     
         // Stream the PDF to the browser
         return $pdf->stream('DiaExam.pdf');
+    }
+
+    public function quizze_report( $id ){
+        // Fetch the data
+        $data = StudentQuizze::where('id', $id)->first();
+        $quiz = quizze::where('id', $data->quizze_id)->first();
+        $quiz_time = $quiz->time;
+    
+        // Parse quiz time
+        $quiz_time_parts = explode('H', $quiz_time);
+        $e_hours = isset($quiz_time_parts[0]) ? intval($quiz_time_parts[0]) : 0;
+        $e_minutes = isset($quiz_time_parts[1]) ? intval($quiz_time_parts[1]) : 0;
+    
+        // Parse data time
+        $data_time = explode(':', $data->time);
+        $hours = isset($data_time[0]) ? intval($data_time[0]) : 0;
+        $minutes = isset($data_time[1]) ? intval($data_time[1]) : 0;
+        $seconds = isset($data_time[2]) ? intval($data_time[2]) : 0;
+    
+        // Calculate the times in seconds
+        $e_time = $e_hours * 60 * 60 + $e_minutes * 60;
+        $time = $hours * 60 * 60 + $minutes * 60 + $seconds;
+        $delay = $e_time - $time;
+        $color = false;
+
+        // Determine delay status
+        if ($delay == 0) {
+            $delay = 'On Time';
+        } else {
+            $delay = -$delay;
+            $h = intval($delay / (60 * 60));
+            $delay = $delay - $h * 60 * 60;
+            $m = intval($delay / 60);
+            $s = $delay - $m * 60;
+            $color = true;        
+            $delay = "Delay $h Hours $m Minutes $s Seconds";
+        }
+    
+        // Prepare the data to be passed to the view
+        $report = [
+            'date' => $data->date,
+            'time' => $data->time,
+            'delay' => $delay,
+            'color' => $color
+        ];
+    
+        // Generate the PDF
+        $pdf = PDF::loadView('Quiz', compact('report'));
+        
+        // Optionally, save the PDF to a file
+        // $pdf->save(storage_path('invoices/invoice.pdf'));
+    
+        // Stream the PDF to the browser
+        return $pdf->stream('Quiz.pdf');
     }
 
 }
