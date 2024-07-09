@@ -684,7 +684,7 @@
                                     <span>Answer:</span>
                                     <div class="input_val">
 
-                                        <input type="number" step="0.001" name='q_grid_ans[]' value="0">
+                                        <input name='q_grid_ans[]' value="0">
                                     </div>
                                 </div>
                                 <div class="section-value">

@@ -194,7 +194,7 @@ class V_QuestionController extends Controller
            ->first();
            $arr['question_id'] = $solve->q_id;
            $stu_solve = $question->mcq[0]->mcq_answers;
-           if ( floatval($stu_solve) == floatval(isset($solve->answer) ? $solve->answer : 0) ) {
+           if ( $stu_solve == isset($solve->answer) ? $solve->answer : 0 ) {
                 $ans = true;
            }
         }
@@ -207,6 +207,18 @@ class V_QuestionController extends Controller
             $solve = $question->g_ans;
 
             foreach ($solve as $item) {
+                if ( strpos($req->q_grid_ans[0], '/') ) {
+                    $arr_ans = explode('/', $req->q_grid_ans[0]);
+                    $answer = floatval($arr_ans[0]) / floatval($arr_ans[1]);
+                    if ( floatval($item->grid_ans) == $answer || 
+                    (floatval($item->grid_ans) - $answer < .06 && floatval($item->grid_ans) - $answer > 0 ) ||
+                    ($answer - floatval($item->grid_ans) < .06 && $answer - floatval($item->grid_ans) > 0 ) ) {
+                        $ans = true;
+                    }
+                    else {
+                        $mistakes[] = $question;
+                    }
+                }
                 if ( $item->grid_ans == $req->q_grid_ans[0] ) {
                     $ans = true;
                 }
