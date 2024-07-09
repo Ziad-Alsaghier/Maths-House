@@ -30,6 +30,7 @@
 
         .list_cont>i {
             font-size: 30px;
+            color: #CF202F;
             cursor: pointer;
             margin-right: 25px
         }
@@ -37,13 +38,15 @@
         .list_item {
             position: absolute;
             top: 0;
-            right: 35px;
+            right: 40px;
+            width: 200px;
             border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #efefef;
+            background: #CF202F;
+            border: 3px solid #CF202F;
             z-index: 10000;
             overflow: hidden;
         }
@@ -53,14 +56,14 @@
             text-align: center;
             font-size: 1.3rem;
             padding: 10px 20px;
-            color: #000;
+            color: #fff;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
         }
 
         .list_item>span:hover {
-            background: #cacaca;
-            color: #fff;
+            background: #fff;
+            color: #CF202F;
 
         }
 
@@ -231,20 +234,6 @@
 
                     <a href="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" class="ansPdf" download>Dwonload Pdf
                         {{ $loop->iteration }}</a>
-                    @if (!empty($q_ans->ans_video))
-                        <div class="list_cont">
-                            <i class="fa-solid fa-ellipsis-vertical iconList"></i>
-                            <div class="list_item d-none">
-                                @foreach ($reports as $report)
-                                    <span class="report_item">
-                                        <input type="hidden" class="report_val" value="{{ $report }}" />
-                                        <input type="hidden" class="q_ans_val" value="{{ $q_ans }}" />
-                                        {{ $report->list }}
-                                    </span>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
                 </div>
 
 
@@ -288,11 +277,27 @@
                             </div>
 
                             <div
-                                style="width: 100% !important;display: flex;align-items: center;justify-content: center;overflow: hidden;">
+                                style="    width: 100% !important;display: flex;align-items: flex-start;justify-content: space-around;column-gap: 100px; overflow: hidden;padding: 10px 0;">
+
                                 <iframe width="560" height="315" src="{{ $q_ans->ans_video }}"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></iframe>
+
+                                @if (!empty($q_ans->ans_video))
+                                    <div class="list_cont">
+                                        <i class="fa-solid fa-ellipsis-vertical iconList"></i>
+                                        <div class="list_item d-none">
+                                            @foreach ($reports as $report)
+                                                <span class="report_item">
+                                                    <input type="hidden" class="report_val" value="{{ $report }}" />
+                                                    <input type="hidden" class="q_ans_val" value="{{ $q_ans }}" />
+                                                    {{ $report->list }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="modal-footer">
@@ -318,7 +323,8 @@
             })
             $(".iconList").click(function() {
                 console.log("ssss")
-                $(".list_item").toggleClass("d-none")
+                $(".list_item").addClass("d-none")
+                $(this).next().toggleClass("d-none")
             })
         })
 
@@ -340,8 +346,8 @@
                             'list_id': report_obj.id,
                             'q_video_id': q_ans_obj.id
                         }
-                        
-                        $(".list_item").toggleClass("d-none")
+
+                        $(".list_item").addClass("d-none")
 
                         $.ajax("{{ route('report_q_video_api') }}", {
                             type: 'GET', // http method
@@ -349,7 +355,7 @@
                                 obj: obj
                             }, // data to submit
                             success: function(data) {
-                                console.log("asdasd",data);
+                                console.log("asdasd", data);
                             },
                         });
                     }
