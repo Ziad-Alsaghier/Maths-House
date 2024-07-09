@@ -48,14 +48,13 @@ class Logincontroller extends Controller
                         }
                         if(!password_verify($request->input('password'),$user->password)){
                                 return redirect()->route('login.index')->withErrors(['error'=>'The  Password Invalid']);
-
                         }
                         $now = Carbon::now();
-                        $timeMinus120Minutes = $now->subMinutes(120);
+                        $timeMinus180Minutes = $now->subMinutes(180);
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
-                        ->where('created_at', '>=', $timeMinus120Minutes)
+                        ->where('created_at', '>=', $timeMinus180Minutes)
                         ->first();
                         if ( $l_user ) {
                                 return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
