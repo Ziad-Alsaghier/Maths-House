@@ -627,7 +627,7 @@
                                 1
                             </span>
                             <p>
-                                {{ $question->question }}
+                                {!! $question->question !!}
                             </p>
                         </div>
                         <div class="img-question">
