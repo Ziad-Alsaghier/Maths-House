@@ -15,12 +15,12 @@
     <thead>
         <th style="border: 1px solid #ccc"></th>
         <th style="border: 1px solid #ccc"></th>
-        <th colspan="4" style="border: 1px solid #ccc">Quiz 1</th> 
-        <th colspan="4" style="border: 1px solid #ccc">Quiz 2</th>
-        <th colspan="4" style="border: 1px solid #ccc">Quiz 3</th>
-        <th colspan="4" style="border: 1px solid #ccc">Quiz 4</th>
-        <th colspan="4" style="border: 1px solid #ccc">Quiz 5</th>
-        <th colspan="4" style="border: 1px solid #ccc">Quiz 6</th>
+        <th colspan="5" style="border: 1px solid #ccc">Quiz 1</th> 
+        <th colspan="5" style="border: 1px solid #ccc">Quiz 2</th>
+        <th colspan="5" style="border: 1px solid #ccc">Quiz 3</th>
+        <th colspan="5" style="border: 1px solid #ccc">Quiz 4</th>
+        <th colspan="5" style="border: 1px solid #ccc">Quiz 5</th>
+        <th colspan="5" style="border: 1px solid #ccc">Quiz 6</th>
     </thead>
 
     <tbody>
