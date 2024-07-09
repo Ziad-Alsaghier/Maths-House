@@ -98,7 +98,7 @@
     <div class="border-0">
         <div class="row g-0  p-3"> 
             @if ( !empty($question->question) )
-            {!$question->question!}
+            {!! $question->question !!}
             @endif
             @if ( !empty($question->q_url) )
             <img style="width: 200px; height: 200px;"
