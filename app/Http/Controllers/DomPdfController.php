@@ -77,16 +77,20 @@ class DomPdfController extends Controller
         $e_time = $e_hours * 60 * 60 + $e_minutes * 60;
         $time = $hours * 60 * 60 + $minutes * 60 + $seconds;
         $delay = $e_time - $time;
-    
+        $color = false;
+
         // Determine delay status
-        if ($delay > 0) {
+        if ($delay == 0) {
             $delay = 'On Time';
         } else {
-            $delay = -$delay;
+            $delay = $delay;
             $h = intval($delay / (60 * 60));
             $delay = $delay - $h * 60 * 60;
             $m = intval($delay / 60);
             $s = $delay - $m * 60;
+            if ( $delay > 0 ) {
+                $color = true;
+            }            
             $delay = "Delay $h Hours $m Minutes $s Seconds";
         }
     
@@ -95,6 +99,7 @@ class DomPdfController extends Controller
             'date' => $data->date,
             'time' => $data->time,
             'delay' => $delay,
+            'color' => $color
         ];
     
         // Generate the PDF

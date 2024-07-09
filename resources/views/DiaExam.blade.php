@@ -50,6 +50,12 @@ table.styled-table tbody tr:last-of-type {
 table.styled-table tbody tr:hover {
     background-color: #f1f1f1;
 }
+table .delay{
+    color: #ff0000;
+}
+table .not_delay{
+    color: #009879;
+}
 
     </style>
 </head>
@@ -70,9 +76,15 @@ table.styled-table tbody tr:hover {
                 <td>
                     {{$report['time']}}
                 </td>
-                <td>
+                @if ( $report['color'] )
+                <td class="delay">
                     {{$report['delay']}}
                 </td>
+                @else
+                <td class="not_delay">
+                    {{$report['delay']}}
+                </td>
+                @endif
             </tr>
             <!-- Add more rows as needed -->
         </tbody>
