@@ -192,6 +192,7 @@ class V_QuestionController extends Controller
            // {"q_id":18,"mcq_id":"1","answer":"A"}
            $question = Question::where('id', $solve->q_id)
            ->first();
+           return $question;
            $arr['question_id'] = $solve->q_id;
            if ( isset($question->mcq[0]->mcq_answers) ) {
                 $stu_solve = $question->mcq[0]->mcq_answers;
