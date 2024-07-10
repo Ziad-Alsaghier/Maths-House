@@ -236,81 +236,6 @@
 
             })
         })
-        /*  let sel_cate2 = document.querySelector('.sel_cate2');
-                    let sel_course2 = document.querySelector('.sel_course2');
-                    let sel_chapter2 = document.querySelector('.sel_chapter2');
-                    let sel_lesson2 = document.querySelector('.sel_lesson2');
-                  
-                    sel_cate2.addEventListener('change', ( e ) => {
-                        sel_course2.innerHTML = `                            
-    <option disabled selected>
-        Select Course
-    </option>`;
-                        courses.forEach(element => {
-                            if ( e.target.value == element.category_id ) {
-                            sel_course2.innerHTML += `                            
-        <option value="${element.id}">
-            ${element.course_name}
-        </option>`;
-                                
-                            }
-                        });
-                    });
-                    sel_chapter2.addEventListener('change', ( e ) => {
-                        sel_lesson2.innerHTML = `                            
-    <option disabled selected>
-        Select Lesson
-    </option>`;
-                        lessons.forEach(element => {
-                            if ( e.target.value == element.chapter_id ) {
-                            sel_lesson2.innerHTML += `                            
-        <option value="${element.id}">
-            ${element.lesson_name}
-        </option>`;
-                                
-                            }
-                        });
-                    });
-
-                    let continue_btn = document.querySelector('.continue_btn');
-                    let q_num = document.querySelector('.q_num');
-                    let year = document.querySelector('.year');
-                    let month = document.querySelector('.month');
-                    let section = document.querySelector('.section');
-                    let q_type = document.querySelector('.q_type');
-                    let close_btn = document.querySelector('.close_btn');
-                    let screen = document.querySelector('.screen');
-                    let screen_text = document.querySelector('.screen_text');
-                        
-                    close_btn.addEventListener('click', () => {
-                        screen.classList.add('d-none');
-                    });
-
-                    continue_btn.addEventListener('click', () => {
-                        if ($('.q_num').val() != "") {
-                            let obj = {
-                                'year': year.value,
-                                'month': month.value,
-                                'section': section.value,
-                                'q_num': q_num.value,
-                                'q_type' : q_type.value,
-                                '_token': "{{ csrf_token() }}"
-                                };
-                                
-                            $.ajax({
-                                url: "{{ route('question_type') }}",
-                                type: 'POST',
-                                data: obj,
-                                success:function(data){
-                                    console.log(data);
-                                    if ( data != 1 ) {
-                                    screen.classList.remove('d-none');
-                                    screen_text.innerHTML = data;
-                                    }
-                                }
-                            })
-                        }
-                    }); */
     </script>
     @section('title', 'Questions')
     @include('Admin.courses.Questions.AddQuestion')
@@ -330,7 +255,8 @@
                             Select Category
                         </option>
                         @foreach ($categories as $category)
-                            <option  {{@$data['category_id'] == $category->id ? 'selected' : ''}} value="{{ $category->id }}">
+                            <option {{ @$data['category_id'] == $category->id ? 'selected' : '' }}
+                                value="{{ $category->id }}">
                                 {{ $category->cate_name }}
                             </option>
                         @endforeach
@@ -353,14 +279,14 @@
                             Select Course
                         </option>
                         @foreach ($courses as $course)
-                            @if( @$data['course_id'] == $course->id )
-                            <option value="{{ $course->id }}" selected>
-                                {{ $course->course_name }}
-                            </option>
-                            @elseif( @$data['category_id'] == $course->category_id )
-                            <option value="{{ $course->id }}">
-                                {{ $course->course_name }}
-                            </option>
+                            @if (@$data['course_id'] == $course->id)
+                                <option value="{{ $course->id }}" selected>
+                                    {{ $course->course_name }}
+                                </option>
+                            @elseif(@$data['category_id'] == $course->category_id)
+                                <option value="{{ $course->id }}">
+                                    {{ $course->course_name }}
+                                </option>
                             @endif
                         @endforeach
                         {{-- @foreach ($courses as $course)
@@ -384,14 +310,14 @@
                             Select Chapter
                         </option>
                         @foreach ($chapters as $chapter)
-                            @if( @$data['chapter_id'] == $chapter->id )
-                            <option value="{{ $chapter->id }}" selected>
-                                {{ $chapter->chapter_name }}
-                            </option>
-                            @elseif( @$data['course_id'] == $chapter->course_id )
-                            <option value="{{ $chapter->id }}">
-                                {{ $chapter->chapter_name }}
-                            </option>
+                            @if (@$data['chapter_id'] == $chapter->id)
+                                <option value="{{ $chapter->id }}" selected>
+                                    {{ $chapter->chapter_name }}
+                                </option>
+                            @elseif(@$data['course_id'] == $chapter->course_id)
+                                <option value="{{ $chapter->id }}">
+                                    {{ $chapter->chapter_name }}
+                                </option>
                             @endif
                         @endforeach
                         {{-- @foreach ($chapters as $chapter)
@@ -415,14 +341,14 @@
                             Select Lesson
                         </option>
                         @foreach ($lessons as $lesson)
-                            @if( @$data['lesson_id'] == $lesson->id )
-                            <option value="{{ $lesson->id }}" selected>
-                                {{ $lesson->lesson_name }}
-                            </option>
-                            @elseif( @$data['chapter_id'] == $lesson->chapter_id )
-                            <option value="{{ $lesson->id }}">
-                                {{ $lesson->lesson_name }}
-                            </option>
+                            @if (@$data['lesson_id'] == $lesson->id)
+                                <option value="{{ $lesson->id }}" selected>
+                                    {{ $lesson->lesson_name }}
+                                </option>
+                            @elseif(@$data['chapter_id'] == $lesson->chapter_id)
+                                <option value="{{ $lesson->id }}">
+                                    {{ $lesson->lesson_name }}
+                                </option>
                             @endif
                         @endforeach
                         {{-- @foreach ($lessons as $lesson)
@@ -446,13 +372,13 @@
                         <option disabled selected>
                             Select Type
                         </option>
-                        <option {{@$data['q_type'] == 'Trail' ? 'selected' : ''}} value="Trail">
+                        <option {{ @$data['q_type'] == 'Trail' ? 'selected' : '' }} value="Trail">
                             Trail
                         </option>
-                        <option {{@$data['q_type'] == 'Parallel' ? 'selected' : ''}} value="Parallel">
+                        <option {{ @$data['q_type'] == 'Parallel' ? 'selected' : '' }} value="Parallel">
                             Parallel
                         </option>
-                        <option {{@$data['q_type'] == 'Extra' ? 'selected' : ''}} value="Extra">
+                        <option {{ @$data['q_type'] == 'Extra' ? 'selected' : '' }} value="Extra">
                             Extra
                         </option>
                     </select>
@@ -468,19 +394,19 @@
                         <option disabled selected>
                             Select Section
                         </option>
-                        <option {{@$data['section'] == 'Blank' ? 'selected' : ''}} value="Blank">
+                        <option {{ @$data['section'] == 'Blank' ? 'selected' : '' }} value="Blank">
                             Blank
                         </option>
-                        <option {{@$data['section'] == '1' ? 'selected' : ''}} value="1">
+                        <option {{ @$data['section'] == '1' ? 'selected' : '' }} value="1">
                             1
                         </option>
-                        <option {{@$data['section'] == '2' ? 'selected' : ''}} value="2">
+                        <option {{ @$data['section'] == '2' ? 'selected' : '' }} value="2">
                             2
                         </option>
-                        <option {{@$data['section'] == '3' ? 'selected' : ''}} value="3">
+                        <option {{ @$data['section'] == '3' ? 'selected' : '' }} value="3">
                             3
                         </option>
-                        <option {{@$data['section'] == '4' ? 'selected' : ''}} value="4">
+                        <option {{ @$data['section'] == '4' ? 'selected' : '' }} value="4">
                             4
                         </option>
                     </select>
@@ -497,7 +423,7 @@
                             Select Year
                         </option>
                         @for ($i = 2000; $i <= date('Y'); $i++)
-                            <option {{@$data['year'] == $i ? 'selected' : ''}} value="{{ $i }}">
+                            <option {{ @$data['year'] == $i ? 'selected' : '' }} value="{{ $i }}">
                                 {{ $i }}
                             </option>
                         @endfor
@@ -515,7 +441,7 @@
                             Select Month
                         </option>
                         @for ($i = 1; $i <= 12; $i++)
-                            <option {{@$data['month'] == $i ? 'selected' : ''}} value="{{ $i }}">
+                            <option {{ @$data['month'] == $i ? 'selected' : '' }} value="{{ $i }}">
                                 {{ $i }}
                             </option>
                         @endfor
@@ -537,19 +463,19 @@
                         <option disabled selected>
                             Select Difficulty
                         </option>
-                        <option {{@$data['difficulty'] == 'A' ? 'selected' : ''}} value="A">
+                        <option {{ @$data['difficulty'] == 'A' ? 'selected' : '' }} value="A">
                             A
                         </option>
-                        <option {{@$data['difficulty'] == 'B' ? 'selected' : ''}} value="B">
+                        <option {{ @$data['difficulty'] == 'B' ? 'selected' : '' }} value="B">
                             B
                         </option>
-                        <option {{@$data['difficulty'] == 'C' ? 'selected' : ''}} value="C">
+                        <option {{ @$data['difficulty'] == 'C' ? 'selected' : '' }} value="C">
                             C
                         </option>
-                        <option {{@$data['difficulty'] == 'D' ? 'selected' : ''}} value="D">
+                        <option {{ @$data['difficulty'] == 'D' ? 'selected' : '' }} value="D">
                             D
                         </option>
-                        <option {{@$data['difficulty'] == 'E' ? 'selected' : ''}} value="E">
+                        <option {{ @$data['difficulty'] == 'E' ? 'selected' : '' }} value="E">
                             E
                         </option>
                     </select>
@@ -560,7 +486,8 @@
                     <label class="required form-label mb-3">Question Number</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input class="form-control" type="number" value="{{@$data['q_num']}}" name="q_num" placeholder="Question Number" />
+                    <input class="form-control" type="number" value="{{ @$data['q_num'] }}" name="q_num"
+                        placeholder="Question Number" />
                     <!--end::Input-->
                 </div>
                 <button class="btn btn-primary mb-2">
@@ -631,244 +558,6 @@
     {{-- <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">Questions Filter</a> --}}
     <!--end::Action-->
 
-    {{-- <div class="modal fade" id="kt_modal_create_campaign" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-fullscreen p-9">
-            <!--begin::Modal content-->
-            <div class="modal-content modal-rounded">
-                <!--begin::Modal header-->
-                <div class="modal-header py-7 d-flex justify-content-between">
-                    <!--begin::Modal title-->
-                    <h2>Questions Filter</h2>
-                    <!--end::Modal title-->
-                    <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <i class="ki-duotone ki-cross fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <!--begin::Modal header-->
-                <!--begin::Modal body-->
-            <form action="{{route('filter_question')}}" method="POST">
-                @csrf
-                <div class="modal-body scroll-y m-5">
-                    <div class="d-flex">
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Category Name</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="category_id" class="form-control">
-                            <option disabled selected>
-                                Select Category
-                            </option>
-                            @foreach ($categories as $category)
-                            <option value="{{$category->id}}">
-                                {{$category->cate_name}}
-                            </option>
-                            @endforeach
-                        </select>
-                        <!--end::Input-->
-                    </div>
-                    <!--end::Input group--> 
-                    <input type="hidden" class="categories" value="{{$categories}}" />
-                    <input type="hidden" class="courses" value="{{$courses}}" />
-                    <input type="hidden" class="chapters" value="{{$chapters}}" />
-                    <input type="hidden" class="lessons" value="{{$lessons}}" />
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Course Name</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="course_id" class="form-control sel_course">
-                            <option disabled selected>
-                                Select Course
-                            </option>
-                            @foreach ($courses as $course)
-                            <option value="{{$course->id}}">
-                                {{$course->course_name}}
-                            </option>
-                            @endforeach
-                        </select>
-                        <!--end::Input-->
-                    </div>
-                    <!--end::Input group--> 
-                    
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Chapter Name</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="chapter_id" class="form-control sel_chapter">
-                            <option disabled selected>
-                                Select Chapter
-                            </option>
-                            @foreach ($chapters as $chapter)
-                            <option value="{{$chapter->id}}">
-                                {{$chapter->chapter_name}}
-                            </option>
-                            @endforeach
-                        </select>
-                        <!--end::Input-->
-                    </div>
-                    <!--end::Input group--> 
-                    
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Lesson Name</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="lesson_id" class="form-control sel_lesson">
-                            <option disabled selected>
-                                Select Lesson
-                            </option>
-                            @foreach ($lessons as $lesson)
-                            <option value="{{$lesson->id}}">
-                                {{$lesson->lesson_name}}
-                            </option>
-                            @endforeach
-                        </select>
-                        <!--end::Input-->
-                    </div>
-                    <!--end::Input group-->
-                    </div> 
-                    <div class="d-flex">
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Type</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="q_type" class="form-control">
-                            <option disabled selected>
-                                Select Type
-                            </option>
-                            <option value="Trail">
-                                Trail
-                            </option>
-                            <option value="Parallel">
-                                Parallel
-                            </option>
-                            <option value="Extra">
-                                Extra
-                            </option>
-                        </select>
-                    </div>
-                        <!--end::Input-->
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Section</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="section" class="form-control">
-                            <option disabled selected>
-                                Select Section
-                            </option>
-                            <option value="Blank">
-                                Blank
-                            </option>
-                            <option value="1">
-                                1
-                            </option>
-                            <option value="2">
-                                2
-                            </option>
-                            <option value="3">
-                                3
-                            </option>
-                            <option value="4">
-                                4
-                            </option>
-                        </select>
-                        <!--end::Input-->
-                    </div>
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Year</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="year" class="form-control">
-                            <option disabled selected>
-                                Select Year
-                            </option>
-                            @for ($i = 2000; $i <= date('Y'); $i++)
-                            <option value="{{$i}}">
-                                {{$i}}
-                            </option>
-                            @endfor
-                        </select>
-                        <!--end::Input-->
-                    </div>
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Month</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="month" class="form-control">
-                            <option disabled selected>
-                                Select Month
-                            </option>
-                            @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{$i}}">
-                                {{$i}}
-                            </option>
-                            @endfor
-                        </select>
-                        <!--end::Input-->
-                    </div>
-                    <!--end::Input group-->
-                    </div>
-
-                    <!--begin::Input group-->
-                    <div class="mb-10 fv-row w-300px mx-2"> 
-                        <!--begin::Label-->
-                        <label class="required form-label mb-3">Difficulty</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <select name="difficulty" class="form-control">
-                            <option disabled selected>
-                                Select Difficulty
-                            </option>
-                            <option value="A">
-                                A
-                            </option> 
-                            <option value="B">
-                                B
-                            </option> 
-                            <option value="C">
-                                C
-                            </option> 
-                            <option value="D">
-                                D
-                            </option>
-                            <option value="E">
-                                E
-                            </option>
-                        </select>  
-                        <!--end::Input-->
-                    </div>
-                    <!--end::Input group-->
-
-                    <button class="btn btn-primary">
-                        Filter
-                    </button>
-                </div>
-            </form>
-                <!--begin::Modal body-->
-            </div>
-        </div>
-    </div> --}}
-
     <table id="kt_profile_overview_table"
         class="table table-row-bordered table-row-dashed gy-4 align-middle fw-bold dataTable no-footer">
         <thead class="fs-7 text-gray-500 text-uppercase">
@@ -914,8 +603,9 @@
                         <a href="#" class="er fs-6 px-8 py-4" data-bs-toggle="modal"
                             data-bs-target="#kt_modal_question{{ $question->q_id ? $question->q_id : $question->id }}">view</a>
 
-                        <div class="modal fade" id="kt_modal_question{{ $question->q_id ? $question->q_id : $question->id }}" tabindex="-1"
-                            aria-hidden="true">
+                        <div class="modal fade"
+                            id="kt_modal_question{{ $question->q_id ? $question->q_id : $question->id }}"
+                            tabindex="-1" aria-hidden="true">
                             <!--begin::Modal dialog-->
                             <div class="modal-dialog modal-fullscreen p-9">
                                 <!--begin::Modal content-->
@@ -973,7 +663,7 @@
                     </td>
                     <td>
                         <div class="mt-3">
-                            
+
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#kt_modal_edit{{ $question->q_id ? $question->q_id : $question->id }}">Edit</button>
 
@@ -982,15 +672,19 @@
                                 Delete
                             </button>
 
-                            <form method="POST" action="{{ route('q_edit', ['id' => $question->q_id ? $question->q_id : $question->id]) }}"
+                            <form method="POST"
+                                action="{{ route('q_edit', ['id' => $question->q_id ? $question->q_id : $question->id]) }}"
                                 enctype="multipart/form-data" class="mx-auto w-100 mw-600px pt-15 pb-10"
                                 novalidate="novalidate">
                                 @csrf
-                                <div class="modal fade" id="kt_modal_edit{{ $question->q_id ? $question->q_id : $question->id }}" tabindex="-1"
-                                    aria-hidden="true" style="display: none;">
+                                <div class="modal fade"
+                                    id="kt_modal_edit{{ $question->q_id ? $question->q_id : $question->id }}"
+                                    tabindex="-1" aria-hidden="true" style="display: none;">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content px-2">
-                                            <input type="hidden" value="{{ $question->q_id ? $question->q_id : $question->id }}" name="chapter_id" />
+                                            <input type="hidden"
+                                                value="{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                name="chapter_id" />
 
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="modalCenterTitle">Edit Question</h5>
@@ -998,11 +692,13 @@
                                                     aria-label="Close"></button>
                                             </div>
 
-                                            <div class="info_section" id="info_section{{ $question->q_id ? $question->q_id : $question->id }}">
-                                                @if( !empty($question->q_url) )
-                                                <div  class="h-150px mb-10 fv-row">
-                                                    <img class="h-150px" src="{{asset('images/questions/' . $question->q_url)}}" />
-                                                </div>
+                                            <div class="info_section"
+                                                id="info_section{{ $question->q_id ? $question->q_id : $question->id }}">
+                                                @if (!empty($question->q_url))
+                                                    <div class="h-150px mb-10 fv-row">
+                                                        <img class="h-150px"
+                                                            src="{{ asset('images/questions/' . $question->q_url) }}" />
+                                                    </div>
                                                 @endif
                                                 <div class="mb-10 fv-row">
                                                     <!--begin::Label-->
@@ -1029,7 +725,8 @@
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <select class="form-control answer_val"
-                                                        id="ans_val{{ $question->q_id ? $question->q_id : $question->id }}" name="ans_type">
+                                                        id="ans_val{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        name="ans_type">
                                                         <option value="{{ $question->ans_type }}" selected>
                                                             {{ $question->ans_type }}
                                                         </option>
@@ -1051,34 +748,77 @@
                                                         id="add_ans_btn{{ $question->q_id ? $question->q_id : $question->id }}">Add</button>
                                                 </div>
 
-                                                <div class="answer_con" id="add_ans{{ $question->q_id ? $question->q_id : $question->id }}">
+                                                <div class="answer_con"
+                                                    id="add_ans{{ $question->q_id ? $question->q_id : $question->id }}">
                                                     @php
-                                                    if ( $question->q_id ) {
-                                                        $answers = DB::table('mcq_ans')
-                                                        ->where('q_id', $question->q_id)->get();
-                                                    }else {
-                                                        $answers = DB::table('mcq_ans')
-                                                        ->where('q_id', $question->q_id ? $question->q_id : $question->id)->get();
-                                                    }
+                                                        if ($question->q_id) {
+                                                            $answers = DB::table('mcq_ans')
+                                                                ->where('q_id', $question->q_id)
+                                                                ->get();
+                                                        } else {
+                                                            $answers = DB::table('mcq_ans')
+                                                                ->where(
+                                                                    'q_id',
+                                                                    $question->q_id ? $question->q_id : $question->id,
+                                                                )
+                                                                ->get();
+                                                        }
                                                     @endphp
-                                                    @foreach ( $answers as $ans )
-                                                        @if ( $ans->mcq_answers == $ans->mcq_num )
-                                                        <div class="my-2">
-                                                            <input name="mcq_answers" value="{{$ans->mcq_num}}" id="mcq_{{$ans->mcq_num}}" type="radio" selected checked />
-                                                            <input class="form-control mb-3" value="{{$ans->mcq_num}}" name="mcq_char[]" placeholder="Letter Choice" />
-                                                            <input class="form-control" value="{{$ans->mcq_ans}}" name="mcq_ans[]" placeholder="Answer" />
-                                                        </div>
+                                                    @foreach ($answers as $ans)
+                                                        @if ($ans->mcq_answers == $ans->mcq_num)
+                                                            <div class="my-2">
+                                                                <div class="d-flex align-items-center mb-3 gap-2">
+                                                                    <input name="mcq_answers"
+                                                                        value="{{ $ans->mcq_num }}"
+                                                                        id="mcq_{{ $ans->mcq_num }}" type="radio"
+                                                                        selected checked />
+                                                                    <input class="form-control mb-3"
+                                                                        value="{{ $ans->mcq_num }}" name="mcq_char[]"
+                                                                        placeholder="Letter Choice" />
+                                                                </div>
+                                                                <input class="form-control"
+                                                                    value="{{ $ans->mcq_ans }}" name="mcq_ans[]"
+                                                                    placeholder="Answer" />
+                                                            </div>
                                                         @else
-                                                        <div class="my-2">
-                                                            <input name="mcq_answers" value="{{$ans->mcq_num}}" id="mcq_{{$ans->mcq_num}}" type="radio" />
-                                                            <input class="form-control mb-3" value="{{$ans->mcq_num}}" name="mcq_char[]" placeholder="Letter Choice" />
-                                                            <input class="form-control" value="{{$ans->mcq_ans}}" name="mcq_ans[]" placeholder="Answer" />
-                                                        </div>
-                                                        @endif
-                                                    @endforeach
+                                                            <div class="my-2">
+                                                                <div class="d-flex align-items-center mb-3 gap-2">
+                                                                    <input name="mcq_answers"
+                                                                        value="{{ $ans->mcq_num }}"
+                                                                        id="mcq_{{ $ans->mcq_num }}"
+                                                                        type="radio" />
+                                                                    <input class="form-control mb-3"
+                                                                        value="{{ $ans->mcq_num }}" name="mcq_char[]"
+                                                                        placeholder="Letter Choice" />
+                                                                </div>
+                                                                <input class="form-control"
+                                                                    value="{{ $ans->mcq_ans }}" name="mcq_ans[]"
+                                                                    placeholder="Answer" />
+                                                            </div>
+                                                            @endif
+                                                            @endforeach
+                                                            <div class="my-2 d-none newAnswerSe">
+                                                                <div class="d-flex align-items-center mb-3 gap-2">
+                                                                    <input name="mcq_answers" class="mcq_answer_radio"
+                                                                        value="New Answer" id="mcq_New"
+                                                                        type="radio" />
+                                                                    <input class="form-control letter_choice mb-3"
+                                                                        value="New Answer" name="mcq_char[]"
+                                                                        placeholder="Letter Choice" />
+                                                                </div>
+                                                                <input class="form-control" name="mcq_ans[]"
+                                                                    placeholder="New Answer" />
+                                                            </div>
+                                                    <div class="newAnswer">
+                                                        <button type="button" class="addNewAnswer">New
+                                                            Answer</button>
+                                                        <button type="button" class="removeNewAnswer d-none">Remove
+                                                            Answer</button>
+                                                    </div>
                                                 </div>
 
-                                                <div class="mb-10 fv-row answeres" id="ans_div{{ $question->q_id ? $question->q_id : $question->id }}">
+                                                <div class="mb-10 fv-row answeres"
+                                                    id="ans_div{{ $question->q_id ? $question->q_id : $question->id }}">
                                                 </div>
 
                                                 <div class="mb-10 fv-row">
@@ -1124,7 +864,8 @@
 
                                                     <!--begin::Input-->
                                                     <select class="form-control sel_cate sel_cate3"
-                                                        id="sel_cate{{ $question->q_id ? $question->q_id : $question->id }}" name="category_id">
+                                                        id="sel_cate{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        name="category_id">
                                                         <option selected>
                                                             {{ $question->lessons->chapter->course->category->cate_name }}
                                                         </option>
@@ -1143,7 +884,8 @@
 
                                                     <!--begin::Input-->
                                                     <select class="form-control sel_course sel_course3"
-                                                        id="sel_course{{ $question->q_id ? $question->q_id : $question->id }}" name="course_id">
+                                                        id="sel_course{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        name="course_id">
                                                         <option selected>
                                                             {{ $question->lessons->chapter->course->course_name }}
                                                         </option>
@@ -1157,7 +899,8 @@
 
                                                     <!--begin::Input-->
                                                     <select class="form-control sel_chapter sel_chapter3"
-                                                        id="sel_chapter{{ $question->q_id ? $question->q_id : $question->id }}" name="chapter_id">
+                                                        id="sel_chapter{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        name="chapter_id">
                                                         <option selected>
                                                             {{ $question->lessons->chapter->chapter_name }}
                                                         </option>
@@ -1169,7 +912,8 @@
                                                     <label class="fs-6 fw-semibold mb-2">Lesson</label>
                                                     <!--begin::Input-->
                                                     <select class="form-control sel_lesson sel_lesson3"
-                                                        id="sel_lesson{{ $question->q_id ? $question->q_id : $question->id }}" name="lesson_id">
+                                                        id="sel_lesson{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        name="lesson_id">
                                                         <option value="{{ $question->lesson_id }}" selected>
                                                             {{ $question->lessons->lesson_name }}
                                                         </option>
@@ -1183,7 +927,8 @@
 
                                                     <!--begin::Input-->
                                                     <select class="form-control sel_year"
-                                                        id="sel_year{{ $question->q_id ? $question->q_id : $question->id }}" name="year">
+                                                        id="sel_year{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        name="year">
                                                         <option value="{{ $question->year }}" selected>
                                                             {{ $question->year }}
                                                         </option>
@@ -1202,8 +947,10 @@
 
                                                     <!--begin::Input-->
                                                     <select class="form-control sel_month"
-                                                        id="sel_month{{ $question->q_id ? $question->q_id : $question->id }}" name="month">
-                                                        <option value="{{ $question->month }}">{{ $question->month }}
+                                                        id="sel_month{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        name="month">
+                                                        <option value="{{ $question->month }}">
+                                                            {{ $question->month }}
                                                         </option>
                                                         <option value="Jan">Jan</option>
                                                         <option value="Fab">Fab</option>
@@ -1228,12 +975,12 @@
                                                     <!--begin::Input-->
                                                     <select name="q_code" class="form-control sel_qcode"
                                                         id="sel_qcode{{ $question->q_id ? $question->q_id : $question->id }}">
-                                                        @if ( @$question->code->exam_code )
+                                                        @if (@$question->code->exam_code)
                                                             <option value="{{ $question->q_code }}" selected>
-                                                            {{ @$question->code->exam_code }}</option>
+                                                                {{ @$question->code->exam_code }}</option>
                                                         @else
-                                                        <option value="" selected>
-                                                            Select Code ...</option>
+                                                            <option value="" selected>
+                                                                Select Code ...</option>
                                                         @endif
                                                         @foreach ($exams as $exam)
                                                             <option value="{{ $exam->id }}">
@@ -1247,7 +994,8 @@
                                                     <label class="fs-6 fw-semibold mb-2">Section</label>
                                                     <!--begin::Input-->
                                                     <select class="form-control sel_section"
-                                                        id="sel_section{{ $question->q_id ? $question->q_id : $question->id }}" name="section">
+                                                        id="sel_section{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        name="section">
                                                         <option value="{{ $question->section }}" selected>
                                                             {{ $question->section }}
                                                         </option>
@@ -1273,7 +1021,8 @@
 
                                                     <!--begin::Input-->
                                                     <input type="number" min="0" max="80"
-                                                        class="form-control q_num" id="q_num{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        class="form-control q_num"
+                                                        id="q_num{{ $question->q_id ? $question->q_id : $question->id }}"
                                                         name="q_num" value="{{ $question->q_num }}"
                                                         placeholde="Question Num" required />
                                                     <!--end::Input-->
@@ -1292,40 +1041,49 @@
 
                                                 <div class="text-muted fw-semibold fs-2 d-flex align-items-center">
                                                     <div class="section_add_idea" style="margin-left:15px ">
-                                                        <button id="add_new_Pricing{{ $question->q_id ? $question->q_id : $question->id }}"
+                                                        <button
+                                                            id="add_new_Pricing{{ $question->q_id ? $question->q_id : $question->id }}"
                                                             type="button"
                                                             class="my-3 btn_add btn btn-lg btn-primary d-inline-block add_new_Pricing">Add
                                                             New Answer</button>
                                                     </div>
                                                 </div>
                                                 @php
-                                                if ( $question->q_id ) {
-                                                    $q_ans = DB::table('q_ans')
-                                                    ->where('Q_id', $question->q_id)
-                                                    ->get();
-                                                }
-                                                else {
-                                                    $q_ans = DB::table('q_ans')
-                                                    ->where('Q_id', $question->q_id ? $question->q_id : $question->id)
-                                                    ->get();
-                                                }
+                                                    if ($question->q_id) {
+                                                        $q_ans = DB::table('q_ans')
+                                                            ->where('Q_id', $question->q_id)
+                                                            ->get();
+                                                    } else {
+                                                        $q_ans = DB::table('q_ans')
+                                                            ->where(
+                                                                'Q_id',
+                                                                $question->q_id ? $question->q_id : $question->id,
+                                                            )
+                                                            ->get();
+                                                    }
                                                 @endphp
-                                                @foreach ( $q_ans as $element )
-                                                <div class="idea my-2">
-                                                    <div class="section_idea">
-                                                        <span>Answer PDF</span>
-                                                        <input type="file" name="ans_pdf[]" class="form-control">
+                                                @foreach ($q_ans as $element)
+                                                    <div class="idea my-2">
+                                                        <div class="section_idea">
+                                                            <span>Answer PDF</span>
+                                                            <input type="file" name="ans_pdf[]"
+                                                                class="form-control">
+                                                        </div>
+                                                        <div class="section_syllabus">
+                                                            <input type="hidden" name="id[]"
+                                                                value="{{ $element->id }}">
+                                                            <span>Answer Video</span>
+                                                            <input name="ans_video[]"
+                                                                value="{{ $element->ans_video }}"
+                                                                class="form-control">
+                                                        </div>
                                                     </div>
-                                                    <div class="section_syllabus">
-                                                        <input type="hidden" name="id[]" value="{{$element->id}}" >
-                                                        <span>Answer Video</span>
-                                                        <input name="ans_video[]" value="{{$element->ans_video}}" class="form-control">
-                                                    </div>
-                                                </div>
                                                 @endforeach
 
 
-                                                <div class="mt-3 Prices" id="Prices{{ $question->q_id ? $question->q_id : $question->id }}"></div>
+                                                <div class="mt-3 Prices"
+                                                    id="Prices{{ $question->q_id ? $question->q_id : $question->id }}">
+                                                </div>
 
                                                 <div class="mt-3">
                                                     <span class='btn btn-secondary prev_details'>
@@ -1348,7 +1106,8 @@
                         </form>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="modalDelete{{ $question->q_id ? $question->q_id : $question->id }}" tabindex="-1"
+                        <div class="modal fade"
+                            id="modalDelete{{ $question->q_id ? $question->q_id : $question->id }}" tabindex="-1"
                             aria-hidden="true" style="display: none;">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -1371,12 +1130,12 @@
                                             data-bs-dismiss="modal">
                                             Close
                                         </button>
-                                        @if ( $question->q_id )
-                                        <a href="{{ route('del_q', ['id' => $question->q_id]) }}"
-                                            class="btn btn-danger">Delete</a>
+                                        @if ($question->q_id)
+                                            <a href="{{ route('del_q', ['id' => $question->q_id]) }}"
+                                                class="btn btn-danger">Delete</a>
                                         @else
-                                        <a href="{{ route('del_q', ['id' => $question->q_id ? $question->q_id : $question->id]) }}"
-                                            class="btn btn-danger">Delete</a>
+                                            <a href="{{ route('del_q', ['id' => $question->q_id ? $question->q_id : $question->id]) }}"
+                                                class="btn btn-danger">Delete</a>
                                         @endif
                                     </div>
                                 </div>
@@ -1393,6 +1152,44 @@
 
 
     <script>
+        $(document).ready(function() {
+            $("#add_new_idea").click(function() {
+                var newIdea = `
+                <div class="idea mt-4">
+                    <div class="idea my-2">
+                        <div class="section_idea">
+                            <span>Answer PDF</span>
+                            <input type="file" name="ans_pdf[]" class="form-control">
+                        </div>
+                        <div class="section_syllabus">
+                            <span>Answer Video</span>
+                            <input name="ans_video[]" class="form-control">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger btn_remove_idea">Remove</button>
+                </div>`;
+
+                $(".ideas").append(newIdea)
+
+                $(".btn_remove_idea").each((val, ele) => {
+                    // console.log("ele",ele)
+                    $(ele).click(function() {
+                        $(ele).closest(".idea").remove();
+                    })
+                    // console.log("val",val)
+                })
+            });
+            $(".addNewAnswer").click(function() {
+                $(this).toggleClass("d-none");
+                $(".removeNewAnswer").toggleClass("d-none");
+                $(".newAnswerSe").toggleClass("d-none");
+            })
+            $(".removeNewAnswer").click(function() {
+                $(this).toggleClass("d-none");
+                $(".addNewAnswer").toggleClass("d-none");
+                $(".newAnswerSe").toggleClass("d-none");
+            })
+        })
         let sel_cate = document.querySelector('.sel_cate');
         let sel_course = document.querySelector('.sel_course');
         let sel_chapter = document.querySelector('.sel_chapter');

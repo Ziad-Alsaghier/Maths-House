@@ -91,6 +91,8 @@
      .faildDes,
      .faildImage,
      .faildAnswer,
+     .faildTypeMcq,
+     .faildTypeGrid,
      .faildDiff,
      .faildType,
      .faildCategory,
@@ -224,20 +226,26 @@
                                          </select>
                                          <!--end::Input-->
                                          <span class="faildAnswer d-none">Please Enter Answer Type</span>
+                                         <span class="faildTypeMcq d-none">Please Choose The Answer</span>
                                      </div>
 
                                      <div class="d-flex add_ans d-none"
                                          style="align-items: flex-start;justify-content: space-between">
                                          <div class="allAnswer"
-                                             style="width: 100%; display: flex;flex-direction: column;row-gap: 10px;">
-                                             <input value="{{ old('grid_ans[]') }}" type="number" style="width: 100%;"
-                                                 class="form-control" name="grid_ans[]" placeholder="Answer" />
+                                             style="width: 100%; display: flex;flex-direction: column;">
+                                             <input type="number" class="form-control answerGrid"
+                                                 value="{{ old('grid_ans[]') }}" style="width: 100%;" name="grid_ans[]"
+                                                 placeholder="Answer" />
                                          </div>
                                          <button type="button" class="btn add_ans_btn btn-success mx-2"
                                              style="margin: 0;height: 100% !important;">Add</button>
                                      </div>
-                                     <div class="mb-5 fv-row ans_div">
+                                     <div class="mb-5 fv-row ans_div_Mcq d-none">
                                      </div>
+                                     <div class="fv-row ans_div_Grid d-none">
+                                     </div>
+                                     <span class="faildTypeGrid d-none">Please Enter The Answer</span>
+
                                      <!--end::Input group-->
                                      <!--begin::Input group-->
                                      <div class="mb-5 fv-row">
@@ -586,70 +594,6 @@
  </div>
  @section('script')
      <script>
-         //      let ans_type = document.querySelector('.ans_type');
-         //      let ans_div = document.querySelector('.ans_div');
-         //      let add_ans = document.querySelector('.add_ans');
-         //      let add_ans_btn = document.querySelector('.add_ans_btn');
-         //      let add_new = document.querySelector('.addNewAnswer');
-         //      add_ans_btn.addEventListener('click', () => {
-         //          ans_div.innerHTML +=
-         //              `<input type="number" class="form-control my-2" name="grid_ans[]" placeholder="Answer" />`;
-         //      });
-         //      ans_type.addEventListener('change', () => {
-         //          ans_div.innerHTML = ``;
-         //          if (ans_type.value == 'MCQ') {
-         //              add_ans.classList.add('d-none');
-         //              ans_div.innerHTML =
-         //                  `<div class="my-2">
-    //    <input name="mcq_answers" value="A" id="mcq_a" type="radio" />
-    //    <label for="mcq_a">
-    //        A
-    //    </label>
-    //    <input class="form-control" name="mcq_ans[]" placeholder="Answer A" />
-    //    </div>
-    //    <div class="my-2">
-    //    <input name="mcq_answers" value="B" id="mcq_b" type="radio" />
-    //    <label for="mcq_b">
-    //        B
-    //    </label>
-    //    <input class="form-control" name="mcq_ans[]" placeholder="Answer B" />
-    //    </div>
-    //    <div class="my-2">
-    //    <input name="mcq_answers" value="C" id="mcq_c" type="radio" />
-    //    <label for="mcq_c">
-    //        C
-    //    </label>
-    //    <input class="form-control" name="mcq_ans[]" placeholder="Answer C" />
-    //    </div>
-    //    <div class="my-2">
-    //    <input name="mcq_answers" value="D" id="mcq_d" type="radio" />
-    //    <label for="mcq_d">
-    //        D
-    //    </label>
-    //    <input class="form-control" name="mcq_ans[]" placeholder="Answer D" />
-    //    </div>
-    //    <div class="newAnswer"><span class="addNewAnswer">New Answer</span></div>
-    //    <div class="my-2 d-none newAnswerSe">
-    //    <input name="mcq_answers" value="F" id="mcq_f" type="radio" />
-    //    <label for="mcq_f">
-    //        F
-    //    </label>
-    //    <input class="form-control" name="mcq_ans[]" placeholder="Answer F" />
-    //    </div>`;
-
-         //              add_new.addEventListener("click", function() {
-         //                  document.querySelector('.newAnswerSe').classList.toggle("d-none")
-         //              })
-         //          } else if (ans_type.value == 'Grid_in') {
-         //              add_ans.classList.remove('d-none');
-         //          }
-         //      })
-         //  $(".addNewAnswer").click(function() {
-         //             console.log("sadasdasd")
-         //              $(".newAnswerSe").toggleClass("d-none")
-
-         //          })
-
          /* select category, courses, chapter, lesson */
 
          let sel_category2 = document.querySelector('.sel_category2');
@@ -730,7 +674,7 @@
                      'q_code': ques_code.value,
                      '_token': "{{ csrf_token() }}"
                  };
-console.log(obj);
+                 console.log(obj);
                  $.ajax({
                      url: "{{ route('question_type') }}",
                      type: 'POST',
@@ -808,39 +752,53 @@ console.log(obj);
              let add_ans_btn = document.querySelector('.add_ans_btn');
              let add_new = document.querySelector('.addNewAnswer');
              var newAnswerGride =
-                 `<input type="number" class="form-control my-2" name="grid_ans[]" placeholder="Answer" />`;
+                 `<input type="number" class="form-control answerGrid my-2" name="grid_ans[]" placeholder="Answer" />`;
              $(".add_ans_btn").click(function() {
-                 $(".allAnswer").append(newAnswerGride);
+                 $(".ans_div_Grid").append(newAnswerGride);
              });
              $(".ans_type").change(function() {
                  if ($(".ans_type").val() == 'MCQ') {
                      $(".add_ans").addClass('d-none');
-                     $(".ans_div").removeClass('d-none');
-                     $(".ans_div").append(`<div class="my-2 allAnswerMcq">
-       <input name="mcq_answers" class="mcq_answer_radio" value="A" id="mcq_a" type="radio" />
-       <input class="form-control letter_choice mb-3" value="A" name="mcq_char[]" placeholder="Letter Choice" />
-       <input class="form-control" name="mcq_ans[]" placeholder="Answer" />
+                     $(".ans_div_Grid").empty();
+
+                     $(".ans_div_Mcq").removeClass('d-none');
+                     $(".ans_div_Mcq").empty();
+
+                     $(".ans_div_Mcq").append(`<div class="my-2 allAnswerMcq">
+                        <div class="d-flex align-items-center mb-3 gap-2">
+                            <input name="mcq_answers" class="mcq_answer_radio" value="A" id="mcq_a" type="radio" checked/>
+                            <input class="form-control letter_choice" value="A" name="mcq_char[]" placeholder="Letter Choice" />
+                        </div>
+                         <input class="form-control" name="mcq_ans[]" placeholder="Answer" />
        </div>
        <div class="my-2">
+        <div class="d-flex align-items-center mb-3 gap-2">
        <input name="mcq_answers" class="mcq_answer_radio" value="B" id="mcq_b" type="radio" />
        <input class="form-control letter_choice mb-3" value="B" name="mcq_char[]" placeholder="Letter Choice" />
+       </div>
        <input class="form-control" name="mcq_ans[]" placeholder="Answer B" />
        </div>
        <div class="my-2">
+        <div class="d-flex align-items-center mb-3 gap-2">
        <input name="mcq_answers" class="mcq_answer_radio" value="C" id="mcq_c" type="radio" />
        <input class="form-control letter_choice mb-3" value="C" name="mcq_char[]" placeholder="Letter Choice" />
+       </div>
        <input class="form-control" name="mcq_ans[]" placeholder="Answer C" />
        </div>
        <div class="my-2">
+        <div class="d-flex align-items-center mb-3 gap-2">
        <input name="mcq_answers" class="mcq_answer_radio" value="D" id="mcq_d" type="radio" />
        <input class="form-control letter_choice mb-3" value="D" name="mcq_char[]" placeholder="Letter Choice" />
+       </div>
        <input class="form-control" name="mcq_ans[]" placeholder="Answer D" />
        </div>
 
        <div class="my-2 d-none newAnswerSe">
-       <input name="mcq_answers" class="mcq_answer_radio" value="E" id="mcq_f" type="radio" />
-       <input class="form-control letter_choice mb-3" value="E" name="mcq_char[]" placeholder="Letter Choice" />
-       <input class="form-control" name="mcq_ans[]" placeholder="Answer E" />
+        <div class="d-flex align-items-center mb-3 gap-2">
+       <input name="mcq_answers" class="mcq_answer_radio" value="New Answer" id="mcq_New" type="radio" />
+       <input class="form-control letter_choice mb-3" value="New Answer" name="mcq_char[]" placeholder="Letter Choice" />
+       </div>
+       <input class="form-control" name="mcq_ans[]" placeholder="New Answer" />
        </div>
        <div class="newAnswer">
         <button type="button" class="addNewAnswer">New Answer</button>
@@ -871,10 +829,9 @@ console.log(obj);
                          $(".newAnswerSe").toggleClass("d-none");
                      })
                  } else if ($(".ans_type").val() == 'Grid_in') {
-                     $(".ans_div").addClass('d-none');
+                     $(".ans_div_Mcq").addClass('d-none');
                      $(".add_ans").removeClass('d-none');
-                     // $(".add_ans").addClass('d-none');
-                     //  $(".add_ans").removeClass('d-none');
+                     $(".ans_div_Grid").removeClass('d-none');
                  }
              })
 
@@ -1076,6 +1033,7 @@ console.log(obj);
              var questionAnswer = $(".ans_type");
              var questionDifficulty = $(".difficulty");
              var questionType = $(".q_type");
+             var questionGrid = $(".answerGrid");
              /* ###### */
              var questionCategory = $(".sel_category2");
              var questionCourse = $(".sel_my_course2");
@@ -1088,11 +1046,46 @@ console.log(obj);
              var questionPdf = $(".questionPdf");
              var questionVideo = $(".questionVideo");
 
+             function checkValGrid() {
+
+
+                 $(".answerGrid").each((index, ele) => {
+                     console.log("aaaaaaaaaa", $(ele).val())
+                     console.log("index", index)
+                     if ($(ele).val() == "") {
+                         $(".faildTypeGrid").removeClass("d-none")
+                         $(".continue_btn").addClass("disabled")
+                        } else {
+                            $(".faildTypeGrid").addClass("d-none")
+                            $(".continue_btn").removeClass("disabled")
+                        }
+                        $(ele).keyup(function() {
+                            if ($(ele).val() == "") {
+                                $(".faildTypeGrid").removeClass("d-none")
+                             checkValOne()
+                            } else {
+                             $(".faildTypeGrid").addClass("d-none")
+                             checkValOne()
+                         }
+
+                     })
+                 })
+
+                 //  if ($(questionGrid).val() !== "") {
+                 //      $(".continue_btn").removeClass("disabled")
+                 //  } else {
+                 //      $(".continue_btn").addClass("disabled")
+                 //  }
+             }
+
              function checkValOne() {
                  if ($(questionAnswer).val() !== "" &&
-                     $(questionDifficulty).val() !== "" && $(questionType).val() !== "") {
-                     $(".continue_btn").removeClass("disabled")
+                     $(questionDifficulty).val() !== "" && $(questionType).val() !== "" && $(questionGrid).val() !==
+                     "") {
+                         checkValGrid()
+                         $(".continue_btn").removeClass("disabled")
                  } else {
+                     checkValGrid()
                      $(".continue_btn").addClass("disabled")
                  }
              }
@@ -1113,7 +1106,8 @@ console.log(obj);
 
              function checkValTwo() {
                  if ($(questionCategory).val() !== "" && $(questionCourse).val() !== "" &&
-                     $(questionChapter).val() !== "" && $(questionLesson).val() !== ""  && $(questionNum).val() !== "") {
+                     $(questionChapter).val() !== "" && $(questionLesson).val() !== "" && $(questionNum).val() !== ""
+                 ) {
                      console.log("yessssssssss")
                      $(".continue_btn").removeClass("disabled")
                  } else {
@@ -1197,8 +1191,19 @@ console.log(obj);
                  checkValTwo();
                  checkValOne();
              })
+             $(".continue_btn").click(function() {
+                 if ($(questionGrid).val == "") {
+                     $(".faildTypeGrid").removeClass("d-none")
+                     console.log("Yes")
+                 } else {
+                     $(".faildTypeGrid").addClass("d-none")
 
+                 }
+             })
 
+             $(".add_ans_btn").click(function() {
+                checkValGrid();
+             });
              //  /* desQuestion */
              //  $(".ck-editor__main p").on('keyup', function() {
              //      if ($(desQuestion).text() == "") {
@@ -1213,15 +1218,15 @@ console.log(obj);
              //      checkValOne();
              //  })
              /* questionImage */
-            //  $(".questionImage").on('change', function() {
+             //  $(".questionImage").on('change', function() {
 
-            //      if ($(questionImage).val() == "") {
-            //          $(".faildImage").removeClass("d-none")
-            //      } else {
-            //          $(".faildImage").addClass("d-none")
-            //      }
-            //      checkValOne();
-            //  })
+             //      if ($(questionImage).val() == "") {
+             //          $(".faildImage").removeClass("d-none")
+             //      } else {
+             //          $(".faildImage").addClass("d-none")
+             //      }
+             //      checkValOne();
+             //  })
              /* questionAnswer */
              $(".ans_type").on('change', function() {
 
@@ -1231,6 +1236,8 @@ console.log(obj);
                      $(".faildAnswer").addClass("d-none")
                  }
                  checkValOne();
+                 checkValGrid();
+
              })
              /* questionDifficulty */
              $('.difficulty').on('change', function() {
@@ -1241,6 +1248,8 @@ console.log(obj);
                  }
                  checkValOne();
              })
+             //  $(".add_ans_btn").click(function() {
+             //  })
              /* questionType */
              $('.q_type').on('change', function() {
                  if ($(questionType).val() == "") {
@@ -1250,6 +1259,20 @@ console.log(obj);
                  }
                  checkValOne();
              })
+             /* questionGrid */
+             //  $('.q_type').on('change', function() {
+             //      if ($(this).val() == "Grid_in") {
+             //          $(questionGrid).each((ele, index) => {
+
+             //              if ($(ele).val() == "") {
+             //                  $(".faildTypeGrid").removeClass("d-none")
+             //              } else {
+             //                  $(".faildTypeGrid").addClass("d-none")
+             //              }
+             //          })
+             //      }
+             //      checkValOne();
+             //  })
              /* ##################### */
              /* questionCategory */
              $(".sel_category2").on('change', function() {
@@ -1272,15 +1295,15 @@ console.log(obj);
                  checkValTwo();
              })
              /* questionYear */
-            //  $(".year").on('change', function() {
-            //      checkValFaild();
-            //      checkValTwo();
-            //  })
+             //  $(".year").on('change', function() {
+             //      checkValFaild();
+             //      checkValTwo();
+             //  })
              /* questionMonth */
-            //  $(".month").on('change', function() {
-            //      checkValFaild();
-            //      checkValTwo();
-            //  })
+             //  $(".month").on('change', function() {
+             //      checkValFaild();
+             //      checkValTwo();
+             //  })
              /* questionNum */
              $(".q_num").on('keyup', function() {
                  checkValFaild();
@@ -1289,13 +1312,13 @@ console.log(obj);
              /* ########## */
              /* questionPdf */
              $(".questionPdf").on("change", function() {
-                checkValFaildSub(); 
-                checkValThree();
+                 checkValFaildSub();
+                 checkValThree();
              })
              /* questionVideo */
              $(".questionVideo").on("keyup", function() {
-                checkValFaildSub(); 
-                checkValThree();
+                 checkValFaildSub();
+                 checkValThree();
              })
          })
      </script>
