@@ -15,11 +15,13 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\LiveController;
 use App\Http\Controllers\Admin\LessonController;
+use App\Http\Controllers\Admin\Ad_ReportsController;
 
 use App\Http\Controllers\Visitor\CoursesController;
 
 use App\Http\Controllers\Student\Stu_MyCourseController;
 use App\Http\Controllers\Student\Stu_LiveController;
+use App\Http\Controllers\Student\ScoreController;
 
 use App\Http\Controllers\ApiController;
 /*
@@ -48,9 +50,12 @@ Route::get('/api_chechout_description', [CoursesController::class, 'api_chechout
 Route::get('/sel_duration_course', [CoursesController::class, 'sel_duration_course'])->name('sel_duration_course');
 Route::get('/exam_data', [ExamController::class, 'exam_data'])->name('exam_data');
 Route::get('/ScoreSheet/Edit',[ExamController::class, 'scoreEdit'])->name('scoreEdit'); 
+Route::get('/ad_lesson_score_sheet', [Ad_ReportsController::class, 'ad_lesson_score_sheet'])->name('ad_lesson_score_sheet');
+
 Route::get('/private_req', [Stu_LiveController::class, 'private_req_api'])->name('private_req_api');
 Route::get('/private_req_book', [Stu_LiveController::class, 'private_req_book_api'])->name('private_req_book_api');
 Route::get('/stu_sessions_api', [Stu_LiveController::class, 'stu_sessions_api'])->name('stu_sessions_api');
+Route::get('/lesson_score_sheet', [ScoreController::class, 'lesson_score_sheet'])->name('lesson_score_sheet');
 
 Route::get('/add_stu_academic', [UserController::class, 'add_stu_academic'])->name('add_stu_academic');
 Route::get('/api_stu_academic', [UserController::class, 'api_stu_academic'])->name('api_stu_academic');

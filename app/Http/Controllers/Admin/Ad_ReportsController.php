@@ -15,6 +15,7 @@ use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\ExamCodes;
 use App\Models\Exam;
+use App\Models\StudentQuizze;
 
 class Ad_ReportsController extends Controller
 {
@@ -265,5 +266,23 @@ class Ad_ReportsController extends Controller
 
         return view('Admin.Reports.ScoreSheet.Student_ScoreSheet', compact('payment_req', 'user_id'));
     } 
+
+    
+
+    public function ad_lesson_score_sheet( Request $req ) {
+        $data = StudentQuizze::
+        where('student_id', $req->user_id)
+        ->where('lesson_id', $req->lesson_id)
+        ->get();
+        $arr = [];
+
+        foreach ( $data as $item ) {
+            $arr[$item->quizze_id] = $item;
+        }
+        
+        return response()->json([
+            'data' => $arr
+        ]);
+    }
 
 }
