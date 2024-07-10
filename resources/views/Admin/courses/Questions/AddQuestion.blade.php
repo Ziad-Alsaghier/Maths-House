@@ -795,8 +795,8 @@
 
        <div class="my-2 d-none newAnswerSe">
         <div class="d-flex align-items-center mb-3 gap-2">
-       <input name="mcq_answers" class="mcq_answer_radio" value="New Answer" id="mcq_New" type="radio" />
-       <input class="form-control letter_choice mb-3" value="New Answer" name="mcq_char[]" placeholder="Letter Choice" />
+       <input name="mcq_answers" class="mcq_answer_radio" value="E" id="mcq_New" type="radio" />
+       <input class="form-control letter_choice mb-3" value="E" name="mcq_char[]" placeholder="Letter Choice" />
        </div>
        <input class="form-control" name="mcq_ans[]" placeholder="New Answer" />
        </div>
@@ -1047,46 +1047,40 @@
              var questionVideo = $(".questionVideo");
 
              function checkValGrid() {
+                 if ($(".ans_type").val() == "Grid_in") {
 
-
-                 $(".answerGrid").each((index, ele) => {
-                     console.log("aaaaaaaaaa", $(ele).val())
-                     console.log("index", index)
-                     if ($(ele).val() == "") {
-                         $(".faildTypeGrid").removeClass("d-none")
-                         $(".continue_btn").addClass("disabled")
-                        } else {
-                            $(".faildTypeGrid").addClass("d-none")
-                            $(".continue_btn").removeClass("disabled")
-                        }
-                        $(ele).keyup(function() {
-                            if ($(ele).val() == "") {
-                                $(".faildTypeGrid").removeClass("d-none")
-                             checkValOne()
-                            } else {
+                     $(".answerGrid").each((index, ele) => {
+                         console.log("aaaaaaaaaa", $(ele).val())
+                         console.log("index", index)
+                         if ($(ele).val() == "") {
+                             $(".faildTypeGrid").removeClass("d-none")
+                             $(".continue_btn").addClass("disabled")
+                         } else {
                              $(".faildTypeGrid").addClass("d-none")
-                             checkValOne()
+                             $(".continue_btn").removeClass("disabled")
                          }
+                         $(ele).keyup(function() {
+                             if ($(ele).val() == "") {
+                                 $(".faildTypeGrid").removeClass("d-none")
+                                 checkValOne()
+                             } else {
+                                 $(".faildTypeGrid").addClass("d-none")
+                                 checkValOne()
+                             }
 
+                         })
                      })
-                 })
-
-                 //  if ($(questionGrid).val() !== "") {
-                 //      $(".continue_btn").removeClass("disabled")
-                 //  } else {
-                 //      $(".continue_btn").addClass("disabled")
-                 //  }
+                 }
              }
 
              function checkValOne() {
                  if ($(questionAnswer).val() !== "" &&
-                     $(questionDifficulty).val() !== "" && $(questionType).val() !== "" && $(questionGrid).val() !==
-                     "") {
-                         checkValGrid()
+                     $(questionDifficulty).val() !== "" && $(questionType).val() !== "" ) {
                          $(".continue_btn").removeClass("disabled")
+                         checkValGrid()
                  } else {
-                     checkValGrid()
                      $(".continue_btn").addClass("disabled")
+                     checkValGrid()
                  }
              }
 
@@ -1202,7 +1196,7 @@
              })
 
              $(".add_ans_btn").click(function() {
-                checkValGrid();
+                 checkValGrid();
              });
              //  /* desQuestion */
              //  $(".ck-editor__main p").on('keyup', function() {
@@ -1235,8 +1229,8 @@
                  } else {
                      $(".faildAnswer").addClass("d-none")
                  }
-                 checkValOne();
-                 checkValGrid();
+                  checkValOne();
+                 //  checkValGrid();
 
              })
              /* questionDifficulty */

@@ -11,7 +11,7 @@
 
 @section('page_content')
 
-<table class="table">
+{{-- <table class="table">
     <thead>
         <th style="border: 1px solid #ccc"></th>
         <th style="border: 1px solid #ccc"></th>
@@ -109,7 +109,7 @@
             @endforeach
         @endforeach
     </tbody>
-</table>
+</table> --}}
 
 
 @endsection
