@@ -37,8 +37,9 @@
         }
 
         .conBtn {
-            background: #FEF5F3;
-            color: #CF202F;
+            width: 100% !important;
+            background: #FEF5F3 !important;
+            color: #CF202F !important;
             font-size: 1.2rem;
             font-weight: 600;
             padding: 5px 20px;
@@ -50,8 +51,8 @@
         }
 
         .conBtn:hover {
-            background: #CF202F;
-            color: #FEF5F3
+            background: #CF202F !important;
+            color: #FEF5F3 !important;
         }
     </style>
     <div class="col-12 mt-3 d-flex flex-column align-items-center gap-4">
@@ -84,16 +85,18 @@
                 <table class="table col-12  mt-2">
                     <thead>
                         <tr>
-                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                            <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                 scope="col">QUIZZES </th>
-                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                            <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                 scope="col">score </th>
-                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                            <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                 scope="col">time</th>
-                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                            <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                 scope="col">Date</th>
-                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                            <th class="col-3" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                 scope="col">Mistakes</th>
+                            <th class="col-3" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                scope="col">Reports</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -102,28 +105,32 @@
                             <td style="padding-top: 15px !important">20/16</td>
                             <td style="padding-top: 15px !important">20M</td>
                             <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><button class="conBtn">View Mistakes</button></td>
+                            <td><a class="conBtn" href="">View Mistakes</a></td>
+                            <td><a class="conBtn" href="">Report</a></td>
                         </tr>
                         <tr>
                             <td style="padding-top: 15px !important">QUIZ 1</td>
                             <td style="padding-top: 15px !important">20/16</td>
                             <td style="padding-top: 15px !important">20M</td>
                             <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><button class="conBtn">View Mistakes</button></td>
+                            <td><a class="conBtn" href="">View Mistakes</a></td>
+                            <td><a class="conBtn" href="">Report</a></td>
                         </tr>
                         <tr>
                             <td style="padding-top: 15px !important">QUIZ 1</td>
                             <td style="padding-top: 15px !important">20/16</td>
                             <td style="padding-top: 15px !important">20M</td>
                             <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><button class="conBtn">View Mistakes</button></td>
+                            <td><a class="conBtn" href="">View Mistakes</a></td>
+                            <td><a class="conBtn" href="">Report</a></td>
                         </tr>
                         <tr>
                             <td style="padding-top: 15px !important">QUIZ 1</td>
                             <td style="padding-top: 15px !important">20/16</td>
                             <td style="padding-top: 15px !important">20M</td>
                             <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><button class="conBtn">View Mistakes</button></td>
+                            <td><a class="conBtn" href="">View Mistakes</a></td>
+                            <td><a class="conBtn" href="">Report</a></td>
                         </tr>
                     </tbody>
                 </table>
