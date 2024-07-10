@@ -20,6 +20,7 @@
             color: #787878 !important;
         }
 
+        .selCourse,
         .selChapter,
         .selLesson {
             background-color: transparent !important;
@@ -27,6 +28,7 @@
             cursor: pointer;
         }
 
+        .selCourse:focus,
         .selChapter:focus,
         .selLesson:focus {
             color: #CF202F !important;
@@ -65,6 +67,13 @@
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-5">
 
+            <select class="selCourse mx-2"
+                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Course"
+                id="selCourse">
+                <option value="">Select Course</option>
+                <option value="Course 1">Course 1</option>
+                <option value="Course 2">Course 2</option>
+            </select>
             <select class="selChapter mx-2"
                 style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Chapter"
                 id="selChapter">
