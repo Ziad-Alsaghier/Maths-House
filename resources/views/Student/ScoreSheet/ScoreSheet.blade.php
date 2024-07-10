@@ -1,17 +1,136 @@
-
 @php
     $page_name = 'Question History';
     $chapter_name = null;
     $ch_id = [];
 @endphp
-@section('title','Chapters')
+@section('title', 'Chapters')
 @include('Student.inc.header')
 @include('Student.inc.menu')
 @extends('Student.inc.nav')
 
 @section('page_content')
 
-{{-- <table class="table">
+    <style>
+        .table {
+            background: #fff !important;
+        }
+
+        .table td {
+            font-weight: 600;
+            color: #787878 !important;
+        }
+
+        .selChapter,
+        .selLesson {
+            background-color: transparent !important;
+            color: #CF202F !important;
+            cursor: pointer;
+        }
+
+        .selChapter:focus,
+        .selLesson:focus {
+            color: #CF202F !important;
+            background-color: transparent !important;
+            border-color: none !important;
+            outline: 0;
+            box-shadow: none !important;
+        }
+
+        .conBtn {
+            background: #FEF5F3;
+            color: #CF202F;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 5px 20px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .conBtn:hover {
+            background: #CF202F;
+            color: #FEF5F3
+        }
+    </style>
+    <div class="col-12 mt-3 d-flex flex-column align-items-center gap-4">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <span style="font-size: 1.6rem;font-weight: 600;color: #CF202F">Score Sheet</span>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-start gap-2">
+            <span class="col-5" style="color: #787878;font-size: 1.4rem;font-weight: 600">Student: Amal Mansour</span>
+            <span class="col-6" style="color: #787878;font-size: 1.4rem;font-weight: 600">Course: SAT</span>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-start gap-5">
+
+            <select class="selChapter mx-2"
+                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Chapter"
+                id="selChapter">
+                <option value="">Select Chapter</option>
+                <option value="Chapter 1">Chapter 1</option>
+                <option value="Chapter 2">Chapter 2</option>
+            </select>
+            <select class="selLesson mx-2"
+                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Lesson"
+                id="selLesson">
+                <option value="">Select Lesson</option>
+                <option value="Lesson 1">Lesson 1</option>
+                <option value="Lesson 2">Lesson 2</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <table class="table col-12  mt-2">
+                    <thead>
+                        <tr>
+                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                scope="col">QUIZZES </th>
+                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                scope="col">score </th>
+                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                scope="col">time</th>
+                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                scope="col">Date</th>
+                            <th style="width: calc(100% / 5); border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                scope="col">Mistakes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <tr>
+                            <td style="padding-top: 15px !important">QUIZ 1</td>
+                            <td style="padding-top: 15px !important">20/16</td>
+                            <td style="padding-top: 15px !important">20M</td>
+                            <td style="padding-top: 15px !important">16/6/2024</td>
+                            <td><button class="conBtn">View Mistakes</button></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px !important">QUIZ 1</td>
+                            <td style="padding-top: 15px !important">20/16</td>
+                            <td style="padding-top: 15px !important">20M</td>
+                            <td style="padding-top: 15px !important">16/6/2024</td>
+                            <td><button class="conBtn">View Mistakes</button></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px !important">QUIZ 1</td>
+                            <td style="padding-top: 15px !important">20/16</td>
+                            <td style="padding-top: 15px !important">20M</td>
+                            <td style="padding-top: 15px !important">16/6/2024</td>
+                            <td><button class="conBtn">View Mistakes</button></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px !important">QUIZ 1</td>
+                            <td style="padding-top: 15px !important">20/16</td>
+                            <td style="padding-top: 15px !important">20M</td>
+                            <td style="padding-top: 15px !important">16/6/2024</td>
+                            <td><button class="conBtn">View Mistakes</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{-- <table class="table">
     <thead>
         <th style="border: 1px solid #ccc"></th>
         <th style="border: 1px solid #ccc"></th>
@@ -59,18 +178,18 @@
             <td style="border: 1px solid #ccc">Report</td>
         </tr>
 
-        @foreach ( $payment_req as $item )
+        @foreach ($payment_req as $item)
             @foreach ($item->chapters_order as $element)
-                    @if ( !in_array($element->chapter->id, $ch_id) && $element->chapter->chapter_name != $chapter_name )
+                    @if (!in_array($element->chapter->id, $ch_id) && $element->chapter->chapter_name != $chapter_name)
                  
                     <tr>
                         <td rowspan="{{count($element->chapter->lessons)}}" style="border: 1px solid #ccc">{{$element->chapter->chapter_name}}</td>
                     @endif
-                    @if ( !in_array($element->chapter->id, $ch_id) )
+                    @if (!in_array($element->chapter->id, $ch_id))
                         
-                    @foreach ( $element->chapter->lessons as $value )
+                    @foreach ($element->chapter->lessons as $value)
                         <td style="border: 1px solid #ccc" raw="2">{{$value->lesson_name}}</td>
-                        @foreach ( $value->quizze as $quiz )
+                        @foreach ($value->quizze as $quiz)
                             @php
                                 $student_quizzes = DB::table('student_quizzes')
                                 ->where('student_id', auth()->user()->id)
@@ -80,18 +199,18 @@
                             @endphp
                             <td style="border: 1px solid #ccc">{{@$student_quizzes->score}}</td>
                             <td style="border: 1px solid #ccc">{{@$student_quizzes->time}}</td>
-                            @if( !empty($student_quizzes->id) )
+                            @if (!empty($student_quizzes->id))
                             <td style="border: 1px solid #ccc">{{\Carbon\Carbon::parse($student_quizzes->created_at)->format('d-m-Y')}}</td>
                             @endif
                             <td style="border: 1px solid #ccc">
-                                @if( !empty($student_quizzes->id) )
+                                @if (!empty($student_quizzes->id))
                                 <a href="{{route('quizze_mistakes', ['id' => $student_quizzes->id])}}" class="btn btn-primary mistake_btn">
                                     View Mistakes
                                 </a>
                                 @endif
                             </td>
                             <td style="border: 1px solid #ccc">
-                                @if( !empty($student_quizzes->id) )
+                                @if (!empty($student_quizzes->id))
                                 <a href="{{route('quizze_report', ['id' => $student_quizzes->id])}}" class="btn btn-primary mistake_btn">
                                     Report
                                 </a>
