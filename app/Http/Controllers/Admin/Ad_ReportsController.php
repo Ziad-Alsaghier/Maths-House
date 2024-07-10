@@ -260,11 +260,13 @@ class Ad_ReportsController extends Controller
     }
 
     public function score_sheet_student( $user_id ){
-        $payment_req = PaymentRequest::
-        where('user_id', $user_id)
-        ->get();
+        $lessons = Lesson::all();
+        $chapters = Chapter::all();
+        $courses = Course::all();
+        $student = User::all();
 
-        return view('Admin.Reports.ScoreSheet.Student_ScoreSheet', compact('payment_req', 'user_id'));
+        return view('Admin.Reports.ScoreSheet.Student_ScoreSheet', 
+        compact('lessons', 'chapters', 'courses', 'student'));
     } 
 
     
