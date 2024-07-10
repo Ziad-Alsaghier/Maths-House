@@ -70,24 +70,24 @@
             <select class="selCourse mx-2"
                 style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Course"
                 id="selCourse">
-                <option value="">Select Course</option>
-                <option value="Course 1">Course 1</option>
-                <option value="Course 2">Course 2</option>
+                <option selected disabled>Select Course ...</option>
+                @foreach ( $courses as $item )
+                    <option value="{{$item->id}}">{{$item->course_name}}</option>
+                @endforeach
             </select>
             <select class="selChapter mx-2"
                 style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Chapter"
                 id="selChapter">
-                <option value="">Select Chapter</option>
-                <option value="Chapter 1">Chapter 1</option>
-                <option value="Chapter 2">Chapter 2</option>
+                <option value="">Select Chapter ...</option>
             </select>
             <select class="selLesson mx-2"
                 style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Lesson"
                 id="selLesson">
-                <option value="">Select Lesson</option>
-                <option value="Lesson 1">Lesson 1</option>
-                <option value="Lesson 2">Lesson 2</option>
+                <option value="">Select Lesson ...</option>
             </select>
+            <input type="hidden" value="{{$courses}}" class="course_data" />
+            <input type="hidden" value="{{$chapters}}" class="chapter_data" />
+            <input type="hidden" value="{{$lessons}}" class="lesson_data" />
         </div>
         <div class="col-12">
             <div class="col-12 d-flex align-items-center justify-content-center">
@@ -246,6 +246,43 @@
     </tbody>
 </table> --}}
 
+<script>
+    let course_data = document.querySelector('.course_data');
+    let chapter_data = document.querySelector('.chapter_data');
+    let lesson_data = document.querySelector('.lesson_data');
+
+    let selCourse = document.querySelector('.selCourse');
+    let selChapter = document.querySelector('.selChapter');
+    let selLesson = document.querySelector('.selLesson');
+
+    course_data = JSON.parse(course_data.value);
+    chapter_data = JSON.parse(chapter_data.value);
+    lesson_data = JSON.parse(lesson_data.value);
+
+    selCourse.addEventListener('change', () => {
+        selChapter.innerHTML = `<option selected disabled>
+            Select Chapter ...</option>`;
+        
+        chapter_data.forEach( element => {
+            if ( element.course_id == selCourse.value ) {
+                selChapter.innerHTML += `
+                <option value="${element.id}">${element.chapter_name}</option>`;   
+            }
+        });
+    });
+
+    selChapter.addEventListener('change', () => {
+        selLesson.innerHTML = `<option selected disabled>
+            Select Lesson ...</option>`;
+        
+        lesson_data.forEach( element => {
+            if ( element.chapter_id == selChapter.value ) {
+                selLesson.innerHTML += `
+                <option value="${element.id}">${element.lesson_name}</option>`;   
+            }
+        });
+    });
+</script>
 
 @endsection
 
