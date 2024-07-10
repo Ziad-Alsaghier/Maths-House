@@ -325,7 +325,7 @@
                         <ul>
                             @foreach ($chapters as $chapter)
                                 <li>
-                                    <span class="text-align-center">{{ $chapter->chapter_name }}</span>
+                                    <span class="text-align-center">{{ $chapter['chapter_name'] }}</span>
                                 </li>
                             @endforeach
                             </>
@@ -390,10 +390,10 @@
             </div>
             {{-- Receipt && Phone --}}
             <div class="col-9 d-flex align-items-center justify-content-between" style="column-gap: 1rem">
-                <div id="selImg" class="d-flex align-items-center justify-content-center" style="column-gap: 0.3rem">
+                <label for="img" id="selImg" class="d-flex align-items-center justify-content-center" style="column-gap: 0.3rem">
                     <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
                     <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
-                </div>
+                </label>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
             </div>

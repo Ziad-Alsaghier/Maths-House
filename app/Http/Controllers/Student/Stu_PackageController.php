@@ -38,9 +38,11 @@ class Stu_PackageController extends Controller
     }
 
     public function payment_package( $id, Request $req ){
-        
+
         if ( json_decode(Cookie::get('package')) && json_decode(Cookie::get('package'))->id == $id ) {
             $package = json_decode(Cookie::get('package'));
+            Cookie::queue(Cookie::forget('promo_code'));
+            Cookie::queue(Cookie::forget('package'));
         }
         else {
             $package = Package::where('id', $id)

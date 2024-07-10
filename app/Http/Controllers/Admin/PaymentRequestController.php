@@ -11,6 +11,7 @@ use App\Models\PaymentPackageOrder;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\AffilateRequest;
+use App\Models\Affilate;
 use App\Models\AffilateService;
 
 class PaymentRequestController extends Controller
@@ -269,6 +270,10 @@ class PaymentRequestController extends Controller
                 'service' => $aff_req->service,
                 'earned' => $aff_req->earned,
             ]);
+
+            $aff_wallet = Affilate::where('id', $aff_req->affilate_id)->first()->wallet;
+            Affilate::where('id', $aff_req->affilate_id)
+            ->update(['wallet' => $aff_wallet + $aff_req->earned]);
         }
 
         $payment = PaymentRequest::
