@@ -24,6 +24,7 @@ class ScoreController extends Controller
         $data = StudentQuizze::
         where('student_id', auth()->user()->id)
         ->where('lesson_id', $req->lesson_id)
+        ->with('quizze')
         ->get();
         $arr = [];
 
