@@ -70,24 +70,24 @@
             <select class="selCourse mx-2"
                 style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Course"
                 id="selCourse">
-                <option selected disabled>Select Course ...</option>
-                @foreach ( $courses as $item )
-                    <option value="{{$item->id}}">{{$item->course_name}}</option>
+                <option selected disabled>Select Course</option>
+                @foreach ($courses as $item)
+                    <option value="{{ $item->id }}">{{ $item->course_name }}</option>
                 @endforeach
             </select>
             <select class="selChapter mx-2"
                 style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Chapter"
                 id="selChapter">
-                <option value="">Select Chapter ...</option>
+                <option value="">Select Chapter</option>
             </select>
             <select class="selLesson mx-2"
                 style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Lesson"
                 id="selLesson">
-                <option value="">Select Lesson ...</option>
+                <option value="">Select Lesson</option>
             </select>
-            <input type="hidden" value="{{$courses}}" class="course_data" />
-            <input type="hidden" value="{{$chapters}}" class="chapter_data" />
-            <input type="hidden" value="{{$lessons}}" class="lesson_data" />
+            <input type="hidden" value="{{ $courses }}" class="course_data" />
+            <input type="hidden" value="{{ $chapters }}" class="chapter_data" />
+            <input type="hidden" value="{{ $lessons }}" class="lesson_data" />
         </div>
         <div class="col-12">
             <div class="col-12 d-flex align-items-center justify-content-center">
@@ -138,7 +138,7 @@
                             <td style="padding-top: 15px !important">20/16</td>
                             <td style="padding-top: 15px !important">20M</td>
                             <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><a class="conBtn" href="">View Mistakes</a></td>
+                            <td><a class="conBtn" href="student_quizzes/id">View Mistakes</a></td>
                             <td><a class="conBtn" href="">Report</a></td>
                         </tr>
                     </tbody>
@@ -246,47 +246,66 @@
     </tbody>
 </table> --}}
 
-<script>
-    let course_data = document.querySelector('.course_data');
-    let chapter_data = document.querySelector('.chapter_data');
-    let lesson_data = document.querySelector('.lesson_data');
+    <script>
+        let course_data = document.querySelector('.course_data');
+        let chapter_data = document.querySelector('.chapter_data');
+        let lesson_data = document.querySelector('.lesson_data');
 
-    let selCourse = document.querySelector('.selCourse');
-    let selChapter = document.querySelector('.selChapter');
-    let selLesson = document.querySelector('.selLesson');
+        let selCourse = document.querySelector('#selCourse');
+        let selChapter = document.querySelector('#selChapter');
+        let selLesson = document.querySelector('#selLesson');
 
-    course_data = JSON.parse(course_data.value);
-    chapter_data = JSON.parse(chapter_data.value);
-    lesson_data = JSON.parse(lesson_data.value);
+        course_data = JSON.parse(course_data.value);
+        chapter_data = JSON.parse(chapter_data.value);
+        lesson_data = JSON.parse(lesson_data.value);
 
-    selCourse.addEventListener('change', () => {
-        selChapter.innerHTML = `<option selected disabled>
-            Select Chapter ...</option>`;
-        
-        chapter_data.forEach( element => {
-            if ( element.course_id == selCourse.value ) {
-                selChapter.innerHTML += `
-                <option value="${element.id}">${element.chapter_name}</option>`;   
-            }
+        selCourse.addEventListener('change', () => {
+            selChapter.innerHTML = `<option selected disabled>
+            Select Chapter</option>`;
+
+            chapter_data.forEach(element => {
+                if (element.course_id == selCourse.value) {
+                    selChapter.innerHTML += `
+                <option value="${element.id}">${element.chapter_name}</option>`;
+                }
+            });
         });
-    });
 
-    selChapter.addEventListener('change', () => {
-        selLesson.innerHTML = `<option selected disabled>
-            Select Lesson ...</option>`;
-        
-        lesson_data.forEach( element => {
-            if ( element.chapter_id == selChapter.value ) {
-                selLesson.innerHTML += `
-                <option value="${element.id}">${element.lesson_name}</option>`;   
-            }
+        selChapter.addEventListener('change', () => {
+            selLesson.innerHTML = `<option selected disabled>
+            Select Lesson</option>`;
+
+            lesson_data.forEach(element => {
+                if (element.chapter_id == selChapter.value) {
+                    selLesson.innerHTML += `
+                <option value="${element.id}">${element.lesson_name}</option>`;
+                }
+            });
         });
-    });
-</script>
+        $(document).ready(function() {
+            $("#selLesson").change(function() {
+
+                var lessonID = $(this).val()
+                $.ajax({
+                    url: "{{ route('lesson_score_sheet') }}",
+                    type: "GET",
+                    data: {
+                        lesson_id: lessonID
+                    },
+                    success: function(data) {
+                        console.log(data)
+                    }
+                })
+            })
+        })
+    </script>
 
 @endsection
 
 @include('Student.inc.footer')
 {{-- route('lesson_score_sheet') 
     data : {lesson_id : 1}
+    MyCourses/Mistakes/1
+    Quiz/Report/1
+
 --}}
