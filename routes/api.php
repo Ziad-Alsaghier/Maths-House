@@ -190,6 +190,7 @@ Route::middleware('auth:sanctum')->prefix('MobileStudent')->group(function(){
         Route::post('/stu_profile_data','api_profile_date_edit')->name('api_profile_date_edit');
         Route::post('/update_stu_image','update_stu_image')->name('update_stu_image');
         Route::get('/stu_quiz/{id}','api_quiz')->name('api_quiz');
+        Route::get('/stu_quiz_mistakes/{id}','stu_quiz_mistakes')->name('stu_quiz_mistakes');
         Route::post('/stu_quiz_grade','api_quiz_grade')->name('api_quiz_grade');
         Route::get('/stu_profile_edit','api_profile_edit')->name('api_profile_edit');
         Route::get('/stu_link_live','api_link_live')->name('api_link_live');
