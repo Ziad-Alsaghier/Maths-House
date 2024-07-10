@@ -865,9 +865,9 @@
 
 
         <form class="col-12 d-flex flex-column justify-content-center align-items-center"
-            action="{{ route('package_use_promocode') }}">
+            action="{{ route('package_use_promocode') }}" method="POST">
             <div class="col-9 footerCardd">
-
+                @csrf
                 <div class="secApplayCoupone">
                     <img src="{{ asset('images/iconPayment/DiscountIcon.svg') }}" alt="">
                     <input type="search" class="ponIn" name="promo_code" placeholder="Discount Code"
