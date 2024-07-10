@@ -327,6 +327,7 @@ class CoursesController extends Controller
 
     public function promo_check_out_chapter( Request $req ){ 
         $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = is_string($chapters) ? json_decode($chapters, true) : $chapters;
         $price = floatval(Cookie::get('chapters_price'));
         $payment_methods = PaymentMethod::
         where('statue', 1)
@@ -604,6 +605,7 @@ class CoursesController extends Controller
                 $affilate = Affilate::
                 where('id', intval(Cookie::get('affilate')))
                 ->first();
+                return $commision;
                 $affilate->update([
                     'wallet' => $affilate->wallet + $commision
                 ]);
@@ -640,7 +642,7 @@ class CoursesController extends Controller
                 ->where('state', 1)
                 ->first();
                 $commision = empty($commision) ? 0 : $commision->precentage;
-                $commision = $total * $commision / 100;
+                $commision = $price * $commision / 100;
                 $service = 'Chapter';
                     
                 AffilateRequest::create([
