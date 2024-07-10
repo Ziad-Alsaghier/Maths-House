@@ -287,3 +287,6 @@
 @endsection
 
 @include('Student.inc.footer')
+{{-- route('lesson_score_sheet') 
+    data : {lesson_id : 1}
+--}}
