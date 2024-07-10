@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Lesson;
 use App\Models\Chapter;
+use App\Models\Course;
 use App\Models\StudentQuizze;
 
 class ScoreController extends Controller
@@ -14,8 +15,9 @@ class ScoreController extends Controller
     public function score_sheet(){
         $lessons = Lesson::all();
         $chapters = Chapter::all();
+        $courses = Course::all();
 
-        return view('Student.ScoreSheet.ScoreSheet', compact('lessons', 'chapters'));
+        return view('Student.ScoreSheet.ScoreSheet', compact('lessons', 'chapters', 'courses'));
     }
 
     public function lesson_score_sheet( Request $req ) {
