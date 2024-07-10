@@ -2120,4 +2120,16 @@ class ApiController extends Controller
             'myLiveSession' => $myLiveSessions
         ]);
     }
+
+    public function stu_quiz_mistakes( $id, Request $req ){
+        $mistakes = StudentQuizzeMistake::
+        where('student_quizze_id', $id)
+        ->with('question')
+        ->get();
+
+        return response()->json([
+            'mistakes' => $mistakes,
+        ]);
+    }
+
 }
