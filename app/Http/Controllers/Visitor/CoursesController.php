@@ -540,7 +540,7 @@ class CoursesController extends Controller
                 $img_name = now() . rand(1, 10000) . $name;
                 $img_name = str_replace([' ', ':', '-'], 'X', $img_name);
                 $arr['image'] = $img_name;
-                $tmp = $tmp_name[$i];
+                $tmp = $tmp_name;
             }
             
         }
