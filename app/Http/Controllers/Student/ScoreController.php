@@ -33,7 +33,7 @@ class ScoreController extends Controller
         }
 
         return response()->json([
-            'data' => $arr
+            'data' => array_values($arr)
         ]);
     }
 

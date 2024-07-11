@@ -62,7 +62,7 @@
             <span style="font-size: 1.6rem;font-weight: 600;color: #CF202F">Score Sheet</span>
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-2">
-            <span class="col-5" style="color: #787878;font-size: 1.4rem;font-weight: 600">Student: Amal Mansour</span>
+            <span class="col-5" style="color: #787878;font-size: 1.4rem;font-weight: 600">Student: {{auth()->user()->f_name . ' ' . auth()->user()->l_name . '(' . auth()->user()->nick_name . ')'}}</span>
             <span class="col-6" style="color: #787878;font-size: 1.4rem;font-weight: 600">Course: SAT</span>
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-5">
