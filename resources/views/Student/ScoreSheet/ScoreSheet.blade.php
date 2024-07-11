@@ -276,7 +276,7 @@
                         $(data.data).each((index, ele) => {
                             console.log("ele", ele)
                             var newRow = `<tr>
-                                <td style="padding-top: 15px !important">${ele.title}</td>
+                                <td style="padding-top: 15px !important">${ele.quizze.title}</td>
                                 <td style="padding-top: 15px !important">${ele.quizze.score +"/"+ele.score }</td>
                                 <td style="padding-top: 15px !important">${ele.time}</td>
                                 <td style="padding-top: 15px !important">${ele.date}</td>
