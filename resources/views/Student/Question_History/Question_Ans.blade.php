@@ -236,9 +236,6 @@
                         {{ $loop->iteration }}</a>
                 </div>
 
-
-
-
                 {{-- Modal Answer --}}
                 <div class="modal fade" id="modalAnswer{{ $q_ans->id }}" tabindex="-1" aria-hidden="true"
                     style="display: none;">
@@ -277,11 +274,15 @@
                             </div>
 
                             <div
-                                style="    width: 100% !important;display: flex;align-items: flex-start;justify-content: space-around;column-gap: 100px; overflow: hidden;padding: 10px 0;">
+                                style="width: 100% !important;display: flex;align-items: flex-start;justify-content: space-around;column-gap: 100px; overflow: hidden;padding: 10px 0;">
 
-                                <iframe width="560" height="315" src="{{ $q_ans->ans_video }}"
+                                {{-- <iframe width="560" height="315" src="{{ $q_ans->ans_video }}"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe> --}}
+                                
+                                    <iframe width="560" height="315" src="{{ $q_ans->ans_video }}" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>
 
                                 @if (!empty($q_ans->ans_video))
@@ -323,7 +324,7 @@
             })
             $(".iconList").click(function() {
                 console.log("ssss")
-                $(".list_item").addClass("d-none")
+                // $(".list_item").addClass("d-none")
                 $(this).next().toggleClass("d-none")
             })
         })

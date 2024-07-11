@@ -62,7 +62,8 @@
             <span style="font-size: 1.6rem;font-weight: 600;color: #CF202F">Score Sheet</span>
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-2">
-            <span class="col-5" style="color: #787878;font-size: 1.4rem;font-weight: 600">Student: {{auth()->user()->f_name . ' ' . auth()->user()->l_name . '(' . auth()->user()->nick_name . ')'}}</span>
+            <span class="col-5" style="color: #787878;font-size: 1.4rem;font-weight: 600">Student:
+                {{ auth()->user()->f_name . ' ' . auth()->user()->l_name . '(' . auth()->user()->nick_name . ')' }}</span>
             <span class="col-6" style="color: #787878;font-size: 1.4rem;font-weight: 600">Course: SAT</span>
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-5">
@@ -97,9 +98,9 @@
                             <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                 scope="col">QUIZZES </th>
                             <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
-                                scope="col">score </th>
+                                scope="col">Score</th>
                             <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
-                                scope="col">time</th>
+                                scope="col">Time</th>
                             <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                 scope="col">Date</th>
                             <th class="col-3" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
@@ -270,11 +271,12 @@
                     },
                     success: function(data) {
                         console.log(data)
+                        console.log(data.data)
 
-                        $(data).each((index, ele) => {
-                            console.log("ele",ele)
+                        $(data.data).each((index, ele) => {
+                            console.log("ele", ele)
                             var newRow = `<tr>
-                                <td style="padding-top: 15px !important">QUIZ 1</td>
+                                <td style="padding-top: 15px !important">${ele.title}</td>
                                 <td style="padding-top: 15px !important">${ele.quizze.score +"/"+ele.score }</td>
                                 <td style="padding-top: 15px !important">${ele.time}</td>
                                 <td style="padding-top: 15px !important">${ele.date}</td>
@@ -284,6 +286,7 @@
 
                             $("#myTable").append(newRow)
                         })
+
                     }
                 })
             })
