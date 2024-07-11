@@ -263,10 +263,10 @@ class Ad_ReportsController extends Controller
         $lessons = Lesson::all();
         $chapters = Chapter::all();
         $courses = Course::all();
-        $student = User::all();
+        $student = User::where('id', $user_id)->first();
 
         return view('Admin.Reports.ScoreSheet.Student_ScoreSheet', 
-        compact('lessons', 'chapters', 'courses', 'student'));
+        compact('lessons', 'chapters', 'courses', 'student', 'user_id'));
     } 
 
     
@@ -275,6 +275,7 @@ class Ad_ReportsController extends Controller
         $data = StudentQuizze::
         where('student_id', $req->user_id)
         ->where('lesson_id', $req->lesson_id)
+        ->with('quizze')
         ->get();
         $arr = [];
 

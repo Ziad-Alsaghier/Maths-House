@@ -141,11 +141,11 @@ class DomPdfController extends Controller
             $delay = 'On Time';
         } else {
             $delay = -$delay;
+            $color = $delay > 0 ? true : false;  
             $h = intval($delay / (60 * 60));
             $delay = $delay - $h * 60 * 60;
             $m = intval($delay / 60);
-            $s = $delay - $m * 60;
-            $color = true;        
+            $s = $delay - $m * 60;      
             $delay = "Delay $h Hours $m Minutes $s Seconds";
         }
     
