@@ -126,7 +126,7 @@ class CoursesController extends Controller
         }
         Cookie::queue(Cookie::forget('min_price_data'));
         Cookie::queue('marketing', json_encode($course), 10000);
-        Cookie::queue('chapters_price', json_encode($min_price), 10000);
+        Cookie::queue('chapters_price', ($min_price), 10000);
         
         if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
             return view('Visitor.Login.login');
@@ -158,7 +158,7 @@ class CoursesController extends Controller
         }
         
         Cookie::queue('marketing', json_encode($data), 10000);  
-        Cookie::queue('chapters_price', json_encode($chapters_price), 10000);  
+        Cookie::queue('chapters_price', ($chapters_price), 10000);  
         Cookie::queue('marprice_arreting', json_encode($price_arr), 10000);
          $price_arr = json_encode($price_arr);
         if ( empty(auth()->user()) ) {
@@ -217,7 +217,7 @@ class CoursesController extends Controller
                 $chapters_price = floatval(Cookie::get('chapters_price'));
             }
             Cookie::queue('marketing', json_encode($data), 10000);
-            Cookie::queue('chapters_price', json_encode($chapters_price), 10000);
+            Cookie::queue('chapters_price', ($chapters_price), 10000);
             Cookie::queue('price_arr', json_encode($price_arr), 10000);  
             $price_arr = json_encode($price_arr);
             $chapters = json_decode(Cookie::get('marketing'));
@@ -279,7 +279,7 @@ class CoursesController extends Controller
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
         Cookie::queue('marketing', json_encode($data), 10000); 
-        Cookie::queue('chapters_price', json_encode($chapters_price), 10000); 
+        Cookie::queue('chapters_price', ($chapters_price), 10000); 
         Cookie::queue('price_arr', json_encode($price_arr), 10000);
         $price_arr = json_encode($price_arr);
         $chapters = json_decode(Cookie::get('marketing'));
@@ -288,7 +288,7 @@ class CoursesController extends Controller
 
     public function Use_Promocode( Request $req ){
         $chapters = json_decode(Cookie::get('marketing'));
-        $chapters = json_decode($chapters);
+        $chapters = json_decode($chapters) ?json_decode($chapters) : $chapters;
         $course_id = $chapters[0]->course_id;
         $uses = UsagePromo::where('user_id', auth()->user()->id)
         ->where('promo', $req->promo_code)
@@ -305,9 +305,9 @@ class CoursesController extends Controller
                 ->where('course_id', $course_id)
                 ->first();
                 if ( !empty($promo_course) ) {
-                    $price = floatval(Cookie::get('chapters_price')); 
+                    $price = (Cookie::get('chapters_price')); 
                     $price = $price - $price * $promo->discount	/ 100;
-                    Cookie::queue('chapters_price', json_encode($price), 10000);
+                    Cookie::queue('chapters_price', ($price), 10000);
                     PromoCode::where('id', $promo->id)
                     ->update([
                         'num_usage' => $promo->num_usage - 1
@@ -457,7 +457,7 @@ class CoursesController extends Controller
                 $chapters_price = floatval(Cookie::get('chapters_price'));
             }
             Cookie::queue('marketing', json_encode($data), 10000);
-            Cookie::queue('chapters_price', json_encode($chapters_price), 10000);
+            Cookie::queue('chapters_price', ($chapters_price), 10000);
             Cookie::queue('price_arr', json_encode($price_arr), 10000);
             $price_arr = json_encode($price_arr);
             $chapters = json_decode(Cookie::get('marketing'));
@@ -489,7 +489,7 @@ class CoursesController extends Controller
             $chapters_price = json_decode(Cookie::get('chapters_price'));
         }
         Cookie::queue('marketing', json_encode($data), 10000);
-        Cookie::queue('chapters_price', 'chapters_price', 10000);
+        Cookie::queue('chapters_price', $chapters_price, 10000);
         Cookie::queue('price_arr', json_encode($price_arr), 10000);
         $price_arr = json_encode($price_arr);
         $chapters = json_decode(Cookie::get('marketing'));
