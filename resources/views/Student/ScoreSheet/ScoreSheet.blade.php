@@ -109,38 +109,14 @@
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                        <tr>
-                            <td style="padding-top: 15px !important">QUIZ 1</td>
-                            <td style="padding-top: 15px !important">20/16</td>
-                            <td style="padding-top: 15px !important">20M</td>
-                            <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><a class="conBtn" href="">View Mistakes</a></td>
-                            <td><a class="conBtn" href="">Report</a></td>
-                        </tr>
-                        <tr>
-                            <td style="padding-top: 15px !important">QUIZ 1</td>
-                            <td style="padding-top: 15px !important">20/16</td>
-                            <td style="padding-top: 15px !important">20M</td>
-                            <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><a class="conBtn" href="">View Mistakes</a></td>
-                            <td><a class="conBtn" href="">Report</a></td>
-                        </tr>
-                        <tr>
-                            <td style="padding-top: 15px !important">QUIZ 1</td>
-                            <td style="padding-top: 15px !important">20/16</td>
-                            <td style="padding-top: 15px !important">20M</td>
-                            <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><a class="conBtn" href="">View Mistakes</a></td>
-                            <td><a class="conBtn" href="">Report</a></td>
-                        </tr>
-                        <tr>
+                        {{-- <tr>
                             <td style="padding-top: 15px !important">QUIZ 1</td>
                             <td style="padding-top: 15px !important">20/16</td>
                             <td style="padding-top: 15px !important">20M</td>
                             <td style="padding-top: 15px !important">16/6/2024</td>
                             <td><a class="conBtn" href="student_quizzes/id">View Mistakes</a></td>
                             <td><a class="conBtn" href="">Report</a></td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
             </div>
@@ -294,6 +270,20 @@
                     },
                     success: function(data) {
                         console.log(data)
+
+                        $(data).each((index, ele) => {
+                            console.log("ele",ele)
+                            var newRow = `<tr>
+                                <td style="padding-top: 15px !important">QUIZ 1</td>
+                                <td style="padding-top: 15px !important">${ele.quizze.score +"/"+ele.score }</td>
+                                <td style="padding-top: 15px !important">${ele.time}</td>
+                                <td style="padding-top: 15px !important">${ele.date}</td>
+                                <td><a class="conBtn" href="MyCourses/Mistakes/${ele.id}">View Mistakes</a></td>
+                                <td><a class="conBtn" href="Quiz/Report/${ele.id}">Report</a></td>
+                            </tr>`;
+
+                            $("#myTable").append(newRow)
+                        })
                     }
                 })
             })
