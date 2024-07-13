@@ -376,7 +376,7 @@
                                         </ul>
                                         <div class="courses_big_thumb">
                                             <div class="thumb">
-                                                <iframe class="iframe_video" src="//www.youtube.com/embed/57LQI8DKwec"
+                                                <iframe scrolling="no" allowfullscreen class="iframe_video" src="//www.youtube.com/embed/57LQI8DKwec"
                                                     frameborder="0" allowfullscreen></iframe>
                                             </div>
                                         </div>

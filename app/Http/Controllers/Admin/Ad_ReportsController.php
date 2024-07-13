@@ -16,6 +16,7 @@ use App\Models\Question;
 use App\Models\ExamCodes;
 use App\Models\Exam;
 use App\Models\StudentQuizze;
+use App\Models\ReportVideoList;
 
 class Ad_ReportsController extends Controller
 {
@@ -269,8 +270,6 @@ class Ad_ReportsController extends Controller
         compact('lessons', 'chapters', 'courses', 'student', 'user_id'));
     } 
 
-    
-
     public function ad_lesson_score_sheet( Request $req ) {
         $data = StudentQuizze::
         where('student_id', $req->user_id)
@@ -286,6 +285,63 @@ class Ad_ReportsController extends Controller
         return response()->json([
             'data' => array_values($arr)
         ]);
+    }
+
+    public function ad_score_sheet_mistake( $id ){
+        $mistakes = StudentQuizze::where('id', $id)
+        ->first();
+        $questions = $mistakes->questions;
+
+        return view('Admin.Reports.ScoreSheet.Quiz.Quiz_Mistakes', compact('mistakes', 'questions'));
+    }
+
+    public function ad_score_question_answer( $id ){
+        if ( empty(auth()->user()) ) {
+            if ( !session()->has('previous_page') ) {
+                session(['previous_page' => url()->current()]);
+            }
+            return redirect()->route('login.index');
+        }
+        else{  
+            $reports = ReportVideoList::all();
+            $question = Question::where('id', $id)
+            ->first();
+
+            return view('Admin.Reports.ScoreSheet.Quiz.Question_Ans', compact('question', 'reports')); 
+    
+        } 
+    }
+ 
+
+    public function ad_question_parallel($id){
+        $question = Question::where('id', $id)
+            ->first();
+        $q_parallel = Question::where('month', $question->month)
+            ->where('year', $question->year)
+            ->where('section', $question->section)
+            ->where('q_num', $question->q_num)
+            ->where('id', '!=', $id)
+            ->get();
+
+        return view('Admin.Reports.ScoreSheet.Quiz.Parallel_Question', compact('q_parallel'));
+    }
+
+    public function ad_solve_parallel($id, Request $req)
+    {
+        $question = Question::where('id', $id)
+            ->first();
+        $grade = false;
+        if ($question->ans_type == 'MCQ') {
+            if ($question->mcq[0]->mcq_answers == $req['ans' . $id]) {
+                $grade = true;
+            }
+        } else {
+            if ($question->g_ans[0]->grid_ans == $req['ans' . $id]) {
+                $grade = true;
+            }
+        }
+        
+        return view('Admin.Reports.ScoreSheet.Quiz.Solve_Parallel', compact('grade', 'question'));
     }
 
 }

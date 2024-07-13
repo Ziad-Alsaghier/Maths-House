@@ -1,12 +1,11 @@
 @php
-    $page_name = 'Grade';
+    function fun_admin()
+    {
+        return 'admin';
+    }
 @endphp
-@section('title', 'Lessons')
-@include('Student.inc.header')
-@include('Student.inc.menu')
-@extends('Student.inc.nav')
-
-@section('page_content')
+<x-default-layout>
+    @section('title', 'Grade')
 
 <div class="app-email card my-3">
     <div class="border-0">
@@ -102,7 +101,7 @@
                     </div>
                     @endif
                     @if ( !empty($q_ans->ans_video) )
-                    <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{$q_ans->ans_video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe scrolling="no" allowfullscreen width="560" height="315" src="{{$q_ans->ans_video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     @endif
                     </div>
                     @endforeach
@@ -111,7 +110,7 @@
                 <a href="{{asset('files/q_pdf/' . $q_ans->ans_pdf)}}" class="btn btn-success my-2" download>Download Pdf {{$loop->iteration}}</a>
                 @endforeach
 
-                <a href="{{route('question_parallel', ['id' => $question->id])}}" class="btn btn-info my-2" >Solve Parallel</a>
+                <a href="{{route('ad_question_parallel', ['id' => $question->id])}}" class="btn btn-info my-2" >Solve Parallel</a>
 
                 <hr />
         </div>
@@ -133,6 +132,4 @@
     } 
 </script>
 
-@endsection
-
-@include('Student.inc.footer')
+</x-default-layout>

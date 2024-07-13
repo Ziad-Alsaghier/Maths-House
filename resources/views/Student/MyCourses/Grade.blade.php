@@ -142,7 +142,7 @@
                     <br />
                     @foreach ( $item->q_ans as $q_ans )
                     @if ( !empty($q_ans->ans_video) )
-                    <iframe width="560" height="315" src="{{$q_ans->ans_video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{$q_ans->ans_video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 
                     @endif
                     @endforeach

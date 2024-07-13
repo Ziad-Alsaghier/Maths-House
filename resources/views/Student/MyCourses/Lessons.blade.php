@@ -583,7 +583,7 @@
                                                         </div>
 
                                                         <div class="plyr__video-embed rbtplayer">
-                                                            <iframe style="width: 100%; margin-top: 45px;"
+                                                            <iframe  scrolling="no" allowfullscreen style="width: 100%; margin-top: 45px;"
                                                                 src="{{ $ideas->v_link }}" title="YouTube video player"
                                                                 frameborder="0"
                                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -135,5 +135,4 @@
         </script>
     </div>
 
-
 </x-default-layout>

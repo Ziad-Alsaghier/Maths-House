@@ -282,7 +282,7 @@
                                 <td style="padding-top: 15px !important">${ele.quizze.score +"/"+ele.score }</td>
                                 <td style="padding-top: 15px !important">${ele.time}</td>
                                 <td style="padding-top: 15px !important">${ele.date}</td>
-                                <td><a class="conBtn" href="MyCourses/Mistakes/${ele.id}">View Mistakes</a></td>
+                                <td><a class="conBtn" href="Mistakes/${ele.id}">View Mistakes</a></td>
                                 <td><a class="conBtn" href="Quiz/Report/${ele.id}">Report</a></td>
                             </tr>`;
 

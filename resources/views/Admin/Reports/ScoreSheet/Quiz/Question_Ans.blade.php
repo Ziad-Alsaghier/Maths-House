@@ -1,12 +1,11 @@
 @php
-    $page_name = 'Quiestion Answer';
+    function fun_admin()
+    {
+        return 'admin';
+    }
 @endphp
-@section('title', 'Chapters')
-@include('Student.inc.header')
-@include('Student.inc.menu')
-@extends('Student.inc.nav')
-
-@section('page_content')
+<x-default-layout>
+    @section('title', 'Answer')
     <style>
         .modal-dialog {
             max-width: 70% !important;
@@ -169,7 +168,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}" title="YouTube video player"
+                    <iframe scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}" title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
@@ -276,12 +275,12 @@
                             <div
                                 style="width: 100% !important;display: flex;align-items: flex-start;justify-content: space-around;column-gap: 100px; overflow: hidden;padding: 10px 0;">
 
-                                {{-- <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}"
+                                {{-- <iframe scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></iframe> --}}
                                 
-                                    <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}" frameborder="0"
+                                    <iframe scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>
 
@@ -364,6 +363,5 @@
             })
         }
     </script>
-@endsection
-
-@include('Student.inc.footer')
+    
+</x-default-layout>
