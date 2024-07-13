@@ -264,7 +264,7 @@
                     </div>
                 </div>
             @endif
-            
+
             <div class="ans_item d-none">
                 <b> Answer :
                 @if ( $question->ans_type == 'MCQ' )
@@ -395,66 +395,55 @@
     </div>
 </div>
 
-<script>
-    let mistakes_questions = document.querySelector('.mistakes_questions');
-    let ans_item_btn = document.querySelectorAll('.ans_item_btn');
-    let ans_item = document.querySelectorAll('.ans_item');
-    
-    for (let i = 0, end = ans_item_btn.length; i < end; i++) {
-        ans_item_btn[i].addEventListener('click', ( e ) => {
-            for (let j = 0; j < end; j++) {
-                if ( e.target == ans_item_btn[j] ) {
-                    ans_item[j].classList.toggle('d-none');
-                }
-            }
+    <script>
+        $(document).ready(function() {
+            console.log("first")
+            $(".accordion-button").click(function() {
+                console.log("ssss", $(this).closest(".accordion-item").find(".accordion-collapse")
+                    .toggleClass("collapse"))
+            })
+            $(".iconList").click(function() {
+                console.log("ssss")
+                // $(".list_item").addClass("d-none")
+                $(this).next().toggleClass("d-none")
+            })
         })
-    }
-    
+
         //___________________________________________________________________________________________
         let report_item = document.querySelectorAll('.report_item');
         let report_val = document.querySelectorAll('.report_val');
-        let q_ans_id = document.querySelectorAll('.q_ans_id');
-        let list_cont = document.querySelectorAll('.list_cont');
-        let list_item = document.querySelectorAll('.list_item');
-
-        for (let i = 0, end = list_cont.length; i < end; i++) {
-            list_cont[i].addEventListener('click', ( e ) => { 
-                for (let j = 0; j < end; j++) {
-                    console.log( e.target );
-                    if ( e.target == list_cont[j] || e.target.parentElement == list_cont[j] ) {
-                        list_item[j].classList.toggle('d-none')
-                    }
-                }
-            })
-        }
+        let q_ans_val = document.querySelectorAll('.q_ans_val');
 
         for (let i = 0, end = report_item.length; i < end; i++) {
-            report_item[i].addEventListener('click', ( e ) => {
-                for (let j = 0; j < end; j++) {
-                    if ( report_item[j] == e.target ) {
-                        console.log(parseInt(q_ans_id[j].value));
-                        let  obj = report_val[j].value;
-                        obj = JSON.parse(obj);
+            report_item[i].addEventListener('click', (e) => {
+                for (let j = 0; j < report_item.length; j++) {
+                    if (report_item[j] == e.target) {
+                        let report_obj = report_val[j].value;
+                        report_obj = JSON.parse(report_obj);
+                        let q_ans_obj = q_ans_val[j].value;
+                        q_ans_obj = JSON.parse(q_ans_obj);
+
                         obj = {
-                            'list_id' : obj.id,
-                            'lesson_video_id' : q_ans_id[j].value,
+                            'list_id': report_obj.id,
+                            'q_video_id': q_ans_obj.id
                         }
-                        $(".list_item").toggleClass("d-none")
-                        
-                        $.ajax("{{ route('report_video_q_api') }}", {
+
+                        $(".list_item").addClass("d-none")
+
+                        $.ajax("{{ route('report_q_video_api') }}", {
                             type: 'GET', // http method
                             data: {
                                 obj: obj
                             }, // data to submit
                             success: function(data) {
-                                console.log(data);
+                                console.log("asdasd", data);
                             },
                         });
                     }
                 }
             })
         }
-</script>
+    </script>
 
 @endsection
 
