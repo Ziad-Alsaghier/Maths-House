@@ -106,7 +106,7 @@
 
     .quizzes-page .options {
         position: relative;
-        width:100%;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -526,6 +526,14 @@
         background: cadetblue;
     }
 
+    .addSl {
+        font-size: 2rem;
+        border: none;
+        background: transparent;
+        margin-left: 100px;
+        font-weight: 500;
+    }
+
     /* ///Section Pagination  */
 </style>
 @include('Student.inc.header')
@@ -687,8 +695,10 @@
                                     <div class="section-setValue">
                                         <span>Answer:</span>
                                         <div class="input_val">
-                                            <input type="number" step="0.001" name='q_grid_ans[]' value="0">
+                                            <input type="text" name="q_grid_ans[]" step="0.001" value="0"
+                                                class="gridVal">
                                         </div>
+                                        <input type="button" value="/" class="addSl">
                                     </div>
                                     <div class="section-value">
                                         <span>Answer Preview:</span>
@@ -1038,6 +1048,12 @@
             $(".previouss-page").on("click", () => {
                 return showPage(currentPage - 1)
             });
+
+        });
+        $(".addSl").on("click", function() {
+            var inpVal = $(this).closest(".section-setValue").find(".gridVal");
+            var currentVal = inpVal.val().toString();
+            inpVal.val(currentVal + "/");
         });
     });
 </script>
