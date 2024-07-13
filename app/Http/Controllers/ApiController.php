@@ -2131,5 +2131,23 @@ class ApiController extends Controller
             'mistakes' => $mistakes,
         ]);
     }
+    
+
+    public function lesson_score_sheet_api( $id, Request $req ) {
+        $data = StudentQuizze::
+        where('student_id', auth()->user()->id)
+        ->where('lesson_id', $id)
+        ->with('quizze')
+        ->get();
+        $arr = [];
+
+        foreach ( $data as $item ) {
+            $arr[$item->quizze_id] = $item;
+        }
+
+        return response()->json([
+            'data' => array_values($arr)
+        ]);
+    }
 
 }

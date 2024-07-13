@@ -214,6 +214,7 @@ Route::middleware('auth:sanctum')->prefix('MobileStudent')->group(function(){
         Route::post('/booking_private_session','booking_private_session')->name('booking_private_session');
         Route::get('/myLive_session','myLive_session')->name('myLive_session');
         Route::get('/stu_dia_exam_mistakes/{id}','api_dia_exam_mistakes')->name('api_dia_exam_mistakes');
+        Route::get('/lesson_score_sheet_api/{id}','lesson_score_sheet_api')->name('lesson_score_sheet_api');
     });
 });
 Route::get('MobileStudent/customer_category','ApiController@customer_category')->name('customer_category');
