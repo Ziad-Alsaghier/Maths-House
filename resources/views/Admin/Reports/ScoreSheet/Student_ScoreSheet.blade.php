@@ -1,14 +1,16 @@
 @php
-function fun_admin()
-{
-    return 'admin';
-}
-$chapter_name = null;
-$ch_id = [];
+    function fun_admin()
+    {
+        return 'admin';
+    }
+    $chapter_name = null;
+    $ch_id = [];
 @endphp
 <x-default-layout>
-@section('title', 'ScoreSheet Report')
-
+    @section('title', 'ScoreSheet Report')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         .table {
             background: #fff !important;
@@ -68,21 +70,21 @@ $ch_id = [];
         <div class="col-12 d-flex align-items-center justify-content-start gap-5">
 
             <select class="selCourse mx-2"
-                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Course"
-                id="selCourse">
+                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;"
+                name="Course_Course" id="selCourse">
                 <option selected disabled>Select Course</option>
                 @foreach ($courses as $item)
                     <option value="{{ $item->id }}">{{ $item->course_name }}</option>
                 @endforeach
             </select>
             <select class="selChapter mx-2"
-                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Chapter"
-                id="selChapter">
+                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;"
+                name="Course_Chapter" id="selChapter">
                 <option value="">Select Chapter</option>
             </select>
             <select class="selLesson mx-2"
-                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;" name="Course_Lesson"
-                id="selLesson">
+                style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;"
+                name="Course_Lesson" id="selLesson">
                 <option value="">Select Lesson</option>
             </select>
             <input type="hidden" value="{{ $courses }}" class="course_data" />
@@ -266,7 +268,7 @@ $ch_id = [];
                     url: "{{ route('ad_lesson_score_sheet') }}",
                     type: "GET",
                     data: {
-                        user_id : {{$user_id}},
+                        user_id: {{ $user_id }},
                         lesson_id: lessonID
                     },
                     success: function(data) {
@@ -292,7 +294,7 @@ $ch_id = [];
             })
         })
     </script>
- 
+
 
 </x-default-layout>
 {{-- route('lesson_score_sheet') 
