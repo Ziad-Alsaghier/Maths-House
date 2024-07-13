@@ -378,4 +378,34 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function stu_search_api( Request $request ){
+        $students = User::
+        where('nick_name', 'like', "%" . $request->data . "%")
+        ->where('position', 'student')
+        ->orWhere('email', 'like', "%" . $request->data . "%")
+        ->where('position', 'student')
+        ->orWhere('phone', 'like', "%" . $request->data . "%")
+        ->where('position', 'student')
+        ->get();
+
+        return response()->json([
+            'students' => $students
+        ]);
+    }
+
+    public function teacher_search_api( Request $request ){
+        $teachers = User::
+        where('nick_name', 'like', "%" . $request->data . "%")
+        ->where('position', 'teacher')
+        ->orWhere('email', 'like', "%" . $request->data . "%")
+        ->where('position', 'teacher')
+        ->orWhere('phone', 'like', "%" . $request->data . "%")
+        ->where('position', 'teacher')
+        ->get();
+
+        return response()->json([
+            'teachers' => $teachers
+        ]);
+    }
+
 }
