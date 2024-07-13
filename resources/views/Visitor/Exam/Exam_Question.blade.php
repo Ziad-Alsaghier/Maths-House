@@ -1,5 +1,5 @@
 @php
-    $page_name = 'Diagnostic Exam';
+    $page_name = '  Exam';
     // $quizze->question;
     // "Mcq" => $item->mcq
     // "Grid" => $item->g_ans
@@ -526,6 +526,14 @@
         background: cadetblue;
     }
 
+    .addSl {
+        font-size: 2rem;
+        border: none;
+        background: transparent;
+        margin-left: 100px;
+        font-weight: 500;
+    }
+
     /* ///Section Pagination  */
 </style>
 @include('Student.inc.header')
@@ -650,9 +658,10 @@
                                     <div class="section-setValue">
                                         <span>Answer:</span>
                                         <div class="input_val">
-
-                                            <input type="number" name='q_grid_ans[]'step="0.001" value="0">
+                                            <input type="text" name="q_grid_ans[]" step="0.001" value="0"
+                                                class="gridVal">
                                         </div>
+                                        <input type="button" value="/" class="addSl">
                                     </div>
                                     <div class="section-value">
                                         <span>Answer Preview:</span>
@@ -729,6 +738,7 @@
 </script>
 <script>
     $(document).ready(function() {
+
         /* Timer question */
         var hoursLabel = $("#hour");
         var minutesLabel = $("#minutes");
@@ -756,7 +766,7 @@
             console.log("Sec_quizz", Sec_quizz)
             console.log("objTim", objTim)
             console.log("timer_val ", $(".timer_val").val())
-            ++totalSeconds;
+                ++totalSeconds;
             secondsLabel.html(pad(totalSeconds % 60));
             secondsLabel.html(pad(parseInt(totalSeconds)));
 
@@ -801,7 +811,7 @@
 
         /* Send Timer */
         // $(".btn-sendQuizz").click(() => {})
-        
+
         /* Send Report about the question */
         $(".report_item").on("click", function() {
             console.log("Report id", $(this).find(".reportID").val())
@@ -1005,6 +1015,12 @@
             $(".previouss-page").on("click", () => {
                 return showPage(currentPage - 1)
             });
+        });
+
+        $(".addSl").on("click", function() {
+            var inpVal = $(this).closest(".section-setValue").find(".gridVal");
+            var currentVal = inpVal.val().toString();
+            inpVal.val(currentVal + "/");
         });
     });
 </script>
