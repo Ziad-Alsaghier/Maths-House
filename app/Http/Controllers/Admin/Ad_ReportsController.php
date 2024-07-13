@@ -307,9 +307,41 @@ class Ad_ReportsController extends Controller
             $question = Question::where('id', $id)
             ->first();
 
-            return view('Student.Question_History.Question_Ans', compact('question', 'reports')); 
+            return view('Admin.Reports.ScoreSheet.Quiz.Question_Ans', compact('question', 'reports')); 
     
         } 
+    }
+ 
+
+    public function ad_question_parallel($id){
+        $question = Question::where('id', $id)
+            ->first();
+        $q_parallel = Question::where('month', $question->month)
+            ->where('year', $question->year)
+            ->where('section', $question->section)
+            ->where('q_num', $question->q_num)
+            ->where('id', '!=', $id)
+            ->get();
+
+        return view('Admin.Reports.ScoreSheet.Quiz.Parallel_Question', compact('q_parallel'));
+    }
+
+    public function ad_solve_parallel($id, Request $req)
+    {
+        $question = Question::where('id', $id)
+            ->first();
+        $grade = false;
+        if ($question->ans_type == 'MCQ') {
+            if ($question->mcq[0]->mcq_answers == $req['ans' . $id]) {
+                $grade = true;
+            }
+        } else {
+            if ($question->g_ans[0]->grid_ans == $req['ans' . $id]) {
+                $grade = true;
+            }
+        }
+        
+        return view('Admin.Reports.ScoreSheet.Quiz.Solve_Parallel', compact('grade', 'question'));
     }
 
 }

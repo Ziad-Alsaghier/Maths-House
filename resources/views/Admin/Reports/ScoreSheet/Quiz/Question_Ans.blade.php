@@ -1,12 +1,11 @@
 @php
-    $page_name = 'Quiestion Answer';
+    function fun_admin()
+    {
+        return 'admin';
+    }
 @endphp
-@section('title', 'Chapters')
-@include('Student.inc.header')
-@include('Student.inc.menu')
-@extends('Student.inc.nav')
-
-@section('page_content')
+<x-default-layout>
+    @section('title', 'Answer')
     <style>
         .modal-dialog {
             max-width: 70% !important;
@@ -364,6 +363,5 @@
             })
         }
     </script>
-@endsection
-
-@include('Student.inc.footer')
+    
+</x-default-layout>

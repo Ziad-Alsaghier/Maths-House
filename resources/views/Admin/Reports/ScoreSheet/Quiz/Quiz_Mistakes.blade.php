@@ -205,7 +205,7 @@
                         data-bs-target="#modalCenter{{ $mistakes->id }}">
                         View Answer
                     </button>
-                    <a href="{{ route('question_parallel', ['id' => $question->id]) }}" class="parallelMistake">Solve
+                    <a href="{{ route('ad_question_parallel', ['id' => $question->id]) }}" class="parallelMistake">Solve
                         Parallel</a>
                 </div>
 
