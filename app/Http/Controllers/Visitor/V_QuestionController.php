@@ -233,7 +233,7 @@ class V_QuestionController extends Controller
         $arr['time'] = $timer_val;
        // $arr['time'] = ;
         QuestionHistory::create($arr);
-        $report_v = ReportVideoList::all();
-        return view('Visitor.Question.Grade', compact('ans', 'question', 'report_v'));
+        $reports = ReportVideoList::all();
+        return view('Visitor.Question.Grade', compact('ans', 'question', 'reports'));
     }
 }
