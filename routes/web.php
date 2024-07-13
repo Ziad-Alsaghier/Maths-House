@@ -430,6 +430,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
 
     Route::controller(DomPdfController::class)->middleware('can:Reports')->group(function(){
         Route::post('/Report/Question/pdf','exam_pdf')->name('exam_pdf');
+        Route::get('/Report/ScoreSheet/Show/Quiz/Report/{id}', 'quizze_report')->name('quizze_report');
     });
 
 });

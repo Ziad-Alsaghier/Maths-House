@@ -171,6 +171,8 @@ Route::post('/forget_password', [ApiController::class, 'forget_password'])->name
 Route::post('/confirm_code', [ApiController::class, 'confirm_code'])->name('confirm_code');
 Route::post('/update_password', [ApiController::class, 'update_password'])->name('update_password');
 
+Route::get('/Quiz/Report/{id}', [DomPdfController::class, 'quizze_report'])->middleware('auth:sanctum');
+
 Route::middleware('auth:sanctum')->prefix('MobileStudent')->group(function(){
     Route::controller(ApiController::class)->prefix('ApiMyCourses')->group(function(){
         Route::get('/stu_courses','api_stu_my_courses')->name('api_stu_my_courses');
@@ -215,6 +217,7 @@ Route::middleware('auth:sanctum')->prefix('MobileStudent')->group(function(){
         Route::get('/myLive_session','myLive_session')->name('myLive_session');
         Route::get('/stu_dia_exam_mistakes/{id}','api_dia_exam_mistakes')->name('api_dia_exam_mistakes');
         Route::get('/lesson_score_sheet_api/{id}','lesson_score_sheet_api')->name('lesson_score_sheet_api');
+
     });
 });
 Route::get('MobileStudent/customer_category','ApiController@customer_category')->name('customer_category');
