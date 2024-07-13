@@ -284,7 +284,7 @@ class Ad_ReportsController extends Controller
         }
         
         return response()->json([
-            'data' => $arr
+            'data' => array_values($arr)
         ]);
     }
 
