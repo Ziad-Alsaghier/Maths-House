@@ -426,6 +426,9 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Report/ScoreSheet','ad_score_sheet_report')->name('ad_score_sheet_report');
         Route::get('/Report/ScoreSheet/Show/{id}','score_sheet_student')->name('score_sheet_student');
         Route::get('/Report/Question/Filter','ad_report_filter_exam')->name('ad_report_filter_question');
+        
+        Route::get('/Report/ScoreSheet/Show/Mistakes/{id}','ad_score_sheet_mistake')->name('ad_score_sheet_mistake');
+        Route::get('/Report/ScoreSheet/Answer/{id}','ad_score_question_answer')->name('ad_score_question_answer');
     });
 
     Route::controller(DomPdfController::class)->middleware('can:Reports')->group(function(){
