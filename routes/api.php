@@ -23,6 +23,8 @@ use App\Http\Controllers\Student\Stu_MyCourseController;
 use App\Http\Controllers\Student\Stu_LiveController;
 use App\Http\Controllers\Student\ScoreController;
 
+use App\Http\Controllers\DomPdfController;
+
 use App\Http\Controllers\ApiController;
 /*
 |--------------------------------------------------------------------------
