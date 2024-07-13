@@ -113,7 +113,7 @@
                         </td>
 
                         <td>
-                            <a href="{{route('score_sheet_student', ['id' => $item->id])}}" class="btn btn-primary">
+                            <a href="{{ route('score_sheet_student', ['id' => $item->id]) }}" class="btn btn-primary">
                                 Score Sheet
                             </a>
                         </td>
@@ -122,6 +122,17 @@
                 @endforeach
             </tbody>
         </table>
+        <script>
+            $(document).ready(function() {
+                console.log("first")
+                $("#myInput").on("keyup", () => {
+                    var vale = $("#myInput").val().toLowerCase();
+                    $("#myTable tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(vale) > -1);
+                    })
+                })
+            })
+        </script>
     </div>
 
 </x-default-layout>
