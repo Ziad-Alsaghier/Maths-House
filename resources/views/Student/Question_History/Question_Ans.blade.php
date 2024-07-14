@@ -143,76 +143,6 @@
         }
     </style>
 
-    {{-- <div>
-        <b> Answer :
-            @if (isset($question->ans_type) && $question->ans_type == 'MCQ')
-                {{ @$question->mcq[0]->mcq_answers }}
-            @else
-                {{ @$question->g_ans[0]->grid_ans }}
-            @endif
-        </b>
-        <br />
-
-
-        @if (isset($question->q_ans))
-            @foreach ($question->q_ans as $q_ans)
-                @if (!empty($q_ans->ans_video))
-                    <div class="list_cont">
-                        <i class="fa-solid fa-ellipsis-vertical" id="iconList"></i>
-                        <div class="list_item d-none">
-                            @foreach ($reports as $report)
-                                <span class="report_item">
-                                    <input type="hidden" class="report_val" value="{{ $report }}" />
-                                    <input type="hidden" class="q_ans_val" value="{{ $q_ans }}" />
-                                    {{ $report->list }}
-                                </span>
-                            @endforeach
-                        </div>
-                    </div>
-                    <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}" title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
-                @endif
-            @endforeach
-    </div>
-    @foreach ($question->q_ans as $q_ans)
-        <div class="d-flex ">
-            <a href="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" class="btn btn-success m-2" download>Download Pdf
-                {{ $loop->iteration }}</a>
-
-            <button class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#modalAnswer{{ $q_ans->id }}">
-                Show Answer
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="modalAnswer{{ $q_ans->id }}" tabindex="-1" aria-hidden="true"
-                style="display: none;">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-
-                            <h5 class="modal-title" id="modalCenterTitle">Show Question</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class='p-3'>
-                            <img style="height: 70vh;" src="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" />
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-    @endif --}}
-
-
     <div class="col-12 mt-3 d-flex align-items-center justify-content-center">
         <h3 class="texRed">Answers</h3>
     </div>
@@ -232,7 +162,7 @@
                     <button class="ansVideo" data-bs-toggle="modal" data-bs-target="#modalVideo{{ $q_ans->id }}">Show
                         Video</button>
 
-                    <a href="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" class="ansPdf" download>Dwonload Pdf
+                    <a href="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" class="ansPdf" download>Download Pdf
                         {{ $loop->iteration }}</a>
                 </div>
 
