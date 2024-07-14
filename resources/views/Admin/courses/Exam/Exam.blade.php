@@ -317,7 +317,7 @@
                                             style="display: flex; align-items: center;padding: 0;justify-content: start">
                                             <select class="form-control sel_exam_type" name="type">
                                                 <option selected disabled>
-                                                    Select Type ...
+                                                    Select Type
                                                 </option>
                                                 <option value="extra">Extra</option>
                                                 <option value="trail">Trail</option>
@@ -329,7 +329,7 @@
                                         <span class="col-md-2" style="font-size: 1.2rem;">Raw Score: </span>
                                         <select class="col-md-9 form-control" name="score_id">
                                             <option disabled selected>
-                                                Select Score Name ...
+                                                Select Score Name
                                             </option>
                                             @foreach ($scores as $score)
                                                 <option value="{{ $score->id }}">
@@ -341,12 +341,30 @@
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Total Score: </span>
-                                        <input type="text" name="score" class="col-md-9 form-control">
+                                        <input type="text" name="score" class="col-md-9 form-control"
+                                            placeholder="Total Score">
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Pass Score: </span>
-                                        <input type="text" name="pass_score" class="col-md-9 form-control">
+                                        <input type="text" name="pass_score" class="col-md-9 form-control"
+                                            placeholder="Pass Score">
+                                    </div>
+
+                                    <div class="col-md-12 d-flex align-items-center justify-content-around">
+                                        <span class="col-md-2" style="font-size: 1.2rem;">Number Section: </span>
+                                        <select class="col-md-9 form-control" name="num_section"
+                                            id="num_section_add">
+                                            <option value="">
+                                                Select Number Section
+                                            </option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 allSection"
+                                        style="display: flex;flex-direction: column;align-items: flex-start;row-gap: 15px;">
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
@@ -378,7 +396,7 @@
                                             class="d-flex align-items-center justify-content-start">
                                             <span class="col-md-2" style="font-size: 1.2rem;">Category: </span>
                                             <select name="select" id="sel_category" class="col-md-2 form-control">
-                                                <option value="" selected>Select Category ...</option>
+                                                <option value="" selected>Select Category</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->cate_name }}
                                                     </option>
@@ -390,7 +408,7 @@
                                             class="d-flex align-items-center justify-content-start">
                                             <span class="col-md-2" style="font-size: 1.2rem;">Course: </span>
                                             <select name="course_id" id="sel_course" class="col-md-2 form-control">
-                                                <option value="" selected>Select Course ...</option>
+                                                <option value="" selected>Select Course</option>
                                             </select>
                                         </div>
 
@@ -400,7 +418,7 @@
                                                 <span class="col-md-2" style="font-size: 1.2rem;">Year: </span>
                                                 <select name="year" class="col-md-2 form-control exam_sel_year">
                                                     <option selected disabled>
-                                                        Select Year ...
+                                                        Select Year
                                                     </option>
                                                     @for ($i = date('Y'); $i > 1950; $i--)
                                                         <option value="{{ $i }}">{{ $i }}
@@ -414,7 +432,7 @@
                                                 <span class="col-md-2" style="font-size: 1.2rem;">Month: </span>
                                                 <select name="month" class="col-md-2 form-control exam_sel_month">
                                                     <option value="" selected disabled>
-                                                        Select Month ...
+                                                        Select Month
                                                     </option>
                                                     @for ($i = 0; $i < 12; $i++)
                                                         <option value="{{ $i + 1 }}">
@@ -428,7 +446,7 @@
                                                 <span class="col-md-2" style="font-size: 1.2rem;">Code: </span>
                                                 <select name="code_id" class="col-md-2 form-control exam_sel_code">
                                                     <option selected disabled>
-                                                        Select Code ...
+                                                        Select Code
                                                     </option>
                                                     @foreach ($codes as $code)
                                                         <option value="{{ $code->id }}">{{ $code->exam_code }}
@@ -1273,6 +1291,19 @@
 
     <script>
         $(document).ready(function() {
+            $("#num_section_add").change(function() {
+                var countSection = $(this).val();
+                $(".allSection").empty(); 
+                console.log("countSection",countSection)
+                for (var i = 0; i < countSection; i++) {
+                    console.log([i])
+                    var addSection = `<div class="col-md-12 d-flex align-items-center justify-content-around">
+                                        <span class="col-md-2" style="font-size: 1.2rem;">Section ${[i + 1]}: </span>
+                                        <input type="text" name="section" class="col-md-9 form-control" placeholder="Section ${[i + 1]}">
+                                    </div>`;
+                    $(".allSection").append(addSection)
+                }
+            })
 
             $("#show_menu").click(function() {
 
@@ -1404,7 +1435,7 @@
         sel_category.addEventListener('change', () => {
             sel_course.innerHTML = `
             <option selected disabled>
-                Select Course ...
+                Select Course
             </option>
             `;
             course.forEach(element => {
@@ -1594,7 +1625,7 @@
                                 q_type: $("#sel_type").val(),
                             },
                             success: function(data) {
-                                console.log("dataaaat",data)
+                                console.log("dataaaat", data)
                                 console.log("data filter", data)
                                 if (data.faild == undefined) {
                                     console.log("yes faild")
@@ -1871,7 +1902,7 @@
                 /* Exam Id */
                 var idExam = $(btn_editee).closest(".form_editquizze").find("#dia_id").val();
                 console.log("idExam", idExam)
-                
+
                 if ($(info_Active).is(":checked") == true) {
                     info_Active = 1;
                 } else {
