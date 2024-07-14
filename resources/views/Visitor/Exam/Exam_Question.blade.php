@@ -757,8 +757,7 @@
             var alltime = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
             var objTim = alltime;
 
-            // $("#timer_val").val(JSON.stringify(objTim));
-            $("#timer_val").val(`${Hours_quizz}:${Min_quizz}:${Sec_quizz}`);
+            $("#timer_val").val(JSON.stringify(objTim));
 
             console.log("Hours_quizz", Hours_quizz)
             console.log("Min_quizz", Min_quizz)
@@ -809,7 +808,19 @@
         }
 
         /* Send Timer */
-        // $(".btn-sendQuizz").click(() => {})
+        $(".btn-sendQuizz").click(function() {
+            var timer_val = $("#timer_val").val();
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "GET",
+                data: {
+                    timer_val,
+                },
+                success: function(data) {
+                    console.log("data", data)
+                }
+            })
+        })
 
         /* Send Report about the question */
         $(".report_item").on("click", function() {
