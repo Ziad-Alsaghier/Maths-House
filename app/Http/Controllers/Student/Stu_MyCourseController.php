@@ -287,8 +287,9 @@ class Stu_MyCourseController extends Controller
                 ]);
             }
         }
+        $report_v = ReportVideoList::all();
 
-        return view('Student.MyCourses.Grade', compact('deg', 'quize_id', 'quizze', 'right_question', 'total_question', 'mistakes'));
+        return view('Student.MyCourses.Grade', compact('deg', 'quize_id', 'quizze', 'right_question', 'total_question', 'mistakes', 'report_v'));
     }
 
     public function question_parallel($id)
