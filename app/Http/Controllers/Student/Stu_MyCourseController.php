@@ -275,7 +275,7 @@ class Stu_MyCourseController extends Controller
                 'quizze_id' => $quizze->id,
                 'student_id' => auth()->user()->id,
                 'score' => $score,
-                'time' => '$req->timer',
+                'time' => $req->timer_val,
                 'r_questions' => $right_question,
             ]);
             $quize_id = $stu_quizze->id;

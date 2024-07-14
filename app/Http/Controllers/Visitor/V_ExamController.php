@@ -185,7 +185,7 @@ class V_ExamController extends Controller
                 $question = Question::where('id', $mcq_item->q_id)
                 ->first();
 
-                $stu_solve = $question->mcq[0]->mcq_answers;
+                $stu_solve = @$question->mcq[0]->mcq_answers;
                 $arr = ['A', 'B', 'C', 'D']; 
                 if ( isset($mcq_item->answer) && $stu_solve == $mcq_item->answer ) {
                     $deg++;

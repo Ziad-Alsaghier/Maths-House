@@ -58,6 +58,7 @@ class DomPdfController extends Controller
     }
 
     public function dia_exam_report_pdf( $id ){
+    
         // Fetch the data
         $data = DiagnosticExamsHistory::where('id', $id)->first();
         $exam = DiagnosticExam::where('id', $data->diagnostic_exams_id)->first();
@@ -84,14 +85,12 @@ class DomPdfController extends Controller
         if ($delay == 0) {
             $delay = 'On Time';
         } else {
-            $delay = $delay;
+            $delay = -$delay;
+            $color = $delay > 0 ? true : false;  
             $h = intval($delay / (60 * 60));
             $delay = $delay - $h * 60 * 60;
             $m = intval($delay / 60);
-            $s = $delay - $m * 60;
-            if ( $delay > 0 ) {
-                $color = true;
-            }            
+            $s = $delay - $m * 60;        
             $delay = "Delay $h Hours $m Minutes $s Seconds";
         }
     

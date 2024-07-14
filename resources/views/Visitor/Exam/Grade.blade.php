@@ -92,7 +92,7 @@
 
                             <table class="table">
                                 <tr>
-                                    <td>Quizze : </td>
+                                    <td>Exam : </td>
                                     <td>{{ $exam->title }}</td>
                                 </tr>
                                 <tr>
@@ -225,7 +225,7 @@
             <div class="ans_item d-none">
                 <b> Answer :
                 @if ( $question->ans_type == 'MCQ' )
-                    {{$question->mcq[0]->mcq_answers}}
+                    {{@$question->mcq[0]->mcq_answers}}
                 @else 
                 {{$question->g_ans[0]->grid_ans}}
                 @endif
