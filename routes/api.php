@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\Ad_ReportsController;
 
 use App\Http\Controllers\Visitor\CoursesController;
+use App\Http\Controllers\Visitor\V_ExamController;
 
 use App\Http\Controllers\Student\Stu_MyCourseController;
 use App\Http\Controllers\Student\Stu_LiveController;
@@ -53,6 +54,8 @@ Route::get('/sel_duration_course', [CoursesController::class, 'sel_duration_cour
 Route::get('/exam_data', [ExamController::class, 'exam_data'])->name('exam_data');
 Route::get('/ScoreSheet/Edit',[ExamController::class, 'scoreEdit'])->name('scoreEdit'); 
 Route::get('/ad_lesson_score_sheet', [Ad_ReportsController::class, 'ad_lesson_score_sheet'])->name('ad_lesson_score_sheet');
+
+Route::get('/api_timer', [V_ExamController::class, 'api_timer'])->name('api_timer');
 
 Route::get('/private_req', [Stu_LiveController::class, 'private_req_api'])->name('private_req_api');
 Route::get('/private_req_book', [Stu_LiveController::class, 'private_req_book_api'])->name('private_req_book_api');
