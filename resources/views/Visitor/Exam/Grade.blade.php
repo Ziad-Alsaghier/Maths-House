@@ -9,6 +9,33 @@
 @section('page_content')
 
 <style>
+    .table {
+        background: #fff !important;
+    }
+
+    .table td {
+        font-weight: 600;
+        color: #787878 !important;
+    }
+
+    .conBtn {
+        width: 100% !important;
+        background: #FEF5F3 !important;
+        color: #CF202F !important;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 5px 20px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .conBtn:hover {
+        background: #CF202F !important;
+        color: #FEF5F3 !important;
+    }
     .modal-dialog {
         max-width: 70% !important;
     }
@@ -348,28 +375,41 @@
                     $arr[$item->lessons->chapter->id] = $item;
                 @endphp
             @endforeach
-            @foreach ( $arr as $item )
-                <table class="table">
-                    <tr>
-                        <td>
-                        Chapter => {{$item->lessons->chapter->chapter_name}}
-                        </td>
-                        <td>
-                            <a href="{{route('buy_chapter', ['id' => $item->lessons->chapter->id])}}" class="btn btn-primary">
-                                Buy
-                            </a>
-                            @php
-                                $arr_id[] = $item->lessons->chapter->id;
-                            @endphp
-                        </td>
-                    </tr>
-                </table>
+
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <table class="table col-12  mt-2">
+                    <thead>
+                        <tr>
+                            <th class="col-6" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                scope="col">Chapter Name</th>
+                            <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                                scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+            @foreach ( $arr as $item ) 
+                <tr>
+                    <td style="text-align: start !important">
+                    {{$item->lessons->chapter->chapter_name}}
+                    </td>
+                    <td style="text-align: start !important">
+                        <a href="{{route('buy_chapter', ['id' => $item->lessons->chapter->id])}}" class="conBtn">
+                            Buy
+                        </a>
+                        @php
+                            $arr_id[] = $item->lessons->chapter->id;
+                        @endphp
+                    </td>
+                </tr> 
             @endforeach
+        </tbody>
+    </table>
+</div>
 
             <form action="{{route('dia_buy_chapters')}}" method="POST">
                 @csrf
                 <input type="hidden" name="ids" value="{{json_encode($arr_id)}}" />
-                <button class="btn btn-primary mb-5">
+                <button class="conBtn">
                     Buy All
                 </button>
             </form>

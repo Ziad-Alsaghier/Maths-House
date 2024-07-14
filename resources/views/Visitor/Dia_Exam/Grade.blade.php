@@ -118,36 +118,15 @@
             <div class="row g-0  p-3 align-items-center">
                 @php
                     $arr_id = [];
+                    $arr = [];
                 @endphp
+                @foreach ( $mistakes as $item )
+                    @php
+                        $arr[$item->lessons->chapter->id] = $item;
+                    @endphp
+                @endforeach
 
 
-
-                {{-- <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Chapter Name</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($mistakes as $item)
-                            <tr>
-                                <td>
-                                    {{ $item->lessons->chapter->chapter_name }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('buy_chapter', ['id' => $item->lessons->chapter->id]) }}"
-                                        class="btn btn-primary">
-                                        Buy
-                                    </a>
-                                    @php
-                                        $arr_id[] = $item->lessons->chapter->id;
-                                    @endphp
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table> --}}
                 <div class="col-12 d-flex align-items-center justify-content-center">
                     <table class="table col-12  mt-2">
                         <thead>
@@ -159,7 +138,7 @@
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            @foreach ($mistakes as $item)
+                            @foreach ($arr as $item)
                                 <tr>
                                     <td style="text-align: start !important">{{ $item->lessons->chapter->chapter_name }}
                                     </td>
