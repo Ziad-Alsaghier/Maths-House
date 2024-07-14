@@ -662,7 +662,7 @@
                         {{-- Supp Question --}}
 
                         {{-- Input to set and send value about answer question to array --}}
-                        <input type="hidden" class="timer_val" name="timer_val" />
+                        <input type="hidden" id="timer_val" name="timer_val" />
 
                         {{-- Answer chosen --}}
 
@@ -790,13 +790,13 @@
                 minutes: Min_quizz,
                 seconds: Sec_quizz
             }
-            $(".timer_val").val(JSON.stringify(objTim));
+            $("#timer_val").val(JSON.stringify(objTim));
 
             console.log("Hours_quizz", Hours_quizz)
             console.log("Min_quizz", Min_quizz)
             console.log("Sec_quizz", Sec_quizz)
             console.log("objTim", objTim)
-            console.log("timer_val ", $(".timer_val").val())
+            console.log("timer_val ", $("#timer_val").val())
                 ++totalSeconds;
             secondsLabel.html(pad(totalSeconds % 60));
             secondsLabel.html(pad(parseInt(totalSeconds)));
@@ -841,21 +841,18 @@
         }
 
         /* Send Timer */
-        $(".btn-sendQuizz").click(() => {
-            var Hours_quizz = $("#hour").text();
-            var Min_quizz = $("#minutes").text();
-            var Sec_quizz = $("#seconds").text();
-
-            var objTim = {
-                houres: Hours_quizz,
-                minutes: Min_quizz,
-                seconds: Sec_quizz
-            }
-
-            console.log("Hours_quizz", Hours_quizz)
-            console.log("Min_quizz", Min_quizz)
-            console.log("Sec_quizz", Sec_quizz)
-            console.log("objTim", objTim)
+        $(".btn-sendQuizz").click(function() {
+            var timer_val = $("#timer_val").val();
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "GET",
+                data: {
+                    timer_val,
+                },
+                success: function(data) {
+                    console.log("data", data)
+                }
+            })
         })
 
         /* Send Report about the question */

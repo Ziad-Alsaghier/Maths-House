@@ -843,7 +843,19 @@
         }
 
         /* Send Timer */
-        // $(".btn-sendQuizz").click(() => {})
+        $(".btn-sendQuizz").click(function() {
+            var timer_val = $("#timer_val").val();
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "GET",
+                data: {
+                    timer_val,
+                },
+                success: function(data) {
+                    console.log("data", data)
+                }
+            })
+        })
 
         /* Send Report about the question */
         $(".report_item").on("click", function() {
