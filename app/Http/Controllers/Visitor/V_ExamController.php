@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Visitor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 use App\Models\Exam;
 use App\Models\ExamCodes;
@@ -170,7 +171,7 @@ class V_ExamController extends Controller
 
     public function exam_ans( $id, Request $req )
     {
-        $timer_val = ($req->timer_val);
+        $timer_val = Cookie::get('timer');
         $exam = Exam::where('id', $id)
         ->first();
         $report_v = ReportVideoList::all();
@@ -261,6 +262,14 @@ class V_ExamController extends Controller
     
     public function exam_history(){
         
+    }
+
+    public function api_timer( Request $req ){
+        Cookie::queue('timer', $req->timer_val, 180);
+
+        return response()->json([
+            'success' => $req->timer_val
+        ]);
     }
 
 }
