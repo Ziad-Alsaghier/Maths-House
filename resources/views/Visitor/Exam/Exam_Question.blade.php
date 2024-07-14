@@ -628,7 +628,7 @@
                             {{-- Supp Question --}}
 
                             {{-- Input to set and send value about answer question to array --}}
-                            <input type="hidden" class="timer_val" name="timer_val" />
+                            <input type="hidden" id="timer_val" name="timer_val" />
                             <input type="hidden" name="quizze" value="{{ $exam }}">
 
                             {{-- Answer chosen --}}
@@ -754,18 +754,16 @@
             var Min_quizz = $("#minutes").text();
             var Sec_quizz = $("#seconds").text();
 
-            var objTim = {
-                houres: Hours_quizz,
-                minutes: Min_quizz,
-                seconds: Sec_quizz
-            }
-            $(".timer_val").val(JSON.stringify(objTim));
+            var alltime = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
+            var objTim = alltime;
+            
+            $("#timer_val").val(JSON.stringify(objTim));
 
             console.log("Hours_quizz", Hours_quizz)
             console.log("Min_quizz", Min_quizz)
             console.log("Sec_quizz", Sec_quizz)
             console.log("objTim", objTim)
-            console.log("timer_val ", $(".timer_val").val())
+            console.log("timer_val ", $("#timer_val").val())
                 ++totalSeconds;
             secondsLabel.html(pad(totalSeconds % 60));
             secondsLabel.html(pad(parseInt(totalSeconds)));
@@ -777,10 +775,10 @@
                 // var Sec_quizz = $("#seconds").text();
                 // var Timer_quizz = Hours_quizz + Min_quizz + Sec_quizz;
 
-                console.log("Hours_quizz", Hours_quizz)
-                console.log("Min_quizz", Min_quizz)
-                console.log("Sec_quizz", Sec_quizz)
-                console.log("Timer_quizz", Timer_quizz)
+                // console.log("Hours_quizz", Hours_quizz)
+                // console.log("Min_quizz", Min_quizz)
+                // console.log("Sec_quizz", Sec_quizz)
+                // console.log("Timer_quizz", Timer_quizz)
             } else {
                 secondsLabel.html(pad(parseInt(0)));
                 totalSeconds = 0;
