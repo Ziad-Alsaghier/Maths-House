@@ -628,7 +628,7 @@
                                     <!--begin::Modal header-->
                                     <!--begin::Modal body-->
                                     <div class="modal-body scroll-y m-5">
-                                        {{ $question->question }}
+                                        {!! $question->question !!}
                                         <br />
                                         <br />
                                         @if (!empty($question->q_url))
@@ -706,7 +706,7 @@
                                                     <!--end::Label-->
 
                                                     <!--begin::Input-->
-                                                    <textarea name="question" class="form-control">{{ $question->question }}</textarea>
+                                                    <textarea name="question" class="form-control">{!! $question->question !!}</textarea>
                                                     <!--end::Input-->
 
                                                 </div>
@@ -1121,7 +1121,7 @@
                                     <div class='p-3'>
                                         Are You Sure To Delete
                                         <span class='text-danger'>
-                                            {{ $question->question }} ??
+                                            {!! $question->question !!} ??
                                         </span>
                                     </div>
 
