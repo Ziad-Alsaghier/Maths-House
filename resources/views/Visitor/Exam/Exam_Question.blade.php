@@ -629,6 +629,7 @@
 
                             {{-- Input to set and send value about answer question to array --}}
                             <input type="hidden" id="timer_val" name="timer_val" />
+                            <input type="hidden" id="timer_text" name="timer_text"  value="timer"/>
                             <input type="hidden" name="quizze" value="{{ $exam }}">
 
                             {{-- Answer chosen --}}
@@ -756,7 +757,7 @@
 
             var alltime = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
             var objTim = alltime;
-            
+
             $("#timer_val").val(JSON.stringify(objTim));
 
             console.log("Hours_quizz", Hours_quizz)
