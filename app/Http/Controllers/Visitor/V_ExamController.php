@@ -170,8 +170,7 @@ class V_ExamController extends Controller
 
     public function exam_ans( $id, Request $req )
     {
-        $timer_val = json_decode($req->timer_val);
-        $timer_val = $timer_val->houres . ':' . $timer_val->minutes . ':' . $timer_val->seconds;
+        $timer_val = ($req->timer_val);
         $exam = Exam::where('id', $id)
         ->first();
         $report_v = ReportVideoList::all();
