@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Visitor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 use App\Models\Question;
 use App\Models\User;
@@ -182,8 +183,7 @@ class V_QuestionController extends Controller
     }
 
     public function q_sol( Request $req ){ 
-        $timer_val = json_decode($req->timer_val);
-        $timer_val = $timer_val->houres . ':' . $timer_val->minutes . ':' . $timer_val->seconds;
+        $timer_val = json_decode(Cookie::get('timer'));
         $arr = [];
         $ans = false;
         $question = [];

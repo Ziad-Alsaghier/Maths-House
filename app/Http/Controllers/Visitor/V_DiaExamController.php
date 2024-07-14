@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Visitor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 use App\Models\Category;
 use App\Models\Course;
@@ -75,7 +76,7 @@ class V_DiaExamController extends Controller
 
     public function dia_exam_ans( $id, Request $req )
     {
-        $timer_val = $req->timer_val;
+        $timer_val = json_decode(Cookie::get('timer'));
         
         $exam = DiagnosticExam::where('id', $id)
         ->first();
