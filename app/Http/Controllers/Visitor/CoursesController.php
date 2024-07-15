@@ -389,7 +389,7 @@ class CoursesController extends Controller
 
     public function check_out( Request $req ){
         $chapters = json_decode(Cookie::get('marketing'));
-        $chapters = json_decode($chapters);
+        $chapters = is_array($chapters) ? $chapters : json_decode($chapters);
         Cookie::queue('chapters_price', $req->chapters_pricing, 10000);
         $price = $req->chapters_pricing;
         $payment_methods = PaymentMethod::

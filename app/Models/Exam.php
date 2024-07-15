@@ -20,6 +20,7 @@ class Exam extends Model
         'title',
         'description',
         'time',
+        'sections',
         'score',
         'pass_score',
         'year',
