@@ -28,8 +28,6 @@ class Logincontroller extends Controller
 
         public function store(Request $request){
                 
-                return [
-                        'type' => 'web'];
                 $request->validate([
                 'email'=> 'required|email',
                 'password'=> 'required'
@@ -70,13 +68,13 @@ class Logincontroller extends Controller
                         $authantecated = Auth::attempt($credentials);
                         
                         if($authantecated){
-                                LoginUser::create([
-                                'type' => 'web', 
-                                'user_id'=> $user->id]);
-
                                 $user = User::where('email',$request->email)->first();
                                 $token = $user->createToken("user")->plainTextToken;
                                 $user->token =$token ;
+
+                                LoginUser::create([
+                                'type' => 'web', 
+                                'user_id'=> $user->id]);
                                                         
                                 if ( session()->has('previous_page') ) {
                                         return redirect($request->session()->get('previous_page'));
