@@ -88,7 +88,7 @@
 						<ul class="list-unstyled">
 							<li><a href="#">About Us</a></li>
 							<li><a href="#">Blog</a></li>
-							<li><a href="page-contact.html">Contact</a></li>
+							<li><a href="https://mathshouse.net/index.php/contact/">Contact</a></li>
 							<li><a href="#">Become a Teacher</a></li>
 						</ul>
 					</div>
