@@ -169,9 +169,8 @@ class V_QuestionController extends Controller
             $package = Package::
             where('module', 'Question')
             ->get();
+            Cookie::queue(Cookie::make('q_id', $id, 90));
             return view('Student.Exam.Exam_Package', compact('package'));
-             
-            
         }
     }
 

@@ -207,8 +207,19 @@ class Stu_PackageController extends Controller
             }
         }
         move_uploaded_file( $tmp, 'images/payment_reset/' . $img_name);
+        $pages = [];
+        $q_id = Cookie::get('q_id');
+        $exam_id = Cookie::get('exam_id');
+        if ( is_numeric($q_id) ) {
+            $pages['q_id'] = intval($q_id);
+            Cookie::queue(Cookie::forget('q_id'));
+        }
+        elseif ( is_numeric($exam_id) ) {
+            $pages['exam_id'] = intval($exam_id);
+            Cookie::queue(Cookie::forget('exam_id'));
+        }
         
-        return view('Student.Order.Order', compact('package', 'price', 'p_method'));
+        return view('Student.Order.Order', compact('package', 'price', 'p_method', 'pages'));
     }
 
     public function package_use_promocode( Request $req ){
