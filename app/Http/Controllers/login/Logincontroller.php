@@ -28,6 +28,8 @@ class Logincontroller extends Controller
 
         public function store(Request $request){
                 
+                return [
+                        'type' => 'web'];
                 $request->validate([
                 'email'=> 'required|email',
                 'password'=> 'required'
@@ -68,9 +70,6 @@ class Logincontroller extends Controller
                         $authantecated = Auth::attempt($credentials);
                         
                         if($authantecated){
-                                return [
-                                        'type' => 'web', 
-                                        'user_id'=> $user->id];
                                 LoginUser::create([
                                 'type' => 'web', 
                                 'user_id'=> $user->id]);
