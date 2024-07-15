@@ -68,13 +68,16 @@ class Logincontroller extends Controller
                         $authantecated = Auth::attempt($credentials);
                         
                         if($authantecated){
-                                $user = User::where('email',$request->email)->first();
-                                $token = $user->createToken("user")->plainTextToken;
-                                $user->token =$token ;
-
+                                return [
+                                        'type' => 'web', 
+                                        'user_id'=> $user->id];
                                 LoginUser::create([
                                 'type' => 'web', 
                                 'user_id'=> $user->id]);
+
+                                $user = User::where('email',$request->email)->first();
+                                $token = $user->createToken("user")->plainTextToken;
+                                $user->token =$token ;
                                                         
                                 if ( session()->has('previous_page') ) {
                                         return redirect($request->session()->get('previous_page'));
