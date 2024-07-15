@@ -127,7 +127,7 @@
                         <td style="width: 8%;">
                             <p>
 
-                                <a class="btn btn-info" href="{{ route('stu_details', ['id' => $item->id]) }}">
+                                <a class="btn btn-info btn-sm" href="{{ route('stu_details', ['id' => $item->id]) }}">
                                     View
                                 </a>
                             </p>
