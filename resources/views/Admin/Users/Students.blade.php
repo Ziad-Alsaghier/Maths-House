@@ -98,11 +98,21 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<div class="d-flex col-12 align-items-center justify-content-start gap-6">
 
     <div style="display: flex; align-items: center;justify-content: flex-start">
         <input type="text" class="my-3 form-control" placeholder="Search..." style="width: 200px;" id="myInput">
     </div>
-    <div class="card-datatable table-responsive" style="overflow-x: hidden">
+    <div class="col-md-2 d-flex" style="align-items: center; column-gap:10px">
+        <span style="font-size: 1.2rem;font-weight: 600;">Section:</span>
+        <select id="selPayment" name="selPayment" class="form-control">
+            <option value="">Select Payment</option>
+            <option value="free">Free</option>
+            <option value="paid">Paid</option>
+        </select>
+    </div>  
+</div>
+    <div class="mt-4 card-datatable table-responsive" style="overflow-x: hidden">
         <table class="datatables-users border-top display table-hover table-striped" id="cm-list">
             <thead>
                 <tr>
@@ -404,6 +414,12 @@
         $(document).ready(function() {
             $("#myInput").on("keyup", () => {
                 var vale = $("#myInput").val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(vale) > -1);
+                })
+            })
+            $("#selPayment").on("change", () => {
+                var vale = $("#selPayment").val().toLowerCase();
                 $("#myTable tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(vale) > -1);
                 })
