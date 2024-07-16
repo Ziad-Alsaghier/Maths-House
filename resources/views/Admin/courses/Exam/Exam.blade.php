@@ -339,13 +339,13 @@
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Houre: </span>
-                                                <input type="number" name="time_h" max="3" min="0"
+                                                <input value="0" type="number" name="time_h" max="3" min="0"
                                                     class="col-md-4 form-control">
                                             </div>
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Minets: </span>
-                                                <input type="number" name="time_m" max="60" min="0"
+                                                <input type="number" value="0" name="time_m" max="60" min="0"
                                                     class="col-md-4 form-control">
                                             </div>
                                         </div>
@@ -1372,17 +1372,17 @@
                                                         <div class="d-flex flex-column align-items-center gap-2">
                                                             <span style="font-size: 1.2rem !important;">Hours</span>
                                                             <input type="number" class="form-control" style="width: 50px !important;"
-                                                                name="section_hour[]">
+                                                                name="section_hour[]" value="0">
                                                             </div>
                                                         <div class="d-flex flex-column align-items-center gap-2">
                                                             <span style="font-size: 1.2rem !important;">Minutes</span>
                                                             <input type="number" class="form-control" style="width: 50px !important;"
-                                                                name="section_minutes[]">
+                                                                name="section_minutes[]" value="0">
                                                             </div>
                                                         <div class="d-flex flex-column align-items-center gap-2">
                                                             <span style="font-size: 1.2rem !important;">Seconds</span>
                                                             <input type="number" class="form-control" style="width: 50px !important;"
-                                                                name="section_seconds[]">
+                                                                name="section_seconds[]" value="0">
                                                             </div>
                                                     </div>
                                                 </div>
