@@ -10,10 +10,12 @@ use App\Models\ScoreList;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Question;
-use App\Models\Exam;
 use App\Models\ExamCodes;
-use App\Models\ExamQuestion;
 use App\Models\Chapter;
+use App\Models\Exam;
+use App\Models\ExamSection;
+use App\Models\ExamHistorySection;
+use App\Models\ExamQuestion;
 
 class ExamController extends Controller
 {
@@ -40,7 +42,7 @@ class ExamController extends Controller
     }
 
     public function add_exam( Request $req ){
-        $questions = json_decode($req->ques_id);
+        return $req->all();
         $req->validate([
             'title' => 'required',
             'score'   => 'required|numeric', 
@@ -48,21 +50,81 @@ class ExamController extends Controller
             'course_id'    => 'required|numeric',
             'score_id'    => 'required|numeric',
            ]);
-           if ( !isset($questions) ) {
-               session()->flash('faild','You Must Enter Questions');
-               return redirect()->back();
-           }
         $arr = $req->only('title', 'description', 'score', 'pass_score', 'type',
         'year', 'month', 'code_id', 'course_id', 'score_id', 'state');
-        $arr['time'] = $req->time_h . 'Hours ' . $req->time_m . ' M';
-        $dia_exam = Exam::create($arr);
-        foreach ($questions as $ques) {
-            ExamQuestion::create([
-                'exam_id' => $dia_exam->id,
-                'question_id' => $ques->id,
-            ]);
-            // $exam = Exam::findorfail($dia_exam->id);
-            // $exam->question()->syncWithoutDetaching($ques->id);
+        $arr['time'] = $req->time_h . ':' . $req->time_m . ':00';
+        $arr['sections'] = $req->num_section;
+        $exam = Exam::create($arr);
+        if( json_decode($req->section_0) ){
+            $questions = json_decode($req->section_0);
+            foreach ($questions as $ques) {
+                $exam_section = ExamSection::create([
+                    'name' => $req->section_name[0],
+                    'description' => $req->section_description[0],
+                    'timer' => $req->section_hour[0] . ':' . $req->section_minutes[0] . ":" . $req->section_seconds[0],
+                    'exam_id' => $exam->id,
+                ]);
+
+                ExamQuestion::create([
+                    'exam_id' => $exam->id,
+                    'question_id' => $ques->id,
+                    'section_id' => $exam_section->id,
+                ]);
+            }
+        }
+        
+        if( json_decode($req->section_1) ){
+            $questions = json_decode($req->section_1);
+            foreach ($questions as $ques) {
+                $exam_section = ExamSection::create([
+                    'name' => $req->section_name[1],
+                    'description' => $req->section_description[1],
+                    'timer' => $req->section_hour[1] . ':' . $req->section_minutes[1] . ":" . $req->section_seconds[1],
+                    'exam_id' => $exam->id,
+                ]);
+
+                ExamQuestion::create([
+                    'exam_id' => $exam->id,
+                    'question_id' => $ques->id,
+                    'section_id' => $exam_section->id,
+                ]);
+            }
+        }
+        
+        if( json_decode($req->section_2) ){
+            $questions = json_decode($req->section_2);
+            foreach ($questions as $ques) {
+                $exam_section = ExamSection::create([
+                    'name' => $req->section_name[2],
+                    'description' => $req->section_description[2],
+                    'timer' => $req->section_hour[2] . ':' . $req->section_minutes[2] . ":" . $req->section_seconds[2],
+                    'exam_id' => $exam->id,
+                ]);
+
+                ExamQuestion::create([
+                    'exam_id' => $exam->id,
+                    'question_id' => $ques->id,
+                    'section_id' => $exam_section->id,
+                ]);
+            }
+        }
+        
+        if( json_decode($req->section_3) ){
+            $questions = json_decode($req->section_3);
+            foreach ($questions as $ques) {
+                $exam_section = ExamSection::create([
+                    'name' => $req->section_name[3],
+                    'description' => $req->section_description[3],
+                    'timer' => $req->section_hour[3] . ':' . $req->section_minutes[3] . ":" . $req->section_seconds[3],
+                    'exam_id' => $exam->id,
+                ]);
+
+                ExamQuestion::create([
+                    'exam_id' => $exam->id,
+                    'question_id' => $ques->id,
+                    'section_id' => $exam_section->id,
+                ]);
+            }
         }
 
         return redirect()->back();
