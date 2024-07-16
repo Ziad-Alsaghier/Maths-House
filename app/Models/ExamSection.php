@@ -11,6 +11,7 @@ class ExamSection extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'timer',
         'exam_id',
     ];

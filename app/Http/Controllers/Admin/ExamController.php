@@ -10,10 +10,12 @@ use App\Models\ScoreList;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Question;
-use App\Models\Exam;
 use App\Models\ExamCodes;
-use App\Models\ExamQuestion;
 use App\Models\Chapter;
+use App\Models\Exam;
+use App\Models\ExamSection;
+use App\Models\ExamHistorySection;
+use App\Models\ExamQuestion;
 
 class ExamController extends Controller
 {
@@ -40,7 +42,6 @@ class ExamController extends Controller
     }
 
     public function add_exam( Request $req ){
-        $questions = json_decode($req->ques_id);
         $req->validate([
             'title' => 'required',
             'score'   => 'required|numeric', 
@@ -54,15 +55,20 @@ class ExamController extends Controller
            }
         $arr = $req->only('title', 'description', 'score', 'pass_score', 'type',
         'year', 'month', 'code_id', 'course_id', 'score_id', 'state');
-        $arr['time'] = $req->time_h . 'Hours ' . $req->time_m . ' M';
-        $dia_exam = Exam::create($arr);
-        foreach ($questions as $ques) {
-            ExamQuestion::create([
-                'exam_id' => $dia_exam->id,
-                'question_id' => $ques->id,
-            ]);
-            // $exam = Exam::findorfail($dia_exam->id);
-            // $exam->question()->syncWithoutDetaching($ques->id);
+        $arr['time'] = $req->time_h . ':' . $req->time_m . ':00';
+        $arr['sections'] = $req->num_section;
+        $exam = Exam::create($arr);
+        if( json_decode($req->section_0) ){
+            $questions = json_decode($req->section_0);
+            foreach ($questions as $ques) {
+                ExamQuestion::create([
+                    'exam_id' => $exam->id,
+                    'question_id' => $ques->id,
+                    'section_id' => $ques->id,
+                ]);
+                // $exam = Exam::findorfail($dia_exam->id);
+                // $exam->question()->syncWithoutDetaching($ques->id);
+            }
         }
 
         return redirect()->back();
