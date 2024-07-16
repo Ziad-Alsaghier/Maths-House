@@ -162,8 +162,8 @@
             font-size: 1.2rem;
             font-weight: 500;
             padding: 5px 10px;
-            border: none;
-            outline: none;
+            border: none !important;
+            outline: none !important;
             text-align: center;
             margin-top: 2px;
             color: #fff;
@@ -172,7 +172,26 @@
             transition: all 0.3s ease-in-out;
         }
 
+        .selected_qz {
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 5px 10px;
+            border: none !important;
+            outline: none !important;
+            text-align: center;
+            margin-top: 2px;
+            color: #fff;
+            background: #1761c6;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+            cursor: context-menu !important;
+        }
+
         .add_qz:hover {
+            box-shadow: 0px 0px 5px 5px rgb(134 134 134 / 22%);
+        }
+
+        .selected_qz:hover {
             box-shadow: 0px 0px 5px 5px rgb(134 134 134 / 22%);
         }
 
@@ -237,6 +256,27 @@
             letter-spacing: 1px !important;
             text-align: center !important;
         }
+
+        /* Sections */
+        .nSection {
+            position: relative;
+        }
+
+        .dropSection {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            cursor: pointer;
+        }
+
+        .dropSection>i {
+            font-size: 1.5rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .routateArrow {
+            /* transform: rotate(180deg); */
+        }
     </style>
     <div class="section_add d-flex justify-content-start">
         <button class="btn_add_quizz my-3" type="button" data-toggle="modal" data-target="#exampleModalCenter">New
@@ -284,17 +324,17 @@
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Title: </span>
-                                        <input type="text" name="title" class="col-md-9 form-control">
+                                        <input type="text" name="title" class="col-md-10 form-control">
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Description: </span>
-                                        <textarea class="col-md-9 form-control" name="description" id="dec_quizze" cols="30" rows="3"></textarea>
+                                        <textarea class="col-md-10 form-control" name="description" id="dec_quizze" cols="30" rows="3"></textarea>
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Duration: </span>
-                                        <div class="col-md-9"
+                                        <div class="col-md-10"
                                             style="display: flex; align-items: center;padding: 0;justify-content: start">
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
@@ -313,7 +353,7 @@
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Type: </span>
-                                        <div class="col-md-9"
+                                        <div class="col-md-10"
                                             style="display: flex; align-items: center;padding: 0;justify-content: start">
                                             <select class="form-control sel_exam_type" name="type">
                                                 <option selected disabled>
@@ -327,7 +367,7 @@
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Raw Score: </span>
-                                        <select class="col-md-9 form-control" name="score_id">
+                                        <select class="col-md-10 form-control" name="score_id">
                                             <option disabled selected>
                                                 Select Score Name
                                             </option>
@@ -341,19 +381,19 @@
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Total Score: </span>
-                                        <input type="text" name="score" class="col-md-9 form-control"
+                                        <input type="text" name="score" class="col-md-10 form-control"
                                             placeholder="Total Score">
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Pass Score: </span>
-                                        <input type="text" name="pass_score" class="col-md-9 form-control"
+                                        <input type="text" name="pass_score" class="col-md-10 form-control"
                                             placeholder="Pass Score">
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
                                         <span class="col-md-2" style="font-size: 1.2rem;">Number Section: </span>
-                                        <select class="col-md-9 form-control" name="num_section"
+                                        <select class="col-md-10 form-control" name="num_section"
                                             id="num_section_add">
                                             <option value="">
                                                 Select Number Section
@@ -361,10 +401,11 @@
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
+                                            <option value="4">4</option>
                                         </select>
                                     </div>
                                     <div class="col-12 allSection"
-                                        style="display: flex;flex-direction: column;align-items: flex-start;row-gap: 15px;">
+                                        style="display: flex;flex-direction: column;align-items: center;row-gap: 15px !important;">
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
@@ -600,8 +641,9 @@
                                         <span
                                             style="font-size: 2rem;font-weight: 500;background: #1b84ff;color: #fff;border-radius: 10px;padding: 10px 15px;margin-top: 10px;">Exam</span>
                                     </div>
+                                    <input type="hidden" name="" id="">
 
-                                    <div
+                                    {{-- <div
                                         style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
                                         <table class="table table-striped" id="tblData">
                                             <thead class="border-bottom">
@@ -634,7 +676,173 @@
                                             <tbody class="sel_quz"></tbody>
 
                                         </table>
+                                    </div> --}}
+
+                                    <div class="allSectionsTable">
+                                        {{-- <div class="mt-3 nSection">
+                                            <h1 class="selSection"
+                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+                                                Section 1</h1>
+                                            <div class="tableSection"
+                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                <table class="table table-striped" id="tblData">
+                                                    <thead class="border-bottom">
+                                                        <tr>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">#
+                                                            </th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Type</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Year</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Month</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Code</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Section</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">No
+                                                            </th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Difficulty</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Chapter</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Lessone</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody class="sel_quz activeSection"></tbody>
+
+                                                </table>
+                                            </div>
+                                            <span class="dropSection">
+                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+                                                    style="color: #1b84ff;transform: rotate(180deg)"></i>
+                                            </span>
+                                        </div>
+                                        <div class="mt-3 nSection">
+                                            <h1 class="selSection"
+                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+                                                Section 2</h1>
+                                            <div class="tableSection d-none"
+                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                <table class="table table-striped" id="tblData">
+                                                    <thead class="border-bottom">
+                                                        <tr>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">#
+                                                            </th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Type</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Year</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Month</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Code</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Section</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">No
+                                                            </th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Difficulty</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Chapter</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Lessone</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody class="sel_quz"></tbody>
+
+                                                </table>
+                                            </div>
+                                            <span class="dropSection">
+                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+                                                    style="color: #1b84ff;"></i>
+                                            </span>
+                                        </div>
+                                        <div class="mt-3 nSection">
+                                            <h1 class="selSection"
+                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+                                                Section 3</h1>
+                                            <div class="tableSection d-none"
+                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                <table class="table table-striped" id="tblData">
+                                                    <thead class="border-bottom">
+                                                        <tr>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">#
+                                                            </th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Type</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Year</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Month</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Code</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Section</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">No
+                                                            </th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Difficulty</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Chapter</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Lessone</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody class="sel_quz"></tbody>
+
+                                                </table>
+                                            </div>
+                                            <span class="dropSection">
+                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+                                                    style="color: #1b84ff;"></i>
+                                            </span>
+                                        </div> --}}
                                     </div>
+
 
                                     <div class="d-flex justify-content-end"
                                         style="column-gap: 16px; margin-top: 10px">
@@ -1293,15 +1501,87 @@
         $(document).ready(function() {
             $("#num_section_add").change(function() {
                 var countSection = $(this).val();
-                $(".allSection").empty(); 
-                console.log("countSection",countSection)
+                $(".allSection").empty();
+                $(".allSectionsTable").empty();
+                console.log("countSection", countSection)
                 for (var i = 0; i < countSection; i++) {
                     console.log([i])
-                    var addSection = `<div class="col-md-12 d-flex align-items-center justify-content-around">
-                                        <span class="col-md-2" style="font-size: 1.2rem;">Section ${[i + 1]}: </span>
-                                        <input type="text" name="section" class="col-md-9 form-control" placeholder="Section ${[i + 1]}">
-                                    </div>`;
+                    var addSection = `<div class="col-md-12 d-flex align-items-center justify-content-between gap-2">
+                                            <span class="" style="font-size: 1.2rem;">Section ${[i + 1]}: </span>
+
+                                            <div class="col-md-10 p-0 d-flex align-items-center justify-content-start gap-4">
+                                                <div class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+                                                    <span class="col-6" style="font-size: 1.2rem;">Section Name: </span>
+                                                    <input type="text" name="section_name" class="col-6 form-control" placeholder="Section Name">
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+                                                    <span class="col-7" style="font-size: 1.2rem;">Section Description : </span>
+                                                    <input type="text" name="section_description" class="col-6 form-control" placeholder="Section Description">
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+                                                    <span class="col-6" style="font-size: 1.2rem;">Section Time: </span>
+                                                    <input type="number" name="section_time" class="col-6 form-control" placeholder="Section Time">
+                                                </div>
+                                            </div>
+
+                                        </div>`;
                     $(".allSection").append(addSection)
+                }
+                for (var i = 0; i < countSection; i++) {
+                    console.log([i])
+                    var addSectionTable = `<div class="mt-3 nSection">
+                                            <h1 class="selSection"
+                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+                                                Section ${[i +1]}</h1>
+                                            <div class="tableSection d-none"
+                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                <input type="hidden" class="arrSection" name="section_${[i]}" id="section_${[i]}">
+                                                <table class="table table-striped" id="tblData">
+                                                    <thead class="border-bottom">
+                                                        <tr>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Type</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Year</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Month</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Code</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Section</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">No
+                                                            </th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Difficulty</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Chapter</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Lessone</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody class="sel_quz"></tbody>
+
+                                                </table>
+                                            </div>
+                                            <span class="dropSection">
+                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+                                                    style="color: #1b84ff;"></i>
+                                            </span>
+                                        </div>`;
+                    $(".allSectionsTable").append(addSectionTable)
                 }
             })
 
@@ -1455,25 +1735,8 @@
         let ques_id = document.querySelectorAll('.ques_id');
         let quizze_id = document.querySelectorAll('.quizze_id');
         let arr = [];
-        // for (let i = 0, end = add_question_btn.length; i < end; i++) {
-        //     add_question_btn[i].addEventListener('click', (e) => {
-        //         for (let j = 0; j < end; j++) {
-        //             if (e.target == add_question_btn[j]) {
-        //                 let ques = ques_id[j].value;
-        //                 let quizze = quizze_idd[j].value;
-        //                 let obj = {
-        //                     'ques_id': ques,
-        //                     'quizze_id': quizze
-        //                 }
-        //                 arr = [...arr, obj];
-        //             }
-        //         }
-        //     })
-        // }
-
         sel_course.addEventListener('change', () => {
 
-            console.log(865);
             $(".next_btn").removeClass("d-none");
 
             $.ajax("{{ route('dia_exam_data') }}", {
@@ -1502,9 +1765,12 @@
                           </td>
                         </tr>`;
                     });
-                    var quizzes = [];
 
+                    var quizzes = [];
+                    var quizzesActive = [];
+                    
                     $(document).on('click', ".add_qz", function() {
+                         quizzesActive = [];
 
                         var quziId = $(this).closest("tr").find(".idd").text();
                         var quziType = $(this).closest("tr").find(".type").text();
@@ -1516,6 +1782,10 @@
                         var quziChapter = $(this).closest("tr").find(".chapter").text();
                         var quziLessone = $(this).closest("tr").find(".lessone").text();
                         var quziDiff = $(this).closest("tr").find(".diff").text();
+
+                        $(this).addClass("selected_qz");
+                        $(this).removeClass("add_qz");
+                        $(this).text("Selected");
 
                         var allData = [];
 
@@ -1542,17 +1812,17 @@
 
                         var allObject_serialized = JSON.stringify(quizzes);
 
-                        localStorage.setItem("Allquizzes", allObject_serialized)
+                        // localStorage.setItem("Allquizzes", allObject_serialized)
 
 
 
-                        localStorage.setItem("quizzes", object_serialized)
+                        // localStorage.setItem("quizzes", object_serialized)
 
 
-                        var myObjectDeserialized = JSON.parse(localStorage.getItem("quizzes"));
+                        var myObjectDeserialized = JSON.parse(object_serialized);
 
 
-                        var quizz_container = $(".sel_quz");
+                        var quizz_container = $(".activeSection");
 
                         var index = quizzes.length;
                         var removeBtn =
@@ -1561,24 +1831,24 @@
 
                         myObjectDeserialized.forEach(element => {
                             var dynamicTR = "<tr>";
-                            dynamicTR = dynamicTR + "<td class='iddd'> " + index +
-                                "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.type + "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.year + "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.month + "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.code + "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.section + "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.noNum + "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.diff + "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.chap + "</td>";
-                            dynamicTR = dynamicTR + "<td> " + element.less + "</td>";
+                            // dynamicTR = dynamicTR + "<td class='iddd'> " + index +
+                            //     "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_type'>" + element.type + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_year'>" + element.year + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_month'>" + element.month + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_code'>" + element.code + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_section'>" + element.section + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_noNum'>" + element.noNum + "</tdon>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_diff'>" + element.diff + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_chap'>" + element.chap + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_less'>" + element.less + "</td>";
                             dynamicTR = dynamicTR +
                                 "<td style='width: 150px !important; padding: 0 !important;'  > " +
                                 removeBtn + "</td>";
 
                             dynamicTR = dynamicTR + " </tr>";
 
-                            index++;
+                            // index++;
                             //_____________________________________________________________________________
                             quizz_container.append(dynamicTR);
                             questions_data.value = JSON.stringify(quizzes);
@@ -1590,6 +1860,68 @@
                         } else {
                             $(".avil").parent().remove();
                         };
+                        var sel_SectionID =
+                            `#${$(quizz_container).closest(".nSection").find(".arrSection").attr("id")}`;
+
+                        // $(sel_SectionID).val(JSON.stringify(quziObject));
+
+                        // $(sel_SectionID).val(JSON.stringify(quziObject));
+
+                        
+                        var allDataActive = [];
+                        
+                        $(quizz_container).find("tr").each((index,ele)=>{
+                            var quziActiveType = $(ele).find(".quizzeActive_type")
+                            .text();
+                            var quziActiveYear = $(ele).find(".quizzeActive_year")
+                            .text();
+                            var quziActiveMonth = $(ele).find(".quizzeActive_month")
+                                .text();
+                            var quziActiveCode = $(ele).find(".quizzeActive_code")
+                            .text();
+                            var quziActiveNoNum = $(ele).find(".quizzeActive_section")
+                                .text();
+                            var quziActiveSection = $(ele).find(".quizzeActive_noNum")
+                                .text();
+                            var quziActiveChapter = $(ele).find(".quizzeActive_diff")
+                                .text();
+                            var quziActiveLessone = $(ele).find(".quizzeActive_chap")
+                                .text();
+                            var quziActiveDiff = $(ele).find(".quizzeActive_less")
+                            .text();
+
+                            var quziObjectActive = {
+                                type: quziActiveType,
+                                year: quziActiveYear,
+                                month: quziActiveMonth,
+                                code: quziActiveCode,
+                                section: quziActiveNoNum,
+                                noNum: quziActiveSection,
+                                diff: quziActiveChapter,
+                                chap: quziActiveLessone,
+                                less: quziActiveDiff,
+                            }
+                            
+                            allDataActive.push(quziObjectActive);
+                            console.log("quziObjectActive",quziObjectActive)
+                        })
+
+                        quizzesActive.push(...allDataActive)
+
+
+
+                        $(sel_SectionID).val(JSON.stringify(quizzesActive));
+
+
+
+
+                        console.log("quizzesquizzes", quizzes)
+                        console.log("quziObject", quziObject)
+                        // console.log("section_0",$(sel_SectionID).val())
+                        console.log($(sel_SectionID).attr("id"), $(".activeSection").closest(".nSection").find(
+                            ".arrSection").val())
+                            // console.log("allDataActive",allDataActive)
+                            console.log("quizzesActive",quizzesActive)
                     });
 
                     $(document).on('click', '.remove_qz', function() {
@@ -1660,11 +1992,46 @@
                         })
                     })
                     /* #### Filter #### */
+
+                    /* Add to Section  */
+                    $(document).on('click', '.selSection', function() {
+                        console.log("SSSSSSSSSSS")
+                        quizzesActive = [];
+
+                        $(".tableSection").each((index, ele) => {
+                            $(ele).addClass("d-none")
+                            $(ele).closest(".nSection").find(".sel_quz").removeClass(
+                                "activeSection")
+                            $(ele).closest(".nSection").find(".routateArrow").css(
+                                "transform",
+                                " rotate(0deg)");
+                        })
+                        $(this).closest(".nSection").find(".tableSection").removeClass(
+                            "d-none");
+                        $(this).closest(".nSection").find(".sel_quz").addClass(
+                            "activeSection");
+                        $(this).closest(".nSection").find(".routateArrow").css("transform",
+                            " rotate(180deg)");
+                        var emptyRow =
+                            "<tr><td colspan='12' class='avil'> No Quizzes Available</td></tr>"
+
+                        function addEmptyRow() {
+                            if ($(this).closest(".nSection").find(".activeSection").html() ==
+                                "") {
+                                console.log("sddddddd")
+                                $(this).closest(".nSection").find(".activeSection").append(
+                                    emptyRow);
+                            };
+                        };
+                        addEmptyRow();
+                    })
+
                 },
             });
+
         });
     </script>
-
+    {{-- Edite Exam Script --}}
     <script>
         $(document).ready(function() {
 
