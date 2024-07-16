@@ -406,6 +406,7 @@
                                     </div>
                                     <div class="col-12 allSection"
                                         style="display: flex;flex-direction: column;align-items: center;row-gap: 15px !important;">
+                                        
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
@@ -1507,20 +1508,45 @@
                 for (var i = 0; i < countSection; i++) {
                     console.log([i])
                     var addSection = `<div class="col-md-12 d-flex align-items-center justify-content-between gap-2">
-                                            <span class="" style="font-size: 1.2rem;">Section ${[i + 1]}: </span>
+                                            <span class="" style="font-size: 1.2rem;">Section : </span>
 
-                                            <div class="col-md-10 p-0 d-flex align-items-center justify-content-start gap-4">
-                                                <div class="col-md-4 d-flex align-items-center justify-content-start gap-2">
-                                                    <span class="col-6" style="font-size: 1.2rem;">Section Name: </span>
-                                                    <input type="text" name="section_name" class="col-6 form-control" placeholder="Section Name">
+                                            <div
+                                                class="col-md-10 p-0 d-flex align-items-center justify-content-start gap-4">
+                                                <div
+                                                    class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+                                                    <span class="col-6" style="font-size: 1.2rem;">Section Name:
+                                                    </span>
+                                                    <input type="text" name="section_name[]"
+                                                        class="col-6 form-control" placeholder="Section Name">
                                                 </div>
-                                                <div class="col-md-4 d-flex align-items-center justify-content-start gap-2">
-                                                    <span class="col-7" style="font-size: 1.2rem;">Section Description : </span>
-                                                    <input type="text" name="section_description" class="col-6 form-control" placeholder="Section Description">
+                                                <div
+                                                    class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+                                                    <span class="col-7" style="font-size: 1.2rem;">Section
+                                                        Description : </span>
+                                                    <input type="text" name="section_description[]"
+                                                        class="col-6 form-control" placeholder="Section Description">
                                                 </div>
-                                                <div class="col-md-4 d-flex align-items-center justify-content-start gap-2">
-                                                    <span class="col-6" style="font-size: 1.2rem;">Section Time: </span>
-                                                    <input type="number" name="section_time" class="col-6 form-control" placeholder="Section Time">
+                                                <div
+                                                    class="col-md-4 d-flex align-items-center justify-content-start">
+                                                    <span class="col-5" style="font-size: 1.2rem;">Section Time:
+                                                    </span>
+                                                    <div class="d-flex gap-4">
+                                                        <div class="d-flex flex-column align-items-center gap-2">
+                                                            <span style="font-size: 1.2rem !important;">Hours</span>
+                                                            <input type="number" class="form-control" style="width: 50px !important;"
+                                                                name="section_hour[]">
+                                                            </div>
+                                                        <div class="d-flex flex-column align-items-center gap-2">
+                                                            <span style="font-size: 1.2rem !important;">Minutes</span>
+                                                            <input type="number" class="form-control" style="width: 50px !important;"
+                                                                name="section_minutes[]">
+                                                            </div>
+                                                        <div class="d-flex flex-column align-items-center gap-2">
+                                                            <span style="font-size: 1.2rem !important;">Seconds</span>
+                                                            <input type="number" class="form-control" style="width: 50px !important;"
+                                                                name="section_seconds[]">
+                                                            </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -1768,9 +1794,9 @@
 
                     var quizzes = [];
                     var quizzesActive = [];
-                    
+
                     $(document).on('click', ".add_qz", function() {
-                         quizzesActive = [];
+                        quizzesActive = [];
 
                         var quziId = $(this).closest("tr").find(".idd").text();
                         var quziType = $(this).closest("tr").find(".type").text();
@@ -1833,15 +1859,25 @@
                             var dynamicTR = "<tr>";
                             // dynamicTR = dynamicTR + "<td class='iddd'> " + index +
                             //     "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_type'>" + element.type + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_year'>" + element.year + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_month'>" + element.month + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_code'>" + element.code + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_section'>" + element.section + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_noNum'>" + element.noNum + "</tdon>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_diff'>" + element.diff + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_chap'>" + element.chap + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_less'>" + element.less + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_type'>" +
+                                element.type + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_year'>" +
+                                element.year + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_month'>" +
+                                element.month + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_code'>" +
+                                element.code + "</td>";
+                            dynamicTR = dynamicTR +
+                                "<td class='quizzeActive_section'>" + element.section +
+                                "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_noNum'>" +
+                                element.noNum + "</tdon>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_diff'>" +
+                                element.diff + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_chap'>" +
+                                element.chap + "</td>";
+                            dynamicTR = dynamicTR + "<td class='quizzeActive_less'>" +
+                                element.less + "</td>";
                             dynamicTR = dynamicTR +
                                 "<td style='width: 150px !important; padding: 0 !important;'  > " +
                                 removeBtn + "</td>";
@@ -1867,18 +1903,18 @@
 
                         // $(sel_SectionID).val(JSON.stringify(quziObject));
 
-                        
+
                         var allDataActive = [];
-                        
-                        $(quizz_container).find("tr").each((index,ele)=>{
+
+                        $(quizz_container).find("tr").each((index, ele) => {
                             var quziActiveType = $(ele).find(".quizzeActive_type")
-                            .text();
+                                .text();
                             var quziActiveYear = $(ele).find(".quizzeActive_year")
-                            .text();
+                                .text();
                             var quziActiveMonth = $(ele).find(".quizzeActive_month")
                                 .text();
                             var quziActiveCode = $(ele).find(".quizzeActive_code")
-                            .text();
+                                .text();
                             var quziActiveNoNum = $(ele).find(".quizzeActive_section")
                                 .text();
                             var quziActiveSection = $(ele).find(".quizzeActive_noNum")
@@ -1888,7 +1924,7 @@
                             var quziActiveLessone = $(ele).find(".quizzeActive_chap")
                                 .text();
                             var quziActiveDiff = $(ele).find(".quizzeActive_less")
-                            .text();
+                                .text();
 
                             var quziObjectActive = {
                                 type: quziActiveType,
@@ -1901,9 +1937,9 @@
                                 chap: quziActiveLessone,
                                 less: quziActiveDiff,
                             }
-                            
+
                             allDataActive.push(quziObjectActive);
-                            console.log("quziObjectActive",quziObjectActive)
+                            console.log("quziObjectActive", quziObjectActive)
                         })
 
                         quizzesActive.push(...allDataActive)
@@ -1918,10 +1954,11 @@
                         console.log("quizzesquizzes", quizzes)
                         console.log("quziObject", quziObject)
                         // console.log("section_0",$(sel_SectionID).val())
-                        console.log($(sel_SectionID).attr("id"), $(".activeSection").closest(".nSection").find(
+                        console.log($(sel_SectionID).attr("id"), $(".activeSection").closest(
+                            ".nSection").find(
                             ".arrSection").val())
-                            // console.log("allDataActive",allDataActive)
-                            console.log("quizzesActive",quizzesActive)
+                        // console.log("allDataActive",allDataActive)
+                        console.log("quizzesActive", quizzesActive)
                     });
 
                     $(document).on('click', '.remove_qz', function() {
