@@ -406,7 +406,7 @@
                                     </div>
                                     <div class="col-12 allSection"
                                         style="display: flex;flex-direction: column;align-items: center;row-gap: 15px !important;">
-                                        
+
                                     </div>
 
                                     <div class="col-md-12 d-flex align-items-center justify-content-around">
@@ -680,168 +680,6 @@
                                     </div> --}}
 
                                     <div class="allSectionsTable">
-                                        {{-- <div class="mt-3 nSection">
-                                            <h1 class="selSection"
-                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
-                                                Section 1</h1>
-                                            <div class="tableSection"
-                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-                                                <table class="table table-striped" id="tblData">
-                                                    <thead class="border-bottom">
-                                                        <tr>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">#
-                                                            </th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Type</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Year</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Month</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Code</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Section</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">No
-                                                            </th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Difficulty</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Chapter</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Lessone</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Action</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody class="sel_quz activeSection"></tbody>
-
-                                                </table>
-                                            </div>
-                                            <span class="dropSection">
-                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
-                                                    style="color: #1b84ff;transform: rotate(180deg)"></i>
-                                            </span>
-                                        </div>
-                                        <div class="mt-3 nSection">
-                                            <h1 class="selSection"
-                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
-                                                Section 2</h1>
-                                            <div class="tableSection d-none"
-                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-                                                <table class="table table-striped" id="tblData">
-                                                    <thead class="border-bottom">
-                                                        <tr>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">#
-                                                            </th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Type</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Year</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Month</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Code</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Section</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">No
-                                                            </th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Difficulty</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Chapter</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Lessone</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Action</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody class="sel_quz"></tbody>
-
-                                                </table>
-                                            </div>
-                                            <span class="dropSection">
-                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
-                                                    style="color: #1b84ff;"></i>
-                                            </span>
-                                        </div>
-                                        <div class="mt-3 nSection">
-                                            <h1 class="selSection"
-                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
-                                                Section 3</h1>
-                                            <div class="tableSection d-none"
-                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-                                                <table class="table table-striped" id="tblData">
-                                                    <thead class="border-bottom">
-                                                        <tr>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">#
-                                                            </th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Type</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Year</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Month</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Code</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Section</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">No
-                                                            </th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Difficulty</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Chapter</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Lessone</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Action</th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody class="sel_quz"></tbody>
-
-                                                </table>
-                                            </div>
-                                            <span class="dropSection">
-                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
-                                                    style="color: #1b84ff;"></i>
-                                            </span>
-                                        </div> --}}
                                     </div>
 
 
@@ -1856,33 +1694,31 @@
 
 
                         myObjectDeserialized.forEach(element => {
+                            var inpID =
+                                `<input type="hidden" class="quizzeActive_id" value=${element.id}>`;
                             var dynamicTR = "<tr>";
-                            // dynamicTR = dynamicTR + "<td class='iddd'> " + index +
-                            //     "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_type'>" +
-                                element.type + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_year'>" +
-                                element.year + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_month'>" +
-                                element.month + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_code'>" +
-                                element.code + "</td>";
-                            dynamicTR = dynamicTR +
-                                "<td class='quizzeActive_section'>" + element.section +
-                                "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_noNum'>" +
-                                element.noNum + "</tdon>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_diff'>" +
-                                element.diff + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_chap'>" +
-                                element.chap + "</td>";
-                            dynamicTR = dynamicTR + "<td class='quizzeActive_less'>" +
-                                element.less + "</td>";
-                            dynamicTR = dynamicTR +
-                                "<td style='width: 150px !important; padding: 0 !important;'  > " +
-                                removeBtn + "</td>";
+                            dynamicTR += "<td class='quizzeActive_type'>" + element
+                                .type + "</td>";
+                            dynamicTR += "<td class='quizzeActive_year'>" + element
+                                .year + "</td>";
+                            dynamicTR += "<td class='quizzeActive_month'>" + element
+                                .month + "</td>";
+                            dynamicTR += "<td class='quizzeActive_code'>" + element
+                                .code + "</td>";
+                            dynamicTR += "<td class='quizzeActive_section'>" + element
+                                .section + "</td>";
+                            dynamicTR += "<td class='quizzeActive_noNum'>" + element
+                                .noNum + "</td>";
+                            dynamicTR += "<td class='quizzeActive_diff'>" + element
+                                .diff + "</td>";
+                            dynamicTR += "<td class='quizzeActive_chap'>" + element
+                                .chap + "</td>";
+                            dynamicTR += "<td class='quizzeActive_less'>" + element
+                                .less + "</td>";
+                            dynamicTR += "<td style='width: 150px !important; padding: 0 !important;'>"
+                                + removeBtn + "</td>";
 
-                            dynamicTR = dynamicTR + " </tr>";
+                            dynamicTR = dynamicTR +  inpID + " </tr>";
 
                             // index++;
                             //_____________________________________________________________________________
@@ -1907,6 +1743,8 @@
                         var allDataActive = [];
 
                         $(quizz_container).find("tr").each((index, ele) => {
+                            var quziActiveID = $(ele).find(".quizzeActive_id")
+                                .val();
                             var quziActiveType = $(ele).find(".quizzeActive_type")
                                 .text();
                             var quziActiveYear = $(ele).find(".quizzeActive_year")
@@ -1927,6 +1765,7 @@
                                 .text();
 
                             var quziObjectActive = {
+                                id: quziActiveID,
                                 type: quziActiveType,
                                 year: quziActiveYear,
                                 month: quziActiveMonth,
