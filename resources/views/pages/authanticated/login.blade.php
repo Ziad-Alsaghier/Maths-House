@@ -221,7 +221,7 @@
     </header>
 
     <div class="contentRe">
-        <form  action='{{ 'login.store' }}' method="POST" novalidate="novalidate" class="leftRe">
+        <form  action='{{ route('login.store') }}' method="POST" novalidate="novalidate" class="leftRe">
             @csrf
             <div class="headerTitle">
                 <span>Login to</span>

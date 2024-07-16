@@ -156,9 +156,8 @@ class Stu_MyCourseController extends Controller
             $package = Package::
             where('module', 'Question')
             ->get();
+            Cookie::queue(Cookie::make('q_ans_id', $id, 90));
             return view('Student.Exam.Exam_Package', compact('package'));
-             
-            
         }
     }
 

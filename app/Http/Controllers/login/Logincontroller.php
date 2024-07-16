@@ -50,11 +50,11 @@ class Logincontroller extends Controller
                                 return redirect()->route('login.index')->withErrors(['error'=>'The  Password Invalid']);
                         }
                         $now = Carbon::now();
-                        $timeMinus180Minutes = $now->subMinutes(180);
+                        $timeMinus120Minutes = $now->subMinutes(120);
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
-                        ->where('created_at', '>=', $timeMinus180Minutes)
+                        ->where('created_at', '>=', $timeMinus120Minutes)
                         ->first();
                         if ( $l_user ) {
                                 return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
@@ -126,6 +126,16 @@ class Logincontroller extends Controller
                                 return redirect()->back();
 
                         }
+                        $now = Carbon::now();
+                        $timeMinus120Minutes = $now->subMinutes(120);
+                        $l_user = LoginUser::
+                        where('type', 'web') 
+                        ->where('user_id', $user->id)
+                        ->where('created_at', '>=', $timeMinus120Minutes)
+                        ->first();
+                        if ( $l_user ) {
+                                return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
+                        }
 			Auth::loginUsingId($user->id);
 
                         $credentials = $request->only('email','password');
@@ -137,6 +147,11 @@ class Logincontroller extends Controller
                                 $user = User::where('email',$request->email)->first();
                                 $token = $user->createToken("user")->plainTextToken;
                                 $user->token =$token ;
+
+                                LoginUser::create([
+                                'type' => 'web', 
+                                'user_id'=> $user->id]);
+                                
                                 if( $user->position == 'admin'){
                                         return redirect()->route('course_payment');
                                 }

@@ -2,6 +2,26 @@
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 
+<style>
+	.conBtn {
+            width: 100% !important;
+            background: #FEF5F3 !important;
+            color: #CF202F !important;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 5px 20px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .conBtn:hover {
+            background: #CF202F !important;
+            color: #FEF5F3 !important;
+        }
+</style>
 
 <div class="wrapper">
 	<div class="preloader"></div>
@@ -285,6 +305,30 @@
                                     </li> 
 								</ul>
 							</div>
+						</div>
+
+						<div>
+							@if ( isset($pages['exam_id']) )
+							<a href="{{route('exam_page', ['id' => $pages['exam_id']]) }}" class="conBtn">
+								<i class="fa fa-arrow-left"></i>
+								Back
+							</a>
+							@elseif ( isset($pages['q_id']) )
+							<a href="{{route('q_page', ['id' => $pages['q_id']])}}" class="conBtn">
+								<i class="fa fa-arrow-left"></i>
+								Back
+							</a>
+							@elseif ( isset($pages['q_ans_id']) )
+							<a href="{{route('quizze_ques_ans', ['id' => $pages['q_ans_id']])}}" class="conBtn">
+								<i class="fa fa-arrow-left"></i>
+								Back
+							</a>
+							@else
+							<a href="{{route('stu_dashboard')}}" class="conBtn">
+								<i class="fa fa-arrow-left"></i>
+								Back
+							</a>
+							@endif
 						</div>
 					</div>
 				</div>

@@ -325,7 +325,7 @@
                         <ul>
                             @foreach ($chapters as $chapter)
                                 <li>
-                                    <span class="text-align-center">{{ $chapter['chapter_name'] }}</span>
+                                    <span class="text-align-center">{{ $chapter->chapter_name }}</span>
                                 </li>
                             @endforeach
                             </>

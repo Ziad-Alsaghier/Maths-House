@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Question;
 use App\Models\ScoreSheet;
 use App\Models\ExamCodes;
+use App\Models\ExamSection;
 
 class Exam extends Model
 {
@@ -20,6 +21,7 @@ class Exam extends Model
         'title',
         'description',
         'time',
+        'sections',
         'score',
         'pass_score',
         'year',
@@ -47,6 +49,10 @@ class Exam extends Model
 
     public function code(){
         return $this->belongsTo(ExamCodes::class, 'code_id');
+    }
+
+    public function sections(){
+        return $this->hasMany(ExamSection::class, 'exam_id');
     }
 
 }

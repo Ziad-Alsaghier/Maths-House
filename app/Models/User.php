@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Affilate; 
 use App\Models\UserAdmin;
 use App\Models\Admin_role;
+use App\Models\PaymentRequest;
 use App\Models\Lesson; 
 use App\Models\Commission; 
 use Laravel\Sanctum\HasApiTokens;
@@ -157,6 +158,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function payment_req_approve()
+    {
+        return $this->hasMany(PaymentRequest::class, 'user_id')
+        ->where('state', 'Approve');
     }
 
     public function getDefaultAddressAttribute()

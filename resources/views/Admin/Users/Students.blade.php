@@ -111,6 +111,7 @@
                     <th scope="row">Phone</th>
                     <th scope="row">Email</th>
                     <th scope="row">Parent Phone</th>
+                    <th scope="row">Payment</th>
                     <th scope="row">History</th>
                     <th scope="row">Wallet</th>
                     <th scope="row">Action</th>
@@ -127,7 +128,7 @@
                         <td style="width: 8%;">
                             <p>
 
-                                <a class="btn btn-info" href="{{ route('stu_details', ['id' => $item->id]) }}">
+                                <a class="btn btn-info btn-sm" href="{{ route('stu_details', ['id' => $item->id]) }}">
                                     View
                                 </a>
                             </p>
@@ -148,6 +149,10 @@
 
                                 {{ $item->parent_phone }}
                             </p>
+                        </td>
+
+                        <td>
+                            {{$item->payment_req_approve->count() > 0 ? 'Paid' : 'Free'}}
                         </td>
 
 

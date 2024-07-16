@@ -148,6 +148,7 @@ class V_ExamController extends Controller
                     $exam = Exam::where('id', $id)
                     ->first();
                     
+                    
                     return view('Visitor.Exam.Exam_Question', compact('exam', 'reports'));
                 }
             } 
@@ -155,6 +156,8 @@ class V_ExamController extends Controller
             $package = Package::
             where('module', 'Exam')
             ->get();
+            Cookie::queue(Cookie::make('exam_id', $id, 90));
+
             return view('Student.Exam.Exam_Package', compact('package'));
              
             

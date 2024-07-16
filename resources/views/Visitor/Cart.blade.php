@@ -133,6 +133,8 @@
                                         <th class="col-3"
                                             style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                             scope="col">Action</th>
+                                            
+                                            <input type="hidden" class="course_price"  />
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -177,8 +179,8 @@
                                                 value="{{ $chapter->ch_price }}" />
                                             <input type="hidden" class="ch_price_discount"
                                                 name="ch_price_discount[]" />
-                                            <input type="hidden" class="chapter_data" name="chapter[]"
-                                                value="{{ json_encode($chapter) }}" />
+                                                <input type="hidden" class="chapter_data" name="chapter[]"
+                                                    value="{{ json_encode($chapter) }}" />
                                             <td class="tbl_chapter_price">
                                                 <span class="d-flex align-items-center"
                                                     style="margin-top: 35px !important;">
@@ -242,7 +244,7 @@
                         <li>
                             <p
                                 style="display: flex;align-items: center;justify-content: space-between;font-size: 1.5rem;font-weight: 600;">
-                                Total <span class="float-right totals color-orose">
+                                Total <span class="float-right totals color-orose total_price">
                                     @if (isset($chapter_discount) && $chapter_discount != null && $chapter_discount != 0)
                                         <del style="margin-right: 10px;color: #787878 !important">
                                             ${{ $chapters_price }} </del>
