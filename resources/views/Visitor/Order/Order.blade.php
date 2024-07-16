@@ -2,6 +2,26 @@
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 
+<style>
+	.conBtn {
+            width: 100% !important;
+            background: #FEF5F3 !important;
+            color: #CF202F !important;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 5px 20px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .conBtn:hover {
+            background: #CF202F !important;
+            color: #FEF5F3 !important;
+        }
+</style>
 
 <div class="wrapper">
 	<div class="preloader"></div>
@@ -150,6 +170,13 @@
                                     @endforeach
 								</ul>
 							</div>
+						</div>
+
+						<div>
+							<a href="{{route('stu_dashboard')}}" class="conBtn">
+								<i class="fa fa-arrow-left"></i>
+								Back
+							</a>
 						</div>
 					</div>
 				</div>

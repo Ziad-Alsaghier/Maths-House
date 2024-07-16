@@ -109,7 +109,7 @@
     @foreach ( $mistakes as $item )
         <div class="mistake">
             @if ( !empty($item->question->question) )
-                <span class="quesMisake">{{$item->question->question}}</span>
+                <span class="quesMisake">{!!$item->question->question!!}</span>
             @endif
             @if ( !empty($item->question->q_url) )
             <img class="imgMistake"

@@ -605,7 +605,6 @@ class CoursesController extends Controller
                 $affilate = Affilate::
                 where('id', intval(Cookie::get('affilate')))
                 ->first();
-                return $commision;
                 $affilate->update([
                     'wallet' => $affilate->wallet + $commision
                 ]);

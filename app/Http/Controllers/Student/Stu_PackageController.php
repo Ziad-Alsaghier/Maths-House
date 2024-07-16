@@ -210,6 +210,7 @@ class Stu_PackageController extends Controller
         $pages = [];
         $q_id = Cookie::get('q_id');
         $exam_id = Cookie::get('exam_id');
+        $q_ans_id = Cookie::get('q_ans_id');
         if ( is_numeric($q_id) ) {
             $pages['q_id'] = intval($q_id);
             Cookie::queue(Cookie::forget('q_id'));
@@ -218,6 +219,11 @@ class Stu_PackageController extends Controller
             $pages['exam_id'] = intval($exam_id);
             Cookie::queue(Cookie::forget('exam_id'));
         }
+        elseif ( is_numeric($q_ans_id) ) {
+            $pages['q_ans_id'] = intval($q_ans_id);
+            Cookie::queue(Cookie::forget('q_ans_id'));
+        }
+        
         
         return view('Student.Order.Order', compact('package', 'price', 'p_method', 'pages'));
     }

@@ -50,11 +50,11 @@ class Logincontroller extends Controller
                                 return redirect()->route('login.index')->withErrors(['error'=>'The  Password Invalid']);
                         }
                         $now = Carbon::now();
-                        $timeMinus180Minutes = $now->subMinutes(180);
+                        $timeMinus120Minutes = $now->subMinutes(120);
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
-                        ->where('created_at', '>=', $timeMinus180Minutes)
+                        ->where('created_at', '>=', $timeMinus120Minutes)
                         ->first();
                         if ( $l_user ) {
                                 return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
@@ -127,11 +127,11 @@ class Logincontroller extends Controller
 
                         }
                         $now = Carbon::now();
-                        $timeMinus180Minutes = $now->subMinutes(180);
+                        $timeMinus120Minutes = $now->subMinutes(120);
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
-                        ->where('created_at', '>=', $timeMinus180Minutes)
+                        ->where('created_at', '>=', $timeMinus120Minutes)
                         ->first();
                         if ( $l_user ) {
                                 return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);

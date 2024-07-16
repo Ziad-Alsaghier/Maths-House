@@ -318,6 +318,11 @@
 								<i class="fa fa-arrow-left"></i>
 								Back
 							</a>
+							@elseif ( isset($pages['q_ans_id']) )
+							<a href="{{route('quizze_ques_ans', ['id' => $pages['q_ans_id']])}}" class="conBtn">
+								<i class="fa fa-arrow-left"></i>
+								Back
+							</a>
 							@else
 							<a href="{{route('stu_dashboard')}}" class="conBtn">
 								<i class="fa fa-arrow-left"></i>
