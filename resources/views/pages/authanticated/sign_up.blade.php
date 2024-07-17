@@ -192,6 +192,26 @@
         footer>a:hover {
             color: red;
         }
+
+        @media (max-width: 1220px) {
+
+            .contentRe .centerRe,
+            .contentRe .rightRe {
+                display: none !important;
+            }
+
+            .contentRe .leftRe {
+                width: 100%;
+            }
+            .headerTitle{
+                width: 100% !important;
+                margin-bottom: 10px;    
+                display: flex;
+                align-items: center;
+                justify-content :center;
+                gap: 10px;
+            }
+        }
     </style>
 @endsection
 
