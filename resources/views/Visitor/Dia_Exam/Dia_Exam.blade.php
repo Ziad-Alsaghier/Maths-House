@@ -4,7 +4,7 @@
 <style>
     .heroSec {
         width: 100%;
-        height: 87vh;
+        /* height: 87vh; */
         padding: 0 !important;
         display: flex;
         flex-direction: column;
@@ -79,6 +79,25 @@
         border-radius: 5px !important;
         object-fit: cover !important;
         object-position: center !important;
+    }
+
+    @media (max-width: 1220px) {
+        .stylehome1,
+        .rightContent {
+            display: none !important;
+        }
+
+        .mainContent .leftContent {
+            width: 100% !important;
+        }
+
+        .footerSec {
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
     }
 </style>
 <div class="wrapper">
@@ -377,7 +396,7 @@
             <div class="row">
                 <div class="col-lg-6 offset-lg-3">
                     <div class="main-title text-center">
-                        <h3 class="mb0 mt0">Featured Courses</h3>
+                        <h3 class="mb0 mt0" style="color: #CF202F">Featured Courses</h3>
                     </div>
                 </div>
             </div>
