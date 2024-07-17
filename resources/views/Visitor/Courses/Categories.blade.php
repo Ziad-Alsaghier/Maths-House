@@ -11,7 +11,7 @@
 
     .heroSec {
         width: 100%;
-        height: 87vh;
+        /* height: 87vh; */
         padding: 0 !important;
         display: flex;
         flex-direction: column;
@@ -93,6 +93,31 @@
         background: #CF202F;
         /* outline: 1px solid slategrey; */
         border-radius: 10px;
+    }
+
+    @media (max-width: 1220px) {
+
+        .stylehome1,
+        .rightContent {
+            display: none !important;
+        }
+
+        .mainContent .leftContent {
+            width: 100% !important;
+        }
+
+        .footerSec {
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .thumb,
+        .thumb>a,
+        .img-whp {
+            width: 100% !important;
+        }
     }
 </style>
 
@@ -225,8 +250,8 @@
         <div class="mainContent">
             <div class="leftContent">
                 <h3>Courses</h3>
-                <p>A safe environment that encourages
-                    engaging questions
+                <p>A Safe Environment That Encourages
+                    Engaging Questions
                 </p>
             </div>
             <div class="rightContent">
@@ -247,7 +272,7 @@
             <div class="row">
                 <div class="col-lg-6 offset-lg-3">
                     <div class="main-title text-center">
-                        <h3 class="mb0 mt0">Featured Courses</h3>
+                        <h3 class="mb0 mt0" style="color: #CF202F">Featured Courses</h3>
                     </div>
                 </div>
             </div>
