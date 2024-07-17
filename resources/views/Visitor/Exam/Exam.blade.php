@@ -67,12 +67,40 @@
         object-fit: cover !important;
         object-position: center !important;
     }
+
     .form-control:focus {
         color: #B8B8B8 !important;
         background-color: #fff;
         border-color: none !important;
         outline: 0;
         box-shadow: none !important;
+    }
+
+    @media (max-width: 1220px) {
+
+        .stylehome1,
+        .rightContent {
+            display: none !important;
+        }
+
+        .mainContent .leftContent {
+            width: 100% !important;
+        }
+
+        .footerSec {
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .cate_sel,
+        .course_sel,
+        .year_sel,
+        .month_sel,
+        .examCode_sel {
+            width: 80% !important;
+        }
     }
 </style>
 
@@ -96,9 +124,16 @@
         <img src="{{ asset('images/HeroBackground/est.png') }}" alt="photo">
     </div>
 </section>
-
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <div class="main-title text-center">
+            <h3 class="mb0 mt0" style="color: #CF202F">Featured Courses</h3>
+        </div>
+    </div>
+</div>
 <form action="{{ route('filter_exam') }}" method="GET">
-    <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
+    <div
+        style="display: flex !important;align-items: center;width: 100% !important;justify-content: center; flex-wrap: wrap !important;gap: 25px !important;">
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
             name="cate_id" class="form-control mx-2 cate_sel">
@@ -142,7 +177,7 @@
 
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="year">
+            class="form-control mx-2 year_sel" name="year">
             <option disabled selected>
                 Select Year
             </option>
@@ -160,7 +195,7 @@
         </select>
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="month">
+            class="form-control mx-2 month_sel" name="month">
             <option disabled selected>
                 Select Month
             </option>
@@ -178,7 +213,7 @@
         </select>
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="code_id">
+            class="form-control mx-2 examCode_sel" name="code_id">
             <option disabled selected>
                 Select Exam Code
             </option>
@@ -259,7 +294,7 @@
     cate_sel.addEventListener('change', () => {
         course_sel.innerHTML = `
             <option disabled selected>
-                Select Course ...
+                Select Course
             </option>
             `;
         courses_data.forEach(item => {
