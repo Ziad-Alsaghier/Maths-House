@@ -593,9 +593,13 @@
                                                 <option value="Extra">Extra</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-2 d-flex" style="align-items: center; column-gap:10px">
+                                        <div class="col-md-3 d-flex"
+                                            style="align-items: center;justify-content: space-between; column-gap:20px">
                                             <button type="button" id="filterBtn"
                                                 style="font-size: 1.4rem;font-weight: 500;border: none;background: #1b84ff;border-radius: 8px;padding: 5px 25px;letter-spacing: 1px;color: #fff;">Filter</button>
+                                            <button type="button" class="d-none" id="addAllBtn"
+                                                style="font-size: 1.4rem;font-weight: 500;border: none;background: #1b84ff;border-radius: 8px;padding: 5px 25px;letter-spacing: 1px;color: #fff;">Add
+                                                All</button>
                                         </div>
 
                                     </div>
@@ -1715,10 +1719,11 @@
                                 .chap + "</td>";
                             dynamicTR += "<td class='quizzeActive_less'>" + element
                                 .less + "</td>";
-                            dynamicTR += "<td style='width: 150px !important; padding: 0 !important;'>"
-                                + removeBtn + "</td>";
+                            dynamicTR +=
+                                "<td style='width: 150px !important; padding: 0 !important;'>" +
+                                removeBtn + "</td>";
 
-                            dynamicTR = dynamicTR +  inpID + " </tr>";
+                            dynamicTR = dynamicTR + inpID + " </tr>";
 
                             // index++;
                             //_____________________________________________________________________________
@@ -1837,32 +1842,43 @@
                                 console.log("data filter", data)
                                 if (data.faild == undefined) {
                                     console.log("yes faild")
+                                    $("#addAllBtn").removeClass('d-none')
                                     /* data.questions */
                                     quizze_item.innerHTML = null;
                                     (data.questions).forEach((element, index) => {
-                                        quizze_item.innerHTML += `<tr>
-                          <th scope="row" class="idd d-none">${element.id}</th>
-                          <th>${index + 1}</th>
-                          <td class="type" id="type">${element.q_type}</td>
-                          <td class="year" id="year">${element.year}</td>
-                          <td class="month" id="month">${element.month}</td>
-                          <td class="code" id="code">${element.code.exam_code}</td>
-                          <td class="section" id="section">${element.section}</td>
-                          <td class="noNum" id="noNum">${element.q_num}</td>
-                          <td class="diff" id="diff">${element.difficulty}</td>
-                          <td class="chapter" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
-                          <td class="lessone" id="lessone">${element.api_lesson.lesson_name}</td>
-                          <td class="p-0">
-                            <button type="button" class="add_qz">Add</button>
-                          </td>
-                        </tr>`;
+                                        quizze_item.innerHTML += `<tr class="filterResult">
+                                            <th scope="row" class="idd d-none">${element.id}</th>
+                                            <th>${index + 1}</th>
+                                            <td class="type" id="type">${element.q_type}</td>
+                                            <td class="year" id="year">${element.year}</td>
+                                            <td class="month" id="month">${element.month}</td>
+                                            <td class="code" id="code">${element.code.exam_code}</td>
+                                            <td class="section" id="section">${element.section}</td>
+                                            <td class="noNum" id="noNum">${element.q_num}</td>
+                                            <td class="diff" id="diff">${element.difficulty}</td>
+                                            <td class="chapter" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
+                                            <td class="lessone" id="lessone">${element.api_lesson.lesson_name}</td>
+                                            <td class="p-0">
+                                                <button type="button" class="add_qz">Add</button>
+                                            </td>
+                                        </tr>`;
                                     });
                                 } else {
+                                    $("#addAllBtn").addClass('d-none')
                                     console.log("NotFaild")
                                     quizze_item.innerHTML = null;
                                     quizze_item.innerHTML +=
                                         `<td colspan="12" class="avil">${data.faild}</td>`
                                 }
+
+                                $("#addAllBtn").click(function() {
+                                    $(".filterResult").each((
+                                        index, ele) => {
+                                        $(ele).find(".add_qz")
+                                            .click();
+                                    })
+                                })
+
                             }
 
                         })

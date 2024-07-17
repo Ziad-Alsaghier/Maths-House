@@ -1077,6 +1077,7 @@
                                                                 value="{{ $element->ans_video }}"
                                                                 class="form-control">
                                                         </div>
+                                                        <button type="button" class="col-md-12 mt-3 btn btn-danger btn_remove_idea_old">Remove</button>
                                                     </div>
                                                 @endforeach
 
@@ -1189,6 +1190,13 @@
                 $(".addNewAnswer").toggleClass("d-none");
                 $(".newAnswerSe").toggleClass("d-none");
             })
+            $(".btn_remove_idea_old").each((val, ele) => {
+                    // console.log("ele",ele)
+                    $(ele).click(function() {
+                        $(ele).closest(".idea").remove();
+                    })
+                    // console.log("val",val)
+                })
         })
         let sel_cate = document.querySelector('.sel_cate');
         let sel_course = document.querySelector('.sel_course');
