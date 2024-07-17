@@ -172,6 +172,21 @@
             transition: all 0.3s ease-in-out;
         }
 
+        .selected_qz {
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 5px 10px;
+            border: none !important;
+            outline: none !important;
+            text-align: center;
+            margin-top: 2px;
+            color: #fff;
+            background: #1761c6;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+            cursor: context-menu !important;
+        }
+
         .add_qz:hover {
             box-shadow: 0px 0px 5px 5px rgb(134 134 134 / 22%);
         }
@@ -482,9 +497,13 @@
                                                 <option value="Extra">Extra</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-2 d-flex" style="align-items: center; column-gap:10px">
+                                        <div class="col-md-3 d-flex"
+                                            style="align-items: center;justify-content: space-between; column-gap:20px">
                                             <button type="button" id="filterBtn"
                                                 style="font-size: 1.4rem;font-weight: 500;border: none;background: #1b84ff;border-radius: 8px;padding: 5px 25px;letter-spacing: 1px;color: #fff;">Filter</button>
+                                            <button type="button" class="d-none" id="addAllBtn"
+                                                style="font-size: 1.4rem;font-weight: 500;border: none;background: #1b84ff;border-radius: 8px;padding: 5px 25px;letter-spacing: 1px;color: #fff;">Add
+                                                All</button>
                                         </div>
 
                                     </div>
@@ -863,10 +882,14 @@
                                                                         <option value="Extra">Extra</option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-md-2 d-flex filterBtn_edit"
-                                                                    style="align-items: center; column-gap:10px">
-                                                                    <button type="button" id="filterBtn_edit"
+                                                                <div class="col-md-3 d-flex"
+                                                                style="align-items: center;justify-content: space-between; column-gap:20px">
+                                                                    <button type="button" class="filterBtn_edit" id="filterBtn_edit{{ $item->id }}"
                                                                         style="font-size: 1.4rem;font-weight: 500;border: none;background: #1b84ff;border-radius: 8px;padding: 5px 25px;letter-spacing: 1px;color: #fff;">Filter</button>
+                                                                        <button type="button" class="d-none"
+                                                                        id="addAllBtn{{ $item->id }}"
+                                                                        style="font-size: 1.4rem;font-weight: 500;border: none;background: #1b84ff;border-radius: 8px;padding: 5px 25px;letter-spacing: 1px;color: #fff;">Add
+                                                                        All</button>
                                                                 </div>
 
                                                             </div>
@@ -1248,6 +1271,7 @@
                         course_id: $(this).val(),
                     },
                     success: function(data) {
+                        console.log(data)
                         $(data.chapters).each((val, ele) => {
                             var newChapter = `<option value="${ele.id}">
                                                 ${ele.chapter_name}
@@ -1375,6 +1399,12 @@
                             var quziLessone = $(this).closest("tr").find(".lessone").text();
                             var quziDiff = $(this).closest("tr").find(".diff").text();
 
+
+                            $(this).addClass("selected_qz");
+                            $(this).removeClass("add_qz");
+                            $(this).text("Selected");
+
+
                             var allData = [];
 
 
@@ -1495,33 +1525,42 @@
                                     console.log("data filter", data)
                                     if (data.faild == undefined) {
                                         console.log("yes faild")
+                                        $("#addAllBtn").removeClass('d-none')
                                         /* data.questions */
                                         quizze_item.innerHTML = null;
                                         (data.questions).forEach((element,
                                             index) => {
-                                            quizze_item.innerHTML += `<tr>
-                                    <th scope="row" class="idd d-none">${element.id}</th>
-                                    <th>${index + 1}</th>
-                                    <td class="type" id="type">${element.q_type}</td>
-                                    <td class="year" id="year">${element.year}</td>
-                                    <td class="month" id="month">${element.month}</td>
-                                    <td class="code" id="code">${element.code.exam_code}</td>
-                                    <td class="section" id="section">${element.section}</td>
-                                    <td class="noNum" id="noNum">${element.q_num}</td>
-                                    <td class="diff" id="diff">${element.difficulty}</td>
-                                    <td class="chapter" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
-                                    <td class="lessone" id="lessone">${element.api_lesson.lesson_name}</td>
-                                    <td class="p-0">
-                                        <button type="button" class="add_qz">Add</button>
-                                    </td>
-                                    </tr>`;
+                                            quizze_item.innerHTML += `<tr class="filterResult">
+                                                <th scope="row" class="idd d-none">${element.id}</th>
+                                                <th>${index + 1}</th>
+                                                <td class="type" id="type">${element.q_type}</td>
+                                                <td class="year" id="year">${element.year}</td>
+                                                <td class="month" id="month">${element.month}</td>
+                                                <td class="code" id="code">${element.code.exam_code}</td>
+                                                <td class="section" id="section">${element.section}</td>
+                                                <td class="noNum" id="noNum">${element.q_num}</td>
+                                                <td class="diff" id="diff">${element.difficulty}</td>
+                                                <td class="chapter" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
+                                                <td class="lessone" id="lessone">${element.api_lesson.lesson_name}</td>
+                                                <td class="p-0">
+                                                    <button type="button" class="add_qz">Add</button>
+                                                </td>
+                                            </tr>`;
                                         });
                                     } else {
+                                        $("#addAllBtn").addClass('d-none')
                                         console.log("NotFaild")
                                         quizze_item.innerHTML = null;
                                         quizze_item.innerHTML +=
                                             `<td colspan="12" class="avil">${data.faild}</td>`
                                     }
+                                    $("#addAllBtn").click(function() {
+                                        $(".filterResult").each((
+                                            index, ele) => {
+                                            $(ele).find(".add_qz")
+                                                .click();
+                                        })
+                                    })
                                 },
 
                             })
@@ -1574,10 +1613,12 @@
             $(document).on("click", ".filterBtn_edit", function() {
                 var parFilterEdit = `#${$(this).closest(".all_filter").attr("id")}`;
                 var filterBtnEdit = `#${$(parFilterEdit).find(".filterBtn_edit").attr("id")}`;
+                var addAllBtnEdit = `#${$(filterBtnEdit).next().attr("id")}`;
                 var tableEdite = $(this).closest(".question_edit_parQ").find(".quizze_ID");
                 console.log("tableEdite", tableEdite)
                 console.log("parFilterEdit", parFilterEdit)
                 console.log("filterBtn_edit", filterBtnEdit)
+                console.log("addAllBtnEdit", addAllBtnEdit)
                 $.ajax({
                     url: "{{ route('dia_filter_question') }}",
                     type: "GET",
@@ -1595,10 +1636,11 @@
                         console.log("data filter", data)
                         if (data.faild == undefined) {
                             console.log("yes faild")
+                            $(addAllBtnEdit).removeClass('d-none')
                             /* data.questions */
                             $(parFilterEdit).parent().find(".lesson_quizze").empty();
                             (data.questions).forEach((element, index) => {
-                                $(parFilterEdit).parent().find(".lesson_quizze").append(`<tr>
+                                $(parFilterEdit).parent().find(".lesson_quizze").append(`<tr class="filterResultEdit">
                           <input type="hidden" value=${$(tableEdite).val()} class="question_id ques_id quizze_ID" />
                           <th>${index + 1}</th>
                           <td class="type" id="type">${element.q_type}</td>
@@ -1616,11 +1658,19 @@
                         </tr>`);
                             });
                         } else {
+                            $(addAllBtnEdit).addClass('d-none')
                             console.log("NotFaild")
                             $(parFilterEdit).parent().find(".lesson_quizze").empty();
                             $(parFilterEdit).parent().find(".lesson_quizze").append(
                                 `<td colspan="12" class="avil">${data.faild}</td>`)
                         }
+                        $(addAllBtnEdit).click(function() {
+                            $(".filterResultEdit").each((
+                                index, ele) => {
+                                $(ele).find(".edit_qz")
+                                    .click();
+                            })
+                        })
                     }
 
                 })
@@ -1650,6 +1700,13 @@
                     `#${$(this).closest(".form_editquizze").find(".sel_quz_edit").attr("id")}`;
                 var count_tr_edit = $(indexx).find("tr").length;
                 // var indexQuizze = $(count_tr_edit);
+
+
+                $(this).addClass("selected_qz");
+                $(this).removeClass("edit_qz");
+                $(this).text("Selected");
+
+
                 console.log("##############")
 
                 console.log("indexx", indexx)
