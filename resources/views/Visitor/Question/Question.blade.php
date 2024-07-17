@@ -4,7 +4,7 @@
 <style>
     .heroSec {
         width: 100%;
-        height: 87vh;
+        /* height: 87vh; */
         padding: 0 !important;
         display: flex;
         flex-direction: column;
@@ -76,6 +76,35 @@
         outline: 0;
         box-shadow: none !important;
     }
+
+    @media (max-width: 1220px) {
+
+        .stylehome1,
+        .rightContent {
+            display: none !important;
+        }
+
+        .mainContent .leftContent {
+            width: 100% !important;
+        }
+
+        .footerSec {
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .sel_category,
+        .sel_course,
+        .year_sel,
+        .month_sel,
+        .section_sel,
+        .examCode_sel,
+        .q_num_sel {
+            width: 80% !important;
+        }
+    }
 </style>
 
 
@@ -101,9 +130,16 @@
     </div>
 </section>
 
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <div class="main-title text-center">
+            <h3 class="mb0 mt0" style="color: #CF202F">Featured Courses</h3>
+        </div>
+    </div>
+</div>
 
 <form action="{{ route('v_filter_question') }}" method="GET">
-    <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
+    <div  style="display: flex !important;align-items: center;width: 100% !important;justify-content: center; flex-wrap: wrap !important;gap: 25px !important;">
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
             class="form-control sel_category mx-2" name="category_id">
@@ -128,7 +164,7 @@
 
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="year">
+            class="form-control mx-2 year_sel" name="year">
             <option disabled selected>
                 Select Year
             </option>
@@ -140,7 +176,7 @@
         </select>
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="month">
+            class="form-control mx-2 month_sel" name="month">
             <option disabled selected>
                 Select Month
             </option>
@@ -152,11 +188,11 @@
         </select>
         <input
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="section" placeholder="Section" />
+            class="form-control mx-2 section_sel" name="section" placeholder="Section" />
 
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            name="q_code" class="form-control mx-2">
+            name="q_code" class="form-control mx-2 examCode_sel">
             <option selected value="">
                 Select Code
             </option>
@@ -168,7 +204,7 @@
         </select>
         <input
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="q_num" placeholder="Question Number" />
+            class="form-control mx-2 q_num_sel" name="q_num" placeholder="Question Number" />
     </div>
     <div class="d-flex align-items-center justify-content-center py-4">
         <button
