@@ -30,9 +30,20 @@
     .conBtn:hover {
         background: #ae101d
     }
+
+    @media (max-width: 1220px) {
+
+        .cate_sel,
+        .course_sel,
+        .year_sel,
+        .month_sel,
+        .examCode_sel {
+            width: 80% !important;
+        }
+    }
 </style>
 <form action="{{ route('filter_exam') }}" method="GET">
-    <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
+    <div style="display: flex !important;align-items: center;justify-content: center; flex-wrap: wrap !important;gap: 25px !important;">
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
             name="cate_id" class="form-control mx-2 cate_sel">
@@ -76,7 +87,7 @@
 
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="year">
+            class="form-control mx-2 year_sel" name="year">
             <option disabled selected>
                 Select Year
             </option>
@@ -94,7 +105,7 @@
         </select>
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="month">
+            class="form-control mx-2 month_sel" name="month">
             <option disabled selected>
                 Select Month
             </option>
@@ -112,7 +123,7 @@
         </select>
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="code_id">
+            class="form-control mx-2 examCode_sel" name="code_id">
             <option disabled selected>
                 Select Exam Code
             </option>
@@ -177,13 +188,19 @@
     <table class="table col-11  mt-2">
         <thead>
             <tr>
-                <th class="col-2"  style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Exam
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Exam
                 </th>
-                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Course</th>
-                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Code</th>
-                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Year</th>
-                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Month</th>
-                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Action</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Course</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Code</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Year</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Month</th>
+                <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
+                    scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -194,31 +211,36 @@
                     <td>{{ @$item->code->exam_code }}</td>
                     <td>{{ $item->year }}</td>
                     <td>{{ $item->month }}</td>
-                    <td> 
-                        <div type="button" class="conBtn wallet_btn text-center" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                    <td>
+                        <div type="button" class="conBtn wallet_btn text-center" data-bs-toggle="modal"
+                            data-bs-target="#modalCenter">
                             Start
-                        </div> 
-            
-                        <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+                        </div>
+
+                        <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1"
+                            style="display: block;" aria-modal="true" role="dialog">
                             <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="modalCenterTitle">Exam</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalCenterTitle">Exam</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Start Exam ??
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-label-secondary close_wallet_btn"
+                                            data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <a class="btn btn-success"
+                                            href="{{ route('exam_page', ['id' => $item->id]) }}">
+                                            Start
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    Start Exam ??
-            
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-label-secondary close_wallet_btn" data-bs-dismiss="modal">
-                                    Close
-                                </button>
-                                <a class="btn btn-success" href="{{route('exam_page', ['id' => $item->id])}}">
-                                    Start
-                                </a>
-                                </div>
-                            </div>
                             </div>
                         </div>
                     </td>
