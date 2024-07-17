@@ -31,10 +31,23 @@
     .conBtn:hover {
         background: #ae101d
     }
+
+    @media (max-width: 1220px) {
+
+        .sel_category,
+        .sel_course,
+        .year_sel,
+        .month_sel,
+        .section_sel,
+        .examCode_sel,
+        .q_num_sel {
+            width: 80% !important;
+        }
+    }
 </style>
 
 <form action="{{ route('v_filter_question') }}" method="GET">
-    <div style="padding: 100px 100px 0 100px;display: flex !important;flex-wrap: wrap !important;gap: 25px !important;">
+    <div style="display: flex !important;align-items: center;width: 100% !important;justify-content: center; flex-wrap: wrap !important;gap: 25px !important;">
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
             class="form-control sel_category mx-2" name="category_id">
@@ -78,7 +91,7 @@
 
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="year">
+            class="form-control mx-2 year_sel" name="year">
             <option disabled selected>
                 Select Year
             </option>
@@ -96,7 +109,7 @@
         </select>
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" name="month">
+            class="form-control mx-2 month_sel" name="month">
             <option disabled selected>
                 Select Month
             </option>
@@ -114,11 +127,11 @@
         </select>
         <input
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" value="{{ @$data['section'] }}" name="section" placeholder="Section" />
+            class="form-control mx-2 section_sel" value="{{ @$data['section'] }}" name="section" placeholder="Section" />
 
         <select
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            name="q_code" class="form-control mx-2">
+            name="q_code" class="form-control mx-2 examCode_sel">
             <option selected value="">
                 Select Code
             </option>
@@ -136,7 +149,7 @@
         </select>
         <input
             style="width: 30%;font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;"
-            class="form-control mx-2" value="{{ @$data['q_num'] }}" name="q_num" placeholder="Question Number" />
+            class="form-control mx-2 q_num_sel" value="{{ @$data['q_num'] }}" name="q_num" placeholder="Question Number" />
     </div>
     <div class="d-flex align-items-center justify-content-center py-4">
         <button
@@ -214,33 +227,37 @@
                     <td>{{ $item->year }}</td>
                     <td>{{ $item->month }}</td>
                     <td>
-                        
-            <div type="button" class="conBtn text-center wallet_btn" data-bs-toggle="modal" data-bs-target="#modalCenter">
-                Start
-            </div> 
 
-            <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="modalCenterTitle">Question</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Start Question ??
+                        <div type="button" class="conBtn text-center wallet_btn" data-bs-toggle="modal"
+                            data-bs-target="#modalCenter">
+                            Start
+                        </div>
 
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-label-secondary close_wallet_btn" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <a class="btn btn-success"  href="{{route('q_page', ['id' => $item->id])}}">
-                        Start
-                    </a>
-                    </div>
-                </div>
-                </div>
-            </div>
+                        <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1"
+                            style="display: block;" aria-modal="true" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalCenterTitle">Question</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Start Question ??
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-label-secondary close_wallet_btn"
+                                            data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <a class="btn btn-success" href="{{ route('q_page', ['id' => $item->id]) }}">
+                                            Start
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach
