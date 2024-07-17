@@ -141,7 +141,7 @@
         }
 
         .showPass,
-        .hidePass{
+        .hidePass {
             position: absolute;
             right: 3%;
             top: 30%;
@@ -165,54 +165,71 @@
         footer>a:hover {
             color: red;
         }
+
+        @media (max-width: 1220px) {
+
+            .contentRe .centerRe,
+            .contentRe .rightRe {
+                display: none !important;
+            }
+
+            .contentRe .leftRe {
+                width: 100%;
+            }
+
+            .headerTitle {
+                width: 100% !important;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
     </style>
 @endsection
 {{-- Content page --}}
 
 @if (session()->has('email_session'))
-<div class="swal2-container swal2-center swal2-backdrop-show " id="alert_success"
-    style="overflow-y: auto;">
-    <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container"
-        class="swal2-popup swal2-modal swal2-icon-success swal2-show" tabindex="-1" role="dialog"
-        aria-live="assertive" aria-modal="true" style="display: grid;"><button type="button"
-            class="swal2-close" aria-label="Close this dialog" style="display: none;">×</button>
-        <ul class="swal2-progress-steps" style="display: none;"></ul>
-        <div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;">
-            <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);">
+    <div class="swal2-container swal2-center swal2-backdrop-show " id="alert_success" style="overflow-y: auto;">
+        <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container"
+            class="swal2-popup swal2-modal swal2-icon-success swal2-show" tabindex="-1" role="dialog"
+            aria-live="assertive" aria-modal="true" style="display: grid;"><button type="button" class="swal2-close"
+                aria-label="Close this dialog" style="display: none;">×</button>
+            <ul class="swal2-progress-steps" style="display: none;"></ul>
+            <div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;">
+                <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);">
+                </div>
+                <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
+                <div class="swal2-success-ring"></div>
+                <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+            </div><img class="swal2-image" style="display: none;">
+            <h2 class="swal2-title" id="swal2-title" style="display: block;">Success!</h2>
+            <div class="swal2-html-container" id="swal2-html-container" style="display: block;">
+                You Should Verification Your Account
+            </div><input class="swal2-input" style="display: none;"><input type="file" class="swal2-file"
+                style="display: none;">
+            <div class="swal2-range" style="display: none;"><input type="range"><output></output></div>
+            <select class="swal2-select" style="display: none;"></select>
+            <div class="swal2-radio" style="display: none;"></div><label for="swal2-checkbox" class="swal2-checkbox"
+                style="display: none;"><input type="checkbox"><span class="swal2-label"></span></label>
+            <textarea class="swal2-textarea" style="display: none;"></textarea>
+            <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;">
             </div>
-            <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
-            <div class="swal2-success-ring"></div>
-            <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
-            <div class="swal2-success-circular-line-right"
-                style="background-color: rgb(255, 255, 255);"></div>
-        </div><img class="swal2-image" style="display: none;">
-        <h2 class="swal2-title" id="swal2-title" style="display: block;">Success!</h2>
-        <div class="swal2-html-container" id="swal2-html-container" style="display: block;">
-            You Should Verification Your Account
-        </div><input class="swal2-input" style="display: none;"><input type="file" class="swal2-file"
-            style="display: none;">
-        <div class="swal2-range" style="display: none;"><input type="range"><output></output></div>
-        <select class="swal2-select" style="display: none;"></select>
-        <div class="swal2-radio" style="display: none;"></div><label for="swal2-checkbox"
-            class="swal2-checkbox" style="display: none;"><input type="checkbox"><span
-                class="swal2-label"></span></label>
-        <textarea class="swal2-textarea" style="display: none;"></textarea>
-        <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;">
-        </div>
-        <div class="swal2-actions" style="display: flex;">
-            <div class="swal2-loader"></div>
-            <button type="button" class="swal2-confirm btn btn-primary" id="btn_hidden" aria-label=""
-                style="display: inline-block;">OK</button>
-            <button type="button" class="swal2-deny" aria-label=""
-                style="display: none;">No</button><button type="button" class="swal2-cancel"
-                aria-label="" style="display: none;">Cancel</button>
-        </div>
-        <div class="swal2-footer" style="display: none;"></div>
-        <div class="swal2-timer-progress-bar-container">
-            <div class="swal2-timer-progress-bar" style="display: none;"></div>
+            <div class="swal2-actions" style="display: flex;">
+                <div class="swal2-loader"></div>
+                <button type="button" class="swal2-confirm btn btn-primary" id="btn_hidden" aria-label=""
+                    style="display: inline-block;">OK</button>
+                <button type="button" class="swal2-deny" aria-label="" style="display: none;">No</button><button
+                    type="button" class="swal2-cancel" aria-label="" style="display: none;">Cancel</button>
+            </div>
+            <div class="swal2-footer" style="display: none;"></div>
+            <div class="swal2-timer-progress-bar-container">
+                <div class="swal2-timer-progress-bar" style="display: none;"></div>
+            </div>
         </div>
     </div>
-</div>
 @endif
 
 <div class="parContainer">
@@ -221,7 +238,7 @@
     </header>
 
     <div class="contentRe">
-        <form  action='{{ route('login.store') }}' method="POST" novalidate="novalidate" class="leftRe">
+        <form action='{{ route('login.store') }}' method="POST" novalidate="novalidate" class="leftRe">
             @csrf
             <div class="headerTitle">
                 <span>Login to</span>
@@ -246,7 +263,7 @@
                     <input type="password" id="passInput" name="password" placeholder="Password">
                     <span class="d-none">Please Set Your Password</span>
                     <i class="fa-solid fa-eye showPass d-none"></i>
-                    <i class="fa-solid fa-eye-slash hidePass"></i>      
+                    <i class="fa-solid fa-eye-slash hidePass"></i>
                     @error('password')
                         <span> {{ $message }} </span>
                     @enderror
@@ -360,7 +377,7 @@
     <script src="assets/js/custom/authentication/sign-in/general.js"></script>
     <script src="assets/js/custom/authentication/sign-in/i18n.js"></script>
     <!--end::Custom Javascript-->
-    <!--end::Javascript-->    
+    <!--end::Javascript-->
     @if (session()->has('email_session'))
         <script>
             let btn = document.getElementById('btn_hidden');
