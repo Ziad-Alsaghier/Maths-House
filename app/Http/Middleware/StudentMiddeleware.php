@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Models\LoginUser;
+use Carbon\Carbon;
 class StudentMiddeleware
 {
     /**
@@ -15,8 +16,18 @@ class StudentMiddeleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->position == 'student'){
+        $now = Carbon::now();
+        $timeMinus120Minutes = $now->subMinutes(300);
+        $l_user = LoginUser::
+        where('type', 'web')
+        ->where('user_id', auth()->user()->id)
+        ->where('created_at', '>=', $timeMinus120Minutes)
+        ->first();
+        if($l_user && auth()->user()->position == 'student'){
             return $next($request);
+        }
+        else{
+            return redirect()->route('login.index');
         }
     }
 }

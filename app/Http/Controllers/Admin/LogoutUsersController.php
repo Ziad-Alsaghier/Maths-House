@@ -22,6 +22,7 @@ class LogoutUsersController extends Controller
     public function logout( $id ){
         LoginUser::where('user_id', $id)
         ->delete();
+        
 
         return redirect()->back();
     }
