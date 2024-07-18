@@ -7,10 +7,16 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\LoginUser;
+use App\Models\PersonalAccessToken;
+
+
 
 class LogoutUsersController extends Controller
 {
-    
+  public function __construct( private User $user)
+  {
+       
+  }
     public function index(){
         $students = User::
         orderBy('position')
@@ -22,7 +28,8 @@ class LogoutUsersController extends Controller
     public function logout( $id ){
         LoginUser::where('user_id', $id)
         ->delete();
-        
+        PersonalAccessToken::where('tokenable_id', $id)
+        ->delete();
 
         return redirect()->back();
     }
