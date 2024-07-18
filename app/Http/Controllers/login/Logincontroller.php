@@ -20,7 +20,15 @@ class Logincontroller extends Controller
 {
 
         public function index(){
-                if ( isset(auth()->user()->position) && auth()->user()->position == 'student' ) {
+                $now = Carbon::now();
+                $timeMinus120Minutes = $now->subMinutes(300);
+                $l_user = LoginUser::
+                where('type', 'web')
+                ->where('user_id', auth()->user()->id)
+                ->where('created_at', '>=', $timeMinus120Minutes)
+                ->first();
+
+                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'student' ) {
                         return redirect()->route('stu_dashboard');
                 }
                 return view('pages.authanticated.login');            
