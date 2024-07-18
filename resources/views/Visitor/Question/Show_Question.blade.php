@@ -532,6 +532,9 @@
         background: transparent;
         margin-left: 100px;
         font-weight: 500;
+        border: 2px solid #2222;
+        padding: 1px 20px;
+        border-radius: 15px;
     }
 
     /* ///Section Pagination  */
