@@ -220,7 +220,7 @@
                 </div>
 
                 {{-- start Model With Edit --}}
-                <form action="{{ route('editScore') }}" method="post">
+                <form action="{{ route('editScore', ['id' => $item->id]) }}" method="post">
                     @csrf
                 <div class="modal fade" id="kt_modal_invite_friends{{ $item->id }}" tabindex="-1"
                     aria-hidden="true">

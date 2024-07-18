@@ -29,19 +29,19 @@ class Logincontroller extends Controller
                         ->where('created_at', '>=', $timeMinus120Minutes)
                         ->first();
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'student' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'student' ) {
                         return redirect()->route('stu_dashboard');
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'user_admin' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'user_admin' ) {
                         return redirect()->route('dashboard');
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'admin' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'admin' ) {
                         return redirect()->route('dashboard');
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'teacher' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'teacher' ) {
                         return redirect()->route('t_dashboard');
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'affilate' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'affilate' ) {
                         return redirect()->route('stu_affilate');
                 }
                 return view('pages.authanticated.login');            
