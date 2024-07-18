@@ -178,6 +178,30 @@ class ExamController extends Controller
 
        return redirect()->back();
     }
+    
+    public function editScore( Request $req ){
+        return $req->all();
+    if ( !isset(($req['question_num'][0])) || empty($req['question_num'][0]) ) {
+    session()->flash('faild','You Must Fill Score Sheet. Click on Show List And Add Data');
+    return redirect()->back();
+    }
+
+    $score_sheet = ScoreSheet::create(
+    $req->only('name', 'course_id', 'score')
+    );
+
+    ScoreList::where('score_id', $score_sheet->id)
+    ->delete();
+
+    for ($i=0, $end = count($req->score_list); $i < $end; $i++) {
+        ScoreList::create([ 'score_id'=> $score_sheet->id,
+        'question_num' => $req->question_num[$i],
+        'score' => $req->score_list[$i]
+        ]);
+        }
+
+        return redirect()->back();
+        }
 
     public function scoreDelete( $id ){
         ScoreSheet::where('id', $id )

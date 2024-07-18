@@ -381,7 +381,8 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
 
     Route::controller(ExamController::class)->middleware('can:Settings')->group(function(){
         Route::get('/ScoreSheet','score_sheet')->name('exam_score_sheet');
-        Route::post('/ScoreSheet/Add','addScore')->name('addScore'); 
+        Route::post('/ScoreSheet/Add','addScore')->name('addScore');
+        Route::post('/ScoreSheet/Edit','editScore')->name('editScore');
         Route::get('/ScoreSheet/Del/{id}','scoreDelete')->name('scoreDelete'); 
     });
 

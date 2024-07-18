@@ -220,6 +220,8 @@
                 </div>
 
                 {{-- start Model With Edit --}}
+                <form action="{{ route('editScore') }}" method="post">
+                    @csrf
                 <div class="modal fade" id="kt_modal_invite_friends{{ $item->id }}" tabindex="-1"
                     aria-hidden="true">
                     <!--begin::Modal dialog-->
@@ -345,7 +347,8 @@
                             </div>
                             <!--end::Modal dialog-->
                         </div>
-            @endforeach
+                    </form>
+                        @endforeach
         </tbody>
         {{ $score_sheet->links() }}
     </table>
