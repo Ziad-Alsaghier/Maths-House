@@ -492,7 +492,7 @@
 					<div class="menu-item">
 						<!--begin:Menu link-->
 						<a class="menu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-							href="{{ route('score_sheet') }}">
+							href="{{ route('exam_score_sheet') }}">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>

@@ -22,14 +22,27 @@ class Logincontroller extends Controller
         public function index(){
                 $now = Carbon::now();
                 $timeMinus120Minutes = $now->subMinutes(300);
-                $l_user = LoginUser::
-                where('type', 'web')
-                ->where('user_id', auth()->user()->id)
-                ->where('created_at', '>=', $timeMinus120Minutes)
-                ->first();
-
+                if ( auth()->user() ) {
+                        $l_user = LoginUser::
+                        where('type', 'web')
+                        ->where('user_id', auth()->user()->id)
+                        ->where('created_at', '>=', $timeMinus120Minutes)
+                        ->first();
+                }
                 if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'student' ) {
                         return redirect()->route('stu_dashboard');
+                }
+                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'user_admin' ) {
+                        return redirect()->route('dashboard');
+                }
+                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'admin' ) {
+                        return redirect()->route('dashboard');
+                }
+                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'teacher' ) {
+                        return redirect()->route('t_dashboard');
+                }
+                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'affilate' ) {
+                        return redirect()->route('stu_affilate');
                 }
                 return view('pages.authanticated.login');            
         }
@@ -80,13 +93,13 @@ class Logincontroller extends Controller
                                 $token = $user->createToken("user")->plainTextToken;
                                 $user->token =$token ;
 
-                                LoginUser::create([
-                                'type' => 'web', 
-                                'user_id'=> $user->id]);
                                                         
                                 if ( session()->has('previous_page') ) {
                                         return redirect($request->session()->get('previous_page'));
                                 }
+                                LoginUser::create([
+                                'type' => 'web',
+                                'user_id'=> $user->id]);
                                 if( $user->position == 'admin'){
                                         return redirect()->route('dashboard')->with(['success'=>'Loged In']);
                                 }
