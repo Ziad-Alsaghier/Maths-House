@@ -207,7 +207,7 @@
             </div><img class="swal2-image" style="display: none;">
             <h2 class="swal2-title" id="swal2-title" style="display: block;">Success!</h2>
             <div class="swal2-html-container" id="swal2-html-container" style="display: block;">
-                You Should Verification Your Account
+                Check your email for verification
             </div><input class="swal2-input" style="display: none;"><input type="file" class="swal2-file"
                 style="display: none;">
             <div class="swal2-range" style="display: none;"><input type="range"><output></output></div>
