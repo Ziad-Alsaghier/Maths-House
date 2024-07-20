@@ -89,6 +89,7 @@ class Stu_LiveController extends Controller
         $package = PaymentPackageOrder::
         where('number', '>', 0)
         ->where('user_id', auth()->user()->id)
+        ->where('state', 1)
         ->with('package_live')
         ->orderByDesc('id')
         ->get();
