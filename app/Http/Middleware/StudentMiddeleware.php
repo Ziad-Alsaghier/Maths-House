@@ -23,7 +23,7 @@ class StudentMiddeleware
         ->where('user_id', auth()->user()->id)
         ->where('created_at', '>=', $timeMinus120Minutes)
         ->first();
-        if($l_user && auth()->user()->position == 'student'){
+        if( !empty($l_user) && auth()->user()->position == 'student'){
             return $next($request);
         }
         else{

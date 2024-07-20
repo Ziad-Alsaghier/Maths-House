@@ -24,7 +24,7 @@ class AffilateMiddleware
         ->where('created_at', '>=', $timeMinus120Minutes)
         ->first();
 
-        if ( $l_user && auth()->user()->position == 'affilate' ) {
+        if ( !empty($l_user) && auth()->user()->position == 'affilate' ) {
             return $next($request);
         }
         else{

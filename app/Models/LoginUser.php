@@ -12,5 +12,6 @@ class LoginUser extends Model
     protected $fillable = [
         'user_id', 
         'type',
+        'ip',
     ];
 }

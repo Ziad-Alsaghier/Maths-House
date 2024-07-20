@@ -19,9 +19,13 @@ use Carbon\Carbon;
 class Logincontroller extends Controller
 {
 
-        public function index(){
+        public function index( Request $request ){
                 $now = Carbon::now();
                 $timeMinus120Minutes = $now->subMinutes(300);
+                LoginUser::
+                where('ip', $request->ip())
+                ->delete();
+
                 if ( auth()->user() ) {
                         $l_user = LoginUser::
                         where('type', 'web')
@@ -71,7 +75,7 @@ class Logincontroller extends Controller
                                 return redirect()->route('login.index')->withErrors(['error'=>'The  Password Invalid']);
                         }
                         $now = Carbon::now();
-                        $timeMinus120Minutes = $now->subMinutes(120);
+                        $timeMinus120Minutes = $now->subMinutes(300);
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
@@ -98,8 +102,10 @@ class Logincontroller extends Controller
                                         return redirect($request->session()->get('previous_page'));
                                 }
                                 LoginUser::create([
-                                'type' => 'web',
-                                'user_id'=> $user->id]);
+                                        'type' => 'web',
+                                        'user_id'=> $user->id,
+                                        'ip' => $request->ip(),
+                                ]);
                                 if( $user->position == 'admin'){
                                         return redirect()->route('dashboard')->with(['success'=>'Loged In']);
                                 }
@@ -148,13 +154,16 @@ class Logincontroller extends Controller
 
                         }
                         $now = Carbon::now();
-                        $timeMinus120Minutes = $now->subMinutes(120);
+                        $timeMinus120Minutes = $now->subMinutes(300);
+                        LoginUser::
+                        where('ip', $request->ip())
+                        ->delete();
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
                         ->where('created_at', '>=', $timeMinus120Minutes)
                         ->first();
-                        if ( $l_user ) {
+                        if ( !empty($l_user) ) {
                                 return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
                         }
 			Auth::loginUsingId($user->id);
@@ -171,7 +180,9 @@ class Logincontroller extends Controller
 
                                 LoginUser::create([
                                 'type' => 'web', 
-                                'user_id'=> $user->id]);
+                                'user_id'=> $user->id,
+                                'ip' => $request->ip(),
+                                ]);
                                 
                                 if( $user->position == 'admin'){
                                         return redirect()->route('course_payment');
@@ -261,7 +272,9 @@ class Logincontroller extends Controller
                  $user->token =$token;
                  LoginUser::create([
                  'type' => 'web', 
-                 'user_id'=> $user->id]);
+                 'user_id'=> $user->id,
+                 'ip' => $request->ip(),
+                ]);
 
                  $req->session()->put('email_session', 'You Should Verification Your Account By Email');
                 return redirect()->route('stu_dashboard');

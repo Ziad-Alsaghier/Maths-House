@@ -25,7 +25,7 @@ class TeacherMiddelware
         ->where('created_at', '>=', $timeMinus120Minutes)
         ->first();
 
-        if( $l_user && auth()->user()->position == 'teacher'){
+        if( !empty($l_user) && auth()->user()->position == 'teacher'){
             return $next($request);
         }
         else{
