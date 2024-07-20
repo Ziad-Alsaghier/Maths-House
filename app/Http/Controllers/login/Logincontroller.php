@@ -302,7 +302,7 @@ class Logincontroller extends Controller
                  'ip' => $value,
                 ]);
 
-                 $req->session()->put('email_session', 'You Should Verification Your Account By Email');
+                 $req->session()->put('email_session', 'Check your email for verification');
                 return redirect()->route('stu_dashboard');
         }
 
