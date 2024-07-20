@@ -354,6 +354,27 @@
     </table>
 
     <script>
+        let cate_sel1 = document.querySelector('.cate_sel');
+        let course_sel1 = document.querySelector('.course_sel');
+        let course_items1 = document.querySelector('.course_items');
+        course_items1 = course_items1.value;
+        course_items1 = JSON.parse(course_items1);
+
+        cate_sel1.addEventListener('change', () => {
+            course_sel1.innerHTML = `<option selected disabled>
+                        Select Course ...   
+                    </option>`;
+            course_items1.forEach(item => {
+                if ( item.category_id == cate_sel1.value ) {
+                    course_sel1.innerHTML += `
+                    <option value="${item.id}">
+                        ${item.course_name}    
+                    </option>
+                    `;
+                }
+            });
+        })
+        
         $(document).ready(function() {
 
 
@@ -433,6 +454,7 @@
         })
     </script>
     <script>
+
         $(document).ready(function() {
             $(document).on("click", ".removeScoreQuestion", function() {
                 var parScore = `#${$(this).closest(".modal-body").find(".formScoreEdit").attr("id")}`;
