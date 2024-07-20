@@ -18,8 +18,10 @@ class LogoutUsersController extends Controller
        
   }
     public function index(){
+        $users_id = LoginUser::pluck('user_id');
         $students = User::
-        orderBy('position')
+        whereIn('id', $users_id)
+        ->orderBy('position')
         ->get();
 
         return view('Admin.Settings.LogoutUser', compact('students'));
