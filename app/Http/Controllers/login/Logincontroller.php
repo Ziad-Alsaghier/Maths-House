@@ -13,6 +13,7 @@ use App\Models\ConfirmSign;
 use App\Models\LoginUser;
 use App\Models\Country;
 use App\Models\City;
+use Illuminate\Support\Facades\Cookie;
 
 use Carbon\Carbon;
 
@@ -22,8 +23,13 @@ class Logincontroller extends Controller
         public function index( Request $request ){
                 $now = Carbon::now();
                 $timeMinus120Minutes = $now->subMinutes(300);
+                $value = Cookie::get('device_id');
+                if ( empty($value) ) {
+                        $value = rand(1, 99999999999);
+                        Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                }
                 LoginUser::
-                where('ip', $request->ip())
+                where('ip', $value)
                 ->delete();
 
                 if ( auth()->user() ) {
@@ -101,10 +107,15 @@ class Logincontroller extends Controller
                                 if ( session()->has('previous_page') ) {
                                         return redirect($request->session()->get('previous_page'));
                                 }
+                                $value = Cookie::get('device_id');
+                                if ( empty($value) ) {
+                                        $value = rand(1, 99999999999);
+                                        Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                                }
                                 LoginUser::create([
                                         'type' => 'web',
                                         'user_id'=> $user->id,
-                                        'ip' => $request->ip(),
+                                        'ip' => $value,
                                 ]);
                                 if( $user->position == 'admin'){
                                         return redirect()->route('dashboard')->with(['success'=>'Loged In']);
@@ -155,8 +166,13 @@ class Logincontroller extends Controller
                         }
                         $now = Carbon::now();
                         $timeMinus120Minutes = $now->subMinutes(300);
+                        $value = Cookie::get('device_id');
+                        if ( empty($value) ) {
+                                $value = rand(1, 99999999999);
+                                Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                        }
                         LoginUser::
-                        where('ip', $request->ip())
+                        where('ip', $value)
                         ->delete();
                         $l_user = LoginUser::
                         where('type', 'web') 
@@ -178,10 +194,15 @@ class Logincontroller extends Controller
                                 $token = $user->createToken("user")->plainTextToken;
                                 $user->token =$token ;
 
+                                $value = Cookie::get('device_id');
+                                if ( empty($value) ) {
+                                        $value = rand(1, 99999999999);
+                                        Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                                }
                                 LoginUser::create([
                                 'type' => 'web', 
                                 'user_id'=> $user->id,
-                                'ip' => $request->ip(),
+                                'ip' => $value,
                                 ]);
                                 
                                 if( $user->position == 'admin'){
@@ -270,10 +291,15 @@ class Logincontroller extends Controller
                 
                 $token = $user->createToken("user")->plainTextToken;
                  $user->token =$token;
+                 $value = Cookie::get('device_id');
+                 if ( empty($value) ) {
+                         $value = rand(1, 99999999999);
+                         Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                 }
                  LoginUser::create([
                  'type' => 'web', 
                  'user_id'=> $user->id,
-                 'ip' => $request->ip(),
+                 'ip' => $value,
                 ]);
 
                  $req->session()->put('email_session', 'You Should Verification Your Account By Email');
