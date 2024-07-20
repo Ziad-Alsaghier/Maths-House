@@ -952,18 +952,18 @@
                                                         <option value="{{ $question->month }}">
                                                             {{ $question->month }}
                                                         </option>
-                                                        <option value="Jan">Jan</option>
-                                                        <option value="Fab">Fab</option>
-                                                        <option value="Mar">Mar</option>
-                                                        <option value="April">April</option>
-                                                        <option value="May">May</option>
-                                                        <option value="June">June</option>
-                                                        <option value="July">July</option>
-                                                        <option value="Aug">Aug</option>
-                                                        <option value="Sept">Sept</option>
-                                                        <option value="Oct">Oct</option>
-                                                        <option value="Nov">Nov</option>
-                                                        <option value="Dec">Dec</option>
+                                                        <option value="1">Jan</option>
+                                                        <option value="2">Fab</option>
+                                                        <option value="3">Mar</option>
+                                                        <option value="4">April</option>
+                                                        <option value="5">May</option>
+                                                        <option value="6">June</option>
+                                                        <option value="7">July</option>
+                                                        <option value="8">Aug</option>
+                                                        <option value="9">Sept</option>
+                                                        <option value="10">Oct</option>
+                                                        <option value="11">Nov</option>
+                                                        <option value="12">Dec</option>
                                                     </select>
                                                     <!--end::Input-->
                                                 </div>
