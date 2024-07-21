@@ -35,7 +35,7 @@
     <tbody>
         @foreach( $sessions as $item )
         
-        @if ( $item->session->date > date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to >= date('H:i:s')) )
+        @if ( $item->session->date >= date('Y-m-d')  )
         <tr>
             <td>{{$loop->iteration}}</td>
             <td>{{$item->session->name}}</td>
