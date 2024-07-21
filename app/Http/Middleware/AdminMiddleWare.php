@@ -22,7 +22,7 @@ class AdminMiddleWare
         $l_user = LoginUser::
         where('type', 'web')
         ->where('user_id', auth()->user()->id)
-        ->where('created_at', '>=', $timeMinus120Minutes)
+        ->where('updated_at', '>=', $timeMinus120Minutes)
         ->first();
         if( (!empty($l_user) && auth()->user()->position == 'admin') || (!empty($l_user) &&auth()->user()->position == 'user_admin' )){
             return $next($request);

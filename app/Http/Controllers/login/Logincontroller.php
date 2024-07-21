@@ -28,9 +28,6 @@ class Logincontroller extends Controller
                         $value = rand(1, 99999999999);
                         Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
                 }
-                LoginUser::
-                where('ip', $value)
-                ->delete();
 
                 if ( auth()->user() ) {
                         $l_user = LoginUser::
