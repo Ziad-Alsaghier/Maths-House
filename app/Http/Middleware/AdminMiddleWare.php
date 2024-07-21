@@ -24,7 +24,7 @@ class AdminMiddleWare
         ->where('user_id', auth()->user()->id)
         ->where('created_at', '>=', $timeMinus120Minutes)
         ->first();
-        if( !empty($l_user) && auth()->user()->position == 'admin' or auth()->user()->position == 'user_admin' ){
+        if( (!empty($l_user) && auth()->user()->position == 'admin') || (!empty($l_user) &&auth()->user()->position == 'user_admin' )){
             return $next($request);
         }
         else{
