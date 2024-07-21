@@ -69,6 +69,22 @@ class LiveController extends Controller
         $sessions = Session::
         where('id', $id)
         ->update($arr);
+
+        if ( !empty($req->group_id) ) {
+            $group_students = GroupStudent::
+            where('group_id', $req->group_id)
+            ->pluck('stu_id');
+
+            SessionStudent::where('session_id', $id)
+            ->delete();
+
+            for ($i=0, $end = count($group_students); $i < $end; $i++) { 
+                SessionStudent::create([
+                    'session_id' => $id,
+                    'user_id' => $group_students[$i],
+                ]);
+            }
+        }
         if ( !empty($req->user_id) ) {
             SessionStudent::where('session_id', $id)
             ->delete();
@@ -108,6 +124,20 @@ class LiveController extends Controller
             'teacher_id' => 'required',
         ]);
         $session = Session::create($arr);
+        
+        if ( !empty($req->group_id) ) {
+            $group_students = GroupStudent::
+            where('group_id', $req->group_id)
+            ->pluck('stu_id');
+
+            for ($i=0, $end = count($group_students); $i < $end; $i++) { 
+                SessionStudent::create([
+                    'session_id' => $session->id,
+                    'user_id' => $group_students[$i],
+                ]);
+            }
+        }
+
         if ( !empty($req->user_id) ) {
             for ($i=0, $end = count($req->user_id); $i < $end; $i++) { 
                 SessionStudent::create([
