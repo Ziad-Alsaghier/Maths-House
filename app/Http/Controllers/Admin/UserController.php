@@ -24,7 +24,9 @@ class UserController extends Controller
     // Comment
 
     public function student(){
-        $students = User::get();
+        $students = User::where('position', 'student')
+        ->orderByDesc('id')
+        ->get();
 
         return view('Admin.Users.Students', compact('students'));
     }
