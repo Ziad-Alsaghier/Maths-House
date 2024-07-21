@@ -18,15 +18,15 @@ class LimitActiveSessions
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = User::where('email', $request->email)
-        ->first();
-        $l_user = LoginUser::where('type', 'mobile')
-        ->where('user_id', $user->id)
-        ->first();
+        // $user = User::where('email', $request->email)
+        // ->first();
+        // $l_user = LoginUser::where('type', 'mobile')
+        // ->where('user_id', $user->id)
+        // ->first();
 
-        if ( $l_user ) {
-            return response()->json(['error' => 'You can only be logged in on two devices at the same time.'], 403);
-        }
+        // if ( $l_user ) {
+        //     return response()->json(['error' => 'You can only be logged in on two devices at the same time.'], 403);
+        // }
 
         return $next($request);
     }
