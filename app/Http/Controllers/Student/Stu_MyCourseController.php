@@ -79,6 +79,7 @@ class Stu_MyCourseController extends Controller
             }
         }
         $course_id = $id;
+        return $chapters;
 
         return view('Student.MyCourses.Chapters_Working', compact('chapters', 'course_id'));
     }
@@ -446,7 +447,6 @@ class Stu_MyCourseController extends Controller
         ReportVideo::create( $arr );
     }
 
-
     public function api_report_question( Request $req ){
 
         ReportQuestion::create([
@@ -461,7 +461,5 @@ class Stu_MyCourseController extends Controller
             'success' => 'You Make Report success'
         ]);
     }
-
-    
-    
+  
 }
