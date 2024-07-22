@@ -18,7 +18,6 @@ use App\Models\LiveCourse;
 use App\Models\TeacherCourse;
 use App\Models\SessionAttendance;
 use App\Models\Session;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -26,10 +25,6 @@ class UserController extends Controller
 
     public function student(){
         $students = User::where('position', 'student')
-        ->orderByDesc('id')
-        ->get();
-        $students = DB::table('users')
-        ->where('position', 'student')
         ->orderByDesc('id')
         ->get();
 
