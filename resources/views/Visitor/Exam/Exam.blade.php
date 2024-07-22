@@ -108,9 +108,9 @@
 <section class="heroSec">
     <div class="mainContent">
         <div class="leftContent">
-            <h3>Exams</h3>
-            <p>Designed by experts in mathematics education
-                to ensure accuracy and reliability
+            <h3>Conquer Global Exams</h3>
+            <p>Stop Guessing! Pinpoint Your Math Strengths & Weaknesses for Top Exam
+                Scores 
             </p>
         </div>
         <div class="rightContent">

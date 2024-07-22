@@ -95,9 +95,11 @@ class CoursesController extends Controller
         ->count();
         $quizs = quizze::whereIn('lesson_id', $lessons_count)
         ->count();
+        $related_course = Course::where('id', '!=', $id)
+        ->get();
         
         return view('Visitor.Courses.Chapters', 
-        compact('chapters', 'course_price', 'price', 'course', 'total_price',
+        compact('chapters', 'course_price', 'price', 'course', 'total_price', 'related_course',
         'chapters_count', 'lessons_count', 'videos_count', 'questions', 'quizs'));
     }
     

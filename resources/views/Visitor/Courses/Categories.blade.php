@@ -250,8 +250,10 @@
         <div class="mainContent">
             <div class="leftContent">
                 <h3>Courses</h3>
-                <p>A Safe Environment That Encourages
-                    Engaging Questions
+                <p>Our courses are meticulously categorized within the
+                    educational system framework, allowing you to efficiently
+                    select the program that aligns with your specific learning
+                    objectives
                 </p>
             </div>
             <div class="rightContent">
@@ -297,19 +299,12 @@
                                         </div>
                                         <div class="details">
                                             <div class="tc_content">
-                                                <p>
-                                                    Mr. {{ @$category->teacher->name }}
-                                                </p>
                                                 <h5>
                                                     <a href="{{ route('v_courses', ['id' => $category->id]) }}">
                                                         {{ $category->cate_name }}
                                                     </a>
                                                 </h5>
                                                 <p class="overViewP">
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-                                                    rem laboriosam fuga reprehenderit atque libero reiciendis distinctio
-                                                    sapiente, ad adipisci quam autem, eos placeat? Fuga possimus
-                                                    voluptates quidem illum in.
                                                     {{ $category->cate_des }}
                                                 </p>
                                             </div>
