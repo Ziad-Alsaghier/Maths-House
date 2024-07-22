@@ -546,7 +546,11 @@ class CoursesController extends Controller
             
         }
         $chapters = json_decode(Cookie::get('marketing'));
-        $chapters = json_decode($chapters);
+        try {
+            $chapters = json_decode($chapters);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         $price = json_decode(Cookie::get('chapters_price'));
         if ( $req->payment_method_id == 'Wallet' ) {
             $wallet = Wallet::
