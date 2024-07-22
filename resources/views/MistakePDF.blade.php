@@ -1,8 +1,11 @@
 
 @php
-    $page_name = 'Mistakes';
+    $page_name = 'Question History';
 @endphp
-@section('title','Mistakes')
+@section('title','Chapters')
+@include('Student.inc.header')
+@include('Student.inc.menu')
+@extends('Student.inc.nav')
 
 @section('page_content')
 
@@ -107,7 +110,7 @@
     @foreach ( $mistakes as $mistake )
         <div class="row g-0 mistake  p-3"> 
                 @if ( !empty($mistake->question->question) )
-                    <span class="quesMisake">{{$mistake->question->question}}</span>
+                    <span class="quesMisake">{!! $mistake->question->question !!}</span>
                 @endif
                 @if ( !empty($mistake->question->q_url) )
 
