@@ -2,12 +2,6 @@
 @php
     $page_name = 'Mistakes';
 @endphp
-@section('title','Mistakes')
-@include('Student.inc.header')
-@include('Student.inc.menu')
-@extends('Student.inc.nav')
-
-@section('page_content')
 
 <style>
     .txMista {
@@ -124,7 +118,3 @@
         </div>
     @endforeach
 </div>
- 
-@endsection
-
-@include('Student.inc.footer')
