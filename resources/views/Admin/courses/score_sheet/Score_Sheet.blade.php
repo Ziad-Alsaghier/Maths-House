@@ -254,7 +254,7 @@
 
                                     <div class="myformScore" id="myformScore{{ $item->id }}">
                                         <div class="p-3 formScoreEdit" id="formScoreEdit{{ $item->id }}">
-                                            {{-- <input type="text" name="score_id" value="{{ $item->id }}" --}}
+                                            <input type="hidden" name="score_id" value="{{ $item->id }}"
                                             class="score_id">
                                             <div class="my-2">
                                                 <label>Name</label>
@@ -475,7 +475,7 @@
 
                 for (let i = 0; i < parseInt(countScore); i++) {
                     var newScore = `<div class="new_score mt-4 d-flex justify-content-between align-items-baseline gap-3 pb-3 border-bottom scors">
-                                        <input type="hidden" value="${i}" name="question_num[]" />                
+                                         <input type="hidden" value=${indexScore + i + 1} name="question_num[]" />                
                                         <h4 style="width: 8% !important;">
                                         ${indexScore + i + 1} -</h4>
                                         <input class="form-control scoreQuestion"
