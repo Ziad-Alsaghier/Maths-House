@@ -756,9 +756,7 @@
             var Min_quizz = $("#minutes").text();
             var Sec_quizz = $("#seconds").text();
 
-            var objTim = `
-                 ${Hours_quizz}:${Min_quizz}:${Sec_quizz}
-            `
+            var objTim = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
             $("#timer_val").val(objTim);
 
             console.log("Hours_quizz", Hours_quizz)
