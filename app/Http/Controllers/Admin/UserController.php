@@ -28,7 +28,7 @@ class UserController extends Controller
         ->orderByDesc('id')
         ->get();
 
-        return $students;
+        return view('Admin.Users.Students', compact('students'));
     }
 
     public function student_filter(Request $req){
