@@ -205,6 +205,7 @@ class Stu_MyCourseController extends Controller
 
     public function quizze_ans(Request $req)
     {
+        return $timer_val;
         $timer_val = json_decode(Cookie::get('timer'));
         $quizze_id = json_decode($req->quizze)->id;
         $quizze = quizze::where('id', $quizze_id)
