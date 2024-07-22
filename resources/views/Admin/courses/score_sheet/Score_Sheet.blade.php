@@ -325,10 +325,10 @@
                                                     <h5>Score</h5>
                                                 </div>
                                                 @foreach ($item->score_list as $element)
-                                                    <input type="hidden" value="{{ $element->question_num }}"
-                                                        name="question_num[]" />
-                                                    <div
-                                                        class="mt-4 d-flex justify-content-between align-items-baseline gap-3 pb-3 border-bottom scors">
+                                                <div
+                                                class="mt-4 d-flex justify-content-between align-items-baseline gap-3 pb-3 border-bottom scors">
+                                                <input type="hidden" class="question_num" value="{{ $element->question_num }}"
+                                                    name="question_num[]" />
                                                         <h4 style="width: 8% !important;">{{ $element->question_num }}
                                                             -
                                                         </h4>
@@ -475,7 +475,7 @@
 
                 for (let i = 0; i < parseInt(countScore); i++) {
                     var newScore = `<div class="new_score mt-4 d-flex justify-content-between align-items-baseline gap-3 pb-3 border-bottom scors">
-                                         <input type="hidden" value=${indexScore + i + 1} name="question_num[]" />                
+                                         <input type="hidden" class="question_num" value=${indexScore + i + 1} name="question_num[]" />                
                                         <h4 style="width: 8% !important;">
                                         ${indexScore + i + 1} -</h4>
                                         <input class="form-control scoreQuestion"
@@ -543,13 +543,18 @@
                 console.log("score_num", score_num)
 
                 var scoreList = [];
+                var questionNumbers = [];
                 var scoreEle = $(parScore).find(".scors");
                 console.log("scoreEle", scoreEle)
                 $(scoreEle).each((val, ele) => {
+                    console.log("score", ele)
+                    var questionNum = $(ele).find(".question_num").val();
+                    questionNumbers.push(val + 1 );
                     var scoreQuestion = $(ele).find(".scoreQuestion").val();
                     scoreList.push(scoreQuestion);
                 })
                 console.log("scoreList", scoreList)
+                console.log("questionNumbers", questionNumbers)
 
                 var scoreEdite = {
                     id: score_id,
@@ -558,6 +563,7 @@
                     course: score_course,
                     score: score,
                     num: score_num,
+                    questionNumbers: questionNumbers,
                     scores: scoreList,
                 }
 
@@ -569,7 +575,7 @@
                     },
                     success: function(data) {
                         console.log("data", data)
-                        location.reload()
+                        // location.reload()
                     }
                 })
             })
