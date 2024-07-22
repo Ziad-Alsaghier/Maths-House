@@ -33,7 +33,7 @@ class UserController extends Controller
         ->orderByDesc('id')
         ->get();
 
-        return view('Admin.Users.Students', compact('students'));
+        return $students;
     }
 
     public function student_filter(Request $req){
