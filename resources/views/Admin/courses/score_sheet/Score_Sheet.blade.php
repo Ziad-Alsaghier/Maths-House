@@ -574,7 +574,7 @@
                     },
                     success: function(data) {
                         console.log("data", data)
-                        // location.reload()
+                        location.reload()
                     }
                 })
             })
