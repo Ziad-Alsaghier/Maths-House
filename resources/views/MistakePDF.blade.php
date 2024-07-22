@@ -117,138 +117,14 @@
                 <img class="imgMistake"
                 src="{{ asset('images/questions/' . $mistake->question->q_url) }}" data-bs-toggle="modal"
                 data-bs-target="#kt_modal_edit{{$mistake->id}}{{$mistake->question->id}}" />
-
-                <!-- Modal -->
-                <div class="modal fade" id="kt_modal_edit{{$mistake->id}}{{$mistake->question->id}}" tabindex="-1"
-                    aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-
-                                <h5 class="modal-title" id="modalCenterTitle">Show Question</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-
-                            <div class='p-3'>
-                                <img style="height: 70vh;" src="{{ asset('images/questions/' . $mistake->question->q_url) }}" />
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-label-secondary"
-                                    data-bs-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="m-2 viewMistake btn ans_item_btn btn-primary wallet_btn" data-bs-toggle="modal" data-bs-target="#modalCentermodalCenter{{$mistake->question->id}}">
-                        View Answer
-                    </button>
-                    <a href="{{route('question_parallel', ['id' => $mistake->question->id])}}" class="btn btn-info m-2 parallelMistake" >Solve Parallel</a>
-                </div>
-                <div class="modal q_ans_item show_wallet d-none" id="modalCenter{{$mistake->question->id}}" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="modalCenterTitle">Quizze</h5>
-                        <button type="button" class="btn-close close_form_btn" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                        <div class="row">
-                            <div class="col mb-3">
-                                Are You Sure You Want to View Answer For this Question ?
-                            </div>
-                        </div>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-label-secondary close_qiuzze_btn" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <a href="{{route('quizze_ques_ans', ['id' => $mistake->question->id])}}" class="btn btn-primary">OK</a>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+ 
+                @endif  
 
 
         </div>
     @endforeach
 </div>
-
-<script>
-    let mistakes_questions = document.querySelectorAll('.mistakes_questions');
-    let mistake_btn = document.querySelectorAll('.mistake_btn');
-    let ans_item_btn = document.querySelectorAll('.ans_item_btn');
-    let q_ans_item = document.querySelectorAll('.q_ans_item');
-    let close_qiuzze_btn = document.querySelectorAll('.close_qiuzze_btn');
-    let close_form_btn = document.querySelectorAll('.close_form_btn');
-    
-    for (let i = 0, end = ans_item_btn.length; i < end; i++) {
-        ans_item_btn[i].addEventListener('click', ( e ) => {
-            for (let j = 0; j < end; j++) {
-                if ( e.target == ans_item_btn[j] ) {
-                    q_ans_item[j].classList.toggle('d-none');
-                }
-            }
-        })
-    }
-    for (let i = 0, end = close_qiuzze_btn.length; i < end; i++) {
-        close_qiuzze_btn[i].addEventListener('click', ( e ) => {
-            for (let j = 0; j < end; j++) {
-                if ( e.target == close_qiuzze_btn[j] ) {
-                    q_ans_item[j].classList.toggle('d-none');
-                }
-            }
-        })
-    }
-    for (let i = 0, end = close_form_btn.length; i < end; i++) {
-        close_form_btn[i].addEventListener('click', ( e ) => {
-            for (let j = 0; j < end; j++) {
-                if ( e.target == close_form_btn[j] ) {
-                    q_ans_item[j].classList.toggle('d-none');
-                }
-            }
-        })
-    }
-    for (let i = 0, end = mistake_btn.length; i < end; i++) {
-        mistake_btn[i].addEventListener('click', ( e ) => {
-            for (let j = 0; j < end; j++) {
-                if ( e.target == mistake_btn[j] ) {
-                    mistakes_questions[j].classList.toggle('d-none');
-                }
-            }
-        });
-    }
-</script>
-<script>
-    let mistakes_questions = document.querySelectorAll('.mistakes_questions');
-    let mistake_btn = document.querySelectorAll('.mistake_btn');
-    let ans_item_btn = document.querySelectorAll('.ans_item_btn');
-    let ans_item = document.querySelectorAll('.ans_item');
-    
-    for (let i = 0, end = ans_item_btn.length; i < end; i++) {
-        ans_item_btn[i].addEventListener('click', ( e ) => {
-            for (let j = 0; j < end; j++) {
-                if ( e.target == ans_item_btn[j] ) {
-                    ans_item[j].classList.toggle('d-none');
-                }
-            }
-        })
-    }
-    for (let i = 0, end = mistake_btn.length; i < end; i++) {
-        mistake_btn[i].addEventListener('click', ( e ) => {
-            for (let j = 0; j < end; j++) {
-                if ( e.target == mistake_btn[j] ) {
-                    mistakes_questions[j].classList.toggle('d-none');
-                }
-            }
-        });
-    }
-</script>
+ 
 @endsection
 
 @include('Student.inc.footer')
