@@ -759,7 +759,7 @@
             var objTim = `
                  ${Hours_quizz}:${Min_quizz}:${Sec_quizz}
             `
-            $("#timer_val").val(JSON.stringify(objTim));
+            $("#timer_val").val(objTim);
 
             console.log("Hours_quizz", Hours_quizz)
             console.log("Min_quizz", Min_quizz)
