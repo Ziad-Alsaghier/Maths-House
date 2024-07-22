@@ -180,6 +180,7 @@ class ExamController extends Controller
     }
     
     public function editScore( Request $req, $id ){
+        return $req->all();
     if ( !isset(($req['question_num'][0])) || empty($req['question_num'][0]) ) {
     session()->flash('faild','You Must Fill Score Sheet. Click on Show List And Add Data');
     return redirect()->back();
