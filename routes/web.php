@@ -455,6 +455,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
 
     Route::controller(DomPdfController::class)->group(function(){
         Route::get('/DiaExam/PDF/{id}', 'dia_exam_mistake_pdf')->name('dia_exam_mistake_pdf');
+        Route::get('/Exam/PDF/{id}', 'exam_mistake_pdf')->name('exam_mistake_pdf');
     });
 
     Route::controller(ScoreController::class)->group(function(){
