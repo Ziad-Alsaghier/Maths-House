@@ -1,8 +1,8 @@
 
 @php
-    $page_name = 'Question History';
+    $page_name = 'Mistakes';
 @endphp
-@section('title','Chapters')
+@section('title','Mistakes')
 @include('Student.inc.header')
 
 @section('page_content')
