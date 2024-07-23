@@ -25,8 +25,7 @@ use App\Models\PromoCourse;
 use App\Models\Lesson; 
 use App\Models\IdeaLesson; 
 use App\Models\Question; 
-use App\Models\quizze; 
-use Cart;
+use App\Models\quizze;
 
 class CoursesController extends Controller
 {
@@ -104,12 +103,6 @@ class CoursesController extends Controller
     }
     
     public function buy_chapters( Request $req ){
-        Cart::session(auth()->user()->id)->add(array(
-            'id' => $req-id,
-            'name' => $req->chapter_name,
-            'price' => $req->ch_price,
-            'quantity' => 1,
-        ));
 
         return $req->all();
     }
