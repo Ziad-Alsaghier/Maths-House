@@ -25,8 +25,7 @@ use App\Models\PromoCourse;
 use App\Models\Lesson; 
 use App\Models\IdeaLesson; 
 use App\Models\Question; 
-use App\Models\quizze; 
-use Cart;
+use App\Models\quizze;
 
 class CoursesController extends Controller
 {
@@ -104,12 +103,6 @@ class CoursesController extends Controller
     }
     
     public function buy_chapters( Request $req ){
-        Cart::session(auth()->user()->id)->add(array(
-            'id' => $req-id,
-            'name' => $req->chapter_name,
-            'price' => $req->ch_price,
-            'quantity' => 1,
-        ));
 
         return $req->all();
     }
@@ -127,14 +120,14 @@ class CoursesController extends Controller
             }
         }
         Cookie::queue(Cookie::forget('min_price_data'));
-        Cookie::queue('marketing', json_encode($course), 10000);
-        Cookie::queue('chapters_price', ($min_price), 10000);
+        Cookie::queue('marketing', json_encode($course), 180);
+        Cookie::queue('chapters_price', ($min_price), 180);
         
         if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
             return view('Visitor.Login.login');
         }
         elseif ( $min_price == $req->chapters_price ) {
-            Cookie::queue('min_price_data', json_encode($min_price_data), 10000); 
+            Cookie::queue('min_price_data', json_encode($min_price_data), 180); 
             return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
         }
         
@@ -159,8 +152,8 @@ class CoursesController extends Controller
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
         
-        Cookie::queue('marketing', json_encode($data), 10000);  
-        Cookie::queue('chapters_price', ($chapters_price), 10000);  
+        Cookie::queue('marketing', json_encode($data), 180);  
+        Cookie::queue('chapters_price', ($chapters_price), 180);  
         Cookie::queue('marprice_arreting', json_encode($price_arr), 10000);
          $price_arr = json_encode($price_arr);
         if ( empty(auth()->user()) ) {

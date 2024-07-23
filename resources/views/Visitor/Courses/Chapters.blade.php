@@ -1,6 +1,36 @@
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 
+<style>
+.share-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.share-options {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.share-options a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.share-options a:hover {
+    background-color: #ddd;
+}
+
+</style>
 
 <div class="wrapper">
     <div class="preloader"></div>
@@ -337,18 +367,24 @@
                                     <div class="cs_ins_container">
                                         <div class="cs_instructor">
                                             <ul class="cs_instrct_list float-left mb0">
-                                                <li class="list-inline-item"><img class="thumb" src="images/team/4.png"
+                                                <li class="list-inline-item"><img class="thumb" src="{{asset('images/inc/amir.png')}}"
                                                         alt="4.png"></li>
-                                                <li class="list-inline-item"><a href="#">Ali TUFAN</a></li>
-                                                <li class="list-inline-item"><a href="#">Last updated 11/2019</a>
+                                                <li class="list-inline-item"><a href="#">Amir Hemaida</a></li>
                                                 </li>
                                             </ul>
                                             <ul class="cs_watch_list float-right mb0">
                                                 <li class="list-inline-item"><a href="#"><span
                                                             class="flaticon-like"></span></a></li>
                                                 <li class="list-inline-item"><a href="#">Add to Wishlist</a></li>
-                                                <li class="list-inline-item"><a href="#"><span
-                                                            class="flaticon-share"> Share</span></a></li>
+                                                <li class="list-inline-item">
+                                                    <button class="share-button" onclick="toggleShareOptions()">Share</button>
+                                                    <div id="share-options" class="share-options">
+                                                        <a href="#" onclick="shareFacebook()">Facebook</a>
+                                                        <a href="#" onclick="shareWhatsApp()">WhatsApp</a>
+                                                        <a href="#" onclick="shareMessenger()">Messenger</a>
+                                                        <a href="#" onclick="shareInstagram()">Instagram</a>
+                                                        <a href="#" onclick="shareGmail()">Gmail</a>
+                                                    </div></li>
                                             </ul>
                                         </div>
                                         <h3 class="cs_title">Designing a Responsive Mobile Website with Muse</h3>
@@ -386,15 +422,8 @@
                                     <div class="cs_overview">
                                         <h4 class="title">Overview</h4>
                                         <h4 class="subtitle">Course Description</h4>
-                                        <p class="mb30">Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                            text ever since the 1500s, when an unknown printer took a galley of type and
-                                            scrambled it to make a type specimen book. It has survived not only five
-                                            centuries, but also the leap into electronic typesetting, remaining
-                                            essentially unchanged. </p>
-                                        <p class="mb20">It was popularised in the 1960s with the release of Letraset
-                                            sheets containing Lorem Ipsum passages, and more recently with desktop
-                                            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                        <p class="mb30">
+                                            {{$course->course_des}}
                                         </p>
                                         <h4 class="subtitle">What you'll learn</h4>
                                         <ul class="cs_course_syslebus">
@@ -518,7 +547,7 @@
                                     <div class="about_ins_container">
                                         <h4 class="aii_title">About the instructor</h4>
                                         <div class="about_ins_info">
-                                            <div class="thumb"><img src="images/team/6.png" alt="6.png"></div>
+                                            <div class="thumb"><img style="height: 60px; width: 70px;" src="{{asset('images/inc/amir.png')}}" alt="6.png"></div>
                                         </div>
                                         <div class="details">
                                             <ul class="review_list">
@@ -963,7 +992,50 @@
                 }
             }
         })
+    }function toggleShareOptions() {
+    var shareOptions = document.getElementById('share-options');
+    if (shareOptions.style.display === 'block') {
+        shareOptions.style.display = 'none';
+    } else {
+        shareOptions.style.display = 'block';
     }
+}
+
+function shareFacebook() {
+    var url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareWhatsApp() {
+    var url = 'https://wa.me/?text=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareMessenger() {
+    var url = 'fb-messenger://share/?link=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareInstagram() {
+    var url = 'https://www.instagram.com/?url=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareGmail() {
+    var url = 'mailto:?subject=Check%20this%20out&body=' + encodeURIComponent(window.location.href);
+    window.open(url, '_self');
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.share-button')) {
+        var shareOptions = document.getElementById('share-options');
+        if (shareOptions.style.display === 'block') {
+            shareOptions.style.display = 'none';
+        }
+    }
+}
+
 </script>
 <script>
     $(document).ready(function() {

@@ -15,6 +15,7 @@ use App\Models\SmallPackage;
 use App\Models\Category; 
 use App\Models\Course; 
 use App\Models\ReportVideoList; 
+use App\Models\SessionAttendance; 
 
 use Carbon\Carbon;
 
@@ -112,8 +113,10 @@ class Stu_LiveController extends Controller
                 'user_id' => auth()->user()->id,
                 'lesson_id' => $session->lesson_id
             ]);
-            $user = User::findorfail(auth()->user()->id);
-            $user->session_attendance()->syncWithoutDetaching($session->id);
+            SessionAttendance::create([
+                'user_id' => auth()->user()->id,
+                'session_id' => $session->id
+            ]); 
 
             return redirect($session->link);
         }
@@ -128,8 +131,10 @@ class Stu_LiveController extends Controller
                         'number' => $item->number - 1
                     ]);
             
-                    $user = User::findorfail(auth()->user()->id);
-                    $user->session_attendance()->syncWithoutDetaching($session->id);
+                    SessionAttendance::create([
+                        'user_id' => auth()->user()->id,
+                        'session_id' => $session->id
+                    ]); 
 
                     LiveLesson::create([
                         'user_id' => auth()->user()->id,
