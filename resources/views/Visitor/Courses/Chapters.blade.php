@@ -1,6 +1,36 @@
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 
+<style>
+.share-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.share-options {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.share-options a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.share-options a:hover {
+    background-color: #ddd;
+}
+
+</style>
 
 <div class="wrapper">
     <div class="preloader"></div>
@@ -347,8 +377,15 @@
                                                 <li class="list-inline-item"><a href="#"><span
                                                             class="flaticon-like"></span></a></li>
                                                 <li class="list-inline-item"><a href="#">Add to Wishlist</a></li>
-                                                <li class="list-inline-item"><a href="#"><span
-                                                            class="flaticon-share"> Share</span></a></li>
+                                                <li class="list-inline-item">
+                                                    <button class="share-button" onclick="toggleShareOptions()">Share</button>
+                                                    <div id="share-options" class="share-options">
+                                                        <a href="#" onclick="shareFacebook()">Facebook</a>
+                                                        <a href="#" onclick="shareWhatsApp()">WhatsApp</a>
+                                                        <a href="#" onclick="shareMessenger()">Messenger</a>
+                                                        <a href="#" onclick="shareInstagram()">Instagram</a>
+                                                        <a href="#" onclick="shareGmail()">Gmail</a>
+                                                    </div></li>
                                             </ul>
                                         </div>
                                         <h3 class="cs_title">Designing a Responsive Mobile Website with Muse</h3>
@@ -963,7 +1000,50 @@
                 }
             }
         })
+    }function toggleShareOptions() {
+    var shareOptions = document.getElementById('share-options');
+    if (shareOptions.style.display === 'block') {
+        shareOptions.style.display = 'none';
+    } else {
+        shareOptions.style.display = 'block';
     }
+}
+
+function shareFacebook() {
+    var url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareWhatsApp() {
+    var url = 'https://wa.me/?text=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareMessenger() {
+    var url = 'fb-messenger://share/?link=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareInstagram() {
+    var url = 'https://www.instagram.com/?url=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareGmail() {
+    var url = 'mailto:?subject=Check%20this%20out&body=' + encodeURIComponent(window.location.href);
+    window.open(url, '_self');
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.share-button')) {
+        var shareOptions = document.getElementById('share-options');
+        if (shareOptions.style.display === 'block') {
+            shareOptions.style.display = 'none';
+        }
+    }
+}
+
 </script>
 <script>
     $(document).ready(function() {

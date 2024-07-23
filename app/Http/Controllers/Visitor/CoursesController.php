@@ -121,8 +121,7 @@ class CoursesController extends Controller
         }
         Cookie::queue(Cookie::forget('min_price_data'));
         Cookie::queue('marketing', json_encode($course), 180);
-        Cookie::queue('cvdsf', '($min_price)', 180);
-        return 43;
+        Cookie::queue('chapters_price', ($min_price), 180);
         
         if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
             return view('Visitor.Login.login');
