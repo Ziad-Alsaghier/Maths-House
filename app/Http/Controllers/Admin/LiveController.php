@@ -71,7 +71,7 @@ class LiveController extends Controller
         ->update($arr);
 
         if ( !empty($req->group_id)  && !empty($req->user_id) ) {
-            return $req->user_id;
+            return array_merge($req->user_id);
             $group_students = GroupStudent::
             where('group_id', $req->group_id)
             ->pluck('stu_id');
