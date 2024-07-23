@@ -28,9 +28,6 @@ class Logincontroller extends Controller
                         $value = rand(1, 99999999999);
                         Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
                 }
-                LoginUser::
-                where('ip', $value)
-                ->delete();
 
                 if ( auth()->user() ) {
                         $l_user = LoginUser::
@@ -54,6 +51,9 @@ class Logincontroller extends Controller
                 if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'affilate' ) {
                         return redirect()->route('stu_affilate');
                 }
+                LoginUser::
+                where('ip', $value)
+                ->delete();
                 return view('pages.authanticated.login');            
         }
 
@@ -171,9 +171,6 @@ class Logincontroller extends Controller
                                 $value = rand(1, 99999999999);
                                 Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
                         }
-                        LoginUser::
-                        where('ip', $value)
-                        ->delete();
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
@@ -182,6 +179,9 @@ class Logincontroller extends Controller
                         if ( !empty($l_user) ) {
                                 return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
                         }
+                        LoginUser::
+                        where('ip', $value)
+                        ->delete();
 			Auth::loginUsingId($user->id);
 
                         $credentials = $request->only('email','password');
