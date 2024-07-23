@@ -90,7 +90,6 @@ class ChaptersController extends Controller
         else{
             $chapters = Chapter::
             where('course_id', $req->course_id)
-            ->orderByDesc('chapters.id')
             ->get(); 
         }
         

@@ -119,7 +119,6 @@ class LessonController extends Controller
         else{ 
             $lessons = Lesson::
             where('chapter_id', $req->chapter_id)
-            ->orderByDesc('id')
             ->get();
         }
         $teachers   = User::
