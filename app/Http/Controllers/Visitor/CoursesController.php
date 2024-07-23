@@ -108,7 +108,6 @@ class CoursesController extends Controller
     }
     
     public function buy_course( Request $req ){
-        return 123;
         $course_data = json_decode($req->course_data);
         $course = Course::where('id', $course_data->id)
         ->first();
@@ -124,6 +123,7 @@ class CoursesController extends Controller
         Cookie::queue('marketing', json_encode($course), 10000);
         Cookie::queue('chapters_price', ($min_price), 10000);
         
+        return 123;
         if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
             return view('Visitor.Login.login');
         }
