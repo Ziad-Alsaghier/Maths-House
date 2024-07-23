@@ -339,14 +339,14 @@
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Houre: </span>
-                                                <input value="0" type="number" name="time_h" max="3" min="0"
-                                                    class="col-md-4 form-control">
+                                                <input value="0" type="number" name="time_h" max="3"
+                                                    min="0" class="col-md-4 form-control">
                                             </div>
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Minets: </span>
-                                                <input type="number" value="0" name="time_m" max="60" min="0"
-                                                    class="col-md-4 form-control">
+                                                <input type="number" value="0" name="time_m" max="60"
+                                                    min="0" class="col-md-4 form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -646,7 +646,6 @@
                                         <span
                                             style="font-size: 2rem;font-weight: 500;background: #1b84ff;color: #fff;border-radius: 10px;padding: 10px 15px;margin-top: 10px;">Exam</span>
                                     </div>
-                                    <input type="hidden" name="" id="">
 
                                     {{-- <div
                                         style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
@@ -829,7 +828,8 @@
                                                     </ul>
 
                                                     <!-- Tab panes -->
-                                                    <div class="tab-content" id="tab_info{{ $item->id }}">
+                                                    <div class="tab-content infoEdit"
+                                                        id="tab_info{{ $item->id }}">
                                                         {{-- Info --}}
                                                         <input type="hidden" value="{{ $item->id }}"
                                                             id="dia_id">
@@ -907,6 +907,28 @@
                                                                     <input type="text" name="pass_score"
                                                                         value="{{ $item->pass_score }}"
                                                                         class="col-md-9 form-control quizze_Pass_Score">
+                                                                </div>
+
+                                                                <div
+                                                                    class="col-md-12 d-flex align-items-center justify-content-around">
+                                                                    <span class="col-md-2"
+                                                                        style="font-size: 1.2rem;">Number Section:
+                                                                    </span>
+                                                                    <select
+                                                                        class="col-md-9 form-control num_section_edit"
+                                                                        name="num_section">
+                                                                        <option value="">
+                                                                            Select Number Section
+                                                                        </option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-12 allSectionEdit"
+                                                                    style="display: flex;flex-direction: column;align-items: center;row-gap: 15px !important;">
+
                                                                 </div>
 
 
@@ -1180,137 +1202,143 @@
                                                                         style="font-size: 2rem;font-weight: 500;background: #1b84ff;color: #fff;border-radius: 10px;padding: 10px 15px;margin-top: 10px;">Exam</span>
                                                                 </div>
 
-                                                                <div
-                                                                    style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-                                                                    <table class="table table-striped"
-                                                                        id="tblData_Edite">
-                                                                        <thead class="border-bottom">
-                                                                            <tr>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Type</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Year</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Month</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Code</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Section</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    No</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Difficulty</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Chapter</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Lesson</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Action</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <input type="hidden"
-                                                                            class="add_new_questions"
-                                                                            name="add_new_questions" />
+                                                              
+                                                                <div class="allSectionsTableEdit">
+                                                                    <div class="mt-3 nSectionEdit">
+                                                                        <h1 class="selSection"
+                                                                            style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+                                                                            Section 1</h1>
+                                                                        <div class="tableSectionEdit"
+                                                                            style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                                            <input type="hidden" class="arrSection"
+                                                                                name="section_1" id="section_1">
+                                                                            <table class="table table-striped"
+                                                                                id="tblData_Edite">
+                                                                                <thead class="border-bottom">
+                                                                                    <tr>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Type</th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Year</th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Month</th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Code</th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Section</th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            No
+                                                                                        </th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Difficulty</th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Chapter</th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Lessone</th>
+                                                                                        <th scope="col"
+                                                                                            style="font-weight: 500; font-size: 1.1rem">
+                                                                                            Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <input type="hidden"
+                                                                                    class="add_new_questions"
+                                                                                    name="add_new_questions" />
 
-                                                                        <tbody class="sel_quz_edit"
-                                                                            id="sel_quz_edit{{ $item->id }}">
+                                                                                <tbody class="sel_quz_edit"
+                                                                                    id="sel_quz_edit{{ $item->id }}">
+                                                                                    @foreach ($item->question->sortBy('q_num') as $question)
+                                                                                        <tr class="tr_edite{{ $item->id }}"
+                                                                                            id="tr_edite{{ $question->id }}">
 
-                                                                            {{-- <input type="text" id="allQuestion"
-                                                                        name="questions" value="" /> --}}
-                                                                            @foreach ($item->question->sortBy('q_num') as $question)
-                                                                                {{-- <input type="hidden" class="e_questions"
-                                                                            value="{{ $question }}" /> --}}
-                                                                                {{-- <input type="hidden"
-                                                                            value="{{ $question->question_id }}"
-                                                                            name="questions_id[]"
-                                                                            class="question_id" /> --}}
-                                                                                <tr class="tr_edite{{ $item->id }}"
-                                                                                    id="tr_edite{{ $question->id }}">
+                                                                                            <input type="hidden"
+                                                                                                value="{{ $question->id }}"
+                                                                                                name="question_id[]"
+                                                                                                class="question_edite_id"
+                                                                                                id="question_edite_id{{ $question->id }}" />
 
-                                                                                    <input type="hidden"
-                                                                                        value="{{ $question->id }}"
-                                                                                        name="question_id[]"
-                                                                                        class="question_edite_id"
-                                                                                        id="question_edite_id{{ $question->id }}" />
+                                                                                            <input type="hidden"
+                                                                                                value={{ $item->id }}
+                                                                                                name='diagnostic_edite_id[]'
+                                                                                                class='diagnostic_edite_id'
+                                                                                                id='diagnostic_edite_id{{ $question->id }}' />
 
-                                                                                    <input type="hidden"
-                                                                                        value={{ $item->id }}
-                                                                                        name='diagnostic_edite_id[]'
-                                                                                        class='diagnostic_edite_id'
-                                                                                        id='diagnostic_edite_id{{ $question->id }}' />
+                                                                                            <td class="question_edite_type"
+                                                                                                id="question_edite_type{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ $question->q_type }}
+                                                                                            </td>
 
-                                                                                    <td class="question_edite_type"
-                                                                                        id="question_edite_type{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->q_type }}
-                                                                                    </td>
+                                                                                            <td class="question_edite_year"
+                                                                                                id="question_edite_year{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ $question->year }}
+                                                                                            </td>
 
-                                                                                    <td class="question_edite_year"
-                                                                                        id="question_edite_year{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->year }}
-                                                                                    </td>
+                                                                                            <td class="question_edite_month"
+                                                                                                id="question_edite_month{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ $question->month }}
+                                                                                            </td>
 
-                                                                                    <td class="question_edite_month"
-                                                                                        id="question_edite_month{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->month }}
-                                                                                    </td>
+                                                                                            <td class="question_edite_code"
+                                                                                                id="question_edite_code{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ @$question->code->exam_code }}
+                                                                                            </td>
 
-                                                                                    <td class="question_edite_code"
-                                                                                        id="question_edite_code{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ @$question->code->exam_code }}
-                                                                                    </td>
+                                                                                            <td class="question_edite_section"
+                                                                                                id="question_edite_section{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ $question->section }}
+                                                                                            </td>
 
-                                                                                    <td class="question_edite_section"
-                                                                                        id="question_edite_section{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->section }}
-                                                                                    </td>
+                                                                                            <td class="question_edite_num"
+                                                                                                id="question_edite_num{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ $question->q_num }}
+                                                                                            </td>
 
-                                                                                    <td class="question_edite_num"
-                                                                                        id="question_edite_num{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->q_num }}
-                                                                                    </td>
+                                                                                            <td class="question_edite_difficulty"
+                                                                                                id="question_edite_difficulty{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ $question->difficulty }}
+                                                                                            </td>
+                                                                                            <td class="question_edite_chapter"
+                                                                                                id="question_edite_chapter{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ $question->lessons->chapter->chapter_name }}
+                                                                                            </td>
+                                                                                            <td class="question_edite_lesson"
+                                                                                                id="question_edite_lesson{{ $question->id }}"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                {{ $question->lessons->lesson_name }}
+                                                                                            </td>
 
-                                                                                    <td class="question_edite_difficulty"
-                                                                                        id="question_edite_difficulty{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->difficulty }}
-                                                                                    </td>
-                                                                                    <td class="question_edite_chapter"
-                                                                                        id="question_edite_chapter{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->lessons->chapter->chapter_name }}
-                                                                                    </td>
-                                                                                    <td class="question_edite_lesson"
-                                                                                        id="question_edite_lesson{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->lessons->lesson_name }}
-                                                                                    </td>
+                                                                                            <td
+                                                                                                style='width: 150px !important; padding: 0 !important;'>
+                                                                                                <button type='button'
+                                                                                                    class='remove_qz_edit'>Remove</button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endforeach
+                                                                                </tbody>
 
-                                                                                    <td
-                                                                                        style='width: 150px !important; padding: 0 !important;'>
-                                                                                        <button type='button'
-                                                                                            class='remove_qz_edit'>Remove</button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            @endforeach
-                                                                        </tbody>
-
-                                                                    </table>
+                                                                            </table>
+                                                                        </div>
+                                                                        <span class="dropSection">
+                                                                            <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+                                                                                style="color: #1b84ff;"></i>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
 
                                                             </div>
@@ -1450,6 +1478,118 @@
                                             </span>
                                         </div>`;
                     $(".allSectionsTable").append(addSectionTable)
+                }
+            })
+            $(".num_section_edit").change(function() {
+                console.log($(this).closest(".infoEdit").attr('id'))
+                var parSectionInf = `#${$(this).closest(".infoEdit").attr('id')}`
+                var countSection = $(this).val();
+                $(parSectionInf).find(".allSectionEdit").empty();
+                $(parSectionInf).find(".allSectionsEditTable").empty();
+                console.log("countSection", countSection)
+                for (var i = 0; i < countSection; i++) {
+                    console.log([i])
+                    var addSection = `<div class="col-md-11 d-flex align-items-center justify-content-between gap-2">
+                                            <span class="" style="font-size: 1.2rem;">Section : </span>
+
+                                            <div
+                                                class="col-md-10 p-0 d-flex align-items-center justify-content-start gap-4">
+                                                <div
+                                                    class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+                                                    <span class="col-6" style="font-size: 1.2rem;">Section Name:
+                                                    </span>
+                                                    <input type="text" name="section_name[]"
+                                                        class="col-6 form-control" placeholder="Section Name">
+                                                </div>
+                                                <div
+                                                    class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+                                                    <span class="col-7" style="font-size: 1.2rem;">Section
+                                                        Description : </span>
+                                                    <input type="text" name="section_description[]"
+                                                        class="col-6 form-control" placeholder="Section Description">
+                                                </div>
+                                                <div
+                                                    class="col-md-4 d-flex align-items-center justify-content-start">
+                                                    <span class="col-5" style="font-size: 1.2rem;">Section Time:
+                                                    </span>
+                                                    <div class="d-flex gap-4">
+                                                        <div class="d-flex flex-column align-items-center gap-2">
+                                                            <span style="font-size: 1.2rem !important;">Hours</span>
+                                                            <input type="number" class="form-control" style="width: 50px !important;"
+                                                                name="section_hour[]" value="0">
+                                                            </div>
+                                                        <div class="d-flex flex-column align-items-center gap-2">
+                                                            <span style="font-size: 1.2rem !important;">Minutes</span>
+                                                            <input type="number" class="form-control" style="width: 50px !important;"
+                                                                name="section_minutes[]" value="0">
+                                                            </div>
+                                                        <div class="d-flex flex-column align-items-center gap-2">
+                                                            <span style="font-size: 1.2rem !important;">Seconds</span>
+                                                            <input type="number" class="form-control" style="width: 50px !important;"
+                                                                name="section_seconds[]" value="0">
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>`;
+                    $(parSectionInf).find(".allSectionEdit").append(addSection)
+                }
+                for (var i = 0; i < countSection; i++) {
+                    console.log([i])
+                    var addSectionTable = `<div class="mt-3 nSectionEdit">
+                                            <h1 class="selSection"
+                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+                                                Section ${[i +1]}</h1>
+                                            <div class="tableSection d-none"
+                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                <input type="hidden" class="arrSection" name="section_${[i]}" id="section_${[i]}">
+                                                <table class="table table-striped" id="tblData">
+                                                    <thead class="border-bottom">
+                                                        <tr>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Type</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Year</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Month</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Code</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Section</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">No
+                                                            </th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Difficulty</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Chapter</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Lessone</th>
+                                                            <th scope="col"
+                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                Action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody class="sel_quz_edit" id="sel_quz_edit${[i]}"></tbody>
+
+                                                </table>
+                                            </div>
+                                            <span class="dropSection">
+                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+                                                    style="color: #1b84ff;"></i>
+                                            </span>
+                                        </div>`;
+                    $(parSectionInf).find(".allSectionsTableEdit").append(addSectionTable)
                 }
             })
 
