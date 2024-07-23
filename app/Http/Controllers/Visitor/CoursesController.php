@@ -108,6 +108,7 @@ class CoursesController extends Controller
     }
     
     public function buy_course( Request $req ){
+        return 123;
         $course_data = json_decode($req->course_data);
         $course = Course::where('id', $course_data->id)
         ->first();
