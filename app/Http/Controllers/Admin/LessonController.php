@@ -103,8 +103,7 @@ class LessonController extends Controller
         if( empty($req->chapter_id) && !empty($req->course_id) ){
             $course_id = $req->course_id;
             $lessons = Lesson::
-            orderByDesc('id')
-            ->whereHas('chapter', function($query) use($course_id){
+            whereHas('chapter', function($query) use($course_id){
                 $query->where('course_id', $course_id);
             })
             ->get();
@@ -112,8 +111,7 @@ class LessonController extends Controller
         elseif (  empty($req->chapter_id) && !empty($req->category_id) ) {
             $category_id = $req->category_id;
             $lessons = Lesson::
-            orderByDesc('id')
-            ->whereHas('chapter.course', function($query) use($category_id){
+            whereHas('chapter.course', function($query) use($category_id){
                 $query->where('category_id', $category_id);
             })
             ->get();
