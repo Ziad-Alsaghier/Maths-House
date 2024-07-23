@@ -257,6 +257,139 @@
         <button class="btn_add_quizz my-3" type="button" data-toggle="modal" data-target="#exampleModalCenter">New
             Quiz</button>
     </div>
+    <form action="{{ route('filter_question') }}" method="GET">
+        <div class="modal-body scroll-y m-5">
+            <div class="d-flex">
+                <!--begin::Input group-->
+                <div class="mb-5 fv-row w-300px mx-2">
+                    <!--begin::Label-->
+                    <label class="required form-label mb-3">Category Name</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <select name="category_id" id="sel_Category" class="form-control">
+                        <option disabled selected>
+                            Select Category
+                        </option>
+                        @foreach ($categories as $category)
+                            <option {{ @$data['category_id'] == $category->id ? 'selected' : '' }}
+                                value="{{ $category->id }}">
+                                {{ $category->cate_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <!--end::Input-->
+                </div>
+                <!--end::Input group-->
+                <input type="hidden" class="categories" value="{{ $categories }}" />
+                <input type="hidden" class="courses" value="{{ $courses }}" />
+                <input type="hidden" class="chapters" value="{{ $chapters }}" />
+                <input type="hidden" class="lessons" value="{{ $lessons }}" />
+                <!--begin::Input group-->
+                <div class="mb-5 fv-row w-300px mx-2">
+                    <!--begin::Label-->
+                    <label class="required form-label mb-3">Course Name</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <select name="course_id" id="sel_course" class="form-control sel_course">
+                        <option disabled selected>
+                            Select Course
+                        </option>
+                        @foreach ($courses as $course)
+                            @if (@$data['course_id'] == $course->id)
+                                <option value="{{ $course->id }}" selected>
+                                    {{ $course->course_name }}
+                                </option>
+                            @elseif(@$data['category_id'] == $course->category_id)
+                                <option value="{{ $course->id }}">
+                                    {{ $course->course_name }}
+                                </option>
+                            @endif
+                        @endforeach
+                        {{-- @foreach ($courses as $course)
+                            <option value="{{ $course->id }}">
+                                {{ $course->course_name }}
+                            </option>
+                        @endforeach --}}
+                    </select>
+                    <!--end::Input-->
+                </div>
+                <!--end::Input group-->
+
+                <!--begin::Input group-->
+                <div class="mb-5 fv-row w-300px mx-2">
+                    <!--begin::Label-->
+                    <label class="required form-label mb-3">Chapter Name</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <select name="chapter_id" id="sel_chapter" class="form-control sel_chapter">
+                        <option disabled selected>
+                            Select Chapter
+                        </option>
+                        @foreach ($chapters as $chapter)
+                            @if (@$data['chapter_id'] == $chapter->id)
+                                <option value="{{ $chapter->id }}" selected>
+                                    {{ $chapter->chapter_name }}
+                                </option>
+                            @elseif(@$data['course_id'] == $chapter->course_id)
+                                <option value="{{ $chapter->id }}">
+                                    {{ $chapter->chapter_name }}
+                                </option>
+                            @endif
+                        @endforeach
+                        {{-- @foreach ($chapters as $chapter)
+                            <option value="{{ $chapter->id }}">
+                                {{ $chapter->chapter_name }}
+                            </option>
+                        @endforeach --}}
+                    </select>
+                    <!--end::Input-->
+                </div>
+                <!--end::Input group-->
+
+                <!--begin::Input group-->
+                <div class="mb-5 fv-row w-300px mx-2">
+                    <!--begin::Label-->
+                    <label class="required form-label mb-3">Lesson Name</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <select name="lesson_id" id="sel_lesson" class="form-control sel_lesson">
+                        <option disabled selected>
+                            Select Lesson
+                        </option>
+                        @foreach ($lessons as $lesson)
+                            @if (@$data['lesson_id'] == $lesson->id)
+                                <option value="{{ $lesson->id }}" selected>
+                                    {{ $lesson->lesson_name }}
+                                </option>
+                            @elseif(@$data['chapter_id'] == $lesson->chapter_id)
+                                <option value="{{ $lesson->id }}">
+                                    {{ $lesson->lesson_name }}
+                                </option>
+                            @endif
+                        @endforeach
+                        {{-- @foreach ($lessons as $lesson)
+                            <option value="{{ $lesson->id }}">
+                                {{ $lesson->lesson_name }}
+                            </option>
+                        @endforeach --}}
+                    </select>
+                    <!--end::Input-->
+                </div>
+                <!--end::Input group-->
+            </div>
+
+            <!--begin::Input group-->
+            <div class="d-flex" style="align-items: flex-end;">
+
+                <button class="btn btn-primary mb-2">
+                    Filter
+                </button>
+            </div>
+            <!--end::Input group-->
+
+
+        </div>
+    </form> 
     <!-- Modal Add Quizze -->
     <div class="modal fade" id="exampleModalCenter" style="transform: translate(20px, 0px); " tabindex="-1"
         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
