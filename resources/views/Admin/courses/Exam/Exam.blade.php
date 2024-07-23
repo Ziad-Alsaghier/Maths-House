@@ -1204,7 +1204,7 @@
 
                                                               
                                                                 <div class="allSectionsTableEdit">
-                                                                    <div class="mt-3 nSection">
+                                                                    <div class="mt-3 nSectionEdit">
                                                                         <h1 class="selSection"
                                                                             style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
                                                                             Section 1</h1>
@@ -1537,7 +1537,7 @@
                 }
                 for (var i = 0; i < countSection; i++) {
                     console.log([i])
-                    var addSectionTable = `<div class="mt-3 nSection">
+                    var addSectionTable = `<div class="mt-3 nSectionEdit">
                                             <h1 class="selSection"
                                                 style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
                                                 Section ${[i +1]}</h1>
@@ -1580,7 +1580,7 @@
                                                         </tr>
                                                     </thead>
 
-                                                    <tbody class="sel_quz"></tbody>
+                                                    <tbody class="sel_quz_edit" id="sel_quz_edit${[i]}"></tbody>
 
                                                 </table>
                                             </div>
