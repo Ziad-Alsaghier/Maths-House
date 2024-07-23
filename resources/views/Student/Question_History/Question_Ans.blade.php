@@ -150,11 +150,8 @@
         @if (isset($question->q_ans))
             @foreach ($question->q_ans as $q_ans)
                 <div class="answer">
-                    <h5 class="ansName">Question @if (isset($question->ans_type) && $question->ans_type == 'MCQ')
-                            {{ @$question->mcq[0]->mcq_answers }}
-                        @else
-                            {{ @$question->g_ans[0]->grid_ans }}
-                        @endif:</h5>
+                    <h5 class="ansName">Method 
+                        {{$loop->iteration}}:</h5>
 
                     <button class="ansShow" data-bs-toggle="modal" data-bs-target="#modalAnswer{{ $q_ans->id }}">Show
                         Answer</button>

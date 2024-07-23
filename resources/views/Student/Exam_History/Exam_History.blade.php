@@ -15,6 +15,7 @@
         <th>Name</th>
         <th>Date</th> 
         <th>Score</th> 
+        <th>PDF</th>
         <th>View Mistakes</th>
         <th>Recommendation</th>
     </thead>
@@ -34,6 +35,11 @@
             <td>
                 {{$element->score}}
             </td> 
+            <td>
+            <a href="{{route('exam_mistake_pdf', ['id' => $element->id])}}" class="btn btn-primary mistake_btn">
+                PDF
+            </a>
+            </td>
             <td>
             <a href="{{route('exam_mistakes', ['id' => $element->id])}}" class="btn btn-primary mistake_btn">
                 View Mistakes

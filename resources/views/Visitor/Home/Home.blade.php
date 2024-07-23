@@ -530,7 +530,8 @@
     <div class="container">
         <div class="main-inner">
             <div class="main-caption  p-4">
-                <h1>Build skills with experts anytime <span class>,</span></h1>
+                <h1>Unlock Your Math Potential
+                    Expert-Led Courses for Global Students <span class>,</span></h1>
                 <h2>Anywhere</h2>
                 <p>Connect With The Most Qualified And Passionate <span>Mentors</span></p>
                 <a type="button" class="btn btn-danger" style="color: #fff !important" href={{ route('categories') }}>Find
@@ -562,8 +563,12 @@
                     <div class="content-row py-5">
                         <i class="fa-solid fa-user mb-3 icons p-3 rounded rounded-3"></i>
                         <h3 class="mb-0">Achieve your goals</h3>
-                        <p class="pt-4 m-0 text-muted">Lorem Ipsum is simply</p>
-                        <p class="pt-4 m-0 p-0 text-muted">dummy text of the printing</p>
+                        <p class="pt-4 m-0 text-muted">Empower yourself with our online math courses designed
+for the international education system. Led by
+experienced and passionate instructors, our interactive
+Zoom sessions cater to all levels and learning styles.
+Whether you're aiming for top grades or preparing for
+exams, we'll guide you to success.</p>
                     </div>
 
                 </div>
@@ -580,9 +585,15 @@
                 <div class="col-md-4">
                     <div class="content-row py-5">
                         <i class="fa-solid fa-search mb-3 icons p-3 rounded rounded-5"></i>
-                        <h3 class="mb-0">Media Marketing</h3>
-                        <p class="pt-4 m-0 text-muted">Lorem Ipsum is simply</p>
-                        <p class="pt-4 m-0 p-0 text-muted">dummy text of the printing</p>
+                        <h3 class="mb-0">Benefits :
+                        </h3>
+                        •<b>Expert Instructors:</b> Learn from highly qualified math educators.
+                        <br />
+                        •<b>Personalized Learning:</b> We cater to individual needs and learning styles.
+                        <br />
+                        •<b>Interactive Sessions:</b> Engage in real-time discussions via Zoom.<br />
+                        •<b>Flexible Scheduling:</b> Choose the time that suits you best.<br />
+                        •<b>Proven Results:</b> Achieve your academic goals with our effective strategies.
 
                     </div>
 
@@ -661,78 +672,21 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="Courses-caption">
-                    <div class="badge d-flex flex-row-reverse">
-                        <h2> <span class="badge bg-badge h5">Top Seller</span></h2>
-                    </div>
-                    <h3 class="h5">Introduction to HTML</h3>
-                    <h3 class="h5 p-0 m-0"> Web Design</h3>
-                    <h4>69.25$</h4>
-                    <h5>Ahmed Muhammad</h5>
-                    <div class="d-flex align-items-center g-3">
-                        <i class="fa-solid fa-user fs-2"></i>
-                        <h5 class="m-0 p-2">24</h5>
-                        <i class="fa-regular fa-comment fs-2 ml-3"></i>
-                        <h5 class="m-0 p-2">1125</h5>
-                    </div>
+            @foreach( $courses as $item )
+                <div class="col-md-3">
+                    <a href="{{route('v_course', ['id' => $item->id])}}">
+                    <div class="Courses-caption">
+                        <div class="badge d-flex flex-row-reverse">
+                            <h2> <span class="badge bg-badge h5">Top Seller</span></h2>
+                        </div>
+                        <h3 class="h5">{{$item->course_name}}</h3>
+                        <h3 class="h5 p-0 m-0"> Web Design</h3>
+                        <h4>${{$item->prices->min('price')}}</h4>
 
+                    </div>
+                </a>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="Courses-caption">
-                    <div class="badge d-flex flex-row-reverse">
-                        <h2> <span class="badge bg-badge  h5">Top Seller</span></h2>
-                    </div>
-                    <h3 class="h5">Introduction to HTML</h3>
-                    <h3 class="h5 p-0 m-0"> Web Design</h3>
-                    <h4>69.25$</h4>
-                    <h5>Ahmed Muhammad</h5>
-                    <div class="d-flex align-items-center g-3">
-                        <i class="fa-solid fa-user fs-2"></i>
-                        <h5 class="m-0 p-2">24</h5>
-                        <i class="fa-regular fa-comment fs-2 ml-3"></i>
-                        <h5 class="m-0 p-2">1125</h5>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="Courses-caption">
-                    <div class="badge d-flex flex-row-reverse">
-                        <h2> <span class="badge bg-badge  h5">Top Seller</span></h2>
-                    </div>
-                    <h3 class="h5">Introduction to HTML</h3>
-                    <h3 class="h5 p-0 m-0"> Web Design</h3>
-                    <h4>69.25$</h4>
-                    <h5>Ahmed Muhammad</h5>
-                    <div class="d-flex align-items-center g-3">
-                        <i class="fa-solid fa-user fs-2"></i>
-                        <h5 class="m-0 p-2">24</h5>
-                        <i class="fa-regular fa-comment fs-2 ml-3"></i>
-                        <h5 class="m-0 p-2">1125</h5>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="Courses-caption">
-                    <div class="badge d-flex flex-row-reverse">
-                        <h2> <span class="badge bg-badge  h5">Top Seller</span></h2>
-                    </div>
-                    <h3 class="h5">Introduction to HTML</h3>
-                    <h3 class="h5 p-0 m-0"> Web Design</h3>
-                    <h4>69.25$</h4>
-                    <h5>Ahmed Muhammad</h5>
-                    <div class="d-flex align-items-center g-3">
-                        <i class="fa-solid fa-user fs-2"></i>
-                        <h5 class="m-0 p-2">24</h5>
-                        <i class="fa-regular fa-comment fs-2 ml-3"></i>
-                        <h5 class="m-0 p-2">1125</h5>
-                    </div>
-
-                </div>
-            </div>
+            @endforeach
 
             <div class="d-flex flex-row-reverse">
                 <button type="button" class="btn btn-danger mt-3">view all courses</button>

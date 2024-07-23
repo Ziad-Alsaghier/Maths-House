@@ -95,9 +95,11 @@ class CoursesController extends Controller
         ->count();
         $quizs = quizze::whereIn('lesson_id', $lessons_count)
         ->count();
+        $related_course = Course::where('id', '!=', $id)
+        ->get();
         
         return view('Visitor.Courses.Chapters', 
-        compact('chapters', 'course_price', 'price', 'course', 'total_price',
+        compact('chapters', 'course_price', 'price', 'course', 'total_price', 'related_course',
         'chapters_count', 'lessons_count', 'videos_count', 'questions', 'quizs'));
     }
     
@@ -546,7 +548,11 @@ class CoursesController extends Controller
             
         }
         $chapters = json_decode(Cookie::get('marketing'));
-        $chapters = json_decode($chapters);
+        try {
+            $chapters = json_decode($chapters);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         $price = json_decode(Cookie::get('chapters_price'));
         if ( $req->payment_method_id == 'Wallet' ) {
             $wallet = Wallet::

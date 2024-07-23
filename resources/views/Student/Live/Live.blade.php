@@ -38,7 +38,7 @@
         @if ( $item->session->date > date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to >= date('H:i:s')) )
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td>{{$item->session->name}}</td>
+            <td>{{$item->session->lesson->lesson_name}}</td>
             <td>{{$item->session->date}}</td>
             <td>{{$item->session->lesson->chapter->course->course_name}}</td>
             <td>{{$item->session->teacher->nick_name}}</td>
@@ -115,7 +115,7 @@
         ($item->session->date == date('Y-m-d') && $item->session->to <= date('H:i:s')) )
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td>{{$item->session->name}}</td>
+            <td>{{$item->session->lesson->lesson_name}}</td>
             <td>{{$item->session->date}}</td>
             <td>{{$item->session->from}}</td>
             <td>{{$item->session->to}}</td>

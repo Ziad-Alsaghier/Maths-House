@@ -15,7 +15,8 @@
         <th>Name</th>
         <th>Date</th> 
         <th>Score</th> 
-        <th>Time</th> 
+        <th>Time</th>
+        <th>PDF</th>
         <th>Report</th>
         <th>Recommendation</th>
     </thead>
@@ -38,6 +39,11 @@
             <td>
                 {{$item->time}}
             </td> 
+            <td>
+                <a href="{{route('dia_exam_mistake_pdf', ['id' => $item->id])}}" class="btn btn-primary">
+                    PDF
+                </a> 
+            </td>
             <td>
                 <a href="{{route('dia_exam_report_pdf', ['id' => $item->id])}}" class="btn btn-primary">
                     Report

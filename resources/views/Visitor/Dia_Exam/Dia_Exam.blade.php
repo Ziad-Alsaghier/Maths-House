@@ -370,12 +370,16 @@
     <section class="heroSec">
         <div class="mainContent">
             <div class="leftContent">
-                <h3>Diagnostic Exams</h3>
+                <h3>Free Diagnostic Exams</h3>
                 <p class="quesP">Do you want to identify your strengths and
                     weaknesses?
                 </p>
-                <p>If your answer is <span>Yes,</span> then we have brought
-                    you our sports diagnostic tests!
+                <p>Struggling to pinpoint your current math level within
+                    the international education system? Don't worry, we've
+                    got you covered! Our free, personalized math level
+                    assessment is designed to help you confidently identify
+                    your strengths and weaknesses across various math
+                    topics.
                 </p>
             </div>
             <div class="rightContent">

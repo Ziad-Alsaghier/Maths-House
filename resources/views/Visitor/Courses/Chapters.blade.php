@@ -537,25 +537,25 @@
                                                 <li class="list-inline-item"><span
                                                         class="flaticon-play-button-1"></span> 5Courses </li>
                                             </ul>
-                                            <h4>Ali Tufan</h4>
-                                            <p class="subtitle">UX/UI Designer</p>
-                                            <p class="mb25">UI/UX Designer, with 7+ Years Experience. Guarantee of
-                                                High Quality Work. </p>
-                                            <p class="mb25">Skills: Web Design, UI Design, UX/UI Design, Mobile
-                                                Design, User Interface Design, Sketch, Photoshop, GUI, Html, Css, Grid
-                                                Systems, Typography, Minimal, Template, English, Bootstrap, Responsive
-                                                Web Design, Pixel Perfect, Graphic Design, Corporate, Creative, Flat,
-                                                Luxury and much more.</p>
-                                            <ul class="about_ins_list mb0">
-                                                <li>
-                                                    <p>Available for:</p>
-                                                </li>
-                                                <li><a href="#">1. Full Time Office Work</a></li>
-                                                <li><a href="#">2. Remote Work</a></li>
-                                                <li><a href="#">3. Freelance</a></li>
-                                                <li><a href="#">4. Contract</a></li>
-                                                <li><a href="#">5. Worldwide</a></li>
-                                            </ul>
+                                            <h4>Amir Hemaida</h4>
+                                                        
+            <h4>Mathematics Enthusiast | Experienced International Curriculum Educator</h4>
+            <p>
+                For over 23 years, I have been passionate about igniting a love for mathematics in
+                students of all backgrounds. As a highly experienced international curriculum educator
+                , I have honed my skills in delivering effective instruction across diverse
+                learning styles and educational frameworks.
+            </p>
+            <h4>My Experience:</h4>
+            •<b>Co-founder of Math House Institution:</b> Leading a dedicated team to provide exceptional math
+            •education to students.
+            •<b>20+Years in International Schools:</b> Bringing my expertise to a global learning environment, fostering
+            •critical thinking and problem-solving skills in students.
+            •<b>Proven Track Record:</b> Proven ability to help students achieve academic success and
+            •improve their math proficiency through engaging and effective teaching methods.
+            <div><b>My Approach:</b></div>
+            I believe in creating a positive and supportive learning environment where every student feels
+            empowered to explore and master mathematical concepts.
                                         </div>
                                     </div>
                                 </div>
@@ -783,132 +783,28 @@
                         <div class="col-lg-12">
                             <h3 class="r_course_title">Related Courses</h3>
                         </div>
+                        @foreach ( $related_course as $item)
                         <div class="col-lg-6 col-xl-4">
                             <div class="top_courses">
                                 <div class="thumb">
-                                    <img class="img-whp" src="images/courses/t1.jpg" alt="t1.jpg">
+                                    <img class="img-whp" src="{{asset('images/courses/' . $item->course_url)}}" alt="t1.jpg">
                                     <div class="overlay">
                                         <div class="tag">Best Seller</div>
                                         <div class="icon"><span class="flaticon-like"></span></div>
-                                        <a class="tc_preview_course" href="#">Preview Course</a>
+                                        <a class="tc_preview_course" href="{{route('v_course', ['id' => $item->id])}}">Preview Course</a>
                                     </div>
                                 </div>
-                                <div class="details">
+                                <a href="{{route('v_course', ['id' => $item->id])}}" class="details">
                                     <div class="tc_content">
-                                        <p>Ali TUFAN</p>
-                                        <h5>Introduction Web Design with HTML</h5>
-                                        <ul class="tc_review">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">(6)</a></li>
-                                        </ul>
+                                        <h5>{{$item->course_name}}</h5>
                                     </div>
                                     <div class="tc_footer">
-                                        <ul class="tc_meta float-left">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-profile"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">1548</a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-comment"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">25</a></li>
-                                        </ul>
-                                        <div class="tc_price float-right">$69.95</div>
+                                        <div class="tc_price float-right">${{$item->prices->min('price')}}</div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="top_courses">
-                                <div class="thumb">
-                                    <img class="img-whp" src="images/courses/t2.jpg" alt="t2.jpg">
-                                    <div class="overlay">
-                                        <div class="tag">Top Seller</div>
-                                        <div class="icon"><span class="flaticon-like"></span></div>
-                                        <a class="tc_preview_course" href="#">Preview Course</a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p>Ali TUFAN</p>
-                                        <h5>Designing a Responsive Mobile Website with Muse</h5>
-                                        <ul class="tc_review">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">(6)</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="tc_footer">
-                                        <ul class="tc_meta float-left">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-profile"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">1548</a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-comment"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">25</a></li>
-                                        </ul>
-                                        <div class="tc_price float-right">$69.95</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="top_courses">
-                                <div class="thumb">
-                                    <img class="img-whp" src="images/courses/t3.jpg" alt="t3.jpg">
-                                    <div class="overlay">
-                                        <div class="tag">Top Seller</div>
-                                        <div class="icon"><span class="flaticon-like"></span></div>
-                                        <a class="tc_preview_course" href="#">Preview Course</a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p>Ali TUFAN</p>
-                                        <h5>Adobe XD: Prototyping Tips and Tricks</h5>
-                                        <ul class="tc_review">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">(6)</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="tc_footer">
-                                        <ul class="tc_meta float-left">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-profile"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">1548</a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-comment"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">25</a></li>
-                                        </ul>
-                                        <div class="tc_price float-right">$69.95</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-lg-4 col-xl-3">
@@ -999,13 +895,6 @@
                             <li class="list-inline-item"><a href="#">Beginner</a></li>
                             <li class="list-inline-item"><a href="#">UX/UI</a></li>
                         </ul>
-                    </div>
-                    <div class="selected_filter_widget style2">
-                        <span class="float-left"><img class="mr20" src="images/resource/2.png"
-                                alt="2.png"></span>
-                        <h4 class="mt15 fz20 fw500">Not sure?</h4>
-                        <br>
-                        <p>Every course comes with a 30-day money-back guarantee</p>
                     </div>
                 </div>
             </div>
