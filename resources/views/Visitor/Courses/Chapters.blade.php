@@ -367,10 +367,9 @@
                                     <div class="cs_ins_container">
                                         <div class="cs_instructor">
                                             <ul class="cs_instrct_list float-left mb0">
-                                                <li class="list-inline-item"><img class="thumb" src="images/team/4.png"
+                                                <li class="list-inline-item"><img class="thumb" src="{{asset('images/inc/amir.png')}}"
                                                         alt="4.png"></li>
-                                                <li class="list-inline-item"><a href="#">Ali TUFAN</a></li>
-                                                <li class="list-inline-item"><a href="#">Last updated 11/2019</a>
+                                                <li class="list-inline-item"><a href="#">Amir Hemaida</a></li>
                                                 </li>
                                             </ul>
                                             <ul class="cs_watch_list float-right mb0">
@@ -423,15 +422,8 @@
                                     <div class="cs_overview">
                                         <h4 class="title">Overview</h4>
                                         <h4 class="subtitle">Course Description</h4>
-                                        <p class="mb30">Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                            text ever since the 1500s, when an unknown printer took a galley of type and
-                                            scrambled it to make a type specimen book. It has survived not only five
-                                            centuries, but also the leap into electronic typesetting, remaining
-                                            essentially unchanged. </p>
-                                        <p class="mb20">It was popularised in the 1960s with the release of Letraset
-                                            sheets containing Lorem Ipsum passages, and more recently with desktop
-                                            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                        <p class="mb30">
+                                            {{$course->course_des}}
                                         </p>
                                         <h4 class="subtitle">What you'll learn</h4>
                                         <ul class="cs_course_syslebus">
@@ -555,7 +547,7 @@
                                     <div class="about_ins_container">
                                         <h4 class="aii_title">About the instructor</h4>
                                         <div class="about_ins_info">
-                                            <div class="thumb"><img src="images/team/6.png" alt="6.png"></div>
+                                            <div class="thumb"><img style="height: 60px; width: 70px;" src="{{asset('images/inc/amir.png')}}" alt="6.png"></div>
                                         </div>
                                         <div class="details">
                                             <ul class="review_list">
