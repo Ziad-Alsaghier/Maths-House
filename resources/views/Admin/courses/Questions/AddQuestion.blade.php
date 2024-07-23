@@ -78,7 +78,7 @@
          cursor: pointer;
      }
 
-     .removeNewAnswer {
+     .removeNewAnswer,.removeLastAnswer {
          border: none;
          background: red;
          color: #fff;

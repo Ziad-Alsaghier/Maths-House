@@ -766,7 +766,7 @@
                                                     @endphp
                                                     @foreach ($answers as $ans)
                                                         @if ($ans->mcq_answers == $ans->mcq_num)
-                                                            <div class="my-2">
+                                                            <div class="my-2 d-flex flex-column">
                                                                 <div class="d-flex align-items-center mb-3 gap-2">
                                                                     <input name="mcq_answers"
                                                                         value="{{ $ans->mcq_num }}"
@@ -779,9 +779,11 @@
                                                                 <input class="form-control"
                                                                     value="{{ $ans->mcq_ans }}" name="mcq_ans[]"
                                                                     placeholder="Answer" />
+                                                                    <button type="button" class="removeLastAnswer mt-2">Remove
+                                                                        Answer</button>
                                                             </div>
                                                         @else
-                                                            <div class="my-2">
+                                                            <div class="my-2 d-flex flex-column">
                                                                 <div class="d-flex align-items-center mb-3 gap-2">
                                                                     <input name="mcq_answers"
                                                                         value="{{ $ans->mcq_num }}"
@@ -794,25 +796,18 @@
                                                                 <input class="form-control"
                                                                     value="{{ $ans->mcq_ans }}" name="mcq_ans[]"
                                                                     placeholder="Answer" />
+                                                                    <button type="button" class="removeLastAnswer mt-2">Remove
+                                                                        Answer</button>
                                                             </div>
                                                             @endif
                                                             @endforeach
-                                                            <div class="my-2 d-none newAnswerSe">
-                                                                <div class="d-flex align-items-center mb-3 gap-2">
-                                                                    <input name="mcq_answers" class="mcq_answer_radio"
-                                                                        value="New Answer" id="mcq_New"
-                                                                        type="radio" />
-                                                                    <input class="form-control letter_choice mb-3"
-                                                                        value="New Answer" name="mcq_char[]"
-                                                                        placeholder="Letter Choice" />
-                                                                </div>
-                                                                <input class="form-control" name="mcq_ans[]"
-                                                                    placeholder="New Answer" />
+                                                            <div class="my-2 newAnswerSe">
+                                                                
                                                             </div>
-                                                    <div class="newAnswer">
-                                                        <button type="button" class="addNewAnswer">New
-                                                            Answer</button>
+                                                    <div class="newAnswer gap-3">
                                                         <button type="button" class="removeNewAnswer d-none">Remove
+                                                        Answer</button>
+                                                        <button type="button" class="addNewAnswer">New
                                                             Answer</button>
                                                     </div>
                                                 </div>
@@ -1180,15 +1175,28 @@
                     // console.log("val",val)
                 })
             });
+
+            $(".removeLastAnswer").click(function(){
+                $(this).parent().remove();
+            })
             $(".addNewAnswer").click(function() {
                 $(this).toggleClass("d-none");
+                $(".newAnswerSe").append(`<div class="d-flex align-items-center mb-3 gap-2">
+                                            <input name="mcq_answers" class="mcq_answer_radio"
+                                                value="New Answer" id="mcq_New"
+                                                type="radio" />
+                                            <input class="form-control letter_choice mb-3"
+                                                value="New Answer" name="mcq_char[]"
+                                                placeholder="Letter Choice" />
+                                        </div>
+                                        <input class="form-control" name="mcq_ans[]"
+                                            placeholder="New Answer" />`);
                 $(".removeNewAnswer").toggleClass("d-none");
-                $(".newAnswerSe").toggleClass("d-none");
             })
             $(".removeNewAnswer").click(function() {
                 $(this).toggleClass("d-none");
                 $(".addNewAnswer").toggleClass("d-none");
-                $(".newAnswerSe").toggleClass("d-none");
+                $(".newAnswerSe").empty();
             })
             $(".btn_remove_idea_old").each((val, ele) => {
                     // console.log("ele",ele)
@@ -1198,6 +1206,7 @@
                     // console.log("val",val)
                 })
         })
+
         let sel_cate = document.querySelector('.sel_cate');
         let sel_course = document.querySelector('.sel_course');
         let sel_chapter = document.querySelector('.sel_chapter');
