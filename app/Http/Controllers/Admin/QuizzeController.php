@@ -128,4 +128,53 @@ class QuizzeController extends Controller
         return redirect()->back();
     }
 
+    public function filter_quiz( Request $req ){
+        $questions = Question::all();
+        $categories = Category::all();
+        $courses = Course::all();
+        $chapters = Chapter::all();
+        $lessons = Lesson::all();
+        $codes = ExamCodes::all();
+        $quizzes = [];
+
+        if ( !empty($req->lesson_id) ) {
+            $quizzes = quizze::
+            where( 'lesson_id', $req->lesson_id )
+            ->simplePaginate();
+        }
+        elseif ( !empty($req->chapter_id)) {
+            $chapter_id = $req->chapter_id;
+            $quizzes = quizze::
+            whereHas('lesson', function($query) use($chapter_id){
+                $query->where('chapter_id', $chapter_id);
+            })
+            ->simplePaginate();
+        }
+        elseif ( !empty($req->course_id)) {
+            $course_id = $req->course_id;
+            $quizzes = quizze::
+            whereHas('lesson.chapter', function($query) use($course_id){
+                $query->where('course_id', $course_id);
+            })
+            ->simplePaginate();
+        }
+        elseif ( !empty($req->category_id)) {
+            $category_id = $req->category_id;
+            $quizzes = quizze::
+            whereHas('lesson.chapter.course', function($query) use($category_id){
+                $query->where('category_id', $category_id);
+            })
+            ->simplePaginate();
+        }
+        else {
+            $quizzes = quizze::simplePaginate();
+        }
+        
+
+        $data = $req->all();
+
+        return view('Admin.courses.Quizze.Quizze', 
+        compact('quizzes', 'questions', 'categories', 'data', 'courses', 'chapters', 'lessons', 'codes'));
+    }
+
 }

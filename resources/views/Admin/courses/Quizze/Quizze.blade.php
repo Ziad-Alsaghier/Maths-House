@@ -257,8 +257,8 @@
         <button class="btn_add_quizz my-3" type="button" data-toggle="modal" data-target="#exampleModalCenter">New
             Quiz</button>
     </div>
-    <form action="{{ route('filter_question') }}" method="GET">
-        <div class="modal-body scroll-y m-5">
+    <form action="{{ route('filter_quiz') }}" method="GET">
+        <div class="m-y m-3">
             <div class="d-flex">
                 <!--begin::Input group-->
                 <div class="mb-5 fv-row w-300px mx-2">
@@ -1717,6 +1717,16 @@
     let sel_course2 = document.querySelector('#sel_course');
     let sel_chapter2 = document.querySelector('#sel_chapter');
     let sel_lesson2 = document.querySelector('#sel_lesson');
+    let courses = document.querySelector('.courses');
+    let chapters = document.querySelector('.chapters');
+    let lessons = document.querySelector('.lessons');
+    courses = courses.value;
+    courses = JSON.parse(courses);
+    chapters = chapters.value;
+    chapters = JSON.parse(chapters);
+    lessons = lessons.value;
+    lessons = JSON.parse(lessons);
+
     sel_cate2.addEventListener('change', (e) => {
         sel_course2.innerHTML = `                            
     <option disabled selected>
