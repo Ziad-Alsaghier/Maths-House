@@ -140,7 +140,7 @@ class QuizzeController extends Controller
         if ( !empty($req->lesson_id) ) {
             $quizzes = quizze::
             where( 'lesson_id', $req->lesson_id )
-            ->simplePaginate();
+            ->simplePaginate(10);
         }
         elseif ( !empty($req->chapter_id)) {
             $chapter_id = $req->chapter_id;
@@ -148,7 +148,7 @@ class QuizzeController extends Controller
             whereHas('lesson', function($query) use($chapter_id){
                 $query->where('chapter_id', $chapter_id);
             })
-            ->simplePaginate();
+            ->simplePaginate(10);
         }
         elseif ( !empty($req->course_id)) {
             $course_id = $req->course_id;
@@ -156,7 +156,7 @@ class QuizzeController extends Controller
             whereHas('lesson.chapter', function($query) use($course_id){
                 $query->where('course_id', $course_id);
             })
-            ->simplePaginate();
+            ->simplePaginate(10);
         }
         elseif ( !empty($req->category_id)) {
             $category_id = $req->category_id;
@@ -164,10 +164,10 @@ class QuizzeController extends Controller
             whereHas('lesson.chapter.course', function($query) use($category_id){
                 $query->where('category_id', $category_id);
             })
-            ->simplePaginate();
+            ->simplePaginate(10);
         }
         else {
-            $quizzes = quizze::simplePaginate();
+            $quizzes = quizze::simplePaginate(10);
         }
         
 
