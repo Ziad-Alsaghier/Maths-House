@@ -258,7 +258,8 @@
         }
 
         /* Sections */
-        .nSection {
+        .nSection,
+        .nSectionEdit {
             position: relative;
         }
 
@@ -289,7 +290,7 @@
             style="max-width: 1300px !important; display: flex;align-items: center;justify-content: center;"
             role="document">
             <div class="modal-content" style="border-radius: 15px;">
-                <form action="{{ route('add_exam') }}" method="POST">
+                <form action="{{ route('add_exam') }}" method="POST" class="form_quizze">
                     @csrf
                     <input type="hidden" class="questions_data" name="ques_id" />
                     <div class="modal-header" style="border-bottom: 0 !important;">
@@ -645,6 +646,9 @@
                                     <div class="d-flex" style="align-items: center; justify-content: center">
                                         <span
                                             style="font-size: 2rem;font-weight: 500;background: #1b84ff;color: #fff;border-radius: 10px;padding: 10px 15px;margin-top: 10px;">Exam</span>
+                                    </div>
+                                    <div class="alertChose"
+                                        style="display: flex; align-items: center; justify-content: center">
                                     </div>
 
                                     {{-- <div
@@ -1202,19 +1206,24 @@
                                                                         style="font-size: 2rem;font-weight: 500;background: #1b84ff;color: #fff;border-radius: 10px;padding: 10px 15px;margin-top: 10px;">Exam</span>
                                                                 </div>
 
-                                                              
+                                                                <div class="alertChoseEdit"
+                                                                    style="display: flex; align-items: center; justify-content: center">
+                                                                </div>
+
                                                                 <div class="allSectionsTableEdit">
-                                                                    @foreach ( $item->sections_data as $element ) 
+                                                                    @foreach ($item->sections_data as $element)
                                                                         <div class="mt-3 nSectionEdit">
-                                                                            <h1 class="selSection"
+                                                                            <h1 class="selSectionEdit"
                                                                                 style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
-                                                                                Section {{$loop->iteration}}</h1>
-                                                                            <div class="tableSectionEdit"
+                                                                                Section {{ $loop->iteration }}</h1>
+                                                                            <div class="tableSectionEdit d-none"
                                                                                 style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-                                                                                <input type="hidden" class="arrSection"
+                                                                                <input type="hidden"
+                                                                                    class="arrSection"
                                                                                     name="section_1" id="section_1">
-                                                                                <table class="table table-striped"
-                                                                                    id="tblData_Edite">
+                                                                                <table
+                                                                                    class="table tblData_Edite table-striped"
+                                                                                    id="tblData_Edite{{ $item->id }}">
                                                                                     <thead class="border-bottom">
                                                                                         <tr>
                                                                                             <th scope="col"
@@ -1266,11 +1275,11 @@
                                                                                                     class="question_edite_id"
                                                                                                     id="question_edite_id{{ $question->id }}" />
 
-                                                                                                    <input type="hidden"
-                                                                                                        value="{{ $element->id }}"
-                                                                                                        name="section_id[]"
-                                                                                                        class="question_edite_id"
-                                                                                                        id="question_edite_id{{ $question->id }}" />
+                                                                                                <input type="hidden"
+                                                                                                    value="{{ $element->id }}"
+                                                                                                    name="section_id[]"
+                                                                                                    class="question_edite_id"
+                                                                                                    id="question_edite_id{{ $question->id }}" />
 
                                                                                                 <input type="hidden"
                                                                                                     value={{ $item->id }}
@@ -1332,7 +1341,8 @@
 
                                                                                                 <td
                                                                                                     style='width: 150px !important; padding: 0 !important;'>
-                                                                                                    <button type='button'
+                                                                                                    <button
+                                                                                                        type='button'
                                                                                                         class='remove_qz_edit'>Remove</button>
                                                                                                 </td>
                                                                                             </tr>
@@ -1440,7 +1450,7 @@
                                             <div class="tableSection d-none"
                                                 style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
                                                 <input type="hidden" class="arrSection" name="section_${[i]}" id="section_${[i]}">
-                                                <table class="table table-striped" id="tblData">
+                                                <table class="table tblDataAdd table-striped" id="tblData${[i +1]}">
                                                     <thead class="border-bottom">
                                                         <tr>
                                                             <th scope="col"
@@ -1546,10 +1556,10 @@
                 for (var i = 0; i < countSection; i++) {
                     console.log([i])
                     var addSectionTable = `<div class="mt-3 nSectionEdit">
-                                            <h1 class="selSection"
+                                            <h1 class="selSectionEdit"
                                                 style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
                                                 Section ${[i +1]}</h1>
-                                            <div class="tableSection d-none"
+                                            <div class="tableSectionEdit d-none"
                                                 style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
                                                 <input type="hidden" class="arrSection" name="section_${[i]}" id="section_${[i]}">
                                                 <table class="table table-striped" id="tblData">
@@ -1798,10 +1808,33 @@
                         var quziChapter = $(this).closest("tr").find(".chapter").text();
                         var quziLessone = $(this).closest("tr").find(".lessone").text();
                         var quziDiff = $(this).closest("tr").find(".diff").text();
+                        
+                        var $this = $(this);
+                        var $formQuizze = $this.closest(".form_quizze");
+                        var $tblDataAdd = $formQuizze.find(".tblDataAdd");
 
-                        $(this).addClass("selected_qz");
-                        $(this).removeClass("add_qz");
-                        $(this).text("Selected");
+                        if ($tblDataAdd.hasClass("activeSection")) {
+                            console.log($tblDataAdd);
+                            console.log("yeas");
+
+                            $(".alertChose").empty();
+                            $this.addClass("selected_qz").removeClass("add_qz").text(
+                                "Selected");
+
+                            console.log("Yesssssss");
+                        } else {
+                            console.log($this);
+                            console.log("nooooo");
+
+                            var chosenSe =
+                                `#${$this.closest(".question_edit_parQ").attr("id")}`;
+                            console.log($tblDataAdd);
+                            console.log("noooooo");
+
+                            $(".alertChose").empty().append(
+                                `<span style="font-size: 1.4rem; font-weight: 500; color: #e31616; border-radius: 10px; margin-top: 10px;">Chose section</span>`
+                            );
+                        }
 
                         var allData = [];
 
@@ -2160,8 +2193,8 @@
                 })
 
             })
+            /* #### Filter Edit #### */
             $(document).on("click", ".edit_qz", function() {
-
                 var question_idd = $(this).closest("tr").find(".question_id").val();
                 var quizze_idd = $(this).closest(".lesson_quizze").find(".quizze_ID").val();
 
@@ -2176,13 +2209,35 @@
                 var quziChap = $(this).closest("tr").find(".chapE").text();
                 var quziLess = $(this).closest("tr").find(".lessE").text();
                 var edit_eray =
-                    `#${$(this).closest(".form_editquizze").find(".sel_quz_edit").attr("id")}`;
+                    `${$(this).closest(".form_editquizze").find(".activeSection")}`;
 
 
                 var indexx =
                     `#${$(this).closest(".form_editquizze").find(".sel_quz_edit").attr("id")}`;
                 var count_tr_edit = $(indexx).find("tr").length;
                 // var indexQuizze = $(count_tr_edit);
+
+                if ($(this).closest(".form_editquizze").find(".tblData_Edite").hasClass("activeSection")) {
+                    var chosenSe = `#${$(this).closest(".question_edit_parQ").attr("id")}`;
+                    $(chosenSe).find(".alertChoseEdit").empty();
+                    $(this).addClass("selected_qz");
+                    $(this).removeClass("edit_qz");
+                    $(this).text("Selected");
+                    console.log("Yesssssss")
+                    // console.log($(this))
+                } else {
+                    console.log($(this))
+                    console.log("nooooo")
+                    var chosenSe = `#${$(this).closest(".question_edit_parQ").attr("id")}`;
+                    $(chosenSe).find(".alertChoseEdit").empty();
+                    $(chosenSe).find(".alertChoseEdit").append(
+                        `<span style="font-size: 1.4rem;font-weight: 500;color: #e31616;border-radius: 10px;margin-top: 10px;">Chose section </span>`
+                    )
+                    console.log(chosenSe)
+                }
+                // $(this).addClass("selected_qz");
+                //     $(this).removeClass("edit_qz");
+                //     $(this).text("Selected")
                 console.log("##############")
 
                 console.log("indexx", indexx)
@@ -2240,7 +2295,7 @@
                             </td>
                         </tr>`;
 
-                $(edit_eray).append(new_Ele_Edit);
+                $(".activeSection").append(new_Ele_Edit);
 
                 if ($("tbody").length <= 1) {
                     addEmptyRow();
@@ -2248,7 +2303,6 @@
                     $(".avil").parent().remove();
                 };
             });
-            /* #### Filter Edit #### */
 
             $(document).on('click', '.remove_qz_edit', function() {
 
@@ -2273,7 +2327,38 @@
                     $("#tblData_Edite tbody").append(emptyRowEdit);
                 };
             });
+            $(document).on('click', '.selSectionEdit', function() {
+                console.log("SSSSSSSSSSS")
+                quizzesActive = [];
 
+                $(".tableSectionEdit").each((index, ele) => {
+                    $(ele).addClass("d-none")
+                    $(ele).closest(".nSectionEdit").find(".tblData_Edite").removeClass(
+                        "activeSection")
+                    $(ele).closest(".nSectionEdit").find(".routateArrow").css(
+                        "transform",
+                        " rotate(0deg)");
+                })
+                $(this).closest(".nSectionEdit").find(".tableSectionEdit").removeClass(
+                    "d-none");
+                $(this).closest(".nSectionEdit").find(".tblData_Edite").addClass(
+                    "activeSection");
+                $(this).closest(".nSectionEdit").find(".routateArrow").css("transform",
+                    " rotate(180deg)");
+                var emptyRow =
+                    "<tr><td colspan='12' class='avil'> No Quizzes Available</td></tr>"
+
+                function addEmptyRow() {
+                    if ($(this).closest(".nSectionEdit").find(".activeSection").html() ==
+                        "") {
+                        console.log("sddddddd")
+                        $(this).closest(".nSectionEdit").find(".activeSection").append(
+                            emptyRow);
+                    };
+                };
+                addEmptyRow();
+            })
+            /* send Data at edit */
             var allDataEdite = [];
             $(document).on("click", ".edit_filter_exam", function() {
                 console.clear();
