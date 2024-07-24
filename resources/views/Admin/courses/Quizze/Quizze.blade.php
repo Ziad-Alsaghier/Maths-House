@@ -502,7 +502,7 @@
                                         <div style="width: 100%;"
                                             class="d-flex align-items-center justify-content-start">
                                             <span class="col-md-2" style="font-size: 1.2rem;">Category: </span>
-                                            <select name="select" id="sel_category select_category" class="col-md-2 form-control">
+                                            <select name="select" id="sel_category" class="col-md-2 form-control select_category">
                                                 <option value="" selected>Select Category</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->cate_name }}
@@ -514,7 +514,7 @@
                                         <div style="width: 100%;"
                                             class="d-flex align-items-center justify-content-start">
                                             <span class="col-md-2" style="font-size: 1.2rem;">Course: </span>
-                                            <select name="select" id="sel_course select_course" class="col-md-2 form-control">
+                                            <select name="select" id="sel_course" class="col-md-2 form-control select_course">
                                                 <option value="" selected>Select Course</option>
                                             </select>
                                         </div>
@@ -522,7 +522,7 @@
                                         <div style="width: 100%;"
                                             class="d-flex align-items-center justify-content-start">
                                             <span class="col-md-2" style="font-size: 1.2rem;">Chapter: </span>
-                                            <select name="select" id="sel_chp select_chapter" class="col-md-2 form-control">
+                                            <select name="select" id="sel_chp" class="col-md-2 form-control select_chapter">
                                                 <option value="" selected>Select Chapter</option>
                                             </select>
                                         </div>
@@ -530,7 +530,7 @@
                                         <div style="width: 100%;"
                                             class="d-flex align-items-center justify-content-start">
                                             <span class="col-md-2" style="font-size: 1.2rem;">Lesson: </span>
-                                            <select name="lesson_id" id="sel_less select_lesson" class="col-md-2 form-control">
+                                            <select name="lesson_id" id="sel_less" class="col-md-2 form-control select_lesson">
                                                 <option value="" selected>Select Lesson</option>
                                             </select>
                                         </div>
@@ -1773,14 +1773,12 @@
             }
         });
     });
-</script>
-
-    <script>
-        let select_category = document.querySelector('#select_category');
-        let select_course = document.querySelector('#select_course');
-        let select_chapter = document.querySelector('#select_chapter');
-        let select_lesson = document.querySelector('#select_lesson');
-        console.log(sel_category);
+    
+        let select_category = document.querySelector('.select_category');
+        let select_course = document.querySelector('.select_course');
+        let select_chapter = document.querySelector('.select_chapter');
+        let select_lesson = document.querySelector('.select_lesson');
+        console.log(select_category);
         select_category.addEventListener('change', (e) => {
             select_course.innerHTML = `                            
             <option disabled selected>
