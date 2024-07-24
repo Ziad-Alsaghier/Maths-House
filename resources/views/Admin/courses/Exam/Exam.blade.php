@@ -1808,182 +1808,175 @@
                         var quziChapter = $(this).closest("tr").find(".chapter").text();
                         var quziLessone = $(this).closest("tr").find(".lessone").text();
                         var quziDiff = $(this).closest("tr").find(".diff").text();
-                        
+
                         var $this = $(this);
                         var $formQuizze = $this.closest(".form_quizze");
                         var $tblDataAdd = $formQuizze.find(".sel_quz");
 
                         if ($tblDataAdd.hasClass("activeSection")) {
-                            console.log($tblDataAdd);
-                            console.log("yeas");
-
                             $(".alertChose").empty();
                             $this.addClass("selected_qz").removeClass("add_qz").text(
                                 "Selected");
 
-                            console.log("Yesssssss");
+                            var allData = [];
+
+
+                            var quziObject = {
+                                id: quziId,
+                                type: quziType,
+                                year: quziYear,
+                                month: quziMonth,
+                                code: quziCode,
+                                section: quziSection,
+                                noNum: quziNoNum,
+                                diff: quziDiff,
+                                chap: quziChapter,
+                                less: quziLessone,
+                            }
+
+                            allData.push(quziObject);
+
+                            quizzes.push(...allData);
+
+                            var object_serialized = JSON.stringify(allData);
+
+
+                            var allObject_serialized = JSON.stringify(quizzes);
+
+                            // localStorage.setItem("Allquizzes", allObject_serialized)
+
+
+
+                            // localStorage.setItem("quizzes", object_serialized)
+
+
+                            var myObjectDeserialized = JSON.parse(object_serialized);
+
+
+                            var quizz_container = $(".activeSection");
+
+                            var index = quizzes.length;
+                            var removeBtn =
+                                "<button type='button' class='remove_qz'>Remove</button>";
+
+
+                            myObjectDeserialized.forEach(element => {
+                                var inpID =
+                                    `<input type="hidden" class="quizzeActive_id" value=${element.id}>`;
+                                var dynamicTR = "<tr>";
+                                dynamicTR += "<td class='quizzeActive_type'>" + element
+                                    .type + "</td>";
+                                dynamicTR += "<td class='quizzeActive_year'>" + element
+                                    .year + "</td>";
+                                dynamicTR += "<td class='quizzeActive_month'>" + element
+                                    .month + "</td>";
+                                dynamicTR += "<td class='quizzeActive_code'>" + element
+                                    .code + "</td>";
+                                dynamicTR += "<td class='quizzeActive_section'>" +
+                                    element
+                                    .section + "</td>";
+                                dynamicTR += "<td class='quizzeActive_noNum'>" + element
+                                    .noNum + "</td>";
+                                dynamicTR += "<td class='quizzeActive_diff'>" + element
+                                    .diff + "</td>";
+                                dynamicTR += "<td class='quizzeActive_chap'>" + element
+                                    .chap + "</td>";
+                                dynamicTR += "<td class='quizzeActive_less'>" + element
+                                    .less + "</td>";
+                                dynamicTR +=
+                                    "<td style='width: 150px !important; padding: 0 !important;'>" +
+                                    removeBtn + "</td>";
+
+                                dynamicTR = dynamicTR + inpID + " </tr>";
+
+                                // index++;
+                                //_____________________________________________________________________________
+                                quizz_container.append(dynamicTR);
+                                questions_data.value = JSON.stringify(quizzes);
+                                //_____________________________________________________________________________
+                            });
+
+                            if ($("tbody").length <= 1) {
+                                addEmptyRow();
+                            } else {
+                                $(".avil").parent().remove();
+                            };
+                            var sel_SectionID =
+                                `#${$(quizz_container).closest(".nSection").find(".arrSection").attr("id")}`;
+
+                            // $(sel_SectionID).val(JSON.stringify(quziObject));
+
+                            // $(sel_SectionID).val(JSON.stringify(quziObject));
+
+
+                            var allDataActive = [];
+
+                            $(quizz_container).find("tr").each((index, ele) => {
+                                var quziActiveID = $(ele).find(".quizzeActive_id")
+                                    .val();
+                                var quziActiveType = $(ele).find(".quizzeActive_type")
+                                    .text();
+                                var quziActiveYear = $(ele).find(".quizzeActive_year")
+                                    .text();
+                                var quziActiveMonth = $(ele).find(".quizzeActive_month")
+                                    .text();
+                                var quziActiveCode = $(ele).find(".quizzeActive_code")
+                                    .text();
+                                var quziActiveNoNum = $(ele).find(
+                                        ".quizzeActive_section")
+                                    .text();
+                                var quziActiveSection = $(ele).find(
+                                        ".quizzeActive_noNum")
+                                    .text();
+                                var quziActiveChapter = $(ele).find(
+                                        ".quizzeActive_diff")
+                                    .text();
+                                var quziActiveLessone = $(ele).find(
+                                        ".quizzeActive_chap")
+                                    .text();
+                                var quziActiveDiff = $(ele).find(".quizzeActive_less")
+                                    .text();
+
+                                var quziObjectActive = {
+                                    id: quziActiveID,
+                                    type: quziActiveType,
+                                    year: quziActiveYear,
+                                    month: quziActiveMonth,
+                                    code: quziActiveCode,
+                                    section: quziActiveNoNum,
+                                    noNum: quziActiveSection,
+                                    diff: quziActiveChapter,
+                                    chap: quziActiveLessone,
+                                    less: quziActiveDiff,
+                                }
+
+                                allDataActive.push(quziObjectActive);
+                                console.log("quziObjectActive", quziObjectActive)
+                            })
+
+                            quizzesActive.push(...allDataActive)
+
+
+
+                            $(sel_SectionID).val(JSON.stringify(quizzesActive));
+
+
+
+
+                            console.log("quizzesquizzes", quizzes)
+                            console.log("quziObject", quziObject)
+                            // console.log("section_0",$(sel_SectionID).val())
+                            console.log($(sel_SectionID).attr("id"), $(".activeSection")
+                                .closest(
+                                    ".nSection").find(
+                                    ".arrSection").val())
+                            // console.log("allDataActive",allDataActive)
+                            console.log("quizzesActive", quizzesActive)
                         } else {
-                            console.log($this);
-                            console.log("nooooo");
-
-                            var chosenSe =
-                                `#${$this.closest(".question_edit_parQ").attr("id")}`;
-                            console.log($tblDataAdd);
-                            console.log("noooooo");
-
                             $(".alertChose").empty().append(
                                 `<span style="font-size: 1.4rem; font-weight: 500; color: #e31616; border-radius: 10px; margin-top: 10px;">Chose section</span>`
                             );
                         }
-
-                        var allData = [];
-
-
-                        var quziObject = {
-                            id: quziId,
-                            type: quziType,
-                            year: quziYear,
-                            month: quziMonth,
-                            code: quziCode,
-                            section: quziSection,
-                            noNum: quziNoNum,
-                            diff: quziDiff,
-                            chap: quziChapter,
-                            less: quziLessone,
-                        }
-
-                        allData.push(quziObject);
-
-                        quizzes.push(...allData);
-
-                        var object_serialized = JSON.stringify(allData);
-
-
-                        var allObject_serialized = JSON.stringify(quizzes);
-
-                        // localStorage.setItem("Allquizzes", allObject_serialized)
-
-
-
-                        // localStorage.setItem("quizzes", object_serialized)
-
-
-                        var myObjectDeserialized = JSON.parse(object_serialized);
-
-
-                        var quizz_container = $(".activeSection");
-
-                        var index = quizzes.length;
-                        var removeBtn =
-                            "<button type='button' class='remove_qz'>Remove</button>";
-
-
-                        myObjectDeserialized.forEach(element => {
-                            var inpID =
-                                `<input type="hidden" class="quizzeActive_id" value=${element.id}>`;
-                            var dynamicTR = "<tr>";
-                            dynamicTR += "<td class='quizzeActive_type'>" + element
-                                .type + "</td>";
-                            dynamicTR += "<td class='quizzeActive_year'>" + element
-                                .year + "</td>";
-                            dynamicTR += "<td class='quizzeActive_month'>" + element
-                                .month + "</td>";
-                            dynamicTR += "<td class='quizzeActive_code'>" + element
-                                .code + "</td>";
-                            dynamicTR += "<td class='quizzeActive_section'>" + element
-                                .section + "</td>";
-                            dynamicTR += "<td class='quizzeActive_noNum'>" + element
-                                .noNum + "</td>";
-                            dynamicTR += "<td class='quizzeActive_diff'>" + element
-                                .diff + "</td>";
-                            dynamicTR += "<td class='quizzeActive_chap'>" + element
-                                .chap + "</td>";
-                            dynamicTR += "<td class='quizzeActive_less'>" + element
-                                .less + "</td>";
-                            dynamicTR +=
-                                "<td style='width: 150px !important; padding: 0 !important;'>" +
-                                removeBtn + "</td>";
-
-                            dynamicTR = dynamicTR + inpID + " </tr>";
-
-                            // index++;
-                            //_____________________________________________________________________________
-                            quizz_container.append(dynamicTR);
-                            questions_data.value = JSON.stringify(quizzes);
-                            //_____________________________________________________________________________
-                        });
-
-                        if ($("tbody").length <= 1) {
-                            addEmptyRow();
-                        } else {
-                            $(".avil").parent().remove();
-                        };
-                        var sel_SectionID =
-                            `#${$(quizz_container).closest(".nSection").find(".arrSection").attr("id")}`;
-
-                        // $(sel_SectionID).val(JSON.stringify(quziObject));
-
-                        // $(sel_SectionID).val(JSON.stringify(quziObject));
-
-
-                        var allDataActive = [];
-
-                        $(quizz_container).find("tr").each((index, ele) => {
-                            var quziActiveID = $(ele).find(".quizzeActive_id")
-                                .val();
-                            var quziActiveType = $(ele).find(".quizzeActive_type")
-                                .text();
-                            var quziActiveYear = $(ele).find(".quizzeActive_year")
-                                .text();
-                            var quziActiveMonth = $(ele).find(".quizzeActive_month")
-                                .text();
-                            var quziActiveCode = $(ele).find(".quizzeActive_code")
-                                .text();
-                            var quziActiveNoNum = $(ele).find(".quizzeActive_section")
-                                .text();
-                            var quziActiveSection = $(ele).find(".quizzeActive_noNum")
-                                .text();
-                            var quziActiveChapter = $(ele).find(".quizzeActive_diff")
-                                .text();
-                            var quziActiveLessone = $(ele).find(".quizzeActive_chap")
-                                .text();
-                            var quziActiveDiff = $(ele).find(".quizzeActive_less")
-                                .text();
-
-                            var quziObjectActive = {
-                                id: quziActiveID,
-                                type: quziActiveType,
-                                year: quziActiveYear,
-                                month: quziActiveMonth,
-                                code: quziActiveCode,
-                                section: quziActiveNoNum,
-                                noNum: quziActiveSection,
-                                diff: quziActiveChapter,
-                                chap: quziActiveLessone,
-                                less: quziActiveDiff,
-                            }
-
-                            allDataActive.push(quziObjectActive);
-                            console.log("quziObjectActive", quziObjectActive)
-                        })
-
-                        quizzesActive.push(...allDataActive)
-
-
-
-                        $(sel_SectionID).val(JSON.stringify(quizzesActive));
-
-
-
-
-                        console.log("quizzesquizzes", quizzes)
-                        console.log("quziObject", quziObject)
-                        // console.log("section_0",$(sel_SectionID).val())
-                        console.log($(sel_SectionID).attr("id"), $(".activeSection").closest(
-                            ".nSection").find(
-                            ".arrSection").val())
-                        // console.log("allDataActive",allDataActive)
-                        console.log("quizzesActive", quizzesActive)
                     });
 
                     $(document).on('click', '.remove_qz', function() {
@@ -2218,49 +2211,35 @@
                 // var indexQuizze = $(count_tr_edit);
 
                 if ($(this).closest(".form_editquizze").find(".tblData_Edite").hasClass("activeSection")) {
+
                     var chosenSe = `#${$(this).closest(".question_edit_parQ").attr("id")}`;
+
                     $(chosenSe).find(".alertChoseEdit").empty();
                     $(this).addClass("selected_qz");
                     $(this).removeClass("edit_qz");
                     $(this).text("Selected");
-                    console.log("Yesssssss")
-                    // console.log($(this))
-                } else {
-                    console.log($(this))
-                    console.log("nooooo")
-                    var chosenSe = `#${$(this).closest(".question_edit_parQ").attr("id")}`;
-                    $(chosenSe).find(".alertChoseEdit").empty();
-                    $(chosenSe).find(".alertChoseEdit").append(
-                        `<span style="font-size: 1.4rem;font-weight: 500;color: #e31616;border-radius: 10px;margin-top: 10px;">Chose section </span>`
-                    )
-                    console.log(chosenSe)
-                }
-                // $(this).addClass("selected_qz");
-                //     $(this).removeClass("edit_qz");
-                //     $(this).text("Selected")
-                console.log("##############")
 
-                console.log("indexx", indexx)
-                console.log("count_edit_lenght", count_tr_edit)
-                // console.log("indexQuizze", indexQuizze)
-                console.log("##############")
+                    console.log("indexx", indexx)
+                    console.log("count_edit_lenght", count_tr_edit)
+                    // console.log("indexQuizze", indexQuizze)
+                    console.log("##############")
 
 
-                console.log("question_idd", question_idd);
-                console.log("quizze_idd", quizze_idd);
+                    console.log("question_idd", question_idd);
+                    console.log("quizze_idd", quizze_idd);
 
-                // console.log("quziId", quziId);
-                console.log("quziType", quziType);
-                console.log("quziYear", quziYear);
-                console.log("quziMonth", quziMonth);
-                console.log("quziCode", quziCode);
-                console.log("quziNoNum", quziNoNum);
-                console.log("quziSection", quziSection);
-                console.log("quziDiff", quziDiff);
-                console.log("##########")
-                console.log("edit_eray", edit_eray);
+                    // console.log("quziId", quziId);
+                    console.log("quziType", quziType);
+                    console.log("quziYear", quziYear);
+                    console.log("quziMonth", quziMonth);
+                    console.log("quziCode", quziCode);
+                    console.log("quziNoNum", quziNoNum);
+                    console.log("quziSection", quziSection);
+                    console.log("quziDiff", quziDiff);
+                    console.log("##########")
+                    console.log("edit_eray", edit_eray);
 
-                var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
+                    var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
                             <input type="hidden"
                             value=${question_idd}
                             name='question_id[]'
@@ -2295,13 +2274,20 @@
                             </td>
                         </tr>`;
 
-                $(".activeSection").append(new_Ele_Edit);
+                    $(".activeSection").append(new_Ele_Edit);
 
-                if ($("tbody").length <= 1) {
-                    addEmptyRow();
+                    if ($("tbody").length <= 1) {
+                        addEmptyRow();
+                    } else {
+                        $(".avil").parent().remove();
+                    };
                 } else {
-                    $(".avil").parent().remove();
-                };
+                    var chosenSe = `#${$(this).closest(".question_edit_parQ").attr("id")}`;
+                    $(chosenSe).find(".alertChoseEdit").empty();
+                    $(chosenSe).find(".alertChoseEdit").append(
+                        `<span style="font-size: 1.4rem;font-weight: 500;color: #e31616;border-radius: 10px;margin-top: 10px;">Chose section </span>`
+                    )
+                }
             });
 
             $(document).on('click', '.remove_qz_edit', function() {
