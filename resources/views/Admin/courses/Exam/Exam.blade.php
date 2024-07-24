@@ -1811,7 +1811,7 @@
                         
                         var $this = $(this);
                         var $formQuizze = $this.closest(".form_quizze");
-                        var $tblDataAdd = $formQuizze.find(".tblDataAdd");
+                        var $tblDataAdd = $formQuizze.find(".sel_quz");
 
                         if ($tblDataAdd.hasClass("activeSection")) {
                             console.log($tblDataAdd);
