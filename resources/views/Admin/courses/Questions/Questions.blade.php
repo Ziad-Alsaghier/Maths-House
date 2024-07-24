@@ -218,7 +218,7 @@
                 $(sel_cate).change((e) => {
                     console.log("ddddddd")
                     var course = `                            
-                <option disabled selected>
+                <option selected>
                                 Select Course
                             </option>`;
                     courses.forEach(ele => {
@@ -251,7 +251,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="category_id" id="sel_Category" class="form-control">
-                        <option disabled selected>
+                        <option selected>
                             Select Category
                         </option>
                         @foreach ($categories as $category)
@@ -275,7 +275,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="course_id" id="sel_course" class="form-control sel_course">
-                        <option disabled selected>
+                        <option selected>
                             Select Course
                         </option>
                         @foreach ($courses as $course)
@@ -306,7 +306,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="chapter_id" id="sel_chapter" class="form-control sel_chapter">
-                        <option disabled selected>
+                        <option selected>
                             Select Chapter
                         </option>
                         @foreach ($chapters as $chapter)
@@ -337,7 +337,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="lesson_id" id="sel_lesson" class="form-control sel_lesson">
-                        <option disabled selected>
+                        <option selected>
                             Select Lesson
                         </option>
                         @foreach ($lessons as $lesson)
@@ -369,7 +369,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="q_type" class="form-control">
-                        <option disabled selected>
+                        <option selected>
                             Select Type
                         </option>
                         <option {{ @$data['q_type'] == 'Trail' ? 'selected' : '' }} value="Trail">
@@ -391,7 +391,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="section" class="form-control">
-                        <option disabled selected>
+                        <option selected>
                             Select Section
                         </option>
                         <option {{ @$data['section'] == 'Blank' ? 'selected' : '' }} value="Blank">
@@ -419,7 +419,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="year" class="form-control">
-                        <option disabled selected>
+                        <option selected>
                             Select Year
                         </option>
                         @for ($i = 2000; $i <= date('Y'); $i++)
@@ -437,7 +437,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="month" class="form-control">
-                        <option disabled selected>
+                        <option selected>
                             Select Month
                         </option>
                         @for ($i = 1; $i <= 12; $i++)
@@ -460,7 +460,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="difficulty" class="form-control">
-                        <option disabled selected>
+                        <option selected>
                             Select Difficulty
                         </option>
                         <option {{ @$data['difficulty'] == 'A' ? 'selected' : '' }} value="A">
@@ -509,7 +509,7 @@
         let sel_lesson2 = document.querySelector('#sel_lesson');
         sel_cate2.addEventListener('change', (e) => {
             sel_course2.innerHTML = `                            
-        <option disabled selected>
+        <option selected>
             Select Course
         </option>`;
             courses.forEach(element => {
@@ -524,7 +524,7 @@
         });
         sel_course2.addEventListener('change', (e) => {
             sel_chapter2.innerHTML = `                            
-        <option disabled selected>
+        <option selected>
             Select Chapter
         </option>`;
             chapters.forEach(element => {
@@ -539,7 +539,7 @@
         });
         sel_chapter2.addEventListener('change', (e) => {
             sel_lesson2.innerHTML = `                            
-        <option disabled selected>
+        <option selected>
             Select Lesson
         </option>`;
             lessons.forEach(element => {
@@ -1223,7 +1223,7 @@
         lessons = JSON.parse(lessons);
         sel_cate.addEventListener('change', (e) => {
             sel_course.innerHTML = `                            
-            <option disabled selected>
+            <option selected>
                 Select Course
             </option>`;
             courses.forEach(element => {
@@ -1239,7 +1239,7 @@
 
         sel_course.addEventListener('change', (e) => {
             sel_chapter.innerHTML = `                            
-            <option disabled selected>
+            <option selected>
                 Select Chapter
             </option>`;
             chapters.forEach(element => {
@@ -1255,7 +1255,7 @@
 
         sel_chapter.addEventListener('change', (e) => {
             sel_lesson.innerHTML = `                            
-            <option disabled selected>
+            <option selected>
                 Select Lesson
             </option>`;
             lessons.forEach(element => {
@@ -1279,7 +1279,7 @@
                 for (let j = 0; j < end; j++) {
                     if (sel_cate3[j] == e.target) {
                         sel_course3[j].innerHTML = `                            
-                        <option disabled selected>
+                        <option selected>
                             Select Course
                         </option>`;
                         courses.forEach(element => {
@@ -1301,7 +1301,7 @@
                 for (let j = 0; j < end; j++) {
                     if (sel_course3[j] == e.target) {
                         sel_chapter3[j].innerHTML = `                            
-                        <option disabled selected>
+                        <option selected>
                             Select Chapter
                         </option>`;
                         chapters.forEach(element => {
@@ -1323,7 +1323,7 @@
                 for (let j = 0; j < end; j++) {
                     if (sel_chapter3[j] == e.target) {
                         sel_lesson3[j].innerHTML = `                            
-                        <option disabled selected>
+                        <option selected>
                             Select Lesson
                         </option>`;
                         lessons.forEach(element => {
