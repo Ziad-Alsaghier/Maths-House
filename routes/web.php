@@ -469,6 +469,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
 
     Route::controller(Stu_LiveController::class)->group(function(){
         Route::get('MySessions', 'stu_mysessions')->name('stu_mysessions');
+        Route::get('MySessions/Filter', 'filter_live')->name('filter_live');
         Route::get('Live/Courses', 'stu_myLiveCourse')->name('stu_myLiveCourse');
         Route::get('Live/Chapter/{course_id}', 'stu_live_chapters')->name('stu_live_chapters');
         Route::get('Live/Lessons/{chapter_id}', 'stu_myLiveLesson')->name('stu_myLiveLesson');
