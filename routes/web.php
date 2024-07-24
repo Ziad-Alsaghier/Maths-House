@@ -256,6 +256,8 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Cancelation/Rejected/{id}', 'reject_cancelation')->name('reject_cancelation');
         Route::get('/Live/Calender', 'live_calender')->name('live_calender');
         Route::get('/Live/TeacherSession', 'teacher_session')->name('teacher_session');
+        Route::get('Live/TeacherSession/Filter', 'filter_teacher_session')->name('filter_teacher_session');
+
         Route::get('/Live/PrivateRequestShow', 'ad_private_requests')->name('ad_private_requests');
         Route::get('/Academic', 'ad_academic')->name('ad_academic');
         Route::get('/Academic/Filter', 'ad_filter_academic')->name('ad_filter_academic');
@@ -469,7 +471,6 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
 
     Route::controller(Stu_LiveController::class)->group(function(){
         Route::get('MySessions', 'stu_mysessions')->name('stu_mysessions');
-        Route::get('MySessions/Filter', 'filter_live')->name('filter_live');
         Route::get('Live/Courses', 'stu_myLiveCourse')->name('stu_myLiveCourse');
         Route::get('Live/Chapter/{course_id}', 'stu_live_chapters')->name('stu_live_chapters');
         Route::get('Live/Lessons/{chapter_id}', 'stu_myLiveLesson')->name('stu_myLiveLesson');

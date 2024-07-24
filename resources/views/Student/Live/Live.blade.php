@@ -22,61 +22,6 @@
 
 
 <div class="upcoming_tbl d-none">
-    {{-- <form method="GET" action="{{route('filter_live')}}"> 
-        <input type="hidden" name="tbl_name" value="upcoming_tbl" />
-        <div class="pb-2 d-flex">
-            <select name="category_id" class="form-control sel_category mx-2">
-                <option disabled selected>
-                    Select Category ...
-                </option>
-                @foreach ($categories as $category)
-                    <option {{ @$data['category_id'] == $category->id ? 'selected' : '' }} value="{{ $category->id }}">
-                        {{ $category->cate_name }}
-                    </option>
-                @endforeach
-            </select>
-    
-            <select name="course_id" class="form-control sel_course_items mx-2">
-                <option disabled selected>
-                    Select Course ...
-                </option>
-                @foreach ($courses as $course)
-                    @if (@$data['course_id'] == $course->id)
-                        <option value="{{ $course->id }}" selected>
-                            {{ $course->course_name }}
-                        </option>
-                    @elseif(@$data['category_id'] == $course->category_id)
-                        <option value="{{ $course->id }}">
-                            {{ $course->course_name }}
-                        </option>
-                    @endif
-                @endforeach
-            </select>
-    
-            <input type="hidden" value="{{ $courses }}" class="course" /> 
-        </div>
-           <div class="pb-2 d-flex">
-            <select name="teacher_id" class="form-control mx-2">
-                <option disabled selected>
-                    Select Teacher ...
-                </option>
-                @foreach ($teachers as $teacher)
-                    <option {{ @$data['teacher_id'] == $teacher->id ? 'selected' : '' }} value="{{ $teacher->id }}">
-                        {{ $teacher->nick_name }}
-                    </option>
-                @endforeach
-            </select>
-    
-            <input type="date" name="date" value="{{@$data['date']}}" class="form-control" />
-    
-            <input type="hidden" value="{{ $courses }}" class="course" />
-            <button class="btn btn-primary mx-2">
-                Submit
-            </button>
-        </div>
-        
-    </form> --}}
-
     <table class="table">
         <thead>
             <th>#</th>
@@ -237,28 +182,6 @@
     });
 </script>
 
-<script>
-    let sel_category = document.querySelector('.sel_category');
-    let sel_course_items = document.querySelector('.sel_course_items');
-    let course = document.querySelector('.course');
-    course = course.value;
-    course = JSON.parse(course);
-
-    sel_category.addEventListener('change', () => {
-        sel_course_items.innerHTML = `
-    <option disabled selected>
-        Select Course ...
-    </option>`;
-        course.forEach(element => {
-            if (sel_category.value == element.category_id) {
-                sel_course_items.innerHTML += `
-      <option value="${element.id}">
-          ${element.course_name}
-      </option>`;
-            }
-        });
-    })
-</script>
 @endsection
 
 @include('Student.inc.footer')
