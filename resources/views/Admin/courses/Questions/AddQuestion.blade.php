@@ -78,7 +78,8 @@
          cursor: pointer;
      }
 
-     .removeNewAnswer,.removeLastAnswer {
+     .removeNewAnswer,
+     .removeLastAnswer {
          border: none;
          background: red;
          color: #fff;
@@ -793,12 +794,8 @@
        <input class="form-control" name="mcq_ans[]" placeholder="Answer D" />
        </div>
 
-       <div class="my-2 d-none newAnswerSe">
-        <div class="d-flex align-items-center mb-3 gap-2">
-       <input name="mcq_answers" class="mcq_answer_radio" value="E" id="mcq_New" type="radio" />
-       <input class="form-control letter_choice mb-3" value="E" name="mcq_char[]" placeholder="Letter Choice" />
-       </div>
-       <input class="form-control" name="mcq_ans[]" placeholder="New Answer" />
+       <div class="my-2 newAnswerSe">
+       
        </div>
        <div class="newAnswer">
         <button type="button" class="addNewAnswer">New Answer</button>
@@ -820,13 +817,22 @@
 
                      $(".addNewAnswer").click(function() {
                          $(this).toggleClass("d-none");
+                         $(".newAnswerSe").append(`<div class="d-flex align-items-center mb-3 gap-2">
+                                            <input name="mcq_answers" class="mcq_answer_radio"
+                                                value="New Answer" id="mcq_New"
+                                                type="radio" />
+                                            <input class="form-control letter_choice mb-3"
+                                                value="New Answer" name="mcq_char[]"
+                                                placeholder="Letter Choice" />
+                                        </div>
+                                        <input class="form-control" name="mcq_ans[]"
+                                            placeholder="New Answer" />`);
                          $(".removeNewAnswer").toggleClass("d-none");
-                         $(".newAnswerSe").toggleClass("d-none");
                      })
                      $(".removeNewAnswer").click(function() {
                          $(this).toggleClass("d-none");
                          $(".addNewAnswer").toggleClass("d-none");
-                         $(".newAnswerSe").toggleClass("d-none");
+                         $(".newAnswerSe").empty();
                      })
                  } else if ($(".ans_type").val() == 'Grid_in') {
                      $(".ans_div_Mcq").addClass('d-none');
@@ -1075,9 +1081,9 @@
 
              function checkValOne() {
                  if ($(questionAnswer).val() !== "" &&
-                     $(questionDifficulty).val() !== "" && $(questionType).val() !== "" ) {
-                         $(".continue_btn").removeClass("disabled")
-                         checkValGrid()
+                     $(questionDifficulty).val() !== "" && $(questionType).val() !== "") {
+                     $(".continue_btn").removeClass("disabled")
+                     checkValGrid()
                  } else {
                      $(".continue_btn").addClass("disabled")
                      checkValGrid()
@@ -1229,7 +1235,7 @@
                  } else {
                      $(".faildAnswer").addClass("d-none")
                  }
-                  checkValOne();
+                 checkValOne();
                  //  checkValGrid();
 
              })
