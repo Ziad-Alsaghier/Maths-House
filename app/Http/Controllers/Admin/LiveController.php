@@ -368,9 +368,56 @@ class LiveController extends Controller
         $cancelations = CancelSession::
         orderByDesc('id')
         ->where('statue', '!=', 'Approve')
-        ->simplePaginate(10);
+        ->get();
+        $categories = Category::all();
+        $courses = Course::all();
+        $teachers = User::
+        where('position', 'teacher')
+        ->get();
 
-        return view('Admin.Live.Cancelation', compact('cancelations'));
+        return view('Admin.Live.Cancelation', 
+        compact('cancelations', 'categories', 'courses', 'teachers'));
+    }
+
+    public function filter_cancelation( Request $req ){
+        $cancelations = CancelSession::
+        orderByDesc('id')
+        ->where('statue', '!=', 'Approve');
+        $categories = Category::all();
+        $courses = Course::all();
+        $teachers = User::
+        where('position', 'teacher')
+        ->get();
+        $data = $req->all();
+
+        if ( !empty($req->date) ) { 
+            $date = $req->date;
+            $cancelations = $cancelations->where('date', $date);
+        }
+        if ( !empty($req->course_id) ) {
+            $course_id = $req->course_id;
+            $cancelations = $cancelations->whereHas('session.lesson.chapter', function($query) use($course_id){
+                $query->where('course_id', $course_id);
+            })->get();
+        }
+        elseif ( !empty($req->category_id) ) {
+            $category_id = $req->category_id;
+            $cancelations = $cancelations->whereHas('session.lesson.chapter.course', function($query) use($category_id){
+                $query->where('category_id', $category_id);
+            })->get();
+        }
+        if ( empty($req->course_id) && empty($req->category_id) ) {
+            $cancelations = $cancelations->get();
+        }
+        if ( !empty($req->teacher_id) ) {
+            $teacher_id = $req->teacher_id;
+            $cancelations = $cancelations->filter(function($query) use ($teacher_id) {
+                return $query->session->teacher_id == $teacher_id;
+            });;
+        }
+
+        return view('Admin.Live.Cancelation', 
+        compact('cancelations', 'categories', 'courses', 'teachers', 'data'));
     }
 
     public function approve_cancelation( $id ){

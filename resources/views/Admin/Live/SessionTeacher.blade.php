@@ -245,7 +245,7 @@
         history_tbl.classList.toggle('d-none');
         upcoming_tbl.classList.add('d-none');
     });
-</script> 
+</script>
 <script>
     let sel_category = document.querySelector('.sel_category');
     let sel_course_items = document.querySelector('.sel_course_items');
