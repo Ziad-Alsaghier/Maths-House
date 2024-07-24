@@ -15,7 +15,7 @@ use App\Models\SmallPackage;
 use App\Models\Category; 
 use App\Models\Course; 
 use App\Models\ReportVideoList; 
-use App\Models\SessionAttendance; 
+use App\Models\SessionAttendance;
 
 use Carbon\Carbon;
 
@@ -27,8 +27,13 @@ class Stu_LiveController extends Controller
         where('user_id', auth()->user()->id)
         ->orderByDesc('id')
         ->get();
+        $categories = Category::all();
+        $courses = Course::all();
+        $teachers = User::
+        where('position', 'teacher')
+        ->get();
         
-        return view('Student.Live.Live', compact('sessions'));
+        return view('Student.Live.Live', compact('sessions', 'categories', 'courses', 'teachers'));
     }
 
     public function v_live( Request $req ){

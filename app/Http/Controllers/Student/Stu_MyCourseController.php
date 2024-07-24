@@ -220,7 +220,8 @@ class Stu_MyCourseController extends Controller
                 $question = Question::where('id', $mcq_item->q_id)
                 ->first();
 
-                $stu_solve = $question->mcq[0]->mcq_answers;
+
+                $stu_solve = isset($question->mcq[0]) &&  isset($question->mcq[0]->mcq_answers) ? $question->mcq[0]->mcq_answers : null;
                 $arr = ['A', 'B', 'C', 'D']; 
                 if ( isset($mcq_item->answer) && $stu_solve == $mcq_item->answer ) {
                     $deg++;

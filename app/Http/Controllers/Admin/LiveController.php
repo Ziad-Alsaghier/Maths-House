@@ -116,6 +116,53 @@ class LiveController extends Controller
         
         return redirect()->back();
     }
+    
+
+    public function filter_live( Request $req ){
+        $sessions = SessionStudent::
+        where('user_id', auth()->user()->id)
+        ->orderByDesc('id');
+        $categories = Category::all();
+        $courses = Course::all();
+        $teachers = User::
+        where('position', 'teacher')
+        ->get();
+        $data = $req->all();
+        if ( !empty($req->course_id) ) {
+            $course_id = $req->course_id;
+            $sessions = $sessions->whereHas('session.lesson.chapter', function($query) use($course_id){
+                $query->where('course_id', $course_id);
+            })
+            ->get();
+        }
+        elseif ( !empty($req->category_id) ) {
+            $category_id = $req->category_id;
+            $sessions = $sessions->whereHas('session.lesson.chapter.course', function($query) use($category_id){
+                $query->where('category_id', $category_id);
+            })
+            ->get();
+        } 
+        if ( !empty($req->teacher_id) ) {
+            $teacher_id = $req->teacher_id;
+            $sessions = $sessions->whereHas('session', function($query) use($teacher_id){
+                $query->where('teacher_id', $teacher_id);
+            })
+            ->get();
+        }
+        if ( !empty($req->date) ) { 
+            $date = $req->date;
+            $sessions = $sessions->whereHas('session', function($query) use($date){
+                $query->where('date', $date);
+            })
+            ->get();
+        }
+        if ( empty($req->course_id) && empty($req->category_id) && empty($req->teacher_id) && empty($req->date) ) {
+            
+            $sessions = $sessions->get();
+        }
+        
+        return view('Student.Live.Live', compact('sessions', 'categories', 'courses', 'teachers', 'data'));
+    }
 
     public function del_session( $id ){
         Session::
@@ -321,9 +368,56 @@ class LiveController extends Controller
         $cancelations = CancelSession::
         orderByDesc('id')
         ->where('statue', '!=', 'Approve')
-        ->simplePaginate(10);
+        ->get();
+        $categories = Category::all();
+        $courses = Course::all();
+        $teachers = User::
+        where('position', 'teacher')
+        ->get();
 
-        return view('Admin.Live.Cancelation', compact('cancelations'));
+        return view('Admin.Live.Cancelation', 
+        compact('cancelations', 'categories', 'courses', 'teachers'));
+    }
+
+    public function filter_cancelation( Request $req ){
+        $cancelations = CancelSession::
+        orderByDesc('id')
+        ->where('statue', '!=', 'Approve');
+        $categories = Category::all();
+        $courses = Course::all();
+        $teachers = User::
+        where('position', 'teacher')
+        ->get();
+        $data = $req->all();
+
+        if ( !empty($req->date) ) { 
+            $date = $req->date;
+            $cancelations = $cancelations->where('date', $date);
+        }
+        if ( !empty($req->course_id) ) {
+            $course_id = $req->course_id;
+            $cancelations = $cancelations->whereHas('session.lesson.chapter', function($query) use($course_id){
+                $query->where('course_id', $course_id);
+            })->get();
+        }
+        elseif ( !empty($req->category_id) ) {
+            $category_id = $req->category_id;
+            $cancelations = $cancelations->whereHas('session.lesson.chapter.course', function($query) use($category_id){
+                $query->where('category_id', $category_id);
+            })->get();
+        }
+        if ( empty($req->course_id) && empty($req->category_id) ) {
+            $cancelations = $cancelations->get();
+        }
+        if ( !empty($req->teacher_id) ) {
+            $teacher_id = $req->teacher_id;
+            $cancelations = $cancelations->filter(function($query) use ($teacher_id) {
+                return $query->session->teacher_id == $teacher_id;
+            });;
+        }
+
+        return view('Admin.Live.Cancelation', 
+        compact('cancelations', 'categories', 'courses', 'teachers', 'data'));
     }
 
     public function approve_cancelation( $id ){
@@ -380,7 +474,51 @@ class LiveController extends Controller
     public function teacher_session(){
         $sessions = Session::get();
 
-        return view('Admin.Live.SessionTeacher', compact('sessions'));
+        $categories = Category::all();
+        $courses = Course::all();
+        $teachers = User::
+        where('position', 'teacher')
+        ->get();
+
+        return view('Admin.Live.SessionTeacher', compact('sessions', 'categories', 'courses', 'teachers'));
+    }
+
+    public function filter_teacher_session( Request $req ){
+        $sessions = Session::orderByDesc('id');
+
+        $categories = Category::all();
+        $courses = Course::all();
+        $teachers = User::
+        where('position', 'teacher')
+        ->get();
+        $data = $req->all();
+        if ( !empty($req->teacher_id) ) {
+            $teacher_id = $req->teacher_id;
+            $sessions = $sessions->where('teacher_id', $teacher_id);
+        }
+        if ( !empty($req->date) ) { 
+            $date = $req->date;
+            $sessions = $sessions->where('date', $date);
+        }
+        if ( !empty($req->course_id) ) {
+            $course_id = $req->course_id;
+            $sessions = $sessions->whereHas('lesson.chapter', function($query) use($course_id){
+                $query->where('course_id', $course_id);
+            })->get();
+        }
+        elseif ( !empty($req->category_id) ) {
+            $category_id = $req->category_id;
+            $sessions = $sessions->whereHas('lesson.chapter.course', function($query) use($category_id){
+                $query->where('category_id', $category_id);
+            })->get();
+        }
+        if ( empty($req->course_id) && empty($req->category_id) ) {
+            $sessions = $sessions->get();
+        }
+        
+        
+        return view('Admin.Live.SessionTeacher', 
+        compact('sessions', 'categories', 'courses', 'teachers', 'data'));
     }
 
     public function ad_private_requests(){
