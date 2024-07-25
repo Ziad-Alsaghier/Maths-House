@@ -182,7 +182,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/', 'quizze')->name('quizze');
         Route::get('/Del/{id}', 'del_quizze')->name('del_quizze');
         Route::post('/Add', 'add_quizze')->name('add_quizze');
-        Route::get('/Edit', 'edit_quizze')->name('edit_quizze');
+        Route::post('/Edit', 'edit_quizze')->name('edit_quizze');
         Route::get('/Filter', 'filter_quiz')->name('filter_quiz');
     });
 
