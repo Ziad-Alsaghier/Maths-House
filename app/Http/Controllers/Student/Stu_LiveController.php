@@ -24,7 +24,10 @@ class Stu_LiveController extends Controller
 
     public function stu_mysessions(){
         $sessions = SessionStudent::
-        where('user_id', auth()->user()->id)
+        whereHas('session', function ($query) {
+            $query->where('type', '!=', 'private');
+        })
+        ->where('user_id', auth()->user()->id)
         ->orderByDesc('id')
         ->get();
         $categories = Category::all();

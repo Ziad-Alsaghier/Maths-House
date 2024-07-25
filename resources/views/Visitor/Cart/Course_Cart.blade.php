@@ -496,10 +496,10 @@
                                         </td>
                                         <input type="hidden" class="chapters_price"
                                             value="{{ json_encode($course->prices) }}" />
-                                        <input type="hidden" class="ch_price" value="{{ $min_price }}" />
+                                        <input type="hidden" class="ch_price" value="{{ $min_price_data->price }}" />
                                         <td class="tbl_chapter_price">
                                             <div class="d-flex align-items-center" style="margin-top: 35px !important;">
-                                                ${{ $min_price }}
+                                                ${{ $min_price_data->price }}
                                             </div>
                                         </td>
                                     </tr>
@@ -541,13 +541,13 @@
                                     Total <span class="float-right totals color-orose total_price">
                                         @if ($min_price_data->discount != null && $min_price_data->discount != 0)
                                             <del style="margin-right: 10px;color: #787878 !important">
-                                                ${{ $min_price }}</del>
+                                                ${{ $min_price_data->price }}</del>
                                             <span class="dicount_price" style="color: #CF202F">
-                                                ${{ $min_price - ($min_price_data->discount * $min_price) / 100 }}
+                                                ${{ $min_price_data->price - ($min_price_data->discount * $min_price_data->price) / 100 }}
                                             </span>
                                         @else
                                             <span style="color: #CF202F">
-                                                ${{ $min_price }}
+                                                ${{ $min_price_data->price }}
                                             </span>
                                         @endif
                                     </span></p>
@@ -557,7 +557,7 @@
                     <form method="POST" action="{{ route('check_out_course') }}">
                         @csrf
                         <input type="hidden" class="course_price" name="price"
-                            value="{{ $min_price - ($min_price_data->discount * $min_price) / 100 }}" />
+                            value="{{ $min_price_data->price - ($min_price_data->discount * $min_price_data->price) / 100 }}" />
                         <input type="hidden" name="course" value="{{ $course }}" />
                         <div class="ui_kit_button payment_widget_btn">
                             <button class="btnCheckout">Proceed To Checkout</button>

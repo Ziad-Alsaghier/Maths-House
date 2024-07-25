@@ -758,13 +758,20 @@
 
             var objTim = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
             $("#timer_val").val(objTim);
-
-            console.log("Hours_quizz", Hours_quizz)
-            console.log("Min_quizz", Min_quizz)
-            console.log("Sec_quizz", Sec_quizz)
-            console.log("objTim", objTim)
-            console.log("timer_val ", $("#timer_val").val())
+ 
                 ++totalSeconds;
+            
+            var timer_val = $("#timer_val").val();
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "GET",
+                data: {
+                    timer_val,
+                },
+                success: function(data) {
+                    console.log("data", data)
+                }
+            })
             secondsLabel.html(pad(totalSeconds % 60));
             secondsLabel.html(pad(parseInt(totalSeconds)));
 

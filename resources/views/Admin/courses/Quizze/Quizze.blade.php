@@ -2195,11 +2195,11 @@
                 console.log("#############")
 
 
-
                 $.ajax({
                     url: "{{ route('edit_quizze') }}",
-                    type: 'GET', // http method
+                    type: 'POST', // http method
                     data: {
+                        _token: '{{ csrf_token() }}', // include CSRF token
                         data: allDataEdite,
                     }, // data to submit
                     success: function(data) {
@@ -2208,6 +2208,7 @@
                         location.reload();
                     }
                 });
+
 
             })
 
