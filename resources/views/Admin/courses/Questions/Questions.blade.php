@@ -251,7 +251,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="category_id" id="sel_Category" class="form-control">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Category
                         </option>
                         @foreach ($categories as $category)
@@ -275,7 +275,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="course_id" id="sel_course" class="form-control sel_course">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Course
                         </option>
                         @foreach ($courses as $course)
@@ -306,7 +306,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="chapter_id" id="sel_chapter" class="form-control sel_chapter">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Chapter
                         </option>
                         @foreach ($chapters as $chapter)
@@ -337,7 +337,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="lesson_id" id="sel_lesson" class="form-control sel_lesson">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Lesson
                         </option>
                         @foreach ($lessons as $lesson)
@@ -369,7 +369,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="q_type" class="form-control">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Type
                         </option>
                         <option {{ @$data['q_type'] == 'Trail' ? 'selected' : '' }} value="Trail">
@@ -391,7 +391,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="section" class="form-control">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Section
                         </option>
                         <option {{ @$data['section'] == 'Blank' ? 'selected' : '' }} value="Blank">
@@ -419,7 +419,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="year" class="form-control">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Year
                         </option>
                         @for ($i = 2000; $i <= date('Y'); $i++)
@@ -437,7 +437,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="month" class="form-control">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Month
                         </option>
                         @for ($i = 1; $i <= 12; $i++)
@@ -460,7 +460,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="difficulty" class="form-control">
-                        <option selected disabled>
+                        <option selected value="">
                             Select Difficulty
                         </option>
                         <option {{ @$data['difficulty'] == 'A' ? 'selected' : '' }} value="A">
