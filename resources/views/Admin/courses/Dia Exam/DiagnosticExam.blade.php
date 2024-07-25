@@ -1611,7 +1611,7 @@
                 var parFilterEdit = `#${$(this).closest(".all_filter").attr("id")}`;
                 var filterBtnEdit = `#${$(parFilterEdit).find(".filterBtn_edit").attr("id")}`;
                 var addAllBtnEdit = `#${$(filterBtnEdit).next().attr("id")}`;
-                var tableEdite = $(this).closest(".question_edit_parQ").find(".question_id.ques_id");
+                var tableEdite = $(this).closest(".question_edit_parQ").find(".quizze_ID");
                 console.log("tableEdite", tableEdite)
                 console.log("parFilterEdit", parFilterEdit)
                 console.log("filterBtn_edit", filterBtnEdit)
