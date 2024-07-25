@@ -1210,20 +1210,24 @@
                                                                     style="display: flex; align-items: center; justify-content: center">
                                                                 </div>
 
-                                                                <div class="allSectionsTableEdit">
+                                                                <div class="allSectionsTableEdit"
+                                                                    id="allSectionsTableEdit">
                                                                     @foreach ($item->sections_data as $element)
-                                                                        <div class="mt-3 nSectionEdit">
+                                                                        <div class="mt-3 nSectionEdit"
+                                                                            id="nSectionEdit{{ $item->id }}">
                                                                             <h1 class="selSectionEdit"
                                                                                 style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
                                                                                 Section {{ $loop->iteration }}</h1>
                                                                             <div class="tableSectionEdit d-none"
                                                                                 style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
                                                                                 <input type="hidden"
-                                                                                    class="arrSection"
-                                                                                    name="section_1" id="section_1">
+                                                                                    class="arrSectionEdit"
+                                                                                    id="section_{{ $loop->iteration }}"
+                                                                                    name="section_1"
+                                                                                    value="{{ $loop->iteration }}">
                                                                                 <table
                                                                                     class="table tblData_Edite table-striped"
-                                                                                    id="tblData_Edite{{ $item->id }}">
+                                                                                    id="tblData_Edite">
                                                                                     <thead class="border-bottom">
                                                                                         <tr>
                                                                                             <th scope="col"
@@ -1264,7 +1268,7 @@
                                                                                         name="add_new_questions" />
 
                                                                                     <tbody class="sel_quz_edit"
-                                                                                        id="sel_quz_edit{{ $item->id }}">
+                                                                                        id="sel_quz_edit{{ $loop->iteration }}">
                                                                                         @foreach ($element->questions->sortBy('q_num') as $question)
                                                                                             <tr class="tr_edite{{ $item->id }}"
                                                                                                 id="tr_edite{{ $question->id }}">
@@ -1498,118 +1502,120 @@
                     $(".allSectionsTable").append(addSectionTable)
                 }
             })
-            $(".num_section_edit").change(function() {
-                console.log($(this).closest(".infoEdit").attr('id'))
-                var parSectionInf = `#${$(this).closest(".infoEdit").attr('id')}`
-                var countSection = $(this).val();
-                $(parSectionInf).find(".allSectionEdit").empty();
-                $(parSectionInf).find(".allSectionsEditTable").empty();
-                console.log("countSection", countSection)
-                for (var i = 0; i < countSection; i++) {
-                    console.log([i])
-                    var addSection = `<div class="col-md-11 d-flex align-items-center justify-content-between gap-2">
-                                            <span class="" style="font-size: 1.2rem;">Section : </span>
+            /* add section in Edit */
 
-                                            <div
-                                                class="col-md-10 p-0 d-flex align-items-center justify-content-start gap-4">
-                                                <div
-                                                    class="col-md-4 d-flex align-items-center justify-content-start gap-2">
-                                                    <span class="col-6" style="font-size: 1.2rem;">Section Name:
-                                                    </span>
-                                                    <input type="text" name="section_name[]"
-                                                        class="col-6 form-control" placeholder="Section Name">
-                                                </div>
-                                                <div
-                                                    class="col-md-4 d-flex align-items-center justify-content-start gap-2">
-                                                    <span class="col-7" style="font-size: 1.2rem;">Section
-                                                        Description : </span>
-                                                    <input type="text" name="section_description[]"
-                                                        class="col-6 form-control" placeholder="Section Description">
-                                                </div>
-                                                <div
-                                                    class="col-md-4 d-flex align-items-center justify-content-start">
-                                                    <span class="col-5" style="font-size: 1.2rem;">Section Time:
-                                                    </span>
-                                                    <div class="d-flex gap-4">
-                                                        <div class="d-flex flex-column align-items-center gap-2">
-                                                            <span style="font-size: 1.2rem !important;">Hours</span>
-                                                            <input type="number" class="form-control" style="width: 50px !important;"
-                                                                name="section_hour[]" value="0">
-                                                            </div>
-                                                        <div class="d-flex flex-column align-items-center gap-2">
-                                                            <span style="font-size: 1.2rem !important;">Minutes</span>
-                                                            <input type="number" class="form-control" style="width: 50px !important;"
-                                                                name="section_minutes[]" value="0">
-                                                            </div>
-                                                        <div class="d-flex flex-column align-items-center gap-2">
-                                                            <span style="font-size: 1.2rem !important;">Seconds</span>
-                                                            <input type="number" class="form-control" style="width: 50px !important;"
-                                                                name="section_seconds[]" value="0">
-                                                            </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+            // $(".num_section_edit").change(function() {
+            //     console.log($(this).closest(".infoEdit").attr('id'))
+            //     var parSectionInf = `#${$(this).closest(".infoEdit").attr('id')}`
+            //     var countSection = $(this).val();
+            //     $(parSectionInf).find(".allSectionEdit").empty();
+            //     $(parSectionInf).find(".allSectionsEditTable").empty();
+            //     console.log("countSection", countSection)
+            //     for (var i = 0; i < countSection; i++) {
+            //         console.log([i])
+            //         var addSection = `<div class="col-md-11 d-flex align-items-center justify-content-between gap-2">
+        //                                 <span class="" style="font-size: 1.2rem;">Section : </span>
 
-                                        </div>`;
-                    $(parSectionInf).find(".allSectionEdit").append(addSection)
-                }
-                for (var i = 0; i < countSection; i++) {
-                    console.log([i])
-                    var addSectionTable = `<div class="mt-3 nSectionEdit">
-                                            <h1 class="selSectionEdit"
-                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
-                                                Section ${[i +1]}</h1>
-                                            <div class="tableSectionEdit d-none"
-                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-                                                <input type="hidden" class="arrSection" name="section_${[i]}" id="section_${[i]}">
-                                                <table class="table table-striped" id="tblData">
-                                                    <thead class="border-bottom">
-                                                        <tr>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Type</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Year</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Month</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Code</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Section</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">No
-                                                            </th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Difficulty</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Chapter</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Lessone</th>
-                                                            <th scope="col"
-                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                Action</th>
-                                                        </tr>
-                                                    </thead>
+        //                                 <div
+        //                                     class="col-md-10 p-0 d-flex align-items-center justify-content-start gap-4">
+        //                                     <div
+        //                                         class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+        //                                         <span class="col-6" style="font-size: 1.2rem;">Section Name:
+        //                                         </span>
+        //                                         <input type="text" name="section_name[]"
+        //                                             class="col-6 form-control" placeholder="Section Name">
+        //                                     </div>
+        //                                     <div
+        //                                         class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+        //                                         <span class="col-7" style="font-size: 1.2rem;">Section
+        //                                             Description : </span>
+        //                                         <input type="text" name="section_description[]"
+        //                                             class="col-6 form-control" placeholder="Section Description">
+        //                                     </div>
+        //                                     <div
+        //                                         class="col-md-4 d-flex align-items-center justify-content-start">
+        //                                         <span class="col-5" style="font-size: 1.2rem;">Section Time:
+        //                                         </span>
+        //                                         <div class="d-flex gap-4">
+        //                                             <div class="d-flex flex-column align-items-center gap-2">
+        //                                                 <span style="font-size: 1.2rem !important;">Hours</span>
+        //                                                 <input type="number" class="form-control" style="width: 50px !important;"
+        //                                                     name="section_hour[]" value="0">
+        //                                                 </div>
+        //                                             <div class="d-flex flex-column align-items-center gap-2">
+        //                                                 <span style="font-size: 1.2rem !important;">Minutes</span>
+        //                                                 <input type="number" class="form-control" style="width: 50px !important;"
+        //                                                     name="section_minutes[]" value="0">
+        //                                                 </div>
+        //                                             <div class="d-flex flex-column align-items-center gap-2">
+        //                                                 <span style="font-size: 1.2rem !important;">Seconds</span>
+        //                                                 <input type="number" class="form-control" style="width: 50px !important;"
+        //                                                     name="section_seconds[]" value="0">
+        //                                                 </div>
+        //                                         </div>
+        //                                     </div>
+        //                                 </div>
 
-                                                    <tbody class="sel_quz_edit" id="sel_quz_edit${[i]}"></tbody>
+        //                             </div>`;
+            //         $(parSectionInf).find(".allSectionEdit").append(addSection)
+            //     }
+            //     for (var i = 0; i < countSection; i++) {
+            //         console.log([i])
+            //         var addSectionTable = `<div class="mt-3 nSectionEdit">
+        //                                 <h1 class="selSectionEdit"
+        //                                     style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+        //                                     Section ${[i +1]}</h1>
+        //                                 <div class="tableSectionEdit d-none"
+        //                                     style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+        //                                     <input type="hidden" class="arrSection" name="section_${[i]}" id="section_${[i]}">
+        //                                     <table class="table table-striped" id="tblData">
+        //                                         <thead class="border-bottom">
+        //                                             <tr>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Type</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Year</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Month</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Code</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Section</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">No
+        //                                                 </th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Difficulty</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Chapter</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Lessone</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Action</th>
+        //                                             </tr>
+        //                                         </thead>
 
-                                                </table>
-                                            </div>
-                                            <span class="dropSection">
-                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
-                                                    style="color: #1b84ff;"></i>
-                                            </span>
-                                        </div>`;
-                    $(parSectionInf).find(".allSectionsTableEdit").append(addSectionTable)
-                }
-            })
+        //                                         <tbody class="sel_quz_edit" id="sel_quz_edit${[i]}"></tbody>
+
+        //                                     </table>
+        //                                 </div>
+        //                                 <span class="dropSection">
+        //                                     <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+        //                                         style="color: #1b84ff;"></i>
+        //                                 </span>
+        //                             </div>`;
+            //         $(parSectionInf).find(".allSectionsTableEdit").append(addSectionTable)
+            //     }
+            // })
 
             $("#show_menu").click(function() {
 
@@ -2348,7 +2354,6 @@
             var allDataEdite = [];
             $(document).on("click", ".edit_filter_exam", function() {
                 console.clear();
-                console.log("firstfirstfirstfirstfirst")
 
                 allDataEdite = [];
                 var InfoEdite = [];
@@ -2405,9 +2410,8 @@
 
 
                 /* Parent from table */
-                var parEdite =
-                    `#${$(btn_editee).closest(".form_editquizze").find(".sel_quz_edit").attr("id")}`;
-                var childEdite = `.${$(parEdite).find("tr").attr("class")}`
+                var parEdite = $(btn_editee).closest(".form_editquizze").find("#allSectionsTableEdit");
+                var childEdite = $(parEdite).find(".nSectionEdit");
 
                 console.log("childEdite", childEdite)
                 console.log("childEdite length", $(childEdite).length)
@@ -2415,77 +2419,103 @@
 
                 $(childEdite).each((childEle, childVal) => {
 
-                    var parEle = `#${$(childVal).attr("id")}`;
+                    var parEle = $(childVal).find(".sel_quz_edit");
+                    var allSectionsEdite = [];
+                    $(childVal).each((indexEle, valEle) => {
+                        
+                        console.log("indexEle", indexEle)
+                        console.log("valEle", valEle)
 
-                    /* ########### */
-                    var question_edit_id = `#${$(parEle).find(".question_edite_id").attr("id")}`;
-                    var ques_ID = $(question_edit_id).val();
+                        var parTableEle = `#${$(valEle).find(".sel_quz_edit").attr("id")}`;
+                        console.log("parTableEle2", parTableEle)
 
-                    /* ########### */
-                    var question_edit_type =
-                        `#${$(parEle).find(".question_edite_type").attr("id")}`;
-                    var ques_TYPE = $(question_edit_type).text().trim();
 
-                    /* ########### */
-                    var question_edit_year =
-                        `#${$(parEle).find(".question_edite_year").attr("id")}`;
-                    var ques_YEAR = $(question_edit_year).text();
+                        /* ########### */
+                        var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
+                        var ques_ID = $(question_edit_id).val();
 
-                    /* ########### */
-                    var question_edit_month =
-                        `#${$(parEle).find(".question_edite_month").attr("id")}`;
-                    var ques_MONTH = $(question_edit_month).text();
+                        /* ########### */
+                        var question_edit_type =
+                            `#${$(parTableEle).find(".question_edite_type").attr("id")}`;
+                        var ques_TYPE = $(question_edit_type).text().trim();
 
-                    /* ########### */
-                    var question_edit_code =
-                        `#${$(parEle).find(".question_edite_code").attr("id")}`;
-                    var ques_CODE = $(question_edit_code).text().trim();
+                        /* ########### */
+                        var question_edit_year =
+                            `#${$(parTableEle).find(".question_edite_year").attr("id")}`;
+                        var ques_YEAR = $(question_edit_year).text();
 
-                    /* ########### */
-                    var question_edit_section =
-                        `#${$(parEle).find(".question_edite_section").attr("id")}`;
-                    var ques_SECTION = $(question_edit_section).text();
+                        /* ########### */
+                        var question_edit_month =
+                            `#${$(parTableEle).find(".question_edite_month").attr("id")}`;
+                        var ques_MONTH = $(question_edit_month).text();
 
-                    /* ########### */
-                    var question_edit_num = `#${$(parEle).find(".question_edite_num").attr("id")}`;
-                    var ques_NUM = $(question_edit_num).text();
-                    /* ########### */
-                    var question_edit_difficulty =
-                        `#${$(parEle).find(".question_edite_difficulty").attr("id")}`;
-                    var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
-                    /* ########### */
-                    var question_edit_chapter =
-                        `#${$(parEle).find(".question_edite_chapter").attr("id")}`;
-                    var ques_chapter = $(question_edit_chapter).text().trim();
-                    /* ########### */
-                    var question_edit_lesson =
-                        `#${$(parEle).find(".question_edite_lesson").attr("id")}`;
-                    var ques_Lesson = $(question_edit_lesson).text().trim();
-                    /* ########### */
+                        /* ########### */
+                        var question_edit_code =
+                            `#${$(parTableEle).find(".question_edite_code").attr("id")}`;
+                        var ques_CODE = $(question_edit_code).text().trim();
 
-                    var question_obj = {
-                        question_ID: JSON.parse(ques_ID),
-                        question_Type: ques_TYPE,
-                        question_Year: JSON.parse(ques_YEAR),
-                        question_Month: JSON.parse(ques_MONTH),
-                        question_Code: ques_CODE,
-                        question_Section: JSON.parse(ques_SECTION),
-                        question_Num: JSON.parse(ques_NUM),
-                        question_Difficulty: ques_DIFFICULTY,
-                        question_Chapter: ques_chapter,
-                        // question_Lesson: ques_lesson,
-                    }
+                        /* ########### */
+                        var question_edit_section =
+                            `#${$(parTableEle).find(".question_edite_section").attr("id")}`;
+                        var ques_SECTION = $(question_edit_section).text();
 
+                        /* ########### */
+                        var question_edit_num = `#${$(parTableEle).find(".question_edite_num").attr("id")}`;
+                        var ques_NUM = $(question_edit_num).text();
+                        /* ########### */
+                        var question_edit_difficulty =
+                            `#${$(parTableEle).find(".question_edite_difficulty").attr("id")}`;
+                        var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
+                        /* ########### */
+                        var question_edit_chapter =
+                            `#${$(parTableEle).find(".question_edite_chapter").attr("id")}`;
+                        var ques_chapter = $(question_edit_chapter).text().trim();
+                        /* ########### */
+                        var question_edit_lesson =
+                            `#${$(parTableEle).find(".question_edite_lesson").attr("id")}`;
+                        var ques_Lesson = $(question_edit_lesson).text().trim();
+                        /* ########### */
+
+                        // var section_obj = {
+                        //     question_ID: JSON.parse(ques_ID),
+                        //     question_Type: ques_TYPE,
+                        //     question_Year: JSON.parse(ques_YEAR),
+                        //     question_Month: JSON.parse(ques_MONTH),
+                        //     question_Code: ques_CODE,
+                        //     question_Section: JSON.parse(ques_SECTION),
+                        //     question_Num: JSON.parse(ques_NUM),
+                        //     question_Difficulty: ques_DIFFICULTY,
+                        //     question_Chapter: ques_chapter,
+                        //     // question_Lesson: ques_lesson,
+                        // }
+                        var section_obj = {
+                            question_ID: ques_ID,
+                            question_Type: ques_TYPE,
+                            question_Year: JSON.parse(ques_YEAR),
+                            question_Month: JSON.parse(ques_MONTH),
+                            question_Code: ques_CODE,
+                            question_Section: JSON.parse(ques_SECTION),
+                            question_Num: JSON.parse(ques_NUM),
+                            question_Difficulty: ques_DIFFICULTY,
+                            question_Chapter: ques_chapter,
+                            // question_Lesson: ques_lesson,
+                        }
+                        console.log("section_obj", section_obj)
+                        allSectionsEdite.push(section_obj);
+                    })
+
+                    console.log("parEle", parEle)
                     console.log("childEle", childEle)
                     console.log("childVal", childVal)
-
-                    allDataEdite.push(question_obj);
+                    
+                    console.log("allSectionsEdite", allSectionsEdite)
+                    
+                    allDataEdite.push(allSectionsEdite);
                 })
 
-                $("#allQuestion").val(JSON.stringify(allDataEdite))
                 console.log("#############")
-                // console.log("parEdite", parEdite)
-                // console.log("parModel", parModel)
+                console.log("parEdite", parEdite)
+                console.log("parModel", parModel)
                 console.log("#############")
                 console.log("InfoEdite", InfoEdite)
                 console.log("allDataEdite", allDataEdite)
@@ -2503,7 +2533,7 @@
                     success: function(data) {
                         console.log(data);
                         console.log(allDataEdite);
-                        location.reload();
+                        //location.reload();
                     }
                 });
             })
