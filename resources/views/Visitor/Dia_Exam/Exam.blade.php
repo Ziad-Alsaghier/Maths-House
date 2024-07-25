@@ -685,7 +685,7 @@
                                         <div class="chosen chose_mcq chosen{{ $iter }}"
                                             id="chosen{{ $iter }}{{ $loop->iteration }}">
                                             <input type="hidden" class="mcq_id" value="{{ $mcq->id }}">
-                                            <button class="ans_btn">{{ $mcq->mcq_num }}</button>
+                                            <button type="button" class="ans_btn">{{ $mcq->mcq_num }}</button>
                                             <input type="text" value="{{ $mcq->mcq_ans }}" readonly>
                                         </div>
                                     @endforeach
