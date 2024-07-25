@@ -991,10 +991,11 @@
                                                     <select class="form-control sel_section"
                                                         id="sel_section{{ $question->q_id ? $question->q_id : $question->id }}"
                                                         name="section">
-                                                        <option value="{{ $question->section }}" selected>
-                                                            {{ $question->section }}
+                                                        <option selected disabled>
+                                                            Select Section
                                                         </option>
-                                                        <option value="1">
+                                                        @if ( $question->section == 1 )
+                                                        <option value="1" selected>
                                                             1
                                                         </option>
                                                         <option value="2">
@@ -1006,6 +1007,46 @@
                                                         <option value="4">
                                                             4
                                                         </option>
+                                                        @elseif( $question->section == 2 )
+                                                        <option value="1">
+                                                            1
+                                                        </option>
+                                                        <option value="2" selected>
+                                                            2
+                                                        </option>
+                                                        <option value="3">
+                                                            3
+                                                        </option>
+                                                        <option value="4">
+                                                            4
+                                                        </option>
+                                                        @elseif( $question->section == 3 )
+                                                        <option value="1">
+                                                            1
+                                                        </option>
+                                                        <option value="2">
+                                                            2
+                                                        </option>
+                                                        <option value="3" selected>
+                                                            3
+                                                        </option>
+                                                        <option value="4">
+                                                            4
+                                                        </option>
+                                                        @elseif( $question->section == 4 )
+                                                        <option value="1">
+                                                            1
+                                                        </option>
+                                                        <option value="2">
+                                                            2
+                                                        </option>
+                                                        <option value="3">
+                                                            3
+                                                        </option>
+                                                        <option value="4" selected>
+                                                            4
+                                                        </option>
+                                                        @endif
                                                     </select>
                                                     <!--end::Input-->
                                                 </div>
