@@ -1611,7 +1611,7 @@
                 var parFilterEdit = `#${$(this).closest(".all_filter").attr("id")}`;
                 var filterBtnEdit = `#${$(parFilterEdit).find(".filterBtn_edit").attr("id")}`;
                 var addAllBtnEdit = `#${$(filterBtnEdit).next().attr("id")}`;
-                var tableEdite = $(this).closest(".question_edit_parQ").find(".quizze_ID");
+                var tableEdite = $(this).closest(".question_edit_parQ").find(".question_id");
                 console.log("tableEdite", tableEdite)
                 console.log("parFilterEdit", parFilterEdit)
                 console.log("filterBtn_edit", filterBtnEdit)
@@ -1638,7 +1638,7 @@
                             $(parFilterEdit).parent().find(".lesson_quizze").empty();
                             (data.questions).forEach((element, index) => {
                                 $(parFilterEdit).parent().find(".lesson_quizze").append(`<tr class="filterResultEdit">
-                          <input type="hidden" value=${$(tableEdite).val()} class="question_id ques_id quizze_ID" />
+                          <input type="hidden" value=${$(tableEdite).val()} class="question_id ques_id" />
                           <th>${index + 1}</th>
                           <td class="type" id="type">${element.q_type}</td>
                           <td class="year" id="year">${element.year}</td>
