@@ -104,6 +104,7 @@ class DiagnosticExamController extends Controller
        where('id', $id)
        ->update($arr);
        
+       return $req->question_id;
        DiaQuestion::where('diagnostic_exam_id', $id)
        ->delete();
        for ($i=0, $end = count($req->question_id); $i < $end; $i++) { 
