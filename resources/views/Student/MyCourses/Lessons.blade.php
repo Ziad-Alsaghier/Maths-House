@@ -607,7 +607,7 @@
             <a class="btn btn-success text-center m-2" href="{{asset('files\lessons_pdf\\' . $idea->pdf)}}" download="{{asset('files\lessons_pdf' . $idea->pdf)}}">
                 PDF {{$idea->lesson->lesson_name}} {{$idea->idea}}
             </a>
-            <a class="btn btn-info text-center m-2" href="{{route('stu_live_pdf', ['file_name' => $idea->pdf])}}" />
+            <a class="btn btn-info text-center m-2" target="_blank" href="{{route('stu_live_pdf', ['file_name' => $idea->pdf])}}" />
                 Show {{$idea->lesson->lesson_name}} {{$idea->idea}}
             </a>
             <br />
