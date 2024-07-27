@@ -39,6 +39,16 @@ class Stu_LiveController extends Controller
         return view('Student.Live.Live', compact('sessions', 'categories', 'courses', 'teachers'));
     }
 
+    public function stu_live_pdf( $file_name ){
+        $path = asset('files/lessons_pdf' . $file_name);
+    
+        if (!file_exists($path)) {
+            abort(404);
+        }
+    
+        return response()->file($path);
+    }
+
     public function v_live( Request $req ){
         $categories = Category::all();
         $courses = Course::all();
