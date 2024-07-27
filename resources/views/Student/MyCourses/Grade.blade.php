@@ -400,11 +400,11 @@
 
                             @php
                             $solve_parallel = DB::table('questions')
-                            ->where('month', $question->month)
-                            ->where('year', $question->year)
-                            ->where('section', $question->section)
-                            ->where('q_num', $question->q_num)
-                            ->where('id', '!=', $question->id)
+                            ->where('month', $item->month)
+                            ->where('year', $item->year)
+                            ->where('section', $item->section)
+                            ->where('q_num', $item->q_num)
+                            ->where('id', '!=', $item->id)
                             ->get();
                         @endphp
 
