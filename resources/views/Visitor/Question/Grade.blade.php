@@ -289,10 +289,6 @@
                                 {{ @$question->g_ans[0]->grid_ans }}
                             @endif:</h5>
 
-                        <button class="Solve"><a href="{{ route('question_parallel', ['id' => $question->id]) }}">
-                                Solve Parallel
-                            </a>
-                        </button>
                         <button class="ansShow" data-bs-toggle="modal" data-bs-target="#modalAnswer{{ $q_ans->id }}">Show
                             Answer</button>
 
@@ -301,6 +297,23 @@
 
                         <a href="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" class="ansPdf" download>Dwonload Pdf
                             {{ $loop->iteration }}</a>
+
+                        @php
+                            $solve_parallel = DB::table('questions')
+                            ->where('month', $question->month)
+                            ->where('year', $question->year)
+                            ->where('section', $question->section)
+                            ->where('q_num', $question->q_num)
+                            ->where('id', '!=', $question->id)
+                            ->get();
+                        @endphp
+
+                        @if ( count($solve_parallel) > 0 )
+                        <button class="Solve"><a href="{{ route('question_parallel', ['id' => $question->id]) }}">
+                                Solve Parallel
+                            </a>
+                        </button>
+                        @endif
                     </div>
 
                     {{-- Modal Answer --}}
