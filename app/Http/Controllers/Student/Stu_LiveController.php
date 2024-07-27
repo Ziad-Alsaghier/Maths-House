@@ -40,12 +40,9 @@ class Stu_LiveController extends Controller
     }
 
     public function stu_live_pdf( $file_name ){
-        $path = asset('files/lessons_pdf' . $file_name);
     
-        if (!file_exists($path)) {
-            abort(404);
-        }
-    
+        $path = public_path('files/lessons_pdf' . $file_name);
+
         return response()->file($path);
     }
 
