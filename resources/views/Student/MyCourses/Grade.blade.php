@@ -338,7 +338,7 @@
         <div class="row g-0  p-3">
             @foreach ( $mistakes as $item )
                 @if ( !empty($item->question) )
-                {{$item->question}}
+                {!! $item->question !!}
                 @endif
                 @if ( !empty($item->q_url) )
                 <img style="width: 200px; height: 200px;"
