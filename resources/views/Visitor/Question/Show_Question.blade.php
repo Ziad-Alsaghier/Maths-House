@@ -830,6 +830,18 @@
                     console.log("6666")
                 }
             }
+            
+            var timer_val = $("#timer_val").val();
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "GET",
+                data: {
+                    timer_val,
+                },
+                success: function(data) {
+                    console.log("data", data)
+                }
+            })
         }
 
         function pad(val) {
