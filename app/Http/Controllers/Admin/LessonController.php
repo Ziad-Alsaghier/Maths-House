@@ -62,8 +62,12 @@ class LessonController extends Controller
             for ($i=0, $end = count($req->idea); $i < $end; $i++) { 
                 extract($_FILES['pdf']);
                 if ( isset($name[$i]) ) {
-                $pdf_name = now() . $name[$i];
-                $pdf_name = str_replace([':', '-', ' '], 'V', $pdf_name);
+                if ( !empty($name[$i]) ) {
+                    $pdf_name = now() . $name[$i];
+                    $pdf_name = str_replace([':', '-', ' '], 'V', $pdf_name);
+                } else {
+                    $pdf_name = null;
+                }
                 IdeaLesson::create([
                     'idea'       => $req->idea[$i],
                     'syllabus'   => $req->syllabus[$i],
@@ -166,8 +170,14 @@ class LessonController extends Controller
         if ( isset($req->idea) ) { 
             for ($i=0, $end = count($req->idea); $i < $end; $i++) { 
                 extract($_FILES['pdf']);
-                $pdf_name = now() . $name[$i];
-                $pdf_name = str_replace([':', '-', ' '], 'V', $pdf_name);
+                if ( !empty($name[$i]) ) {
+                    $pdf_name = now() . $name[$i];
+                    $pdf_name = str_replace([':', '-', ' '], 'V', $pdf_name);
+                } 
+                else {
+                    $pdf_name = null;
+                }
+                
                 IdeaLesson::create([
                     'idea' => $req->idea[$i],
                     'syllabus' => $req->syllabus[$i],
