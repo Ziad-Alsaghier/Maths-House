@@ -604,6 +604,7 @@
             </div>
         </div>
         @foreach ($arr2 as $idea)
+        @if ( !empty($idea->pdf) )
             <a class="btn btn-success text-center m-2" href="{{asset('files\lessons_pdf\\' . $idea->pdf)}}" download="{{asset('files\lessons_pdf' . $idea->pdf)}}">
                 PDF {{$idea->lesson->lesson_name}} {{$idea->idea}}
             </a>
@@ -611,6 +612,7 @@
                 Show {{$idea->lesson->lesson_name}} {{$idea->idea}}
             </a>
             <br />
+        @endif
         @endforeach
         </div>
 

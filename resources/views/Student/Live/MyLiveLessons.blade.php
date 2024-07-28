@@ -516,13 +516,15 @@
     @foreach ($sessions as $session)
     @if ( \Carbon\Carbon::now()->subDays(7) <= $session->date && $chapter_id == $session->lesson->chapter->id )
     @foreach ($session->lesson->ideas as $idea)
-    <a class="btn btn-success text-center m-2" href="{{asset('files\lessons_pdf\\' . $idea->pdf)}}" download="{{asset('files\lessons_pdf\\' . $idea->pdf)}}">
-        PDF {{$idea->lesson->lesson_name}} {{$idea->idea}}
-    </a>
-    <a class="btn btn-info text-center m-2" target="_blank" href="{{route('stu_live_pdf', ['file_name' => $idea->pdf])}}" />
-        Show {{$idea->lesson->lesson_name}} {{$idea->idea}}
-    </a>
-    <br />
+    @if ( !empty($idea->pdf) )
+        <a class="btn btn-success text-center m-2" href="{{asset('files\lessons_pdf\\' . $idea->pdf)}}" download="{{asset('files\lessons_pdf\\' . $idea->pdf)}}">
+            PDF {{$idea->lesson->lesson_name}} {{$idea->idea}}
+        </a>
+        <a class="btn btn-info text-center m-2" target="_blank" href="{{route('stu_live_pdf', ['file_name' => $idea->pdf])}}" />
+            Show {{$idea->lesson->lesson_name}} {{$idea->idea}}
+        </a>
+        <br />
+    @endif
     @endforeach
     @endif
     @endforeach
