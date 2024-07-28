@@ -41,7 +41,7 @@ class Stu_LiveController extends Controller
 
     public function stu_live_pdf( $file_name ){
     
-        $path = public_path('files\\lessons_pdf\\' . $file_name);
+        $path = public_path('files/lessons_pdf/' . $file_name);
         // if (!file_exists($path)) {
         //     session()->flash('faild', 'PDF not Found');
         //     return redirect()->back();
