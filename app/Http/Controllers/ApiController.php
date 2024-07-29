@@ -827,7 +827,7 @@ class ApiController extends Controller
     {
         $user_id = $req->user()->id;
         $chapters = [];
-        $mistakes = count(json_decode($req->mistakes)) == 0 ? [] : json_decode($req->mistakes);
+        $mistakes = json_decode($req->mistakes);
         $exam = Exam::where('id', $req->exam_id)
             ->first();
 
