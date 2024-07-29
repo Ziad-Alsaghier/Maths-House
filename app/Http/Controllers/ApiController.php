@@ -827,9 +827,6 @@ class ApiController extends Controller
     {
         $user_id = $req->user()->id;
         $chapters = [];
-        return response()->json([
-            'data' => $req->mistakes,
-        ]);
         $mistakes = count(json_decode($req->mistakes)) == 0 ? [] : json_decode($req->mistakes);
         $exam = Exam::where('id', $req->exam_id)
             ->first();
@@ -1018,7 +1015,8 @@ class ApiController extends Controller
             ]);
         }
 
-        $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone', 'city_id', 'grade');
+        // $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone', 'city_id', 'grade');
+        $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone');
         $arr['position'] = 'student';
         $arr['state'] = 'hidden';
         $arr['password'] = bcrypt($req->password);
