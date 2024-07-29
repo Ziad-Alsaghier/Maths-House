@@ -949,6 +949,9 @@ class ApiController extends Controller
         $lesson = Lesson::where('id', $id)
             ->first();
         $quiz = $lesson->quizze_api;
+        foreach($quiz as $quiz_image){
+            $quiz_image->q_url = url('images/questions/' .$quiz_image->q_url);
+        }
         for ($i = 1; $i < count($quiz); $i++) {
             $question = $quiz[$i];
            
