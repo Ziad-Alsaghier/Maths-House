@@ -826,7 +826,7 @@ class ApiController extends Controller
     public function api_exam_grade(Request $req)
     {
         return response()->json([
-            'data' => $req->mistakes
+            'data' => $req->all()
         ]);
         $user_id = $req->user()->id;
         $chapters = [];
