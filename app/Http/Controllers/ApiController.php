@@ -825,9 +825,6 @@ class ApiController extends Controller
 
     public function api_exam_grade(Request $req)
     {
-        return response()->json([
-            'data' => $req->mistakes
-        ]);
         $user_id = $req->user()->id;
         $chapters = [];
         $mistakes = count(json_decode($req->mistakes)) == 0 ? [] : json_decode($req->mistakes);
@@ -1122,6 +1119,9 @@ class ApiController extends Controller
 
     public function api_dia_grade(Request $req)
     {
+        return reponse()->json([
+            'data' => $req->mistakes
+        ]);
         $exam = DiagnosticExam::where('id', $req->exam_id)
             ->first();
         $req->mistakes = json_decode($req->mistakes);
