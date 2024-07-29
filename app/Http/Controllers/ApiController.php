@@ -1017,7 +1017,7 @@ class ApiController extends Controller
         $arr['position'] = 'student';
         $arr['state'] = 'hidden';
         $arr['password'] = bcrypt($req->password);
-        $arr['city_id'] = (int)$req->city_id;
+        // $arr['city_id'] = (int)$req->city_id;
         $code = rand(0, 10000);
 
         $email = $arr['email'];
