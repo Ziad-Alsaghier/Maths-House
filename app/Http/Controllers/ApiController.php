@@ -1119,9 +1119,6 @@ class ApiController extends Controller
 
     public function api_dia_grade(Request $req)
     {
-        return reponse()->json([
-            'data' => $req->mistakes
-        ]);
         $exam = DiagnosticExam::where('id', $req->exam_id)
             ->first();
         $req->mistakes = json_decode($req->mistakes);
