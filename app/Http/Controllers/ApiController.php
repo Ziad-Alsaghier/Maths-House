@@ -1013,7 +1013,7 @@ class ApiController extends Controller
         }
 
         // $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone', 'city_id', 'grade');
-        $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone', 'grade');
+        $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone');
         $arr['position'] = 'student';
         $arr['state'] = 'hidden';
         $arr['password'] = bcrypt($req->password);
