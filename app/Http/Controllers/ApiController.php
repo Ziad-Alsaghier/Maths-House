@@ -828,7 +828,6 @@ class ApiController extends Controller
         $user_id = $req->user()->id;
         $chapters = [];
         return response()->json([
-            'type' => gettype($req->mistakes),
             'data' => $req->mistakes,
         ]);
         $mistakes = count(json_decode($req->mistakes)) == 0 ? [] : json_decode($req->mistakes);
