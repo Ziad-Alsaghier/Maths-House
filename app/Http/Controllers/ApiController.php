@@ -830,7 +830,6 @@ class ApiController extends Controller
         return response()->json([
             'type' => gettype($req->mistakes),
             'data' => $req->mistakes,
-            'decode' => (json_decode($req->mistakes))
         ]);
         $mistakes = count(json_decode($req->mistakes)) == 0 ? [] : json_decode($req->mistakes);
         $exam = Exam::where('id', $req->exam_id)
