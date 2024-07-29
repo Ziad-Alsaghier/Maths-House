@@ -218,7 +218,7 @@
                 $(sel_cate).change((e) => {
                     console.log("ddddddd")
                     var course = `                            
-                <option disabled selected>
+                <option selected>
                                 Select Course
                             </option>`;
                     courses.forEach(ele => {
@@ -251,7 +251,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="category_id" id="sel_Category" class="form-control">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Category
                         </option>
                         @foreach ($categories as $category)
@@ -275,7 +275,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="course_id" id="sel_course" class="form-control sel_course">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Course
                         </option>
                         @foreach ($courses as $course)
@@ -306,7 +306,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="chapter_id" id="sel_chapter" class="form-control sel_chapter">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Chapter
                         </option>
                         @foreach ($chapters as $chapter)
@@ -337,7 +337,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="lesson_id" id="sel_lesson" class="form-control sel_lesson">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Lesson
                         </option>
                         @foreach ($lessons as $lesson)
@@ -369,7 +369,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="q_type" class="form-control">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Type
                         </option>
                         <option {{ @$data['q_type'] == 'Trail' ? 'selected' : '' }} value="Trail">
@@ -391,7 +391,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="section" class="form-control">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Section
                         </option>
                         <option {{ @$data['section'] == 'Blank' ? 'selected' : '' }} value="Blank">
@@ -419,7 +419,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="year" class="form-control">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Year
                         </option>
                         @for ($i = 2000; $i <= date('Y'); $i++)
@@ -437,7 +437,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="month" class="form-control">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Month
                         </option>
                         @for ($i = 1; $i <= 12; $i++)
@@ -460,7 +460,7 @@
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select name="difficulty" class="form-control">
-                        <option disabled selected>
+                        <option selected value="">
                             Select Difficulty
                         </option>
                         <option {{ @$data['difficulty'] == 'A' ? 'selected' : '' }} value="A">
@@ -509,7 +509,7 @@
         let sel_lesson2 = document.querySelector('#sel_lesson');
         sel_cate2.addEventListener('change', (e) => {
             sel_course2.innerHTML = `                            
-        <option disabled selected>
+        <option selected>
             Select Course
         </option>`;
             courses.forEach(element => {
@@ -524,7 +524,7 @@
         });
         sel_course2.addEventListener('change', (e) => {
             sel_chapter2.innerHTML = `                            
-        <option disabled selected>
+        <option selected>
             Select Chapter
         </option>`;
             chapters.forEach(element => {
@@ -539,7 +539,7 @@
         });
         sel_chapter2.addEventListener('change', (e) => {
             sel_lesson2.innerHTML = `                            
-        <option disabled selected>
+        <option selected>
             Select Lesson
         </option>`;
             lessons.forEach(element => {
@@ -766,7 +766,7 @@
                                                     @endphp
                                                     @foreach ($answers as $ans)
                                                         @if ($ans->mcq_answers == $ans->mcq_num)
-                                                            <div class="my-2">
+                                                            <div class="my-2 d-flex flex-column">
                                                                 <div class="d-flex align-items-center mb-3 gap-2">
                                                                     <input name="mcq_answers"
                                                                         value="{{ $ans->mcq_num }}"
@@ -779,9 +779,11 @@
                                                                 <input class="form-control"
                                                                     value="{{ $ans->mcq_ans }}" name="mcq_ans[]"
                                                                     placeholder="Answer" />
+                                                                    <button type="button" class="removeLastAnswer mt-2">Remove
+                                                                        Answer</button>
                                                             </div>
                                                         @else
-                                                            <div class="my-2">
+                                                            <div class="my-2 d-flex flex-column">
                                                                 <div class="d-flex align-items-center mb-3 gap-2">
                                                                     <input name="mcq_answers"
                                                                         value="{{ $ans->mcq_num }}"
@@ -794,25 +796,18 @@
                                                                 <input class="form-control"
                                                                     value="{{ $ans->mcq_ans }}" name="mcq_ans[]"
                                                                     placeholder="Answer" />
+                                                                    <button type="button" class="removeLastAnswer mt-2">Remove
+                                                                        Answer</button>
                                                             </div>
                                                             @endif
                                                             @endforeach
-                                                            <div class="my-2 d-none newAnswerSe">
-                                                                <div class="d-flex align-items-center mb-3 gap-2">
-                                                                    <input name="mcq_answers" class="mcq_answer_radio"
-                                                                        value="New Answer" id="mcq_New"
-                                                                        type="radio" />
-                                                                    <input class="form-control letter_choice mb-3"
-                                                                        value="New Answer" name="mcq_char[]"
-                                                                        placeholder="Letter Choice" />
-                                                                </div>
-                                                                <input class="form-control" name="mcq_ans[]"
-                                                                    placeholder="New Answer" />
+                                                            <div class="my-2 newAnswerSe">
+                                                                
                                                             </div>
-                                                    <div class="newAnswer">
-                                                        <button type="button" class="addNewAnswer">New
-                                                            Answer</button>
+                                                    <div class="newAnswer gap-3">
                                                         <button type="button" class="removeNewAnswer d-none">Remove
+                                                        Answer</button>
+                                                        <button type="button" class="addNewAnswer">New
                                                             Answer</button>
                                                     </div>
                                                 </div>
@@ -952,18 +947,18 @@
                                                         <option value="{{ $question->month }}">
                                                             {{ $question->month }}
                                                         </option>
-                                                        <option value="Jan">Jan</option>
-                                                        <option value="Fab">Fab</option>
-                                                        <option value="Mar">Mar</option>
-                                                        <option value="April">April</option>
-                                                        <option value="May">May</option>
-                                                        <option value="June">June</option>
-                                                        <option value="July">July</option>
-                                                        <option value="Aug">Aug</option>
-                                                        <option value="Sept">Sept</option>
-                                                        <option value="Oct">Oct</option>
-                                                        <option value="Nov">Nov</option>
-                                                        <option value="Dec">Dec</option>
+                                                        <option value="1">Jan</option>
+                                                        <option value="2">Fab</option>
+                                                        <option value="3">Mar</option>
+                                                        <option value="4">April</option>
+                                                        <option value="5">May</option>
+                                                        <option value="6">June</option>
+                                                        <option value="7">July</option>
+                                                        <option value="8">Aug</option>
+                                                        <option value="9">Sept</option>
+                                                        <option value="10">Oct</option>
+                                                        <option value="11">Nov</option>
+                                                        <option value="12">Dec</option>
                                                     </select>
                                                     <!--end::Input-->
                                                 </div>
@@ -996,10 +991,11 @@
                                                     <select class="form-control sel_section"
                                                         id="sel_section{{ $question->q_id ? $question->q_id : $question->id }}"
                                                         name="section">
-                                                        <option value="{{ $question->section }}" selected>
-                                                            {{ $question->section }}
+                                                        <option selected disabled>
+                                                            Select Section
                                                         </option>
-                                                        <option value="1">
+                                                        @if ( $question->section == 1 )
+                                                        <option value="1" selected>
                                                             1
                                                         </option>
                                                         <option value="2">
@@ -1011,6 +1007,46 @@
                                                         <option value="4">
                                                             4
                                                         </option>
+                                                        @elseif( $question->section == 2 )
+                                                        <option value="1">
+                                                            1
+                                                        </option>
+                                                        <option value="2" selected>
+                                                            2
+                                                        </option>
+                                                        <option value="3">
+                                                            3
+                                                        </option>
+                                                        <option value="4">
+                                                            4
+                                                        </option>
+                                                        @elseif( $question->section == 3 )
+                                                        <option value="1">
+                                                            1
+                                                        </option>
+                                                        <option value="2">
+                                                            2
+                                                        </option>
+                                                        <option value="3" selected>
+                                                            3
+                                                        </option>
+                                                        <option value="4">
+                                                            4
+                                                        </option>
+                                                        @elseif( $question->section == 4 )
+                                                        <option value="1">
+                                                            1
+                                                        </option>
+                                                        <option value="2">
+                                                            2
+                                                        </option>
+                                                        <option value="3">
+                                                            3
+                                                        </option>
+                                                        <option value="4" selected>
+                                                            4
+                                                        </option>
+                                                        @endif
                                                     </select>
                                                     <!--end::Input-->
                                                 </div>
@@ -1180,15 +1216,28 @@
                     // console.log("val",val)
                 })
             });
+
+            $(".removeLastAnswer").click(function(){
+                $(this).parent().remove();
+            })
             $(".addNewAnswer").click(function() {
                 $(this).toggleClass("d-none");
+                $(".newAnswerSe").append(`<div class="d-flex align-items-center mb-3 gap-2">
+                                            <input name="mcq_answers" class="mcq_answer_radio"
+                                                value="New Answer" id="mcq_New"
+                                                type="radio" />
+                                            <input class="form-control letter_choice mb-3"
+                                                value="New Answer" name="mcq_char[]"
+                                                placeholder="Letter Choice" />
+                                        </div>
+                                        <input class="form-control" name="mcq_ans[]"
+                                            placeholder="New Answer" />`);
                 $(".removeNewAnswer").toggleClass("d-none");
-                $(".newAnswerSe").toggleClass("d-none");
             })
             $(".removeNewAnswer").click(function() {
                 $(this).toggleClass("d-none");
                 $(".addNewAnswer").toggleClass("d-none");
-                $(".newAnswerSe").toggleClass("d-none");
+                $(".newAnswerSe").empty();
             })
             $(".btn_remove_idea_old").each((val, ele) => {
                     // console.log("ele",ele)
@@ -1198,6 +1247,7 @@
                     // console.log("val",val)
                 })
         })
+
         let sel_cate = document.querySelector('.sel_cate');
         let sel_course = document.querySelector('.sel_course');
         let sel_chapter = document.querySelector('.sel_chapter');
@@ -1214,7 +1264,7 @@
         lessons = JSON.parse(lessons);
         sel_cate.addEventListener('change', (e) => {
             sel_course.innerHTML = `                            
-            <option disabled selected>
+            <option selected>
                 Select Course
             </option>`;
             courses.forEach(element => {
@@ -1230,7 +1280,7 @@
 
         sel_course.addEventListener('change', (e) => {
             sel_chapter.innerHTML = `                            
-            <option disabled selected>
+            <option selected>
                 Select Chapter
             </option>`;
             chapters.forEach(element => {
@@ -1246,7 +1296,7 @@
 
         sel_chapter.addEventListener('change', (e) => {
             sel_lesson.innerHTML = `                            
-            <option disabled selected>
+            <option selected>
                 Select Lesson
             </option>`;
             lessons.forEach(element => {
@@ -1270,7 +1320,7 @@
                 for (let j = 0; j < end; j++) {
                     if (sel_cate3[j] == e.target) {
                         sel_course3[j].innerHTML = `                            
-                        <option disabled selected>
+                        <option selected>
                             Select Course
                         </option>`;
                         courses.forEach(element => {
@@ -1292,7 +1342,7 @@
                 for (let j = 0; j < end; j++) {
                     if (sel_course3[j] == e.target) {
                         sel_chapter3[j].innerHTML = `                            
-                        <option disabled selected>
+                        <option selected>
                             Select Chapter
                         </option>`;
                         chapters.forEach(element => {
@@ -1314,7 +1364,7 @@
                 for (let j = 0; j < end; j++) {
                     if (sel_chapter3[j] == e.target) {
                         sel_lesson3[j].innerHTML = `                            
-                        <option disabled selected>
+                        <option selected>
                             Select Lesson
                         </option>`;
                         lessons.forEach(element => {

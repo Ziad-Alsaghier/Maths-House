@@ -681,7 +681,7 @@
                                     <div class="chosen chose_mcq chosen{{ $iter }}"
                                         id="chosen{{ $iter }}{{ $loop->iteration }}">
                                         <input type="hidden" class="mcq_id" value="{{ $mcq->id }}">
-                                        <button class="ans_btn">{{ $mcq->mcq_num }}</button>
+                                        <button type="button" class="ans_btn">{{ $mcq->mcq_num }}</button>
                                         <input type="text" value="{{ $mcq->mcq_ans }}" readonly>
                                     </div>
                                 @endforeach
@@ -788,11 +788,9 @@
             var Min_quizz = $("#minutes").text();
             var Sec_quizz = $("#seconds").text();
 
-            var objTim = {
-                houres: Hours_quizz,
-                minutes: Min_quizz,
-                seconds: Sec_quizz
-            }
+            var alltime = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
+            var objTim = alltime;
+            
             $("#timer_val").val(JSON.stringify(objTim));
 
             console.log("Hours_quizz", Hours_quizz)
@@ -832,6 +830,18 @@
                     console.log("6666")
                 }
             }
+            
+            var timer_val = $("#timer_val").val();
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "GET",
+                data: {
+                    timer_val,
+                },
+                success: function(data) {
+                    console.log("data", data)
+                }
+            })
         }
 
         function pad(val) {

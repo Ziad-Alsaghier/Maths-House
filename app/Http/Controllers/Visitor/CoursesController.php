@@ -25,8 +25,7 @@ use App\Models\PromoCourse;
 use App\Models\Lesson; 
 use App\Models\IdeaLesson; 
 use App\Models\Question; 
-use App\Models\quizze; 
-use Cart;
+use App\Models\quizze;
 
 class CoursesController extends Controller
 {
@@ -95,19 +94,15 @@ class CoursesController extends Controller
         ->count();
         $quizs = quizze::whereIn('lesson_id', $lessons_count)
         ->count();
+        $related_course = Course::where('id', '!=', $id)
+        ->get();
         
         return view('Visitor.Courses.Chapters', 
-        compact('chapters', 'course_price', 'price', 'course', 'total_price',
+        compact('chapters', 'course_price', 'price', 'course', 'total_price', 'related_course',
         'chapters_count', 'lessons_count', 'videos_count', 'questions', 'quizs'));
     }
     
     public function buy_chapters( Request $req ){
-        Cart::session(auth()->user()->id)->add(array(
-            'id' => $req-id,
-            'name' => $req->chapter_name,
-            'price' => $req->ch_price,
-            'quantity' => 1,
-        ));
 
         return $req->all();
     }
@@ -125,14 +120,13 @@ class CoursesController extends Controller
             }
         }
         Cookie::queue(Cookie::forget('min_price_data'));
-        Cookie::queue('marketing', json_encode($course), 10000);
-        Cookie::queue('chapters_price', ($min_price), 10000);
+        Cookie::queue('marketing', json_encode($course), 180);
         
         if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
             return view('Visitor.Login.login');
         }
         elseif ( $min_price == $req->chapters_price ) {
-            Cookie::queue('min_price_data', json_encode($min_price_data), 10000); 
+            Cookie::queue('min_price_data', json_encode($min_price_data), 180); 
             return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
         }
         
@@ -156,10 +150,8 @@ class CoursesController extends Controller
             $data = json_decode(Cookie::get('marketing'));
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
-        
-        Cookie::queue('marketing', json_encode($data), 10000);  
-        Cookie::queue('chapters_price', ($chapters_price), 10000);  
-        Cookie::queue('marprice_arreting', json_encode($price_arr), 10000);
+        Cookie::queue('marketing', json_encode($data), 180);  
+        Cookie::queue('chapters_price', ($chapters_price), 180);
          $price_arr = json_encode($price_arr);
         if ( empty(auth()->user()) ) {
             return view('Visitor.Login.login');
@@ -546,7 +538,11 @@ class CoursesController extends Controller
             
         }
         $chapters = json_decode(Cookie::get('marketing'));
-        $chapters = json_decode($chapters);
+        try {
+            $chapters = json_decode($chapters);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         $price = json_decode(Cookie::get('chapters_price'));
         if ( $req->payment_method_id == 'Wallet' ) {
             $wallet = Wallet::

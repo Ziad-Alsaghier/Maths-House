@@ -258,7 +258,8 @@
         }
 
         /* Sections */
-        .nSection {
+        .nSection,
+        .nSectionEdit {
             position: relative;
         }
 
@@ -289,7 +290,7 @@
             style="max-width: 1300px !important; display: flex;align-items: center;justify-content: center;"
             role="document">
             <div class="modal-content" style="border-radius: 15px;">
-                <form action="{{ route('add_exam') }}" method="POST">
+                <form action="{{ route('add_exam') }}" method="POST" class="form_quizze">
                     @csrf
                     <input type="hidden" class="questions_data" name="ques_id" />
                     <div class="modal-header" style="border-bottom: 0 !important;">
@@ -339,14 +340,14 @@
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Houre: </span>
-                                                <input value="0" type="number" name="time_h" max="3" min="0"
-                                                    class="col-md-4 form-control">
+                                                <input value="0" type="number" name="time_h" max="3"
+                                                    min="0" class="col-md-4 form-control">
                                             </div>
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Minets: </span>
-                                                <input type="number" value="0" name="time_m" max="60" min="0"
-                                                    class="col-md-4 form-control">
+                                                <input type="number" value="0" name="time_m" max="60"
+                                                    min="0" class="col-md-4 form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -646,7 +647,9 @@
                                         <span
                                             style="font-size: 2rem;font-weight: 500;background: #1b84ff;color: #fff;border-radius: 10px;padding: 10px 15px;margin-top: 10px;">Exam</span>
                                     </div>
-                                    <input type="hidden" name="" id="">
+                                    <div class="alertChose"
+                                        style="display: flex; align-items: center; justify-content: center">
+                                    </div>
 
                                     {{-- <div
                                         style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
@@ -829,7 +832,8 @@
                                                     </ul>
 
                                                     <!-- Tab panes -->
-                                                    <div class="tab-content" id="tab_info{{ $item->id }}">
+                                                    <div class="tab-content infoEdit"
+                                                        id="tab_info{{ $item->id }}">
                                                         {{-- Info --}}
                                                         <input type="hidden" value="{{ $item->id }}"
                                                             id="dia_id">
@@ -907,6 +911,28 @@
                                                                     <input type="text" name="pass_score"
                                                                         value="{{ $item->pass_score }}"
                                                                         class="col-md-9 form-control quizze_Pass_Score">
+                                                                </div>
+
+                                                                <div
+                                                                    class="col-md-12 d-flex align-items-center justify-content-around">
+                                                                    <span class="col-md-2"
+                                                                        style="font-size: 1.2rem;">Number Section:
+                                                                    </span>
+                                                                    <select
+                                                                        class="col-md-9 form-control num_section_edit"
+                                                                        name="num_section">
+                                                                        <option value="">
+                                                                            Select Number Section
+                                                                        </option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-12 allSectionEdit"
+                                                                    style="display: flex;flex-direction: column;align-items: center;row-gap: 15px !important;">
+
                                                                 </div>
 
 
@@ -1180,137 +1206,161 @@
                                                                         style="font-size: 2rem;font-weight: 500;background: #1b84ff;color: #fff;border-radius: 10px;padding: 10px 15px;margin-top: 10px;">Exam</span>
                                                                 </div>
 
-                                                                <div
-                                                                    style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-                                                                    <table class="table table-striped"
-                                                                        id="tblData_Edite">
-                                                                        <thead class="border-bottom">
-                                                                            <tr>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Type</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Year</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Month</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Code</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Section</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    No</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Difficulty</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Chapter</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Lesson</th>
-                                                                                <th scope="col"
-                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                    Action</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <input type="hidden"
-                                                                            class="add_new_questions"
-                                                                            name="add_new_questions" />
+                                                                <div class="alertChoseEdit"
+                                                                    style="display: flex; align-items: center; justify-content: center">
+                                                                </div>
 
-                                                                        <tbody class="sel_quz_edit"
-                                                                            id="sel_quz_edit{{ $item->id }}">
-
-                                                                            {{-- <input type="text" id="allQuestion"
-                                                                        name="questions" value="" /> --}}
-                                                                            @foreach ($item->question->sortBy('q_num') as $question)
-                                                                                {{-- <input type="hidden" class="e_questions"
-                                                                            value="{{ $question }}" /> --}}
-                                                                                {{-- <input type="hidden"
-                                                                            value="{{ $question->question_id }}"
-                                                                            name="questions_id[]"
-                                                                            class="question_id" /> --}}
-                                                                                <tr class="tr_edite{{ $item->id }}"
-                                                                                    id="tr_edite{{ $question->id }}">
-
+                                                                <div class="allSectionsTableEdit"
+                                                                    id="allSectionsTableEdit">
+                                                                    @foreach ($item->sections_data as $element)
+                                                                        <div class="mt-3 nSectionEdit"
+                                                                            id="nSectionEdit{{ $item->id }}">
+                                                                            <h1 class="selSectionEdit"
+                                                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+                                                                                Section {{ $loop->iteration }}</h1>
+                                                                            <div class="tableSectionEdit d-none"
+                                                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                                                <input type="hidden"
+                                                                                    class="arrSectionEdit"
+                                                                                    id="section_{{ $loop->iteration }}"
+                                                                                    name="section_1"
+                                                                                    value="{{ $loop->iteration }}">
+                                                                                <table
+                                                                                    class="table tblData_Edite table-striped"
+                                                                                    id="tblData_Edite">
+                                                                                    <thead class="border-bottom">
+                                                                                        <tr>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Type</th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Year</th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Month</th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Code</th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Section</th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                No
+                                                                                            </th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Difficulty</th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Chapter</th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Lessone</th>
+                                                                                            <th scope="col"
+                                                                                                style="font-weight: 500; font-size: 1.1rem">
+                                                                                                Action</th>
+                                                                                        </tr>
+                                                                                    </thead>
                                                                                     <input type="hidden"
-                                                                                        value="{{ $question->id }}"
-                                                                                        name="question_id[]"
-                                                                                        class="question_edite_id"
-                                                                                        id="question_edite_id{{ $question->id }}" />
+                                                                                        class="add_new_questions"
+                                                                                        name="add_new_questions" />
 
-                                                                                    <input type="hidden"
-                                                                                        value={{ $item->id }}
-                                                                                        name='diagnostic_edite_id[]'
-                                                                                        class='diagnostic_edite_id'
-                                                                                        id='diagnostic_edite_id{{ $question->id }}' />
+                                                                                    <tbody class="sel_quz_edit"
+                                                                                        id="sel_quz_edit{{ $loop->iteration }}">
+                                                                                        @foreach ($element->questions->sortBy('q_num') as $question)
+                                                                                            <tr class="tr_edite{{ $item->id }}"
+                                                                                                id="tr_edite{{ $question->id }}">
 
-                                                                                    <td class="question_edite_type"
-                                                                                        id="question_edite_type{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->q_type }}
-                                                                                    </td>
+                                                                                                <input type="hidden"
+                                                                                                    value="{{ $question->id }}"
+                                                                                                    name="question_id[]"
+                                                                                                    class="question_edite_id"
+                                                                                                    id="question_edite_id{{ $question->id }}" />
 
-                                                                                    <td class="question_edite_year"
-                                                                                        id="question_edite_year{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->year }}
-                                                                                    </td>
+                                                                                                <input type="hidden"
+                                                                                                    value="{{ $element->id }}"
+                                                                                                    name="section_id[]"
+                                                                                                    class="question_edite_id"
+                                                                                                    id="question_edite_id{{ $question->id }}" />
 
-                                                                                    <td class="question_edite_month"
-                                                                                        id="question_edite_month{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->month }}
-                                                                                    </td>
+                                                                                                <input type="hidden"
+                                                                                                    value={{ $item->id }}
+                                                                                                    name='diagnostic_edite_id[]'
+                                                                                                    class='diagnostic_edite_id'
+                                                                                                    id='diagnostic_edite_id{{ $question->id }}' />
 
-                                                                                    <td class="question_edite_code"
-                                                                                        id="question_edite_code{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ @$question->code->exam_code }}
-                                                                                    </td>
+                                                                                                <td class="question_edite_type"
+                                                                                                    id="question_edite_type{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ $question->q_type }}
+                                                                                                </td>
 
-                                                                                    <td class="question_edite_section"
-                                                                                        id="question_edite_section{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->section }}
-                                                                                    </td>
+                                                                                                <td class="question_edite_year"
+                                                                                                    id="question_edite_year{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ $question->year }}
+                                                                                                </td>
 
-                                                                                    <td class="question_edite_num"
-                                                                                        id="question_edite_num{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->q_num }}
-                                                                                    </td>
+                                                                                                <td class="question_edite_month"
+                                                                                                    id="question_edite_month{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ $question->month }}
+                                                                                                </td>
 
-                                                                                    <td class="question_edite_difficulty"
-                                                                                        id="question_edite_difficulty{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->difficulty }}
-                                                                                    </td>
-                                                                                    <td class="question_edite_chapter"
-                                                                                        id="question_edite_chapter{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->lessons->chapter->chapter_name }}
-                                                                                    </td>
-                                                                                    <td class="question_edite_lesson"
-                                                                                        id="question_edite_lesson{{ $question->id }}"
-                                                                                        style="font-weight: 500; font-size: 1.1rem">
-                                                                                        {{ $question->lessons->lesson_name }}
-                                                                                    </td>
+                                                                                                <td class="question_edite_code"
+                                                                                                    id="question_edite_code{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ @$question->code->exam_code }}
+                                                                                                </td>
 
-                                                                                    <td
-                                                                                        style='width: 150px !important; padding: 0 !important;'>
-                                                                                        <button type='button'
-                                                                                            class='remove_qz_edit'>Remove</button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            @endforeach
-                                                                        </tbody>
+                                                                                                <td class="question_edite_section"
+                                                                                                    id="question_edite_section{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ $question->section }}
+                                                                                                </td>
 
-                                                                    </table>
+                                                                                                <td class="question_edite_num"
+                                                                                                    id="question_edite_num{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ $question->q_num }}
+                                                                                                </td>
+
+                                                                                                <td class="question_edite_difficulty"
+                                                                                                    id="question_edite_difficulty{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ $question->difficulty }}
+                                                                                                </td>
+                                                                                                <td class="question_edite_chapter"
+                                                                                                    id="question_edite_chapter{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ $question->lessons->chapter->chapter_name }}
+                                                                                                </td>
+                                                                                                <td class="question_edite_lesson"
+                                                                                                    id="question_edite_lesson{{ $question->id }}"
+                                                                                                    style="font-weight: 500; font-size: 1.1rem">
+                                                                                                    {{ $question->lessons->lesson_name }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    style='width: 150px !important; padding: 0 !important;'>
+                                                                                                    <button
+                                                                                                        type='button'
+                                                                                                        class='remove_qz_edit'>Remove</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        @endforeach
+                                                                                    </tbody>
+
+                                                                                </table>
+                                                                            </div>
+                                                                            <span class="dropSection">
+                                                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+                                                                                    style="color: #1b84ff;"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    @endforeach
                                                                 </div>
 
                                                             </div>
@@ -1404,7 +1454,7 @@
                                             <div class="tableSection d-none"
                                                 style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
                                                 <input type="hidden" class="arrSection" name="section_${[i]}" id="section_${[i]}">
-                                                <table class="table table-striped" id="tblData">
+                                                <table class="table tblDataAdd table-striped" id="tblData${[i +1]}">
                                                     <thead class="border-bottom">
                                                         <tr>
                                                             <th scope="col"
@@ -1452,6 +1502,120 @@
                     $(".allSectionsTable").append(addSectionTable)
                 }
             })
+            /* add section in Edit */
+
+            // $(".num_section_edit").change(function() {
+            //     console.log($(this).closest(".infoEdit").attr('id'))
+            //     var parSectionInf = `#${$(this).closest(".infoEdit").attr('id')}`
+            //     var countSection = $(this).val();
+            //     $(parSectionInf).find(".allSectionEdit").empty();
+            //     $(parSectionInf).find(".allSectionsEditTable").empty();
+            //     console.log("countSection", countSection)
+            //     for (var i = 0; i < countSection; i++) {
+            //         console.log([i])
+            //         var addSection = `<div class="col-md-11 d-flex align-items-center justify-content-between gap-2">
+        //                                 <span class="" style="font-size: 1.2rem;">Section : </span>
+
+        //                                 <div
+        //                                     class="col-md-10 p-0 d-flex align-items-center justify-content-start gap-4">
+        //                                     <div
+        //                                         class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+        //                                         <span class="col-6" style="font-size: 1.2rem;">Section Name:
+        //                                         </span>
+        //                                         <input type="text" name="section_name[]"
+        //                                             class="col-6 form-control" placeholder="Section Name">
+        //                                     </div>
+        //                                     <div
+        //                                         class="col-md-4 d-flex align-items-center justify-content-start gap-2">
+        //                                         <span class="col-7" style="font-size: 1.2rem;">Section
+        //                                             Description : </span>
+        //                                         <input type="text" name="section_description[]"
+        //                                             class="col-6 form-control" placeholder="Section Description">
+        //                                     </div>
+        //                                     <div
+        //                                         class="col-md-4 d-flex align-items-center justify-content-start">
+        //                                         <span class="col-5" style="font-size: 1.2rem;">Section Time:
+        //                                         </span>
+        //                                         <div class="d-flex gap-4">
+        //                                             <div class="d-flex flex-column align-items-center gap-2">
+        //                                                 <span style="font-size: 1.2rem !important;">Hours</span>
+        //                                                 <input type="number" class="form-control" style="width: 50px !important;"
+        //                                                     name="section_hour[]" value="0">
+        //                                                 </div>
+        //                                             <div class="d-flex flex-column align-items-center gap-2">
+        //                                                 <span style="font-size: 1.2rem !important;">Minutes</span>
+        //                                                 <input type="number" class="form-control" style="width: 50px !important;"
+        //                                                     name="section_minutes[]" value="0">
+        //                                                 </div>
+        //                                             <div class="d-flex flex-column align-items-center gap-2">
+        //                                                 <span style="font-size: 1.2rem !important;">Seconds</span>
+        //                                                 <input type="number" class="form-control" style="width: 50px !important;"
+        //                                                     name="section_seconds[]" value="0">
+        //                                                 </div>
+        //                                         </div>
+        //                                     </div>
+        //                                 </div>
+
+        //                             </div>`;
+            //         $(parSectionInf).find(".allSectionEdit").append(addSection)
+            //     }
+            //     for (var i = 0; i < countSection; i++) {
+            //         console.log([i])
+            //         var addSectionTable = `<div class="mt-3 nSectionEdit">
+        //                                 <h1 class="selSectionEdit"
+        //                                     style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
+        //                                     Section ${[i +1]}</h1>
+        //                                 <div class="tableSectionEdit d-none"
+        //                                     style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+        //                                     <input type="hidden" class="arrSection" name="section_${[i]}" id="section_${[i]}">
+        //                                     <table class="table table-striped" id="tblData">
+        //                                         <thead class="border-bottom">
+        //                                             <tr>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Type</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Year</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Month</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Code</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Section</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">No
+        //                                                 </th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Difficulty</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Chapter</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Lessone</th>
+        //                                                 <th scope="col"
+        //                                                     style="font-weight: 500; font-size: 1.1rem">
+        //                                                     Action</th>
+        //                                             </tr>
+        //                                         </thead>
+
+        //                                         <tbody class="sel_quz_edit" id="sel_quz_edit${[i]}"></tbody>
+
+        //                                     </table>
+        //                                 </div>
+        //                                 <span class="dropSection">
+        //                                     <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
+        //                                         style="color: #1b84ff;"></i>
+        //                                 </span>
+        //                             </div>`;
+            //         $(parSectionInf).find(".allSectionsTableEdit").append(addSectionTable)
+            //     }
+            // })
 
             $("#show_menu").click(function() {
 
@@ -1651,158 +1815,174 @@
                         var quziLessone = $(this).closest("tr").find(".lessone").text();
                         var quziDiff = $(this).closest("tr").find(".diff").text();
 
-                        $(this).addClass("selected_qz");
-                        $(this).removeClass("add_qz");
-                        $(this).text("Selected");
+                        var $this = $(this);
+                        var $formQuizze = $this.closest(".form_quizze");
+                        var $tblDataAdd = $formQuizze.find(".sel_quz");
 
-                        var allData = [];
+                        if ($tblDataAdd.hasClass("activeSection")) {
+                            $(".alertChose").empty();
+                            $this.addClass("selected_qz").removeClass("add_qz").text(
+                                "Selected");
 
-
-                        var quziObject = {
-                            id: quziId,
-                            type: quziType,
-                            year: quziYear,
-                            month: quziMonth,
-                            code: quziCode,
-                            section: quziSection,
-                            noNum: quziNoNum,
-                            diff: quziDiff,
-                            chap: quziChapter,
-                            less: quziLessone,
-                        }
-
-                        allData.push(quziObject);
-
-                        quizzes.push(...allData);
-
-                        var object_serialized = JSON.stringify(allData);
+                            var allData = [];
 
 
-                        var allObject_serialized = JSON.stringify(quizzes);
-
-                        // localStorage.setItem("Allquizzes", allObject_serialized)
-
-
-
-                        // localStorage.setItem("quizzes", object_serialized)
-
-
-                        var myObjectDeserialized = JSON.parse(object_serialized);
-
-
-                        var quizz_container = $(".activeSection");
-
-                        var index = quizzes.length;
-                        var removeBtn =
-                            "<button type='button' class='remove_qz'>Remove</button>";
-
-
-                        myObjectDeserialized.forEach(element => {
-                            var inpID =
-                                `<input type="hidden" class="quizzeActive_id" value=${element.id}>`;
-                            var dynamicTR = "<tr>";
-                            dynamicTR += "<td class='quizzeActive_type'>" + element
-                                .type + "</td>";
-                            dynamicTR += "<td class='quizzeActive_year'>" + element
-                                .year + "</td>";
-                            dynamicTR += "<td class='quizzeActive_month'>" + element
-                                .month + "</td>";
-                            dynamicTR += "<td class='quizzeActive_code'>" + element
-                                .code + "</td>";
-                            dynamicTR += "<td class='quizzeActive_section'>" + element
-                                .section + "</td>";
-                            dynamicTR += "<td class='quizzeActive_noNum'>" + element
-                                .noNum + "</td>";
-                            dynamicTR += "<td class='quizzeActive_diff'>" + element
-                                .diff + "</td>";
-                            dynamicTR += "<td class='quizzeActive_chap'>" + element
-                                .chap + "</td>";
-                            dynamicTR += "<td class='quizzeActive_less'>" + element
-                                .less + "</td>";
-                            dynamicTR +=
-                                "<td style='width: 150px !important; padding: 0 !important;'>" +
-                                removeBtn + "</td>";
-
-                            dynamicTR = dynamicTR + inpID + " </tr>";
-
-                            // index++;
-                            //_____________________________________________________________________________
-                            quizz_container.append(dynamicTR);
-                            questions_data.value = JSON.stringify(quizzes);
-                            //_____________________________________________________________________________
-                        });
-
-                        if ($("tbody").length <= 1) {
-                            addEmptyRow();
-                        } else {
-                            $(".avil").parent().remove();
-                        };
-                        var sel_SectionID =
-                            `#${$(quizz_container).closest(".nSection").find(".arrSection").attr("id")}`;
-
-                        // $(sel_SectionID).val(JSON.stringify(quziObject));
-
-                        // $(sel_SectionID).val(JSON.stringify(quziObject));
-
-
-                        var allDataActive = [];
-
-                        $(quizz_container).find("tr").each((index, ele) => {
-                            var quziActiveID = $(ele).find(".quizzeActive_id")
-                                .val();
-                            var quziActiveType = $(ele).find(".quizzeActive_type")
-                                .text();
-                            var quziActiveYear = $(ele).find(".quizzeActive_year")
-                                .text();
-                            var quziActiveMonth = $(ele).find(".quizzeActive_month")
-                                .text();
-                            var quziActiveCode = $(ele).find(".quizzeActive_code")
-                                .text();
-                            var quziActiveNoNum = $(ele).find(".quizzeActive_section")
-                                .text();
-                            var quziActiveSection = $(ele).find(".quizzeActive_noNum")
-                                .text();
-                            var quziActiveChapter = $(ele).find(".quizzeActive_diff")
-                                .text();
-                            var quziActiveLessone = $(ele).find(".quizzeActive_chap")
-                                .text();
-                            var quziActiveDiff = $(ele).find(".quizzeActive_less")
-                                .text();
-
-                            var quziObjectActive = {
-                                id: quziActiveID,
-                                type: quziActiveType,
-                                year: quziActiveYear,
-                                month: quziActiveMonth,
-                                code: quziActiveCode,
-                                section: quziActiveNoNum,
-                                noNum: quziActiveSection,
-                                diff: quziActiveChapter,
-                                chap: quziActiveLessone,
-                                less: quziActiveDiff,
+                            var quziObject = {
+                                id: quziId,
+                                type: quziType,
+                                year: quziYear,
+                                month: quziMonth,
+                                code: quziCode,
+                                section: quziSection,
+                                noNum: quziNoNum,
+                                diff: quziDiff,
+                                chap: quziChapter,
+                                less: quziLessone,
                             }
 
-                            allDataActive.push(quziObjectActive);
-                            console.log("quziObjectActive", quziObjectActive)
-                        })
+                            allData.push(quziObject);
 
-                        quizzesActive.push(...allDataActive)
+                            quizzes.push(...allData);
 
-
-
-                        $(sel_SectionID).val(JSON.stringify(quizzesActive));
+                            var object_serialized = JSON.stringify(allData);
 
 
+                            var allObject_serialized = JSON.stringify(quizzes);
+
+                            // localStorage.setItem("Allquizzes", allObject_serialized)
 
 
-                        console.log("quizzesquizzes", quizzes)
-                        console.log("quziObject", quziObject)
-                        // console.log("section_0",$(sel_SectionID).val())
-                        console.log($(sel_SectionID).attr("id"), $(".activeSection").closest(
-                            ".nSection").find(
-                            ".arrSection").val())
-                        // console.log("allDataActive",allDataActive)
-                        console.log("quizzesActive", quizzesActive)
+
+                            // localStorage.setItem("quizzes", object_serialized)
+
+
+                            var myObjectDeserialized = JSON.parse(object_serialized);
+
+
+                            var quizz_container = $(".activeSection");
+
+                            var index = quizzes.length;
+                            var removeBtn =
+                                "<button type='button' class='remove_qz'>Remove</button>";
+
+
+                            myObjectDeserialized.forEach(element => {
+                                var inpID =
+                                    `<input type="hidden" class="quizzeActive_id" value=${element.id}>`;
+                                var dynamicTR = "<tr>";
+                                dynamicTR += "<td class='quizzeActive_type'>" + element
+                                    .type + "</td>";
+                                dynamicTR += "<td class='quizzeActive_year'>" + element
+                                    .year + "</td>";
+                                dynamicTR += "<td class='quizzeActive_month'>" + element
+                                    .month + "</td>";
+                                dynamicTR += "<td class='quizzeActive_code'>" + element
+                                    .code + "</td>";
+                                dynamicTR += "<td class='quizzeActive_section'>" +
+                                    element
+                                    .section + "</td>";
+                                dynamicTR += "<td class='quizzeActive_noNum'>" + element
+                                    .noNum + "</td>";
+                                dynamicTR += "<td class='quizzeActive_diff'>" + element
+                                    .diff + "</td>";
+                                dynamicTR += "<td class='quizzeActive_chap'>" + element
+                                    .chap + "</td>";
+                                dynamicTR += "<td class='quizzeActive_less'>" + element
+                                    .less + "</td>";
+                                dynamicTR +=
+                                    "<td style='width: 150px !important; padding: 0 !important;'>" +
+                                    removeBtn + "</td>";
+
+                                dynamicTR = dynamicTR + inpID + " </tr>";
+
+                                // index++;
+                                //_____________________________________________________________________________
+                                quizz_container.append(dynamicTR);
+                                questions_data.value = JSON.stringify(quizzes);
+                                //_____________________________________________________________________________
+                            });
+
+                            if ($("tbody").length <= 1) {
+                                addEmptyRow();
+                            } else {
+                                $(".avil").parent().remove();
+                            };
+                            var sel_SectionID =
+                                `#${$(quizz_container).closest(".nSection").find(".arrSection").attr("id")}`;
+
+                            // $(sel_SectionID).val(JSON.stringify(quziObject));
+
+                            // $(sel_SectionID).val(JSON.stringify(quziObject));
+
+
+                            var allDataActive = [];
+
+                            $(quizz_container).find("tr").each((index, ele) => {
+                                var quziActiveID = $(ele).find(".quizzeActive_id")
+                                    .val();
+                                var quziActiveType = $(ele).find(".quizzeActive_type")
+                                    .text();
+                                var quziActiveYear = $(ele).find(".quizzeActive_year")
+                                    .text();
+                                var quziActiveMonth = $(ele).find(".quizzeActive_month")
+                                    .text();
+                                var quziActiveCode = $(ele).find(".quizzeActive_code")
+                                    .text();
+                                var quziActiveNoNum = $(ele).find(
+                                        ".quizzeActive_section")
+                                    .text();
+                                var quziActiveSection = $(ele).find(
+                                        ".quizzeActive_noNum")
+                                    .text();
+                                var quziActiveChapter = $(ele).find(
+                                        ".quizzeActive_diff")
+                                    .text();
+                                var quziActiveLessone = $(ele).find(
+                                        ".quizzeActive_chap")
+                                    .text();
+                                var quziActiveDiff = $(ele).find(".quizzeActive_less")
+                                    .text();
+
+                                var quziObjectActive = {
+                                    id: quziActiveID,
+                                    type: quziActiveType,
+                                    year: quziActiveYear,
+                                    month: quziActiveMonth,
+                                    code: quziActiveCode,
+                                    section: quziActiveNoNum,
+                                    noNum: quziActiveSection,
+                                    diff: quziActiveChapter,
+                                    chap: quziActiveLessone,
+                                    less: quziActiveDiff,
+                                }
+
+                                allDataActive.push(quziObjectActive);
+                                console.log("quziObjectActive", quziObjectActive)
+                            })
+
+                            quizzesActive.push(...allDataActive)
+
+
+
+                            $(sel_SectionID).val(JSON.stringify(quizzesActive));
+
+
+
+
+                            console.log("quizzesquizzes", quizzes)
+                            console.log("quziObject", quziObject)
+                            // console.log("section_0",$(sel_SectionID).val())
+                            console.log($(sel_SectionID).attr("id"), $(".activeSection")
+                                .closest(
+                                    ".nSection").find(
+                                    ".arrSection").val())
+                            // console.log("allDataActive",allDataActive)
+                            console.log("quizzesActive", quizzesActive)
+                        } else {
+                            $(".alertChose").empty().append(
+                                `<span style="font-size: 1.4rem; font-weight: 500; color: #e31616; border-radius: 10px; margin-top: 10px;">Chose section</span>`
+                            );
+                        }
                     });
 
                     $(document).on('click', '.remove_qz', function() {
@@ -2012,8 +2192,8 @@
                 })
 
             })
+            /* #### Filter Edit #### */
             $(document).on("click", ".edit_qz", function() {
-
                 var question_idd = $(this).closest("tr").find(".question_id").val();
                 var quizze_idd = $(this).closest(".lesson_quizze").find(".quizze_ID").val();
 
@@ -2028,36 +2208,44 @@
                 var quziChap = $(this).closest("tr").find(".chapE").text();
                 var quziLess = $(this).closest("tr").find(".lessE").text();
                 var edit_eray =
-                    `#${$(this).closest(".form_editquizze").find(".sel_quz_edit").attr("id")}`;
+                    `${$(this).closest(".form_editquizze").find(".activeSection")}`;
 
 
                 var indexx =
                     `#${$(this).closest(".form_editquizze").find(".sel_quz_edit").attr("id")}`;
                 var count_tr_edit = $(indexx).find("tr").length;
                 // var indexQuizze = $(count_tr_edit);
-                console.log("##############")
 
-                console.log("indexx", indexx)
-                console.log("count_edit_lenght", count_tr_edit)
-                // console.log("indexQuizze", indexQuizze)
-                console.log("##############")
+                if ($(this).closest(".form_editquizze").find(".tblData_Edite").hasClass("activeSection")) {
+
+                    var chosenSe = `#${$(this).closest(".question_edit_parQ").attr("id")}`;
+
+                    $(chosenSe).find(".alertChoseEdit").empty();
+                    $(this).addClass("selected_qz");
+                    $(this).removeClass("edit_qz");
+                    $(this).text("Selected");
+
+                    console.log("indexx", indexx)
+                    console.log("count_edit_lenght", count_tr_edit)
+                    // console.log("indexQuizze", indexQuizze)
+                    console.log("##############")
 
 
-                console.log("question_idd", question_idd);
-                console.log("quizze_idd", quizze_idd);
+                    console.log("question_idd", question_idd);
+                    console.log("quizze_idd", quizze_idd);
 
-                // console.log("quziId", quziId);
-                console.log("quziType", quziType);
-                console.log("quziYear", quziYear);
-                console.log("quziMonth", quziMonth);
-                console.log("quziCode", quziCode);
-                console.log("quziNoNum", quziNoNum);
-                console.log("quziSection", quziSection);
-                console.log("quziDiff", quziDiff);
-                console.log("##########")
-                console.log("edit_eray", edit_eray);
+                    // console.log("quziId", quziId);
+                    console.log("quziType", quziType);
+                    console.log("quziYear", quziYear);
+                    console.log("quziMonth", quziMonth);
+                    console.log("quziCode", quziCode);
+                    console.log("quziNoNum", quziNoNum);
+                    console.log("quziSection", quziSection);
+                    console.log("quziDiff", quziDiff);
+                    console.log("##########")
+                    console.log("edit_eray", edit_eray);
 
-                var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
+                    var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
                             <input type="hidden"
                             value=${question_idd}
                             name='question_id[]'
@@ -2092,15 +2280,21 @@
                             </td>
                         </tr>`;
 
-                $(edit_eray).append(new_Ele_Edit);
+                    $(".activeSection").append(new_Ele_Edit);
 
-                if ($("tbody").length <= 1) {
-                    addEmptyRow();
+                    if ($("tbody").length <= 1) {
+                        addEmptyRow();
+                    } else {
+                        $(".avil").parent().remove();
+                    };
                 } else {
-                    $(".avil").parent().remove();
-                };
+                    var chosenSe = `#${$(this).closest(".question_edit_parQ").attr("id")}`;
+                    $(chosenSe).find(".alertChoseEdit").empty();
+                    $(chosenSe).find(".alertChoseEdit").append(
+                        `<span style="font-size: 1.4rem;font-weight: 500;color: #e31616;border-radius: 10px;margin-top: 10px;">Chose section </span>`
+                    )
+                }
             });
-            /* #### Filter Edit #### */
 
             $(document).on('click', '.remove_qz_edit', function() {
 
@@ -2125,11 +2319,41 @@
                     $("#tblData_Edite tbody").append(emptyRowEdit);
                 };
             });
+            $(document).on('click', '.selSectionEdit', function() {
+                console.log("SSSSSSSSSSS")
+                quizzesActive = [];
 
+                $(".tableSectionEdit").each((index, ele) => {
+                    $(ele).addClass("d-none")
+                    $(ele).closest(".nSectionEdit").find(".tblData_Edite").removeClass(
+                        "activeSection")
+                    $(ele).closest(".nSectionEdit").find(".routateArrow").css(
+                        "transform",
+                        " rotate(0deg)");
+                })
+                $(this).closest(".nSectionEdit").find(".tableSectionEdit").removeClass(
+                    "d-none");
+                $(this).closest(".nSectionEdit").find(".tblData_Edite").addClass(
+                    "activeSection");
+                $(this).closest(".nSectionEdit").find(".routateArrow").css("transform",
+                    " rotate(180deg)");
+                var emptyRow =
+                    "<tr><td colspan='12' class='avil'> No Quizzes Available</td></tr>"
+
+                function addEmptyRow() {
+                    if ($(this).closest(".nSectionEdit").find(".activeSection").html() ==
+                        "") {
+                        console.log("sddddddd")
+                        $(this).closest(".nSectionEdit").find(".activeSection").append(
+                            emptyRow);
+                    };
+                };
+                addEmptyRow();
+            })
+            /* send Data at edit */
             var allDataEdite = [];
             $(document).on("click", ".edit_filter_exam", function() {
                 console.clear();
-                console.log("firstfirstfirstfirstfirst")
 
                 allDataEdite = [];
                 var InfoEdite = [];
@@ -2186,9 +2410,8 @@
 
 
                 /* Parent from table */
-                var parEdite =
-                    `#${$(btn_editee).closest(".form_editquizze").find(".sel_quz_edit").attr("id")}`;
-                var childEdite = `.${$(parEdite).find("tr").attr("class")}`
+                var parEdite = $(btn_editee).closest(".form_editquizze").find("#allSectionsTableEdit");
+                var childEdite = $(parEdite).find(".nSectionEdit");
 
                 console.log("childEdite", childEdite)
                 console.log("childEdite length", $(childEdite).length)
@@ -2196,77 +2419,103 @@
 
                 $(childEdite).each((childEle, childVal) => {
 
-                    var parEle = `#${$(childVal).attr("id")}`;
+                    var parEle = $(childVal).find(".sel_quz_edit");
+                    var allSectionsEdite = [];
+                    $(childVal).each((indexEle, valEle) => {
+                        
+                        console.log("indexEle", indexEle)
+                        console.log("valEle", valEle)
 
-                    /* ########### */
-                    var question_edit_id = `#${$(parEle).find(".question_edite_id").attr("id")}`;
-                    var ques_ID = $(question_edit_id).val();
+                        var parTableEle = `#${$(valEle).find(".sel_quz_edit").attr("id")}`;
+                        console.log("parTableEle2", parTableEle)
 
-                    /* ########### */
-                    var question_edit_type =
-                        `#${$(parEle).find(".question_edite_type").attr("id")}`;
-                    var ques_TYPE = $(question_edit_type).text().trim();
 
-                    /* ########### */
-                    var question_edit_year =
-                        `#${$(parEle).find(".question_edite_year").attr("id")}`;
-                    var ques_YEAR = $(question_edit_year).text();
+                        /* ########### */
+                        var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
+                        var ques_ID = $(question_edit_id).val();
 
-                    /* ########### */
-                    var question_edit_month =
-                        `#${$(parEle).find(".question_edite_month").attr("id")}`;
-                    var ques_MONTH = $(question_edit_month).text();
+                        /* ########### */
+                        var question_edit_type =
+                            `#${$(parTableEle).find(".question_edite_type").attr("id")}`;
+                        var ques_TYPE = $(question_edit_type).text().trim();
 
-                    /* ########### */
-                    var question_edit_code =
-                        `#${$(parEle).find(".question_edite_code").attr("id")}`;
-                    var ques_CODE = $(question_edit_code).text().trim();
+                        /* ########### */
+                        var question_edit_year =
+                            `#${$(parTableEle).find(".question_edite_year").attr("id")}`;
+                        var ques_YEAR = $(question_edit_year).text();
 
-                    /* ########### */
-                    var question_edit_section =
-                        `#${$(parEle).find(".question_edite_section").attr("id")}`;
-                    var ques_SECTION = $(question_edit_section).text();
+                        /* ########### */
+                        var question_edit_month =
+                            `#${$(parTableEle).find(".question_edite_month").attr("id")}`;
+                        var ques_MONTH = $(question_edit_month).text();
 
-                    /* ########### */
-                    var question_edit_num = `#${$(parEle).find(".question_edite_num").attr("id")}`;
-                    var ques_NUM = $(question_edit_num).text();
-                    /* ########### */
-                    var question_edit_difficulty =
-                        `#${$(parEle).find(".question_edite_difficulty").attr("id")}`;
-                    var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
-                    /* ########### */
-                    var question_edit_chapter =
-                        `#${$(parEle).find(".question_edite_chapter").attr("id")}`;
-                    var ques_chapter = $(question_edit_chapter).text().trim();
-                    /* ########### */
-                    var question_edit_lesson =
-                        `#${$(parEle).find(".question_edite_lesson").attr("id")}`;
-                    var ques_Lesson = $(question_edit_lesson).text().trim();
-                    /* ########### */
+                        /* ########### */
+                        var question_edit_code =
+                            `#${$(parTableEle).find(".question_edite_code").attr("id")}`;
+                        var ques_CODE = $(question_edit_code).text().trim();
 
-                    var question_obj = {
-                        question_ID: JSON.parse(ques_ID),
-                        question_Type: ques_TYPE,
-                        question_Year: JSON.parse(ques_YEAR),
-                        question_Month: JSON.parse(ques_MONTH),
-                        question_Code: ques_CODE,
-                        question_Section: JSON.parse(ques_SECTION),
-                        question_Num: JSON.parse(ques_NUM),
-                        question_Difficulty: ques_DIFFICULTY,
-                        question_Chapter: ques_chapter,
-                        // question_Lesson: ques_lesson,
-                    }
+                        /* ########### */
+                        var question_edit_section =
+                            `#${$(parTableEle).find(".question_edite_section").attr("id")}`;
+                        var ques_SECTION = $(question_edit_section).text();
 
+                        /* ########### */
+                        var question_edit_num = `#${$(parTableEle).find(".question_edite_num").attr("id")}`;
+                        var ques_NUM = $(question_edit_num).text();
+                        /* ########### */
+                        var question_edit_difficulty =
+                            `#${$(parTableEle).find(".question_edite_difficulty").attr("id")}`;
+                        var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
+                        /* ########### */
+                        var question_edit_chapter =
+                            `#${$(parTableEle).find(".question_edite_chapter").attr("id")}`;
+                        var ques_chapter = $(question_edit_chapter).text().trim();
+                        /* ########### */
+                        var question_edit_lesson =
+                            `#${$(parTableEle).find(".question_edite_lesson").attr("id")}`;
+                        var ques_Lesson = $(question_edit_lesson).text().trim();
+                        /* ########### */
+
+                        // var section_obj = {
+                        //     question_ID: JSON.parse(ques_ID),
+                        //     question_Type: ques_TYPE,
+                        //     question_Year: JSON.parse(ques_YEAR),
+                        //     question_Month: JSON.parse(ques_MONTH),
+                        //     question_Code: ques_CODE,
+                        //     question_Section: JSON.parse(ques_SECTION),
+                        //     question_Num: JSON.parse(ques_NUM),
+                        //     question_Difficulty: ques_DIFFICULTY,
+                        //     question_Chapter: ques_chapter,
+                        //     // question_Lesson: ques_lesson,
+                        // }
+                        var section_obj = {
+                            question_ID: ques_ID,
+                            question_Type: ques_TYPE,
+                            question_Year: JSON.parse(ques_YEAR),
+                            question_Month: JSON.parse(ques_MONTH),
+                            question_Code: ques_CODE,
+                            question_Section: JSON.parse(ques_SECTION),
+                            question_Num: JSON.parse(ques_NUM),
+                            question_Difficulty: ques_DIFFICULTY,
+                            question_Chapter: ques_chapter,
+                            // question_Lesson: ques_lesson,
+                        }
+                        console.log("section_obj", section_obj)
+                        allSectionsEdite.push(section_obj);
+                    })
+
+                    console.log("parEle", parEle)
                     console.log("childEle", childEle)
                     console.log("childVal", childVal)
-
-                    allDataEdite.push(question_obj);
+                    
+                    console.log("allSectionsEdite", allSectionsEdite)
+                    
+                    allDataEdite.push(allSectionsEdite);
                 })
 
-                $("#allQuestion").val(JSON.stringify(allDataEdite))
                 console.log("#############")
-                // console.log("parEdite", parEdite)
-                // console.log("parModel", parModel)
+                console.log("parEdite", parEdite)
+                console.log("parModel", parModel)
                 console.log("#############")
                 console.log("InfoEdite", InfoEdite)
                 console.log("allDataEdite", allDataEdite)
@@ -2284,7 +2533,7 @@
                     success: function(data) {
                         console.log(data);
                         console.log(allDataEdite);
-                        location.reload();
+                        //location.reload();
                     }
                 });
             })

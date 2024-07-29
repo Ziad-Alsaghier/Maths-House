@@ -51,7 +51,7 @@ class Exam extends Model
         return $this->belongsTo(ExamCodes::class, 'code_id');
     }
 
-    public function sections(){
+    public function sections_data(){
         return $this->hasMany(ExamSection::class, 'exam_id');
     }
 

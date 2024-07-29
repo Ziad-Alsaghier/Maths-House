@@ -368,34 +368,24 @@
                                             <div class="mb-10 fv-row">
                                                 <label>
                                                     Students
-                                                </label>
-                                                <div class="select2-danger" data-select2-id="33">
-                                                    <div class="position-relative" data-select2-id="443">
+                                                </label><div class="select2-danger" data-select2-id="1_{{ $item->id }}">
+                                                    <div class="position-relative" data-select2-id="2_{{ $item->id }}">
                                                         <select id="select2Danger{{ $item->id }}" name="stu_id[]"
-                                                            class="select2 form-select select2-hidden-accessible"
-                                                            multiple=""
-                                                            data-select2-id="select2Danger{{ $item->id }}"
-                                                            tabindex="-1" aria-hidden="true">
+                                                                class="select2 form-select select2-hidden-accessible"
+                                                                multiple=""
+                                                                data-select2-id="select2Danger{{ $item->id }}"
+                                                                tabindex="-1" aria-hidden="true">
                                                            
                                                             @foreach ($students as $student)
-                                                                
-                                                            <option value="{{ $student->id }}" 
-                                                                @selected(in_array($student->id, json_decode($item->students->pluck('id'))))
-                                                                data-select2-id="{{ $student->id }}">
-                                                                {{ $student->nick_name }}</option>
-                                                            {{-- @if ( in_array($student->id, json_decode($item->student->pluck('id'))) )
-                                                                    <option value="{{ $student->id }}" selected
-                                                                    data-select2-id="{{ $student->id }}">
+                                                                <option value="{{ $student->id }}" 
+                                                                    @if(in_array($student->id, $item->students->pluck('id')->toArray())) selected @endif
+                                                                    data-select2-id="3_{{ $item->id }}{{ $student->id }}">
                                                                     {{ $student->nick_name }}</option>
-                                                                @else
-                                                                    <option value="{{ $student->id }}"
-                                                                    data-select2-id="{{ $student->id }}">
-                                                                    {{ $student->nick_name }}</option>
-                                                                @endif --}}
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
+                                                
                                             </div>
 
                                             <div class="my-2">

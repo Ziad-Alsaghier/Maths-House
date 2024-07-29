@@ -182,7 +182,8 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/', 'quizze')->name('quizze');
         Route::get('/Del/{id}', 'del_quizze')->name('del_quizze');
         Route::post('/Add', 'add_quizze')->name('add_quizze');
-        Route::get('/Edit', 'edit_quizze')->name('edit_quizze');
+        Route::post('/Edit', 'edit_quizze')->name('edit_quizze');
+        Route::get('/Filter', 'filter_quiz')->name('filter_quiz');
     });
 
     // Payment 
@@ -251,10 +252,12 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Private_Request/Approve/{id}', 'private_session_approve')->name('private_session_approve');
         Route::post('/Private_Request/Rejected', 'private_request_rejected')->name('private_request_rejected');
         Route::get('/Cancelation', 'cancelation')->name('cancelation');
+        Route::get('/Cancelation/Filter', 'filter_cancelation')->name('filter_cancelation');
         Route::get('/Cancelation/Approve/{id}', 'approve_cancelation')->name('approve_cancelation');
         Route::get('/Cancelation/Rejected/{id}', 'reject_cancelation')->name('reject_cancelation');
         Route::get('/Live/Calender', 'live_calender')->name('live_calender');
         Route::get('/Live/TeacherSession', 'teacher_session')->name('teacher_session');
+        Route::get('Live/TeacherSession/Filter', 'filter_teacher_session')->name('filter_teacher_session');
         Route::get('/Live/PrivateRequestShow', 'ad_private_requests')->name('ad_private_requests');
         Route::get('/Academic', 'ad_academic')->name('ad_academic');
         Route::get('/Academic/Filter', 'ad_filter_academic')->name('ad_filter_academic');
@@ -382,7 +385,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     Route::controller(ExamController::class)->middleware('can:Settings')->group(function(){
         Route::get('/ScoreSheet','score_sheet')->name('exam_score_sheet');
         Route::post('/ScoreSheet/Add','addScore')->name('addScore');
-        Route::post('/ScoreSheet/Edit','editScore')->name('editScore');
+        Route::post('/ScoreSheet/Edit/{id}','editScore')->name('editScore');
         Route::get('/ScoreSheet/Del/{id}','scoreDelete')->name('scoreDelete'); 
     });
 
@@ -451,6 +454,12 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
 
         return $money;
     });
+    
+
+    Route::controller(DomPdfController::class)->group(function(){
+        Route::get('/DiaExam/PDF/{id}', 'dia_exam_mistake_pdf')->name('dia_exam_mistake_pdf');
+        Route::get('/Exam/PDF/{id}', 'exam_mistake_pdf')->name('exam_mistake_pdf');
+    });
 
     Route::controller(ScoreController::class)->group(function(){
         Route::get('ScoreSheet','score_sheet')->name('score_sheet');
@@ -466,6 +475,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
         Route::get('Live/Chapter/{course_id}', 'stu_live_chapters')->name('stu_live_chapters');
         Route::get('Live/Lessons/{chapter_id}', 'stu_myLiveLesson')->name('stu_myLiveLesson');
         Route::get('Live/Lesson/{idea}', 'stu_live_lesson')->name('stu_live_lesson');
+        Route::get('Live/ShowPDF/{file_name}', 'stu_live_pdf')->name('stu_live_pdf');
         Route::get('UseLive/{id}', 'use_live')->name('use_live');
         Route::get('Live/PrivateRequest', 'stu_private_req')->name('stu_private_req');
         Route::get('Live/Student', 'v_live')->name('v_live');

@@ -16,6 +16,8 @@ use App\Models\LiveLesson;
 use App\Models\StudentSession;
 use App\Models\LiveCourse;
 use App\Models\TeacherCourse;
+use App\Models\SessionAttendance;
+use App\Models\Session;
 
 class UserController extends Controller
 {
@@ -132,16 +134,28 @@ class UserController extends Controller
 
     public function live_attend( $users_id, $lesson_id, Request $req ){
 
+        $sessions = Session::where('lesson_id', $lesson_id)
+        ->pluck('id');
+
         if ( $req->attend == 'Attend' ) {
             LiveLesson::create([
                 'user_id' => $users_id,
                 'lesson_id' => $lesson_id,
             ]);
+            foreach ($sessions as $key => $item) {
+                SessionAttendance::create([
+                    'user_id' => $users_id,
+                    'session_id' => $item
+                ]);
+            }
         }
         else {
             LiveLesson::
             where( 'user_id' , $users_id)
             ->where('lesson_id', $lesson_id)
+            ->delete();
+            SessionAttendance::whereIn('session_id', $sessions)
+            ->where('user_id', $users_id)
             ->delete();
         }
 

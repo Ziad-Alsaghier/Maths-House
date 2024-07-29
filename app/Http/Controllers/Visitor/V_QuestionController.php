@@ -194,7 +194,8 @@ class V_QuestionController extends Controller
            $arr['question_id'] = $solve->q_id;
            if ( isset($question->mcq[0]->mcq_answers) ) {
                 $stu_solve = $question->mcq[0]->mcq_answers;
-                if ( $stu_solve == isset($solve->answer) ? $solve->answer : 0 ) {
+                $q_solve = isset($solve->answer) ? $solve->answer : 0;
+                if ( $stu_solve == $q_solve ) {
                      $ans = true;
                 }
            }

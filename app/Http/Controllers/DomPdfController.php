@@ -10,6 +10,8 @@ use App\Models\Question;
 use App\Models\DiagnosticExamsHistory;
 use App\Models\DiagnosticExam;
 use App\Models\StudentQuizze;
+use App\Models\ExamMistake;
+use App\Models\DaiExamMistake;
 
 use PDF;
 
@@ -63,7 +65,7 @@ class DomPdfController extends Controller
         $data = DiagnosticExamsHistory::where('id', $id)->first();
         $exam = DiagnosticExam::where('id', $data->diagnostic_exams_id)->first();
         $exam_time = $exam->time;
-    
+        
         // Parse exam time
         $exam_time_parts = explode('H', $exam_time);
         $e_hours = isset($exam_time_parts[0]) ? intval($exam_time_parts[0]) : 0;
@@ -164,6 +166,26 @@ class DomPdfController extends Controller
     
         // Stream the PDF to the browser
         return $pdf->stream('Quiz.pdf');
+    }
+
+    public function dia_exam_mistake_pdf( $id ){
+        $mistakes = DaiExamMistake::where('student_exam_id', $id)
+        ->get();
+
+        // Generate the PDF
+        $pdf = PDF::loadView('MistakePDF', compact('mistakes'));
+        // Stream the PDF to the browser
+        return $pdf->stream('MistakePDF.pdf');
+    }
+
+    public function exam_mistake_pdf( $id ){
+        $mistakes = ExamMistake::where('student_exam_id', $id)
+        ->get();
+
+        // Generate the PDF
+        $pdf = PDF::loadView('MistakePDF', compact('mistakes'));
+        // Stream the PDF to the browser
+        return $pdf->stream('MistakePDF.pdf');
     }
 
 }

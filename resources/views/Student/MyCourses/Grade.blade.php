@@ -338,7 +338,7 @@
         <div class="row g-0  p-3">
             @foreach ( $mistakes as $item )
                 @if ( !empty($item->question) )
-                {{$item->question}}
+                {!! $item->question !!}
                 @endif
                 @if ( !empty($item->q_url) )
                 <img style="width: 200px; height: 200px;"
@@ -387,11 +387,7 @@
                             @else
                                 {{ @$item->g_ans[0]->grid_ans }}
                             @endif:</h5>
-    
-                        <button class="Solve"><a href="{{ route('question_parallel', ['id' => $item->id]) }}">
-                                Solve Parallel
-                            </a>
-                        </button>
+
                         <button class="ansShow" data-bs-toggle="modal" data-bs-target="#modalAnswer{{ $q_ans->id }}">Show
                             Answer</button>
     
@@ -400,6 +396,24 @@
     
                         <a href="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" class="ansPdf" download>Dwonload Pdf
                             {{ $loop->iteration }}</a>
+    
+
+                            @php
+                            $solve_parallel = DB::table('questions')
+                            ->where('month', $item->month)
+                            ->where('year', $item->year)
+                            ->where('section', $item->section)
+                            ->where('q_num', $item->q_num)
+                            ->where('id', '!=', $item->id)
+                            ->get();
+                        @endphp
+
+                        @if ( count($solve_parallel) > 0 )
+                        <button class="Solve"><a href="{{ route('question_parallel', ['id' => $item->id]) }}">
+                                Solve Parallel
+                            </a>
+                        </button>
+                        @endif
                     </div>
     
                     {{-- Modal Answer --}}

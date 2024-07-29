@@ -13,15 +13,22 @@ use App\Models\ConfirmSign;
 use App\Models\LoginUser;
 use App\Models\Country;
 use App\Models\City;
+use Illuminate\Support\Facades\Cookie;
 
 use Carbon\Carbon;
 
 class Logincontroller extends Controller
 {
 
-        public function index(){
+        public function index( Request $request ){
                 $now = Carbon::now();
                 $timeMinus120Minutes = $now->subMinutes(300);
+                $value = Cookie::get('device_id');
+                if ( empty($value) ) {
+                        $value = rand(1, 99999999999);
+                        Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                }
+
                 if ( auth()->user() ) {
                         $l_user = LoginUser::
                         where('type', 'web')
@@ -29,21 +36,24 @@ class Logincontroller extends Controller
                         ->where('created_at', '>=', $timeMinus120Minutes)
                         ->first();
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'student' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'student' ) {
                         return redirect()->route('stu_dashboard');
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'user_admin' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'user_admin' ) {
                         return redirect()->route('dashboard');
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'admin' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'admin' ) {
                         return redirect()->route('dashboard');
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'teacher' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'teacher' ) {
                         return redirect()->route('t_dashboard');
                 }
-                if ( $l_user && isset(auth()->user()->position) && auth()->user()->position == 'affilate' ) {
+                if ( isset($l_user) && isset(auth()->user()->position) && auth()->user()->position == 'affilate' ) {
                         return redirect()->route('stu_affilate');
                 }
+                LoginUser::
+                where('ip', $value)
+                ->delete();
                 return view('pages.authanticated.login');            
         }
 
@@ -71,7 +81,7 @@ class Logincontroller extends Controller
                                 return redirect()->route('login.index')->withErrors(['error'=>'The  Password Invalid']);
                         }
                         $now = Carbon::now();
-                        $timeMinus120Minutes = $now->subMinutes(120);
+                        $timeMinus120Minutes = $now->subMinutes(300);
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
@@ -97,9 +107,16 @@ class Logincontroller extends Controller
                                 if ( session()->has('previous_page') ) {
                                         return redirect($request->session()->get('previous_page'));
                                 }
+                                $value = Cookie::get('device_id');
+                                if ( empty($value) ) {
+                                        $value = rand(1, 99999999999);
+                                        Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                                }
                                 LoginUser::create([
-                                'type' => 'web',
-                                'user_id'=> $user->id]);
+                                        'type' => 'web',
+                                        'user_id'=> $user->id,
+                                        'ip' => $value,
+                                ]);
                                 if( $user->position == 'admin'){
                                         return redirect()->route('dashboard')->with(['success'=>'Loged In']);
                                 }
@@ -148,15 +165,23 @@ class Logincontroller extends Controller
 
                         }
                         $now = Carbon::now();
-                        $timeMinus120Minutes = $now->subMinutes(120);
+                        $timeMinus120Minutes = $now->subMinutes(300);
+                        $value = Cookie::get('device_id');
+                        if ( empty($value) ) {
+                                $value = rand(1, 99999999999);
+                                Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                        }
                         $l_user = LoginUser::
                         where('type', 'web') 
                         ->where('user_id', $user->id)
                         ->where('created_at', '>=', $timeMinus120Minutes)
                         ->first();
-                        if ( $l_user ) {
+                        if ( !empty($l_user) ) {
                                 return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
                         }
+                        LoginUser::
+                        where('ip', $value)
+                        ->delete();
 			Auth::loginUsingId($user->id);
 
                         $credentials = $request->only('email','password');
@@ -169,9 +194,16 @@ class Logincontroller extends Controller
                                 $token = $user->createToken("user")->plainTextToken;
                                 $user->token =$token ;
 
+                                $value = Cookie::get('device_id');
+                                if ( empty($value) ) {
+                                        $value = rand(1, 99999999999);
+                                        Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                                }
                                 LoginUser::create([
                                 'type' => 'web', 
-                                'user_id'=> $user->id]);
+                                'user_id'=> $user->id,
+                                'ip' => $value,
+                                ]);
                                 
                                 if( $user->position == 'admin'){
                                         return redirect()->route('course_payment');
@@ -259,11 +291,18 @@ class Logincontroller extends Controller
                 
                 $token = $user->createToken("user")->plainTextToken;
                  $user->token =$token;
+                 $value = Cookie::get('device_id');
+                 if ( empty($value) ) {
+                         $value = rand(1, 99999999999);
+                         Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
+                 }
                  LoginUser::create([
                  'type' => 'web', 
-                 'user_id'=> $user->id]);
+                 'user_id'=> $user->id,
+                 'ip' => $value,
+                ]);
 
-                 $req->session()->put('email_session', 'You Should Verification Your Account By Email');
+                 $req->session()->put('email_session', 'Check your email for verification');
                 return redirect()->route('stu_dashboard');
         }
 

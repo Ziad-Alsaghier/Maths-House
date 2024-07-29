@@ -113,9 +113,19 @@
 <section class="heroSec">
     <div class="mainContent">
         <div class="leftContent">
-            <h3>Questions</h3>
-            <p>Use these questions to review the material
-                and assess your understanding of the concepts
+            <h3>Conquer Math Anxiety
+                Get Expert Solutions, Videos & PDFs
+                for Every Exam Question.</h3>
+            <p>
+                Feeling overwhelmed by math problems on global exams like SAT, ACT, EST, AP Calculus, and more? You're not alone!
+But what if you could find solutions, explanations, and different approaches to any math question from any of these exams?
+Here's where we come in! Our comprehensive math solution library empowers you to:
+<br>
+<b>•Master Any Math Topic:</b> Search by exam and topic to access detailed answers, step-by-step explanations, and clear visuals.<br />
+<b>•Multiple Learning Styles:</b> Choose from text explanations, explainer videos, and downloadable PDFs to suit your learning style.<br />
+<b>•Unlock Different Approaches:</b> See various problem-solving methods to enhance your understanding and strengthen your critical thinking skills.<br />
+<b>•Boost Confidence:</b> Tackle exam questions with newfound clarity and eliminate the fear of the unknown.<br />
+Stop wasting time searching for scattered resources! Our one-stop solution library provides everything you need to conquer math on any global exam.
             </p>
         </div>
         <div class="rightContent">

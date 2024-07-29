@@ -648,7 +648,7 @@
                                         <div class="chosen chose_mcq chosen{{ $iter }}"
                                             id="chosen{{ $iter }}{{ $loop->iteration }}">
                                             <input type="hidden" class="mcq_id" value="{{ $mcq->id }}">
-                                            <button class="ans_btn">{{ $mcq->mcq_num }}</button>
+                                            <button type="button" class="ans_btn">{{ $mcq->mcq_num }}</button>
                                             <input type="text" value="{{ $mcq->mcq_ans }}" readonly>
                                         </div>
                                     @endforeach
@@ -756,19 +756,22 @@
             var Min_quizz = $("#minutes").text();
             var Sec_quizz = $("#seconds").text();
 
-            var objTim = {
-                houres: Hours_quizz,
-                minutes: Min_quizz,
-                seconds: Sec_quizz
-            }
-            $("#timer_val").val(JSON.stringify(objTim));
-
-            console.log("Hours_quizz", Hours_quizz)
-            console.log("Min_quizz", Min_quizz)
-            console.log("Sec_quizz", Sec_quizz)
-            console.log("objTim", objTim)
-            console.log("timer_val ", $("#timer_val").val())
+            var objTim = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
+            $("#timer_val").val(objTim);
+ 
                 ++totalSeconds;
+            
+            var timer_val = $("#timer_val").val();
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "GET",
+                data: {
+                    timer_val,
+                },
+                success: function(data) {
+                    console.log("data", data)
+                }
+            })
             secondsLabel.html(pad(totalSeconds % 60));
             secondsLabel.html(pad(parseInt(totalSeconds)));
 

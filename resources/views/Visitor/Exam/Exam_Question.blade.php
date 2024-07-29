@@ -648,7 +648,7 @@
                                         <div class="chosen chose_mcq chosen{{ $iter }}"
                                             id="chosen{{ $iter }}{{ $loop->iteration }}">
                                             <input type="hidden" class="mcq_id" value="{{ $mcq->id }}">
-                                            <button class="ans_btn">{{ $mcq->mcq_num }}</button>
+                                            <button type="button" class="ans_btn">{{ $mcq->mcq_num }}</button>
                                             <input type="text" value="{{ $mcq->mcq_ans }}" readonly>
                                         </div>
                                     @endforeach
@@ -799,6 +799,18 @@
                     console.log("6666")
                 }
             }
+            
+            var timer_val = $("#timer_val").val();
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "GET",
+                data: {
+                    timer_val,
+                },
+                success: function(data) {
+                    console.log("data", data)
+                }
+            })
         }
 
         function pad(val) {

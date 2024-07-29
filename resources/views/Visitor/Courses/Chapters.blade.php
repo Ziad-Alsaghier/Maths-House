@@ -1,6 +1,36 @@
 @include('Visitor.inc.header')
 @include('Visitor.inc.menu')
 
+<style>
+.share-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.share-options {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.share-options a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.share-options a:hover {
+    background-color: #ddd;
+}
+
+</style>
 
 <div class="wrapper">
     <div class="preloader"></div>
@@ -337,18 +367,24 @@
                                     <div class="cs_ins_container">
                                         <div class="cs_instructor">
                                             <ul class="cs_instrct_list float-left mb0">
-                                                <li class="list-inline-item"><img class="thumb" src="images/team/4.png"
+                                                <li class="list-inline-item"><img class="thumb" src="{{asset('images/inc/amir.png')}}"
                                                         alt="4.png"></li>
-                                                <li class="list-inline-item"><a href="#">Ali TUFAN</a></li>
-                                                <li class="list-inline-item"><a href="#">Last updated 11/2019</a>
+                                                <li class="list-inline-item"><a href="#">Amir Hemaida</a></li>
                                                 </li>
                                             </ul>
                                             <ul class="cs_watch_list float-right mb0">
                                                 <li class="list-inline-item"><a href="#"><span
                                                             class="flaticon-like"></span></a></li>
                                                 <li class="list-inline-item"><a href="#">Add to Wishlist</a></li>
-                                                <li class="list-inline-item"><a href="#"><span
-                                                            class="flaticon-share"> Share</span></a></li>
+                                                <li class="list-inline-item">
+                                                    <button class="share-button" onclick="toggleShareOptions()">Share</button>
+                                                    <div id="share-options" class="share-options">
+                                                        <a href="#" onclick="shareFacebook()">Facebook</a>
+                                                        <a href="#" onclick="shareWhatsApp()">WhatsApp</a>
+                                                        <a href="#" onclick="shareMessenger()">Messenger</a>
+                                                        <a href="#" onclick="shareInstagram()">Instagram</a>
+                                                        <a href="#" onclick="shareGmail()">Gmail</a>
+                                                    </div></li>
                                             </ul>
                                         </div>
                                         <h3 class="cs_title">Designing a Responsive Mobile Website with Muse</h3>
@@ -386,15 +422,8 @@
                                     <div class="cs_overview">
                                         <h4 class="title">Overview</h4>
                                         <h4 class="subtitle">Course Description</h4>
-                                        <p class="mb30">Lorem Ipsum is simply dummy text of the printing and
-                                            typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                            text ever since the 1500s, when an unknown printer took a galley of type and
-                                            scrambled it to make a type specimen book. It has survived not only five
-                                            centuries, but also the leap into electronic typesetting, remaining
-                                            essentially unchanged. </p>
-                                        <p class="mb20">It was popularised in the 1960s with the release of Letraset
-                                            sheets containing Lorem Ipsum passages, and more recently with desktop
-                                            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                        <p class="mb30">
+                                            {{$course->course_des}}
                                         </p>
                                         <h4 class="subtitle">What you'll learn</h4>
                                         <ul class="cs_course_syslebus">
@@ -518,7 +547,7 @@
                                     <div class="about_ins_container">
                                         <h4 class="aii_title">About the instructor</h4>
                                         <div class="about_ins_info">
-                                            <div class="thumb"><img src="images/team/6.png" alt="6.png"></div>
+                                            <div class="thumb"><img style="height: 60px; width: 70px;" src="{{asset('images/inc/amir.png')}}" alt="6.png"></div>
                                         </div>
                                         <div class="details">
                                             <ul class="review_list">
@@ -537,25 +566,25 @@
                                                 <li class="list-inline-item"><span
                                                         class="flaticon-play-button-1"></span> 5Courses </li>
                                             </ul>
-                                            <h4>Ali Tufan</h4>
-                                            <p class="subtitle">UX/UI Designer</p>
-                                            <p class="mb25">UI/UX Designer, with 7+ Years Experience. Guarantee of
-                                                High Quality Work. </p>
-                                            <p class="mb25">Skills: Web Design, UI Design, UX/UI Design, Mobile
-                                                Design, User Interface Design, Sketch, Photoshop, GUI, Html, Css, Grid
-                                                Systems, Typography, Minimal, Template, English, Bootstrap, Responsive
-                                                Web Design, Pixel Perfect, Graphic Design, Corporate, Creative, Flat,
-                                                Luxury and much more.</p>
-                                            <ul class="about_ins_list mb0">
-                                                <li>
-                                                    <p>Available for:</p>
-                                                </li>
-                                                <li><a href="#">1. Full Time Office Work</a></li>
-                                                <li><a href="#">2. Remote Work</a></li>
-                                                <li><a href="#">3. Freelance</a></li>
-                                                <li><a href="#">4. Contract</a></li>
-                                                <li><a href="#">5. Worldwide</a></li>
-                                            </ul>
+                                            <h4>Amir Hemaida</h4>
+                                                        
+            <h4>Mathematics Enthusiast | Experienced International Curriculum Educator</h4>
+            <p>
+                For over 23 years, I have been passionate about igniting a love for mathematics in
+                students of all backgrounds. As a highly experienced international curriculum educator
+                , I have honed my skills in delivering effective instruction across diverse
+                learning styles and educational frameworks.
+            </p>
+            <h4>My Experience:</h4>
+            •<b>Co-founder of Math House Institution:</b> Leading a dedicated team to provide exceptional math
+            •education to students.
+            •<b>20+Years in International Schools:</b> Bringing my expertise to a global learning environment, fostering
+            •critical thinking and problem-solving skills in students.
+            •<b>Proven Track Record:</b> Proven ability to help students achieve academic success and
+            •improve their math proficiency through engaging and effective teaching methods.
+            <div><b>My Approach:</b></div>
+            I believe in creating a positive and supportive learning environment where every student feels
+            empowered to explore and master mathematical concepts.
                                         </div>
                                     </div>
                                 </div>
@@ -783,132 +812,28 @@
                         <div class="col-lg-12">
                             <h3 class="r_course_title">Related Courses</h3>
                         </div>
+                        @foreach ( $related_course as $item)
                         <div class="col-lg-6 col-xl-4">
                             <div class="top_courses">
                                 <div class="thumb">
-                                    <img class="img-whp" src="images/courses/t1.jpg" alt="t1.jpg">
+                                    <img class="img-whp" src="{{asset('images/courses/' . $item->course_url)}}" alt="t1.jpg">
                                     <div class="overlay">
                                         <div class="tag">Best Seller</div>
                                         <div class="icon"><span class="flaticon-like"></span></div>
-                                        <a class="tc_preview_course" href="#">Preview Course</a>
+                                        <a class="tc_preview_course" href="{{route('v_course', ['id' => $item->id])}}">Preview Course</a>
                                     </div>
                                 </div>
-                                <div class="details">
+                                <a href="{{route('v_course', ['id' => $item->id])}}" class="details">
                                     <div class="tc_content">
-                                        <p>Ali TUFAN</p>
-                                        <h5>Introduction Web Design with HTML</h5>
-                                        <ul class="tc_review">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">(6)</a></li>
-                                        </ul>
+                                        <h5>{{$item->course_name}}</h5>
                                     </div>
                                     <div class="tc_footer">
-                                        <ul class="tc_meta float-left">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-profile"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">1548</a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-comment"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">25</a></li>
-                                        </ul>
-                                        <div class="tc_price float-right">$69.95</div>
+                                        <div class="tc_price float-right">${{$item->prices->min('price')}}</div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="top_courses">
-                                <div class="thumb">
-                                    <img class="img-whp" src="images/courses/t2.jpg" alt="t2.jpg">
-                                    <div class="overlay">
-                                        <div class="tag">Top Seller</div>
-                                        <div class="icon"><span class="flaticon-like"></span></div>
-                                        <a class="tc_preview_course" href="#">Preview Course</a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p>Ali TUFAN</p>
-                                        <h5>Designing a Responsive Mobile Website with Muse</h5>
-                                        <ul class="tc_review">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">(6)</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="tc_footer">
-                                        <ul class="tc_meta float-left">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-profile"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">1548</a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-comment"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">25</a></li>
-                                        </ul>
-                                        <div class="tc_price float-right">$69.95</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="top_courses">
-                                <div class="thumb">
-                                    <img class="img-whp" src="images/courses/t3.jpg" alt="t3.jpg">
-                                    <div class="overlay">
-                                        <div class="tag">Top Seller</div>
-                                        <div class="icon"><span class="flaticon-like"></span></div>
-                                        <a class="tc_preview_course" href="#">Preview Course</a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p>Ali TUFAN</p>
-                                        <h5>Adobe XD: Prototyping Tips and Tricks</h5>
-                                        <ul class="tc_review">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">(6)</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="tc_footer">
-                                        <ul class="tc_meta float-left">
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-profile"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">1548</a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="flaticon-comment"></i></a></li>
-                                            <li class="list-inline-item"><a href="#">25</a></li>
-                                        </ul>
-                                        <div class="tc_price float-right">$69.95</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-lg-4 col-xl-3">
@@ -1000,13 +925,6 @@
                             <li class="list-inline-item"><a href="#">UX/UI</a></li>
                         </ul>
                     </div>
-                    <div class="selected_filter_widget style2">
-                        <span class="float-left"><img class="mr20" src="images/resource/2.png"
-                                alt="2.png"></span>
-                        <h4 class="mt15 fz20 fw500">Not sure?</h4>
-                        <br>
-                        <p>Every course comes with a 30-day money-back guarantee</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1074,7 +992,50 @@
                 }
             }
         })
+    }function toggleShareOptions() {
+    var shareOptions = document.getElementById('share-options');
+    if (shareOptions.style.display === 'block') {
+        shareOptions.style.display = 'none';
+    } else {
+        shareOptions.style.display = 'block';
     }
+}
+
+function shareFacebook() {
+    var url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareWhatsApp() {
+    var url = 'https://wa.me/?text=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareMessenger() {
+    var url = 'fb-messenger://share/?link=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareInstagram() {
+    var url = 'https://www.instagram.com/?url=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+}
+
+function shareGmail() {
+    var url = 'mailto:?subject=Check%20this%20out&body=' + encodeURIComponent(window.location.href);
+    window.open(url, '_self');
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.share-button')) {
+        var shareOptions = document.getElementById('share-options');
+        if (shareOptions.style.display === 'block') {
+            shareOptions.style.display = 'none';
+        }
+    }
+}
+
 </script>
 <script>
     $(document).ready(function() {

@@ -65,7 +65,7 @@
                             <label>Category</label>
                             <select class="form-control cate_sel">
                                 <option disabled selected>
-                                    Select Category ...
+                                    Select Category
                                 </option>
 
                                 @foreach ($categories as $item)
@@ -80,7 +80,7 @@
                             <label>Course</label>
                             <select class="form-control course_sel" name="course_id">
                                 <option disabled selected>
-                                    Select Course ...
+                                    Select Course
                                 </option>
                             </select>
                         </div>
@@ -220,216 +220,239 @@
                 </div>
 
                 {{-- start Model With Edit --}}
-                <form action="{{ route('editScore') }}" method="post">
                     @csrf
-                <div class="modal fade" id="kt_modal_invite_friends{{ $item->id }}" tabindex="-1"
-                    aria-hidden="true">
-                    <!--begin::Modal dialog-->
-                    <div class="modal-dialog mw-650px">
-                        <!--begin::Modal content-->
-                        <div class="modal-content">
-                            <!--begin::Modal header-->
-                            <div class="modal-header pb-0 pt-2 border-0 justify-content-end">
-                                <!--begin::Close-->
-                                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                                    <i class="ki-duotone ki-cross fs-1">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </div>
-                                <!--end::Close-->
-                            </div>
-                            <!--begin::Modal header-->
-                            <!--begin::Modal body-->
-                            <div class="modal-body scroll-y pt-0">
-                                <!--begin::Heading-->
-                                <div class="text-center mb-2">
-                                    <!--begin::Title-->
-                                    <h1>Edit Raw Score</h1>
-                                    <!--end::Title-->
-
-
-                                </div>
-                                <!--end::Heading-->
-
-                                <div class="myformScore" id="myformScore{{ $item->id }}">
-                                    <div class="p-3 formScoreEdit" id="formScoreEdit{{ $item->id }}">
-                                        {{-- <input type="text" name="score_id" value="{{ $item->id }}" --}}
-                                            class="score_id">
-                                        <div class="my-2">
-                                            <label>Name</label>
-                                            <input class="form-control scoreName" name="name"
-                                                value="{{ $item->name }}" placeholder="Name" />
-                                        </div>
-
-                                        <div class="my-2">
-                                            <label>Category</label>
-                                            <select class="form-control cate_sel2" id="cate_sel2{{ $item->id }}">
-                                                <option>
-                                                    Select Category
-                                                </option>
-                                                <option value="{{ $item->course->category->id }}">
-                                                    {{ $item->course->category->cate_name }}
-                                                </option>
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">
-                                                        {{ $category->cate_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="my-2">
-                                            <label>Course</label>
-                                            <select class="form-control course_sel2"
-                                                id="course_sel2{{ $item->id }}" name="course_id">
-                                                <option disabled>
-                                                    Select Course
-                                                </option>
-                                                <option selected value="{{ $item->course->id }}">
-                                                    {{ $item->course->course_name }}
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="my-2">
-                                            <label>Score</label>
-                                            <input class="form-control score" name="score"
-                                                value="{{ $item->score }}" placeholder="Score" />
-                                        </div>
-
-                                        <input type="hidden" class="course_items"
-                                            id="course_items{{ $item->id }}" value="{{ $courses }}" />
-
-                                        <div class="my-2">
-                                            <label>Number of Questions</label>
-                                            <div class="d-flex">
-                                                <input class="form-control question_num" type="number"
-                                                    value="{{ count($item->score_list) }}"
-                                                    id="question_num{{ $item->id }}" name="q_num"
-                                                    placeholder="Number of Questions" />
-                                                <button type="button"
-                                                    class="new_list btn btn-primary show_list ms-3 p-0"
-                                                    id="new_list{{ $item->id }}">
-                                                    Add List
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="score_list_edit mt-5 d-flex flex-column"
-                                            id="score_list_edit{{ $item->id }}">
-                                            <div class="col-md-12 d-flex justify-content-start gap-7 border-bottom">
-                                                <h5>Row</h5>
-                                                <h5>Score</h5>
-                                            </div>
-                                            @foreach ($item->score_list as $element)
-                                                <input type="hidden" value="{{ $element->question_num }}"
-                                                    name="question_num[]" />
-                                                <div
-                                                    class="mt-4 d-flex justify-content-between align-items-baseline gap-3 pb-3 border-bottom scors">
-                                                    <h4 style="width: 8% !important;">{{ $element->question_num }} -
-                                                    </h4>
-                                                    <input class="form-control scoreQuestion" id="scoreQuestion"
-                                                        value="{{ $element->score }}" name="score_list[]" />
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <span class="removeScoreQuestion">Remove</span>
-                                        <div class="col-md-12 d-flex justify-content-end mt-5">
-                                            {{-- <span class="btn btn-primary btnTest">Test</span> --}}
-                                            <button class="btn btn-primary btnEdit">Edit Score</button>
-                                        </div>
-                                        </form>
+                    <div class="modal fade" id="kt_modal_invite_friends{{ $item->id }}" tabindex="-1"
+                        aria-hidden="true">
+                        <!--begin::Modal dialog-->
+                        <div class="modal-dialog mw-650px">
+                            <!--begin::Modal content-->
+                            <div class="modal-content">
+                                <!--begin::Modal header-->
+                                <div class="modal-header pb-0 pt-2 border-0 justify-content-end">
+                                    <!--begin::Close-->
+                                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                                        <i class="ki-duotone ki-cross fs-1">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
                                     </div>
-                                    <!--end::Modal body-->
+                                    <!--end::Close-->
                                 </div>
-                                <!--end::Modal content-->
-                            </div>
-                            <!--end::Modal dialog-->
-                        </div>
-                    </form>
-                        @endforeach
+                                <!--begin::Modal header-->
+                                <!--begin::Modal body-->
+                                <div class="modal-body scroll-y pt-0">
+                                    <!--begin::Heading-->
+                                    <div class="text-center mb-2">
+                                        <!--begin::Title-->
+                                        <h1>Edit Raw Score</h1>
+                                        <!--end::Title-->
+
+
+                                    </div>
+                                    <!--end::Heading-->
+
+                                    <div class="myformScore" id="myformScore{{ $item->id }}">
+                                        <div class="p-3 formScoreEdit" id="formScoreEdit{{ $item->id }}">
+                                            <input type="hidden" name="score_id" value="{{ $item->id }}"
+                                            class="score_id">
+                                            <div class="my-2">
+                                                <label>Name</label>
+                                                <input class="form-control scoreName" name="name"
+                                                    value="{{ $item->name }}" placeholder="Name" />
+                                            </div>
+
+                                            <div class="my-2">
+                                                <label>Category</label>
+                                                <select class="form-control cate_sel2"
+                                                    id="cate_sel2{{ $item->id }}">
+                                                    <option>
+                                                        Select Category
+                                                    </option>
+                                                    <option value="{{ $item->course->category->id }}">
+                                                        {{ $item->course->category->cate_name }}
+                                                    </option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">
+                                                            {{ $category->cate_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="my-2">
+                                                <label>Course</label>
+                                                <select class="form-control course_sel2"
+                                                    id="course_sel2{{ $item->id }}" name="course_id">
+                                                    <option disabled>
+                                                        Select Course
+                                                    </option>
+                                                    <option selected value="{{ $item->course->id }}">
+                                                        {{ $item->course->course_name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="my-2">
+                                                <label>Score</label>
+                                                <input class="form-control score" name="score"
+                                                    value="{{ $item->score }}" placeholder="Score" />
+                                            </div>
+
+                                            <input type="hidden" class="course_items"
+                                                id="course_items{{ $item->id }}" value="{{ $courses }}" />
+
+                                            <div class="my-2">
+                                                <label>Number of Questions</label>
+                                                <div class="d-flex">
+                                                    <input class="form-control question_num" type="number"
+                                                        value="{{ count($item->score_list) }}"
+                                                        id="question_num{{ $item->id }}" name="q_num"
+                                                        placeholder="Number of Questions" />
+                                                    <button type="button"
+                                                        class="new_list btn btn-primary show_list ms-3 p-0"
+                                                        id="new_list{{ $item->id }}">
+                                                        Add List
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="score_list_edit mt-5 d-flex flex-column"
+                                                id="score_list_edit{{ $item->id }}">
+                                                <div
+                                                    class="col-md-12 d-flex justify-content-start gap-7 border-bottom">
+                                                    <h5>Row</h5>
+                                                    <h5>Score</h5>
+                                                </div>
+                                                @foreach ($item->score_list as $element)
+                                                <div
+                                                class="mt-4 d-flex justify-content-between align-items-baseline gap-3 pb-3 border-bottom scors">
+                                                <input type="hidden" class="question_num" value="{{ $element->question_num }}"
+                                                    name="question_num[]" />
+                                                        <h4 style="width: 8% !important;">{{ $element->question_num }}
+                                                            -
+                                                        </h4>
+                                                        <input class="form-control scoreQuestion" id="scoreQuestion"
+                                                            value="{{ $element->score }}" name="score_list[]" />
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <span class="removeScoreQuestion">Remove</span>
+                                            <div class="col-md-12 d-flex justify-content-end mt-5">
+                                                {{-- <span class="btn btn-primary btnTest">Test</span> --}}
+                                                <button class="btn btn-primary btnEdit">Edit Score</button>
+                                            </div>
+              
+                </div>
+                <!--end::Modal body-->
+                </div>
+                <!--end::Modal content-->
+                </div>
+                <!--end::Modal dialog-->
+                </div>
+                </form>
+            @endforeach
         </tbody>
         {{ $score_sheet->links() }}
     </table>
 
     <script>
+        let cate_sel1 = document.querySelector('.cate_sel');
+        let course_sel1 = document.querySelector('.course_sel');
+        let course_items1 = document.querySelector('.course_items');
+        course_items1 = course_items1.value;
+        course_items1 = JSON.parse(course_items1);
+
+        cate_sel1.addEventListener('change', () => {
+            course_sel1.innerHTML = `<option selected disabled>
+                        Select Course    
+                    </option>`;
+            course_items1.forEach(item => {
+                if (item.category_id == cate_sel1.value) {
+                    course_sel1.innerHTML += `
+                    <option value="${item.id}">
+                        ${item.course_name}    
+                    </option>
+                    `;
+                }
+            });
+        })
+
         $(document).ready(function() {
 
 
-            // var parScore = `#${$(this).closest(".modal-body").find(".formScoreEdit").attr("id")}`;
-            // var cate_sel = `#${$(parScore).find('.cate_sel').attr("id")}`;
-            // var cate_sel2 = `#${$(parScore).find('.cate_sel2').attr("id")}`;
-            // var course_sel = `#${$(parScore).find('.course_sel').attr("id")}`;
-            // var course_sel2 = `#${$(parScore).find('.course_sel2').attr("id")}`;
-            // var course_items = `#${$(parScore).find('.course_items').attr("id")}`;
-            // $(course_items) = $(course_items).val();
-            // $(course_items) = JSON.parse(course_items);
-            // $(cate_sel).change(() => {
-            //     console.log(123);
-            //     $(course_sel).innerHTML = `
+        //     var parScore = `#${$(this).closest(".modal-body").find(".formScoreEdit").attr("id")}`;
+        //     var cate_sel = `#${$(parScore).find('.cate_sel').attr("id")}`;
+        //     var cate_sel2 = `#${$(parScore).find('.cate_sel2').attr("id")}`;
+        //     var course_sel = `#${$(parScore).find('.course_sel').attr("id")}`;
+        //     var course_sel2 = `#${$(parScore).find('.course_sel2').attr("id")}`;
+        //     var course_items = `#${$(parScore).find('.course_items').attr("id")}`;
+        //     $(course_items) = $(course_items).val();
+        //     $(course_items) = JSON.parse(course_items);
+        //     $(cate_sel).change(() => {
+        //         console.log(123);
+        //         $(course_sel).innerHTML = `
         // <option disabled selected>
-        //     Select Course ...    
+        //     Select Course     
         // </option>`;
 
-            //     $(course_items).each(element => {
-            //         if (element.category_id == $(cate_sel).val()) {
-            //             $(course_sel).innerHTML += `
+        //         $(course_items).each(element => {
+        //             if (element.category_id == $(cate_sel).val()) {
+        //                 $(course_sel).innerHTML += `
         //         <option value="${element.id}">
         //             ${element.course_name}   
         //         </option>`;
-            //         }
-            //     });
-            // });
-            // $(cate_sel2).change(() => {
-            //     console.log(123);
-            //     $(course_sel2).innerHTML = `
+        //             }
+        //         });
+        //     });
+        //     $(cate_sel2).change(() => {
+        //         console.log(123);
+        //         $(course_sel2).innerHTML = `
         // <option disabled selected>
-        //     Select Course ...    
+        //     Select Course     
         // </option>`;
 
-            //     $(course_items).each(element => {
-            //         if (element.category_id == $(cate_sel2).val()) {
-            //             $(course_sel2).innerHTML += `
+        //         $(course_items).each(element => {
+        //             if (element.category_id == $(cate_sel2).val()) {
+        //                 $(course_sel2).innerHTML += `
         //         <option value="${element.id}">
         //             ${element.course_name}   
         //         </option>`;
-            //         }
-            //     });
-            // });
+        //             }
+        //         });
+        //     });
 
-            // let question_num = document.querySelector('.question_num');
-            // let show_list = document.querySelector('.show_list');
-            // let score_list = document.querySelector('.score_list');
-            // show_list.addEventListener('click', () => {
-            //     let num = question_num.value;
-            //     num = parseInt(num);
-            //     let score_arr = '';
-            //     for (let i = 1; i <= num; i++) {
-            //         score_arr += `
-        //         <tr>
-        //             <td>
-        //                 <input type="hidden" value="${i}" name="question_num[]" />
-        //                 ${i}
-        //             </td>
-        //             <td>
-        //                 <input class="form-control" name="score_list[]" />
-        //             </td>  
-        //         </tr>
-        //         `;
-            //     }
-            //     score_list.innerHTML = `
-        //     <table class="table">
-        //         <thead>
-        //             <th>Row Score</th>
-        //             <th>Score</th>    
-        //         </thead> 
-        //         <tbody>
-        //             ${score_arr}  
-        //         </tbody>   
-        //     </table>
-        //     `;
-            // })
+            let question_num = document.querySelector('.question_num');
+            let show_list = document.querySelector('.show_list');
+            let score_list = document.querySelector('.score_list');
+            show_list.addEventListener('click', () => {
+                let num = question_num.value;
+                num = parseInt(num);
+                let score_arr = '';
+                for (let i = 1; i <= num; i++) {
+                    score_arr += `
+                <tr>
+                    <td>
+                        <input type="hidden" value="${i}" name="question_num[]" />
+                        ${i}
+                    </td>
+                    <td>
+                        <input class="form-control" name="score_list[]" />
+                    </td>  
+                </tr>
+                `;
+                }
+                score_list.innerHTML = `
+            <table class="table">
+                <thead>
+                    <th class="col-2">Row Score</th>
+                    <th>Score</th>    
+                </thead> 
+                <tbody>
+                    ${score_arr}  
+                </tbody>   
+            </table>
+            `;
+            })
         })
     </script>
     <script>
@@ -451,6 +474,7 @@
 
                 for (let i = 0; i < parseInt(countScore); i++) {
                     var newScore = `<div class="new_score mt-4 d-flex justify-content-between align-items-baseline gap-3 pb-3 border-bottom scors">
+                                         <input type="hidden" class="question_num" value=${indexScore + i + 1} name="question_num[]" />                
                                         <h4 style="width: 8% !important;">
                                         ${indexScore + i + 1} -</h4>
                                         <input class="form-control scoreQuestion"
@@ -518,13 +542,18 @@
                 console.log("score_num", score_num)
 
                 var scoreList = [];
+                var questionNumbers = [];
                 var scoreEle = $(parScore).find(".scors");
                 console.log("scoreEle", scoreEle)
                 $(scoreEle).each((val, ele) => {
+                    console.log("score", ele)
+                    var questionNum = $(ele).find(".question_num").val();
+                    questionNumbers.push(val + 1 );
                     var scoreQuestion = $(ele).find(".scoreQuestion").val();
                     scoreList.push(scoreQuestion);
                 })
                 console.log("scoreList", scoreList)
+                console.log("questionNumbers", questionNumbers)
 
                 var scoreEdite = {
                     id: score_id,
@@ -533,6 +562,7 @@
                     course: score_course,
                     score: score,
                     num: score_num,
+                    questionNumbers: questionNumbers,
                     scores: scoreList,
                 }
 
