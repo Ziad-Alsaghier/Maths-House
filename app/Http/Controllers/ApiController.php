@@ -825,9 +825,12 @@ class ApiController extends Controller
 
     public function api_exam_grade(Request $req)
     {
+        return response()->json([
+            'data' => $req->mistakes
+        ]);
         $user_id = $req->user()->id;
         $chapters = [];
-        $mistakes = count(($req->mistakes)) == 0 ? [] : ($req->mistakes);
+        $mistakes = count(json_decode($req->mistakes)) == 0 ? [] : json_decode($req->mistakes);
         $exam = Exam::where('id', $req->exam_id)
             ->first();
 
