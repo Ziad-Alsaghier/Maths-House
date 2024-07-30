@@ -95,7 +95,7 @@ class DiagnosticExamController extends Controller
     }
 
     public function edit_dia_exam( $id, Request $req){
-        return $req->question_id;
+
         $questions = json_decode($req->ques_id);
        $arr = $req->only('title', 'description', 'score', 'pass_score', 'course_id', 'score_id');
        $arr['state'] = isset($req->state) ? 1 : 0;
