@@ -2258,7 +2258,6 @@
                             name='section_id[]'
                             class='question_edite_sectionid'
                             id='question_edite_id${question_idd}' />
-
                             <input type="hidden"
                             value=${quizze_idd}
                             name='diagnostic_edite_id[]'
@@ -2507,58 +2506,58 @@
 
                      // Corrected the loop to iterate over each row in the table section
                     $(parEle).find("tr").each((indexEle, valEle) => {
-                     console.log("indexEle", indexEle);
-                     console.log("valEle", valEle);
+                    console.log("indexEle", indexEle);
+                    console.log("valEle", valEle);
 
-                     var parTableEle = `#${$(valEle).attr("id")}`;
-                     console.log("parTableEle2", parTableEle)
+                    var parTableEle = `#${$(valEle).attr("id")}`;
+                    console.log("parTableEle2", parTableEle)
 
                      /* ########### */
-                         var question_section_id = `#${$(parTableEle).find(".question_edite_sectionid").attr("id")}`;
-                         var ques_sectionID = $(question_section_id).val();
+                        var question_section_id = `#${$(parTableEle).find(".question_edite_sectionid").attr("id")}`;
+                        var ques_sectionID = $(question_section_id).val();
 
                          /* ########### */
-                         var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
-                         var ques_ID = $(question_edit_id).val();
+                        var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
+                        var ques_ID = $(question_edit_id).val();
 
                          /* ########### */
-                         var question_edit_type =
-                             `#${$(parTableEle).find(".question_edite_type").attr("id")}`;
-                         var ques_TYPE = $(question_edit_type).text().trim();
+                        var question_edit_type =
+                            `#${$(parTableEle).find(".question_edite_type").attr("id")}`;
+                        var ques_TYPE = $(question_edit_type).text().trim();
 
                          /* ########### */
-                         var question_edit_year =
-                             `#${$(parTableEle).find(".question_edite_year").attr("id")}`;
-                         var ques_YEAR = $(question_edit_year).text();
+                        var question_edit_year =
+                            `#${$(parTableEle).find(".question_edite_year").attr("id")}`;
+                        var ques_YEAR = $(question_edit_year).text();
 
                          /* ########### */
-                         var question_edit_month =
-                             `#${$(parTableEle).find(".question_edite_month").attr("id")}`;
-                         var ques_MONTH = $(question_edit_month).text();
+                        var question_edit_month =
+                            `#${$(parTableEle).find(".question_edite_month").attr("id")}`;
+                        var ques_MONTH = $(question_edit_month).text();
 
                          /* ########### */
-                         var question_edit_code =
-                             `#${$(parTableEle).find(".question_edite_code").attr("id")}`;
-                         var ques_CODE = $(question_edit_code).text().trim();
+                        var question_edit_code =
+                            `#${$(parTableEle).find(".question_edite_code").attr("id")}`;
+                        var ques_CODE = $(question_edit_code).text().trim();
 
                          /* ########### */
-                         var question_edit_section =
-                             `#${$(parTableEle).find(".question_edite_section").attr("id")}`;
-                         var ques_SECTION = $(question_edit_section).text();
+                        var question_edit_section =
+                            `#${$(parTableEle).find(".question_edite_section").attr("id")}`;
+                        var ques_SECTION = $(question_edit_section).text();
 
                          /* ########### */
                         var question_edit_num = `#${$(parTableEle).find(".question_edite_num").attr("id")}`;
                         var ques_NUM = $(question_edit_num).text();
                          /* ########### */
                         var question_edit_difficulty =
-                             `#${$(parTableEle).find(".question_edite_difficulty").attr("id")}`;
+                            `#${$(parTableEle).find(".question_edite_difficulty").attr("id")}`;
                         var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
                          /* ########### */
-                         var question_edit_chapter =
+                        var question_edit_chapter =
                             `#${$(parTableEle).find(".question_edite_chapter").attr("id")}`;
                         var ques_chapter = $(question_edit_chapter).text().trim();
                          /* ########### */
-                         var question_edit_lesson =
+                        var question_edit_lesson =
                             `#${$(parTableEle).find(".question_edite_lesson").attr("id")}`;
                         var ques_Lesson = $(question_edit_lesson).text().trim();
                         /* ########### */

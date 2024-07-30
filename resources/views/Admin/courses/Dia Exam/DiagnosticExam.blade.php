@@ -1049,15 +1049,11 @@
                                                                     <tbody class="sel_quz_edit"
                                                                         id="sel_quz_edit{{ $item->id }}">
 
-                                                                        {{-- <input type="text" id="allQuestion"
-                                                                        name="questions" value="" /> --}}
+
+
                                                                         @foreach ($item->question->sortBy('q_num') as $question)
-                                                                            {{-- <input type="hidden" class="e_questions"
-                                                                            value="{{ $question }}" /> --}}
-                                                                            {{-- <input type="hidden"
-                                                                            value="{{ $question->question_id }}"
-                                                                            name="questions_id[]"
-                                                                            class="question_id" /> --}}
+
+
                                                                             <tr class="tr_edite{{ $item->id }}"
                                                                                 id="tr_edite{{ $question->id }}">
 
@@ -1068,7 +1064,7 @@
                                                                                     id="question_edite_id{{ $question->id }}" />
 
                                                                                 <input type="hidden"
-                                                                                    value={{ $item->id }}
+                                                                                    value="{{ $item->id }}"
                                                                                     name='diagnostic_edite_id[]'
                                                                                     class='diagnostic_edite_id'
                                                                                     id='diagnostic_edite_id{{ $question->id }}' />
@@ -1732,7 +1728,7 @@
                                 value=${question_idd}
                                 name='question_id[]'
                                 class='question_edite_id' id='question_edite_id${question_idd}'/>
-                                
+
                                 <input type="hidden"
                                 value=${quizze_idd}
                                 name='diagnostic_edite_id[]'
