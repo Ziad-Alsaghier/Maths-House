@@ -1055,7 +1055,7 @@
 
 
                                                                             <tr class="tr_edite{{ $item->id }}"
-                                                                                id="tr_edite{{ $question->id }}">
+                                                                            id="tr_edite{{ $question->id }}">
 
                                                                                 <input type="hidden"
                                                                                     value="{{ $question->id }}"
