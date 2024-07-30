@@ -492,7 +492,7 @@
                             ->get();
                         @endphp
 
-                        @if ( count($solve_parallel) > 0 )
+                        @if ( count($solve_parallel) > 0 && $loop->iteration == 1 )
                             <button class="Solve"><a href="{{ route('question_parallel', ['id' => $question->id]) }}">
                                     Solve Parallel
                                 </a>
