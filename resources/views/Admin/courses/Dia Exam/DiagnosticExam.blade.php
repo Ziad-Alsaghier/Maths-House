@@ -1673,7 +1673,7 @@
             $(document).on("click", ".edit_qz", function() {
 
                 var question_idd = $(this).closest("tr").find(".question_id").val();
-                var quizze_idd = $(this).closest(".lesson_quizze").find(".quizze_ID").val();
+                var quizze_idd = $(this).closest(".lesson_quizze").find(".ques_id").val();
 
                 // var quziId = $(this).closest("tr").find(".idd").text();
                 var quziType = $(this).closest("tr").find(".type").text();
