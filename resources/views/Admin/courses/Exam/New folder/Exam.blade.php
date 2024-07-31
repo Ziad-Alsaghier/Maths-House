@@ -1286,7 +1286,7 @@
                                                                                                     id="question_edite_id{{ $question->id }}" />
 
                                                                                                 <input type="hidden"
-                                                                                                    value='{{ $item->id }}'
+                                                                                                    value={{ $item->id }}
                                                                                                     name='diagnostic_edite_id[]'
                                                                                                     class='diagnostic_edite_id'
                                                                                                     id='diagnostic_edite_id{{ $question->id }}' />
@@ -2245,19 +2245,12 @@
                     console.log("##########")
                     console.log("edit_eray", edit_eray);
 
-                    //edit input 2 :from class=question_edite_id  to  class=question_edite_sectionid
-
                     var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
                             <input type="hidden"
                             value=${question_idd}
                             name='question_id[]'
                             class='question_edite_id' id='question_edite_id${question_idd}'/>
-
-                            <input type='hidden'
-                            value='{{ $element->id }}'
-                            name='section_id[]'
-                            class='question_edite_sectionid'
-                            id='question_edite_id${question_idd}' />
+                            
                             <input type="hidden"
                             value=${quizze_idd}
                             name='diagnostic_edite_id[]'
@@ -2357,8 +2350,6 @@
                 };
                 addEmptyRow();
             })
-
-
             /* send Data at edit */
             var allDataEdite = [];
             $(document).on("click", ".edit_filter_exam", function() {
@@ -2425,146 +2416,79 @@
                 console.log("childEdite", childEdite)
                 console.log("childEdite length", $(childEdite).length)
 
+
                 $(childEdite).each((childEle, childVal) => {
 
                     var parEle = $(childVal).find(".sel_quz_edit");
                     var allSectionsEdite = [];
+                    $(childVal).each((indexEle, valEle) => {
+                        
+                        console.log("indexEle", indexEle)
+                        console.log("valEle", valEle)
 
-                    ///////////////////////////////////////////////////////////////////Edit from here
-                    // $(childVal).each((indexEle, valEle) => {
-
-                    //     console.log("indexEle", indexEle)
-                    //     console.log("valEle", valEle)
-
-                    //     var parTableEle = `#${$(valEle).find(".sel_quz_edit").attr("id")}`;
-                    //     console.log("parTableEle2", parTableEle)
-
-                    //     /* ########### */
-                    //     var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
-                    //     var ques_ID = $(question_edit_id).val();
-
-                    //     /* ########### */
-                    //     var question_edit_type =
-                    //         `#${$(parTableEle).find(".question_edite_type").attr("id")}`;
-                    //     var ques_TYPE = $(question_edit_type).text().trim();
-
-                    //     /* ########### */
-                    //     var question_edit_year =
-                    //         `#${$(parTableEle).find(".question_edite_year").attr("id")}`;
-                    //     var ques_YEAR = $(question_edit_year).text();
-
-                    //     /* ########### */
-                    //     var question_edit_month =
-                    //         `#${$(parTableEle).find(".question_edite_month").attr("id")}`;
-                    //     var ques_MONTH = $(question_edit_month).text();
-
-                    //     /* ########### */
-                    //     var question_edit_code =
-                    //         `#${$(parTableEle).find(".question_edite_code").attr("id")}`;
-                    //     var ques_CODE = $(question_edit_code).text().trim();
-
-                    //     /* ########### */
-                    //     var question_edit_section =
-                    //         `#${$(parTableEle).find(".question_edite_section").attr("id")}`;
-                    //     var ques_SECTION = $(question_edit_section).text();
-
-                    //     /* ########### */
-                    //     var question_edit_num = `#${$(parTableEle).find(".question_edite_num").attr("id")}`;
-                    //     var ques_NUM = $(question_edit_num).text();
-                    //     /* ########### */
-                    //     var question_edit_difficulty =
-                    //         `#${$(parTableEle).find(".question_edite_difficulty").attr("id")}`;
-                    //     var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
-                    //     /* ########### */
-                    //     var question_edit_chapter =
-                    //         `#${$(parTableEle).find(".question_edite_chapter").attr("id")}`;
-                    //     var ques_chapter = $(question_edit_chapter).text().trim();
-                    //     /* ########### */
-                    //     var question_edit_lesson =
-                    //         `#${$(parTableEle).find(".question_edite_lesson").attr("id")}`;
-                    //     var ques_Lesson = $(question_edit_lesson).text().trim();
-                    //     /* ########### */
+                        var parTableEle = `#${$(valEle).find(".sel_quz_edit").attr("id")}`;
+                        console.log("parTableEle2", parTableEle)
 
 
-                    //     var section_obj = {
-                    //         question_ID: ques_ID,
-                    //         question_Type: ques_TYPE,
-                    //         question_Year: JSON.parse(ques_YEAR),
-                    //         question_Month: JSON.parse(ques_MONTH),
-                    //         question_Code: ques_CODE,
-                    //         question_Section: JSON.parse(ques_SECTION),
-                    //         question_Num: JSON.parse(ques_NUM),
-                    //         question_Difficulty: ques_DIFFICULTY,
-                    //         question_Chapter: ques_chapter,
-                    //         // question_Lesson: ques_lesson,
-                    //     }
-                    //     console.log("section_obj", section_obj)
-                    //     allSectionsEdite.push(section_obj);
-
-                    // })
-
-
-                     // Corrected the loop to iterate over each row in the table section
-                    $(parEle).find("tr").each((indexEle, valEle) => {
-                    console.log("indexEle", indexEle);
-                    console.log("valEle", valEle);
-
-                    var parTableEle = `#${$(valEle).attr("id")}`;
-                    console.log("parTableEle2", parTableEle)
-
-                     /* ########### */
-                        var question_section_id = `#${$(parTableEle).find(".question_edite_sectionid").attr("id")}`;
-                        var ques_sectionID = $(question_section_id).val();
-
-                         /* ########### */
+                        /* ########### */
                         var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
                         var ques_ID = $(question_edit_id).val();
 
-                         /* ########### */
+                        /* ########### */
                         var question_edit_type =
                             `#${$(parTableEle).find(".question_edite_type").attr("id")}`;
                         var ques_TYPE = $(question_edit_type).text().trim();
 
-                         /* ########### */
+                        /* ########### */
                         var question_edit_year =
                             `#${$(parTableEle).find(".question_edite_year").attr("id")}`;
                         var ques_YEAR = $(question_edit_year).text();
 
-                         /* ########### */
+                        /* ########### */
                         var question_edit_month =
                             `#${$(parTableEle).find(".question_edite_month").attr("id")}`;
                         var ques_MONTH = $(question_edit_month).text();
 
-                         /* ########### */
+                        /* ########### */
                         var question_edit_code =
                             `#${$(parTableEle).find(".question_edite_code").attr("id")}`;
                         var ques_CODE = $(question_edit_code).text().trim();
 
-                         /* ########### */
+                        /* ########### */
                         var question_edit_section =
                             `#${$(parTableEle).find(".question_edite_section").attr("id")}`;
                         var ques_SECTION = $(question_edit_section).text();
 
-                         /* ########### */
+                        /* ########### */
                         var question_edit_num = `#${$(parTableEle).find(".question_edite_num").attr("id")}`;
                         var ques_NUM = $(question_edit_num).text();
-                         /* ########### */
+                        /* ########### */
                         var question_edit_difficulty =
                             `#${$(parTableEle).find(".question_edite_difficulty").attr("id")}`;
                         var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
-                         /* ########### */
+                        /* ########### */
                         var question_edit_chapter =
                             `#${$(parTableEle).find(".question_edite_chapter").attr("id")}`;
                         var ques_chapter = $(question_edit_chapter).text().trim();
-                         /* ########### */
+                        /* ########### */
                         var question_edit_lesson =
                             `#${$(parTableEle).find(".question_edite_lesson").attr("id")}`;
                         var ques_Lesson = $(question_edit_lesson).text().trim();
                         /* ########### */
 
-
+                        // var section_obj = {
+                        //     question_ID: JSON.parse(ques_ID),
+                        //     question_Type: ques_TYPE,
+                        //     question_Year: JSON.parse(ques_YEAR),
+                        //     question_Month: JSON.parse(ques_MONTH),
+                        //     question_Code: ques_CODE,
+                        //     question_Section: JSON.parse(ques_SECTION),
+                        //     question_Num: JSON.parse(ques_NUM),
+                        //     question_Difficulty: ques_DIFFICULTY,
+                        //     question_Chapter: ques_chapter,
+                        //     // question_Lesson: ques_lesson,
+                        // }
                         var section_obj = {
-                            question_Section_ID:ques_sectionID,
                             question_ID: ques_ID,
                             question_Type: ques_TYPE,
                             question_Year: JSON.parse(ques_YEAR),
@@ -2578,15 +2502,14 @@
                         }
                         console.log("section_obj", section_obj)
                         allSectionsEdite.push(section_obj);
-
                     })
 
-                  ///////////////////////////////////////////////////////////////////End here
                     console.log("parEle", parEle)
                     console.log("childEle", childEle)
                     console.log("childVal", childVal)
-
+                    
                     console.log("allSectionsEdite", allSectionsEdite)
+                    
                     allDataEdite.push(allSectionsEdite);
                 })
 
@@ -2598,7 +2521,7 @@
                 console.log("allDataEdite", allDataEdite)
                 console.log("#############")
 
-                // var idExam = $(this).parent().find('#dia_id').val();
+                // var idExam = $(this).parent().find('#dia_id').val(); 
 
 
                 $.ajax({
@@ -2615,10 +2538,7 @@
                 });
             })
 
-
-
         });
-
     </script>
 
 </x-default-layout>

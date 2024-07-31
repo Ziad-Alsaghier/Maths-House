@@ -946,14 +946,13 @@ class ApiController extends Controller
         $lesson = Lesson::where('id', $id)
             ->first();
         $quiz = $lesson->quizze_api;
-        foreach($quiz as $quiz_image){
-            $quiz_image->q_url = url('images/questions/' .$quiz_image->q_url);
-        }
         for ($i = 1; $i < count($quiz); $i++) {
             $question = $quiz[$i];
-           
+            if (isset($question->question_api[$i]->q_url)) {
                 $question->question_api[$i]->q_url = url('images/questions/' . $question->question_api[$i]->q_url);
+            }
         }
+
         return response()->json([
             'quiz' => $quiz,
         ]);
@@ -1015,8 +1014,7 @@ class ApiController extends Controller
             ]);
         }
 
-        // $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone', 'city_id', 'grade');
-        $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone');
+        $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone', 'city_id', 'grade');
         $arr['position'] = 'student';
         $arr['state'] = 'hidden';
         $arr['password'] = bcrypt($req->password);
