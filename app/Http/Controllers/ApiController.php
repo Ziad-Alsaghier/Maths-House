@@ -111,7 +111,6 @@ class ApiController extends Controller
     protected $live_session_request = [
         'category_id',
         'course_id',
-        'start_date',
         'end_date',
     ];
     public function login(Request $req)
