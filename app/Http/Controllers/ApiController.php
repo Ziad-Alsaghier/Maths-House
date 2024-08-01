@@ -1912,7 +1912,6 @@ class ApiController extends Controller
 
     public function session_request(Request $request)
     {
-        try {
             $request_live_session = $request->only($this->live_session_request);
 
             $session = Category::where('id', $request_live_session['category_id'])
@@ -1955,12 +1954,6 @@ class ApiController extends Controller
                     $sessionData
                 ],
             ]);
-        } catch (ErrorException) {
-
-            return response()->json([
-                'faild' => 'Not Found Request To Get Data'
-            ], 400);
-        }
     }
     public function session_private_request(Request $request)
     {
