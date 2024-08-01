@@ -76,7 +76,7 @@ class LiveController extends Controller
             ->pluck('stu_id');
             $arr = array_merge( $group_students->toArray(), $req->user_id);
             $arr = array_unique($arr);
-            return $arr;
+            return $group_students;
 
             SessionStudent::where('session_id', $id)
             ->delete();
@@ -84,7 +84,7 @@ class LiveController extends Controller
             for ($i=0, $end = count($arr); $i < $end; $i++) { 
                 SessionStudent::create([
                     'session_id' => $id,
-                    'user_id' => $arr[$i],
+                    'user_id' => intval($arr[$i]),
                 ]);
             }
         }
