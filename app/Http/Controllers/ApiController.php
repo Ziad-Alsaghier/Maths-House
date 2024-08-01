@@ -111,6 +111,7 @@ class ApiController extends Controller
     protected $live_session_request = [
         'category_id',
         'course_id',
+        'start_date',
         'end_date',
     ];
     public function login(Request $req)
@@ -1911,8 +1912,10 @@ class ApiController extends Controller
 
     public function session_request(Request $request)
     {
-            $request_live_session = $request->only($this->live_session_request);
+        try {
             $sessionData = [];
+            $request_live_session = $request->only($this->live_session_request);
+
             $session = Category::where('id', $request_live_session['category_id'])
                 ->with('courses_live', function ($query) {
                     $query->with('chapter', function ($query) {
@@ -1953,6 +1956,12 @@ class ApiController extends Controller
                     $sessionData
                 ],
             ]);
+        } catch (ErrorException) {
+
+            return response()->json([
+                'faild' => 'Not Found Request To Get Data'
+            ], 400);
+        }
     }
     public function session_private_request(Request $request)
     {
