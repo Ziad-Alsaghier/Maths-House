@@ -1912,7 +1912,7 @@ class ApiController extends Controller
     public function session_request(Request $request)
     {
             $request_live_session = $request->only($this->live_session_request);
-
+            $sessionData = [];
             $session = Category::where('id', $request_live_session['category_id'])
                 ->with('courses_live', function ($query) {
                     $query->with('chapter', function ($query) {
