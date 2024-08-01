@@ -76,6 +76,7 @@ class LiveController extends Controller
             ->pluck('stu_id');
             $arr = array_merge( $group_students->toArray(), $req->user_id);
             $arr = array_unique($arr);
+            $arr = array_values($arr);
             
             SessionStudent::where('session_id', $id)
             ->delete();
