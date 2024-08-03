@@ -1049,18 +1049,21 @@ class ApiController extends Controller
 
     public function api_exam_mistakes($id)
     {
-
         $questions = ExamMistake::where('user_id', auth()->user()->id)
             ->where('student_exam_id', $id)
             ->with('question')
             ->get();
         $arr = [];
         $recommandition = [];
+        $new_arr = [];
 
         foreach ($questions as $key => $item) {
             $arr[] = Question::where('id', $item['question']['id'])
                 ->with('api_lesson')
                 ->first();
+        }
+        foreach ( $arr as $item ) {
+            $item->q_url = url('images/questions/' . $item->q_url);
         }
 
         foreach ($arr as $item) {
