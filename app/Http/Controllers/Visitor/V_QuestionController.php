@@ -173,6 +173,27 @@ class V_QuestionController extends Controller
             return view('Student.Exam.Exam_Package', compact('package'));
         }
     }
+ 
+    public function solve_parallel_question( $id ){
+        
+        $reports = ReportQuestionList::all();
+
+        if ( empty(auth()->user()) ) {
+            if ( !session()->has('previous_page') ) {
+                session(['previous_page' => url()->current()]);
+            }
+            return redirect()->route('login.index');
+        }
+        else{
+            $user = User::where('id', auth()->user()->id)
+            ->first();
+        
+            $question = Question::where('id', $id)
+            ->first();
+            
+            return view('Visitor.Question.Show_Question', compact('question', 'reports'));
+        }
+    }
 
     public function q_package(){ 
         $package = Package::
@@ -234,6 +255,71 @@ class V_QuestionController extends Controller
        // $arr['time'] = ;
         QuestionHistory::create($arr);
         $reports = ReportVideoList::all();
-        return view('Visitor.Question.Grade', compact('ans', 'question', 'reports'));
+        return view('Visitor.Question.SolveGrade', compact('ans', 'question', 'reports'));
     }
+    public function parallel_answer( $id ){
+        
+        $reports = ReportQuestionList::all();
+
+        if ( empty(auth()->user()) ) {
+            if ( !session()->has('previous_page') ) {
+                session(['previous_page' => url()->current()]);
+            }
+            return redirect()->route('login.index');
+        }
+        else{  
+            $payments = PaymentPackageOrder::
+            where('state', 1)
+            ->with('pay_req')
+            ->with('package')
+            ->get();
+            $user = User::where('id', auth()->user()->id)
+            ->first();
+
+            $small_package = SmallPackage::where('user_id', auth()->user()->id)
+            ->where('module', 'Question')
+            ->where('number', '>', 0)
+            ->first();
+
+            if ( !empty($small_package) ) { 
+                SmallPackage::where('user_id', auth()->user()->id)
+                ->where('module', 'Question')
+                ->where('number', '>', 0)
+                ->update([
+                    'number' => $small_package->number - 1
+                ]);
+                // Return Exam
+                $question = Question::where('id', $id)
+                ->first();
+                
+                return view('Visitor.Question.ParallelGrade', compact('question', 'reports'));
+            }
+
+            foreach ( $payments as $item ) { 
+                $newTime = Carbon::now()->subDays($item->package->number);
+                $question = Question::where('id', $id)
+                ->first();
+
+                if ( $item->package->module == 'Question' && 
+                $item->pay_req->user_id == auth()->user()->id &&
+                $item->date > $newTime &&
+                $item->number > 0
+                 ) 
+                 {  
+
+                    PaymentPackageOrder::where('id', $item->id)
+                    ->update([
+                        'number' => $item->number - 1
+                    ]);
+                    return view('Visitor.Question.ParallelGrade', compact('question', 'reports')); 
+                }
+            } 
+            $package = Package::
+            where('module', 'Question')
+            ->get();
+            Cookie::queue(Cookie::make('q_id', $id, 90));
+            return view('Student.Exam.Exam_Package', compact('package'));
+        }
+    }
+
 }

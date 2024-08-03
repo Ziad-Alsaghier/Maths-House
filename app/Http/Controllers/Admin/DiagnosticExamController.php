@@ -43,15 +43,7 @@ class DiagnosticExamController extends Controller
 
     public function dia_exam_data( Request $req ){
 
-        $quizzes = Question::
-        select('*', 'questions.id as question_id')
-        ->leftJoin('lessons', 'questions.lesson_id', '=', 'lessons.id')
-        ->leftJoin('chapters', 'lessons.chapter_id', '=', 'chapters.id')
-        ->leftJoin('courses', 'chapters.course_id', '=', 'courses.id')
-        ->where('courses.id', $req->course_id)
-        ->with('code')
-        ->orderByDesc('question_id')
-        ->get();
+        $quizzes = [];
 
         return $quizzes;
     }

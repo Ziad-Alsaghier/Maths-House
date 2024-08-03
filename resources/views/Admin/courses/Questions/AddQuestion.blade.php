@@ -527,35 +527,7 @@
                              </div>
                              <!--end::Wrapper-->
                          </div>
-                         {{-- <script>
-                             let add_new_idea = document.querySelector('#add_new_idea');
-                             let ideas = document.querySelector('.ideas');
-                             add_new_idea.addEventListener('click', () => {
-                                 ideas.innerHTML += `
-                                    <div class="idea">
-                                    <hr />
-                                        <div class="section_idea">
-                                            <span>Answer PDF</span>
-                                            <input type="file" name="ans_pdf[]" class="form-control form-control-lg form-control-solid">
-                                        </div>
-                                        <div class="section_syllabus">
-                                            <span>Answer Video</span>
-                                            <input type="file" name="ans_video[]" class="form-control form-control-lg form-control-solid">
-                                        </div>
-                                        <button type="button" class="btn btn-danger btn_remove_idea">Remove</button>
-                                    </div>`;
-                                 let btn_remove_idea = document.querySelectorAll('.btn_remove_idea');
-                                 for (let i = 0, end = btn_remove_idea.length; i < end; i++) {
-                                     btn_remove_idea[i].addEventListener('click', (e) => {
-                                         for (let j = 0; j < end; j++) {
-                                             if (e.target == btn_remove_idea[j]) {
-                                                 btn_remove_idea[j].parentElement.remove()
-                                             }
-                                         }
-                                     });
-                                 }
-                             });
-                         </script> --}}
+
                          <!--end::Step 5-->
                          <!--begin::Actions-->
                          <div class="d-flex flex-stack pt-10">
@@ -602,13 +574,13 @@
          let sel_my_chapter2 = document.querySelector('.sel_my_chapter2');
          let sel_my_lesson2 = document.querySelector('.sel_my_lesson2');
          sel_category2.addEventListener('change', (e) => {
-             sel_my_course2.innerHTML = `                            
+             sel_my_course2.innerHTML = `
         <option value="">
             Select Course
         </option>`;
              courses.forEach(element => {
                  if (e.target.value == element.category_id) {
-                     sel_my_course2.innerHTML += `                            
+                     sel_my_course2.innerHTML += `
                 <option value="${element.id}">
                     ${element.course_name}
                 </option>`;
@@ -617,13 +589,13 @@
              });
          });
          sel_my_course2.addEventListener('change', (e) => {
-             sel_my_chapter2.innerHTML = `                            
+             sel_my_chapter2.innerHTML = `
         <option value="">
             Select Chapter
         </option>`;
              chapters.forEach(element => {
                  if (e.target.value == element.course_id) {
-                     sel_my_chapter2.innerHTML += `                            
+                     sel_my_chapter2.innerHTML += `
                 <option value="${element.id}">
                     ${element.chapter_name}
                 </option>`;
@@ -632,13 +604,13 @@
              });
          });
          sel_my_chapter2.addEventListener('change', (e) => {
-             sel_my_lesson2.innerHTML = `                            
+             sel_my_lesson2.innerHTML = `
         <option value="">
             Select Lesson
         </option>`;
              lessons.forEach(element => {
                  if (e.target.value == element.chapter_id) {
-                     sel_my_lesson2.innerHTML += `                            
+                     sel_my_lesson2.innerHTML += `
                 <option value="${element.id}">
                     ${element.lesson_name}
                 </option>`;
@@ -735,72 +707,73 @@
                     <button type="button" class="btn btn-danger btn_remove_idea">Remove</button>
                 </div>`;
 
-                 $(".ideas").append(newIdea)
+                $(".ideas").append(newIdea)
 
-                 $(".btn_remove_idea").each((val, ele) => {
+                $(".btn_remove_idea").each((val, ele) => {
                      // console.log("ele",ele)
-                     $(ele).click(function() {
-                         $(ele).closest(".idea").remove();
-                     })
+                    $(ele).click(function() {
+                        $(ele).closest(".idea").remove();
+                    })
                      // console.log("val",val)
-                 })
-             });
+                })
+            });
 
 
-             let ans_type = document.querySelector('.ans_type');
-             let ans_div = document.querySelector('.ans_div');
-             let add_ans = document.querySelector('.add_ans');
-             let add_ans_btn = document.querySelector('.add_ans_btn');
-             let add_new = document.querySelector('.addNewAnswer');
-             var newAnswerGride =
-                 `<input type="number" class="form-control answerGrid my-2" name="grid_ans[]" placeholder="Answer" />`;
-             $(".add_ans_btn").click(function() {
-                 $(".ans_div_Grid").append(newAnswerGride);
-             });
-             $(".ans_type").change(function() {
-                 if ($(".ans_type").val() == 'MCQ') {
-                     $(".add_ans").addClass('d-none');
-                     $(".ans_div_Grid").empty();
+                let ans_type = document.querySelector('.ans_type');
+                let ans_div = document.querySelector('.ans_div');
+                let add_ans = document.querySelector('.add_ans');
+                let add_ans_btn = document.querySelector('.add_ans_btn');
+                let add_new = document.querySelector('.addNewAnswer');
 
-                     $(".ans_div_Mcq").removeClass('d-none');
-                     $(".ans_div_Mcq").empty();
+                var newAnswerGride =
+                    `<input type="number" class="form-control answerGrid my-2" name="grid_ans[]" placeholder="Answer" />`;
+                $(".add_ans_btn").click(function() {
+                    $(".ans_div_Grid").append(newAnswerGride);
+                });
+                $(".ans_type").change(function() {
+                    if ($(".ans_type").val() == 'MCQ') {
+                        $(".add_ans").addClass('d-none');
+                        $(".ans_div_Grid").empty();
 
-                     $(".ans_div_Mcq").append(`<div class="my-2 allAnswerMcq">
+                        $(".ans_div_Mcq").removeClass('d-none');
+                        $(".ans_div_Mcq").empty();
+
+                        $(".ans_div_Mcq").append(`<div class="my-2 allAnswerMcq">
                         <div class="d-flex align-items-center mb-3 gap-2">
                             <input name="mcq_answers" class="mcq_answer_radio" value="A" id="mcq_a" type="radio" checked/>
                             <input class="form-control letter_choice" value="A" name="mcq_char[]" placeholder="Letter Choice" />
                         </div>
-                         <input class="form-control" name="mcq_ans[]" placeholder="Answer" />
-       </div>
-       <div class="my-2">
-        <div class="d-flex align-items-center mb-3 gap-2">
-       <input name="mcq_answers" class="mcq_answer_radio" value="B" id="mcq_b" type="radio" />
-       <input class="form-control letter_choice mb-3" value="B" name="mcq_char[]" placeholder="Letter Choice" />
-       </div>
-       <input class="form-control" name="mcq_ans[]" placeholder="Answer B" />
-       </div>
-       <div class="my-2">
-        <div class="d-flex align-items-center mb-3 gap-2">
-       <input name="mcq_answers" class="mcq_answer_radio" value="C" id="mcq_c" type="radio" />
-       <input class="form-control letter_choice mb-3" value="C" name="mcq_char[]" placeholder="Letter Choice" />
-       </div>
-       <input class="form-control" name="mcq_ans[]" placeholder="Answer C" />
-       </div>
-       <div class="my-2">
-        <div class="d-flex align-items-center mb-3 gap-2">
-       <input name="mcq_answers" class="mcq_answer_radio" value="D" id="mcq_d" type="radio" />
-       <input class="form-control letter_choice mb-3" value="D" name="mcq_char[]" placeholder="Letter Choice" />
-       </div>
-       <input class="form-control" name="mcq_ans[]" placeholder="Answer D" />
-       </div>
+                        <input class="form-control" name="mcq_ans[]" placeholder="Answer" />
+                        </div>
+                        <div class="my-2">
+                            <div class="d-flex align-items-center mb-3 gap-2">
+                        <input name="mcq_answers" class="mcq_answer_radio" value="B" id="mcq_b" type="radio" />
+                        <input class="form-control letter_choice mb-3" value="B" name="mcq_char[]" placeholder="Letter Choice" />
+                        </div>
+                        <input class="form-control" name="mcq_ans[]" placeholder="Answer B" />
+                        </div>
+                        <div class="my-2">
+                            <div class="d-flex align-items-center mb-3 gap-2">
+                        <input name="mcq_answers" class="mcq_answer_radio" value="C" id="mcq_c" type="radio" />
+                        <input class="form-control letter_choice mb-3" value="C" name="mcq_char[]" placeholder="Letter Choice" />
+                        </div>
+                        <input class="form-control" name="mcq_ans[]" placeholder="Answer C" />
+                        </div>
+                        <div class="my-2">
+                            <div class="d-flex align-items-center mb-3 gap-2">
+                        <input name="mcq_answers" class="mcq_answer_radio" value="D" id="mcq_d" type="radio" />
+                        <input class="form-control letter_choice mb-3" value="D" name="mcq_char[]" placeholder="Letter Choice" />
+                        </div>
+                        <input class="form-control" name="mcq_ans[]" placeholder="Answer D" />
+                        </div>
 
-       <div class="my-2 newAnswerSe">
-       
-       </div>
-       <div class="newAnswer">
-        <button type="button" class="addNewAnswer">New Answer</button>
-        <button type="button" class="removeNewAnswer d-none">Remove Answer</button>
-        </div>`);
+                        <div class="my-2 newAnswerSe">
+
+                        </div>
+                        <div class="newAnswer">
+                            <button type="button" class="addNewAnswer">New Answer</button>
+                            <button type="button" class="removeNewAnswer d-none">Remove Answer</button>
+                            </div>`);
 
                      let letter_choice = document.querySelectorAll('.letter_choice');
                      let mcq_answer_radio = document.querySelectorAll('.mcq_answer_radio');

@@ -110,6 +110,8 @@ use App\Models\Wallet;
         Route::get('/Question/{id}', 'q_page')->name('q_page');
         Route::get('/Question_Package', 'q_package')->name('q_package');
         Route::post('/Question/Solve', 'q_sol')->name('q_sol');
+        Route::get('/Question/ParallelAnswer/{id}', 'parallel_answer')->name('parallel_answer');
+        Route::get('/Question/SolveParallel/{id}', 'solve_parallel_question')->name('solve_parallel_question');
     });
     Route::controller(V_ExamController::class)->group(function(){
         Route::get('/Exams', 'v_exams')->name('v_exams');
@@ -376,7 +378,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     // Exam 
     Route::controller(ExamController::class)->middleware('can:Courses')->group(function(){
         Route::get('/Exam/Del/{id}','del_exam')->name('del_exam');
-        Route::get('/Exam/Edit','edit_exam')->name('edit_exam'); 
+        Route::post('/Exam/Edit','edit_exam')->name('edit_exam'); 
         Route::get('/Exam/edit_q_exam','edit_q_exam')->name('edit_q_exam');
         Route::get('/Exam','index')->name('exam');
         Route::post('/Exam/Add','add_exam')->name('add_exam');

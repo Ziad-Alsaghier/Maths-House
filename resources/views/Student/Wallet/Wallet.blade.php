@@ -43,7 +43,7 @@
                     <div class="custom-control custom-checkbox my-2">
                         <input type="radio" name="payment_method_id" value="{{$item->id}}" class="custom-control-input payment_method_radio" id="customCheck80{{$item->id}}" />
                         <label class="custom-control-label" for="customCheck80{{$item->id}}">{{$item->payment}}
-                            <img style="height:50px; width:70px;" src="{{asset('images/iconPayment/' . $item->logo)}}" class="pr15" />
+                            <img style="height:50px; width:70px;" src="{{asset('images/payment/' . $item->logo)}}" class="pr15" />
                         </label>
                         
                     </div>
