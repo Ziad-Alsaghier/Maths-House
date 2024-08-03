@@ -32,7 +32,15 @@
         <section class="payment-request">
             <h1>Payment Request</h1>
             <p>
-                Student <span class="highlight">{{$user_data->name}}</span> has sent a payment request on 
+                Student 
+                <span class="highlight">
+                    (
+                        {{$user_data->f_name}}
+                        {{$user_data->l_name}}
+                    )
+                    {{$user_data->nick_name}}
+                </span> 
+                has sent a payment request on 
                 <span class="highlight">{{$now}}</span>.
             </p>
         </section>
