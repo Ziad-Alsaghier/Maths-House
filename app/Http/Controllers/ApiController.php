@@ -948,8 +948,10 @@ class ApiController extends Controller
         $quiz = $lesson->quizze_api;
         for ($i = 1; $i < count($quiz); $i++) {
             $question = $quiz[$i];
-            if (isset($question->question_api[$i]->q_url)) {
-                $question->question_api[$i]->q_url = url('images/questions/' . $question->question_api[$i]->q_url);
+            for ($j=0; $j < count($question->question_api); $j++) {
+                if (isset($question->question_api[$j]->q_url)) {
+                    $question->question_api[$j]->q_url = url('images/questions/' . $question->question_api[$j]->q_url);
+                }
             }
         }
 
