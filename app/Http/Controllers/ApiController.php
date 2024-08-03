@@ -1066,7 +1066,9 @@ class ApiController extends Controller
         }
         foreach ( $arr as $item ) {
             $item->q_url = url('images/questions/' . $item->q_url);
+            $new_arr[] = $item;
         }
+        $arr = $new_arr;
 
         foreach ($arr as $item) {
             $recommandition[$item['api_lesson']['api_chapter']['chapter_name']] = $item['api_lesson']['api_chapter'];
