@@ -378,7 +378,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     // Exam 
     Route::controller(ExamController::class)->middleware('can:Courses')->group(function(){
         Route::get('/Exam/Del/{id}','del_exam')->name('del_exam');
-        Route::get('/Exam/Edit','edit_exam')->name('edit_exam'); 
+        Route::post('/Exam/Edit','edit_exam')->name('edit_exam'); 
         Route::get('/Exam/edit_q_exam','edit_q_exam')->name('edit_q_exam');
         Route::get('/Exam','index')->name('exam');
         Route::post('/Exam/Add','add_exam')->name('add_exam');
