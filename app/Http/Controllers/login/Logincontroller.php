@@ -227,19 +227,29 @@ class Logincontroller extends Controller
         }
         
         public function destroy(){
-                LoginUser::where('type' , 'web')
-                ->where('user_id', auth()->user()->id)
-                ->delete();
-                Auth::logout();
-                return redirect()->route('login.index');
+                if ( auth()->user() ) {
+                        LoginUser::where('type' , 'web')
+                        ->where('user_id', auth()->user()->id)
+                        ->delete();
+                        Auth::logout();
+                        return redirect()->route('login.index');
+                }
+                else{
+                        return redirect()->route('login.index');
+                }
 
         } 
         public function delete_account($id){
-                LoginUser::where('type' , 'web')
-                ->where('user_id', auth()->user()->id)
-                ->delete();
-                Auth::logout();
-                return redirect()->route('login.index');
+                if ( auth()->user() ) {
+                        LoginUser::where('type' , 'web')
+                        ->where('user_id', auth()->user()->id)
+                        ->delete();
+                        Auth::logout();
+                        return redirect()->route('login.index');
+                }
+                else{
+                        return redirect()->route('login.index');
+                }
 
         } 
 

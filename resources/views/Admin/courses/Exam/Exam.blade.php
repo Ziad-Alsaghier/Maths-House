@@ -2274,7 +2274,6 @@
                             id='question_edite_id${question_idd}'/>
 
                             <input type='hidden'
-                            value="{{ $element->id }}"
                             name='section_id[]'
                             class='section_edite_id'
                             id='section_edite_id${question_idd}' />
