@@ -41,7 +41,7 @@ class PaymentEmail extends Mailable
     {
         return new Content(
             view: 'Email.Payment',  
-            with: ['data'=>$this->data, 'user_data'=>$this->user_data]
+            with: ['data'=>$this->data, 'user_data'=>$this->user_data, 'now' => now()]
         );
     }
 
