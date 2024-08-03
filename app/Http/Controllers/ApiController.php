@@ -1049,36 +1049,35 @@ class ApiController extends Controller
         ]);
     }
 
-    public function api_exam_mistakes($id)
-    {
+    public function api_exam_mistakes($id){
         $questions = ExamMistake::where('user_id', auth()->user()->id)
             ->where('student_exam_id', $id)
-            ->with('question')
+            ->with('question.api_lesson.api_chapter') // Eager load relationships to optimize performance
             ->get();
-        $arr = [];
-        $recommandition = [];
-        $new_arr = [];
-
-        foreach ($questions as $key => $item) {
-            $arr[] = Question::where('id', $item['question']['id'])
-                ->with('api_lesson')
-                ->first();
+        
+        $newArr = [];
+        
+        foreach ($questions as $question) {
+            $question->question->q_url = url('images/questions/' . $question->question->q_url);
+            $newArr[] = $question->question;
         }
-        foreach ( $arr as $item ) {
-            $item->q_url = url('images/questions/' . $item->q_url);
-            $new_arr[] = $item;
+        
+        $recommendation = [];
+        
+        foreach ($newArr as $question) {
+            $chapterName = $question->api_lesson->api_chapter->chapter_name;
+            if (!isset($recommendation[$chapterName])) {
+                $recommendation[$chapterName] = $question->api_lesson->api_chapter;
+            }
         }
-        $arr = $new_arr;
-
-        foreach ($arr as $item) {
-            $recommandition[$item['api_lesson']['api_chapter']['chapter_name']] = $item['api_lesson']['api_chapter'];
-        }
-        $recommandition = array_values($recommandition);
-
+        
+        $recommendation = array_values($recommendation);
+        
         return response()->json([
             'questions' => $questions,
-            'recommandition' => $recommandition
+            'recommendation' => $recommendation
         ]);
+    
     }
 
     public function api_dia_exam_mistakes($id)
