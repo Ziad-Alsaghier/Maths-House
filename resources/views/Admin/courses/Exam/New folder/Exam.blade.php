@@ -2250,7 +2250,7 @@
                             value=${question_idd}
                             name='question_id[]'
                             class='question_edite_id' id='question_edite_id${question_idd}'/>
-                            
+
                             <input type="hidden"
                             value=${quizze_idd}
                             name='diagnostic_edite_id[]'
@@ -2422,7 +2422,7 @@
                     var parEle = $(childVal).find(".sel_quz_edit");
                     var allSectionsEdite = [];
                     $(childVal).each((indexEle, valEle) => {
-                        
+
                         console.log("indexEle", indexEle)
                         console.log("valEle", valEle)
 
@@ -2507,9 +2507,9 @@
                     console.log("parEle", parEle)
                     console.log("childEle", childEle)
                     console.log("childVal", childVal)
-                    
+
                     console.log("allSectionsEdite", allSectionsEdite)
-                    
+
                     allDataEdite.push(allSectionsEdite);
                 })
 
@@ -2521,7 +2521,7 @@
                 console.log("allDataEdite", allDataEdite)
                 console.log("#############")
 
-                // var idExam = $(this).parent().find('#dia_id').val(); 
+                // var idExam = $(this).parent().find('#dia_id').val();
 
 
                 $.ajax({

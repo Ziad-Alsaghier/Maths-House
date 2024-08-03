@@ -1210,20 +1210,24 @@
                                                                     style="display: flex; align-items: center; justify-content: center">
                                                                 </div>
 
+
+                                                                <!-- change div class="mt-3 nSectionEdit" id from id="nSectionEdit{{ $item->id }} to id="nSectionEdit{{ $loop->iteration }}" -->
                                                                 <div class="allSectionsTableEdit"
                                                                     id="allSectionsTableEdit">
                                                                     @foreach ($item->sections_data as $element)
                                                                         <div class="mt-3 nSectionEdit"
-                                                                            id="nSectionEdit{{ $item->id }}">
+                                                                            id="nSectionEdit{{ $loop->iteration }}">
                                                                             <h1 class="selSectionEdit"
                                                                                 style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
                                                                                 Section {{ $loop->iteration }}</h1>
                                                                             <div class="tableSectionEdit d-none"
                                                                                 style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+
+                                                                                <!-- change name="section_1" to "section_{{ $loop->iteration }}"  -->
                                                                                 <input type="hidden"
                                                                                     class="arrSectionEdit"
                                                                                     id="section_{{ $loop->iteration }}"
-                                                                                    name="section_1"
+                                                                                    name="section_{{ $loop->iteration }}"
                                                                                     value="{{ $loop->iteration }}">
                                                                                 <table
                                                                                     class="table tblData_Edite table-striped"
@@ -1282,8 +1286,8 @@
                                                                                                 <input type="hidden"
                                                                                                     value="{{ $element->id }}"
                                                                                                     name="section_id[]"
-                                                                                                    class="question_edite_id"
-                                                                                                    id="question_edite_id{{ $question->id }}" />
+                                                                                                    class="section_edite_id"
+                                                                                                    id="section_edite_id{{ $question->id }}" />
 
                                                                                                 <input type="hidden"
                                                                                                     value='{{ $item->id }}'
@@ -1712,6 +1716,7 @@
                     }
                 })
             })
+
             $("#sel_chp").change(function() {
                 $("#sel_less").empty();
                 var defOptionLess = `<option value="">Select Lessone</option>`;
@@ -1781,20 +1786,20 @@
                     quizze_item.innerHTML = null;
                     data.forEach((element, index) => {
                         quizze_item.innerHTML += `<tr>
-                          <th scope="row" class="idd d-none">${element.question_id}</th>
-                          <th>${index + 1}</th>
-                          <td class="type" id="type">${element.q_type}</td>
-                          <td class="year" id="year">${element.year}</td>
-                          <td class="month" id="month">${element.month}</td>
-                          <td class="code" id="code">${element.code.exam_code}</td>
-                          <td class="section" id="section">${element.section}</td>
-                          <td class="noNum" id="noNum">${element.q_num}</td>
-                          <td class="diff" id="diff">${element.difficulty}</td>
-                          <td class="chapter" id="chapter">${element.chapter_name}</td>
-                          <td class="lessone" id="lessone">${element.lesson_name}</td>
-                          <td class="p-0">
-                            <button type="button" class="add_qz">Add</button>
-                          </td>
+                            <th scope="row" class="idd d-none">${element.question_id}</th>
+                            <th>${index + 1}</th>
+                            <td class="type" id="type">${element.q_type}</td>
+                            <td class="year" id="year">${element.year}</td>
+                            <td class="month" id="month">${element.month}</td>
+                            <td class="code" id="code">${element.code.exam_code}</td>
+                            <td class="section" id="section">${element.section}</td>
+                            <td class="noNum" id="noNum">${element.q_num}</td>
+                            <td class="diff" id="diff">${element.difficulty}</td>
+                            <td class="chapter" id="chapter">${element.chapter_name}</td>
+                            <td class="lessone" id="lessone">${element.lesson_name}</td>
+                            <td class="p-0">
+                                <button type="button" class="add_qz">Add</button>
+                            </td>
                         </tr>`;
                     });
 
@@ -2165,21 +2170,21 @@
                             $(parFilterEdit).parent().find(".lesson_quizze").empty();
                             (data.questions).forEach((element, index) => {
                                 $(parFilterEdit).parent().find(".lesson_quizze").append(`<tr>
-                      <input type="hidden" value=${$(tableEdite).val()} class="question_id ques_id quizze_ID" />
-                      <th>${index + 1}</th>
-                      <td class="type" id="type">${element.q_type}</td>
-                      <td class="year" id="year">${element.year}</td>
-                      <td class="month" id="month">${element.month}</td>
-                      <td class="code" id="code">${element.code.exam_code}</td>
-                      <td class="section" id="section">${element.section}</td>
-                      <td class="noNum" id="noNum">${element.q_num}</td>
-                      <td class="diff" id="diff">${element.difficulty}</td>
-                      <td class="chapE" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
-                      <td class="lessE" id="lessone">${element.api_lesson.lesson_name}</td>
-                      <td class="p-0">
-                        <button type="button" class="edit_qz add_question">Add</button>
-                      </td>
-                    </tr>`);
+                        <input type="hidden" value=${$(tableEdite).val()} class="question_id ques_id quizze_ID" />
+                        <th>${index + 1}</th>
+                        <td class="type" id="type">${element.q_type}</td>
+                        <td class="year" id="year">${element.year}</td>
+                        <td class="month" id="month">${element.month}</td>
+                        <td class="code" id="code">${element.code.exam_code}</td>
+                        <td class="section" id="section">${element.section}</td>
+                        <td class="noNum" id="noNum">${element.q_num}</td>
+                        <td class="diff" id="diff">${element.difficulty}</td>
+                        <td class="chapE" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
+                        <td class="lessE" id="lessone">${element.api_lesson.lesson_name}</td>
+                        <td class="p-0">
+                            <button type="button" class="edit_qz add_question">Add</button>
+                        </td>
+                        </tr>`);
                             });
                         } else {
                             console.log("NotFaild")
@@ -2190,12 +2195,15 @@
                     }
 
                 })
-
             })
+
             /* #### Filter Edit #### */
             $(document).on("click", ".edit_qz", function() {
                 var question_idd = $(this).closest("tr").find(".question_id").val();
                 var quizze_idd = $(this).closest(".lesson_quizze").find(".quizze_ID").val();
+
+
+
 
                 // var quziId = $(this).closest("tr").find(".idd").text();
                 var quziType = $(this).closest("tr").find(".type").text();
@@ -2230,7 +2238,6 @@
                     // console.log("indexQuizze", indexQuizze)
                     console.log("##############")
 
-
                     console.log("question_idd", question_idd);
                     console.log("quizze_idd", quizze_idd);
 
@@ -2245,23 +2252,38 @@
                     console.log("##########")
                     console.log("edit_eray", edit_eray);
 
+
+                    // Get the unique id of the .nSectionEdit element
+                //var get_id = $(this).find(".nSectionEdit").attr("id");
+                // console.log("get_id",element_idd)
+
+                // Use the id to select the specific element and get the value of .arrSectionEdit
+                //var element_idd = $("#" + get_id).closest('.arrSectionEdit').val();
+                // console.log("element_idd",element_idd)
+
                     //edit input 2 :from class=question_edite_id  to  class=question_edite_sectionid
+                    //edit input 2 :from id=question_edite_id${question_idd} to section_edite_id${question_idd}
+
+                    // val section_idd = $(".nSectionEdit").find(".arrSectionEdit").attr("value");
 
                     var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
                             <input type="hidden"
                             value=${question_idd}
                             name='question_id[]'
-                            class='question_edite_id' id='question_edite_id${question_idd}'/>
+                            class='question_edite_id'
+                            id='question_edite_id${question_idd}'/>
 
                             <input type='hidden'
-                            value='{{ $element->id }}'
+                            value="{{ $element->id }}"
                             name='section_id[]'
-                            class='question_edite_sectionid'
-                            id='question_edite_id${question_idd}' />
+                            class='section_edite_id'
+                            id='section_edite_id${question_idd}' />
+
                             <input type="hidden"
                             value=${quizze_idd}
                             name='diagnostic_edite_id[]'
-                            class='diagnostic_edite_id' id='diagnostic_edite_id${question_idd}'/>
+                            class='diagnostic_edite_id'
+                            id='diagnostic_edite_id${question_idd}'/>
 
                             <td class="question_edite_type" id='question_edite_type${question_idd}' style="font-weight: 500; font-size: 1.1rem">
                                 ${quziType}
@@ -2430,6 +2452,8 @@
                     var parEle = $(childVal).find(".sel_quz_edit");
                     var allSectionsEdite = [];
 
+
+
                     ///////////////////////////////////////////////////////////////////Edit from here
                     // $(childVal).each((indexEle, valEle) => {
 
@@ -2503,7 +2527,6 @@
 
                     // })
 
-
                      // Corrected the loop to iterate over each row in the table section
                     $(parEle).find("tr").each((indexEle, valEle) => {
                     console.log("indexEle", indexEle);
@@ -2512,9 +2535,21 @@
                     var parTableEle = `#${$(valEle).attr("id")}`;
                     console.log("parTableEle2", parTableEle)
 
-                     /* ########### */
-                        var question_section_id = `#${$(parTableEle).find(".question_edite_sectionid").attr("id")}`;
-                        var ques_sectionID = $(question_section_id).val();
+
+
+                        /* ########### */
+                        // Find the closest parent section with the class 'nSectionEdit'
+                        var parentSection = $(valEle).closest('.nSectionEdit');
+                        var sectionId = parentSection.attr('id');
+                        console.log('Section ID:', sectionId);
+                        // Find the section element using the section ID
+                        var parentSection = $('#' + sectionId);
+                        // Find the hidden input element within the section
+                        var hiddenInput = parentSection.find('input.arrSectionEdit');
+                        // Get the ID of the hidden input element
+                        var inputId = hiddenInput.attr('value');
+                        // Log the input ID
+                        console.log('Input ID:', inputId);
 
                          /* ########### */
                         var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
@@ -2562,24 +2597,23 @@
                         var ques_Lesson = $(question_edit_lesson).text().trim();
                         /* ########### */
 
-
                         var section_obj = {
-                            question_Section_ID:ques_sectionID,
+                            question_SectionID:inputId,
                             question_ID: ques_ID,
                             question_Type: ques_TYPE,
-                            question_Year: JSON.parse(ques_YEAR),
-                            question_Month: JSON.parse(ques_MONTH),
+                            question_Year: ques_YEAR,
+                            question_Month: ques_MONTH,
                             question_Code: ques_CODE,
-                            question_Section: JSON.parse(ques_SECTION),
-                            question_Num: JSON.parse(ques_NUM),
+                            question_Section: ques_SECTION,
+                            question_Num: ques_NUM,
                             question_Difficulty: ques_DIFFICULTY,
                             question_Chapter: ques_chapter,
                             // question_Lesson: ques_lesson,
                         }
                         console.log("section_obj", section_obj)
                         allSectionsEdite.push(section_obj);
-
                     })
+
 
                   ///////////////////////////////////////////////////////////////////End here
                     console.log("parEle", parEle)
@@ -2590,16 +2624,15 @@
                     allDataEdite.push(allSectionsEdite);
                 })
 
-                console.log("#############")
-                console.log("parEdite", parEdite)
-                console.log("parModel", parModel)
-                console.log("#############")
-                console.log("InfoEdite", InfoEdite)
-                console.log("allDataEdite", allDataEdite)
-                console.log("#############")
+                    console.log("#############")
+                    console.log("parEdite", parEdite)
+                    console.log("parModel", parModel)
+                    console.log("#############")
+                    console.log("InfoEdite", InfoEdite)
+                    console.log("allDataEdite", allDataEdite)
+                    console.log("#############")
 
                 // var idExam = $(this).parent().find('#dia_id').val();
-
 
                 $.ajax({
                     url: `{{ route('edit_exam') }}`,
@@ -2610,8 +2643,12 @@
                     success: function(data) {
                         console.log(data);
                         console.log(allDataEdite);
-                        //location.reload();
-                    }
+                        // Reload the page after successful AJAX request
+                        location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error occurred:', error);
+                        }
                 });
             })
 
