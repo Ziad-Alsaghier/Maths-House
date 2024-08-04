@@ -2518,23 +2518,23 @@
                     console.log("#############")
 
                 // var idExam = $(this).parent().find('#dia_id').val();
-
-                $.ajax({
-                    url: `{{ route('edit_exam') }}`,
-                    type: 'GET', // http method
-                    data: {
-                        data: allDataEdite,
-                    }, // data to submit
-                    success: function(data) {
-                        console.log(data);
-                        console.log(allDataEdite);
-                        // Reload the page after successful AJAX request
-                        location.reload();
+                    $.ajax({
+                        url: `{{ route('edit_exam') }}`,
+                        type: 'POST', // Changed from GET to POST
+                        data: {
+                            data: allDataEdite,
+                            _token: '{{ csrf_token() }}', // Include the CSRF token
+                        }, // data to submit
+                        success: function(data) {
+                            console.log(data);
+                            console.log(allDataEdite);
+                            // Reload the page after successful AJAX request
+                            location.reload();
                         },
                         error: function(xhr, status, error) {
                             console.error('Error occurred:', error);
                         }
-                });
+                    });
             })
 
 

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PaymentEmail;
 
 use App\Models\Category;
 use App\Models\Course;
@@ -563,6 +565,8 @@ class CoursesController extends Controller
         }
         else{ 
             $arr['payment_method_id'] = $req->payment_method_id;
+            Mail::To('Payment@mathshouse.net')
+            ->send(new PaymentEmail($req->all(), auth()->user()));
         }
         $p_request = PaymentRequest::create($arr);
         if ( $req->payment_method_id == 'Wallet' ) {
@@ -706,6 +710,8 @@ class CoursesController extends Controller
         }
         else{ 
             $arr['payment_method_id'] = $req->payment_method_id;
+            Mail::To('Payment@mathshouse.net')
+            ->send(new PaymentEmail($req->all(), auth()->user()));
         }
         $p_request = PaymentRequest::create($arr);
         if ( $img_name != null) {
