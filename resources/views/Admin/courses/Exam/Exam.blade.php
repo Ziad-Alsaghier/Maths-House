@@ -1241,7 +1241,7 @@
                                                                             </thead>
                                                                             <!-- change id of input from id="sel_quz_edit{{ $loop->iteration }}" to id="sel_quz_edit{{ $element->id }}"  -->
                                                                             <input type="hidden" class="add_new_questions" name="add_new_questions" />
-                                                                            <tbody class="sel_quz_edit" id="sel_quz_edit{{ $element->id }}">
+                                                                            <tbody class="sel_quz_edit" id="sel_quz_edit{{ $loop->iteration }}">
                                                                                 @foreach ($element->questions->sortBy('q_num') as $question)
                                                                                     <tr class="tr_edite{{ $item->id }}" id="tr_edite{{ $question->id }}">
                                                                                         <input type="hidden" value="{{ $question->id }}" name="question_id[]" class="question_edite_id" id="question_edite_id{{ $question->id }}" />
@@ -2529,7 +2529,7 @@
                             console.log(data);
                             console.log(allDataEdite);
                             // Reload the page after successful AJAX request
-                            location.reload();
+                            // location.reload();
                         },
                         error: function(xhr, status, error) {
                             console.error('Error occurred:', error);
