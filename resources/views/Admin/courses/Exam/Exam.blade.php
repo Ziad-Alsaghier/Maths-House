@@ -1217,7 +1217,7 @@
                                                                 <div class="allSectionsTableEdit"
                                                                     id="allSectionsTableEdit">
                                                                     @foreach ($item->sections_data as $element)
-                                                                    <div class="mt-3 nSectionEdit" id="nSectionEdit{{ $loop->iteration }}">
+                                                                    <div class="mt-3 nSectionEdit" id="nSectionEdit{{ $item->id }}">
                                                                     <h1 class="selSectionEdit" style="cursor: pointer; color:#1b84ff; border: none; border-bottom: 3px solid #1b84ff; border-radius: 0;">
                                                                         Section {{ $loop->iteration }}
                                                                     </h1>
