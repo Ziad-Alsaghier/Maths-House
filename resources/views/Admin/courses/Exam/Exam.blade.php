@@ -1212,160 +1212,65 @@
 
 
                                                                 <!-- change div class="mt-3 nSectionEdit" id from id="nSectionEdit{{ $item->id }} to id="nSectionEdit{{ $loop->iteration }}" -->
+
+
                                                                 <div class="allSectionsTableEdit"
                                                                     id="allSectionsTableEdit">
                                                                     @foreach ($item->sections_data as $element)
-                                                                        <div class="mt-3 nSectionEdit"
-                                                                            id="nSectionEdit{{ $loop->iteration }}">
-                                                                            <h1 class="selSectionEdit"
-                                                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
-                                                                                Section {{ $loop->iteration }}</h1>
-                                                                            <div class="tableSectionEdit d-none"
-                                                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-
-                                                                                <!-- change name="section_1" to "section_{{ $loop->iteration }}"  -->
-                                                                                <input type="hidden"
-                                                                                    class="arrSectionEdit"
-                                                                                    id="section_{{ $loop->iteration }}"
-                                                                                    name="section_{{ $loop->iteration }}"
-                                                                                    value="{{ $loop->iteration }}">
-                                                                                <table
-                                                                                    class="table tblData_Edite table-striped"
-                                                                                    id="tblData_Edite">
-                                                                                    <thead class="border-bottom">
-                                                                                        <tr>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Type</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Year</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Month</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Code</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Section</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                No
-                                                                                            </th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Difficulty</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Chapter</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Lessone</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Action</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <input type="hidden"
-                                                                                        class="add_new_questions"
-                                                                                        name="add_new_questions" />
-
-                                                                                    <tbody class="sel_quz_edit"
-                                                                                        id="sel_quz_edit{{ $loop->iteration }}">
-                                                                                        @foreach ($element->questions->sortBy('q_num') as $question)
-                                                                                            <tr class="tr_edite{{ $item->id }}"
-                                                                                                id="tr_edite{{ $question->id }}">
-
-                                                                                                <input type="hidden"
-                                                                                                    value="{{ $question->id }}"
-                                                                                                    name="question_id[]"
-                                                                                                    class="question_edite_id"
-                                                                                                    id="question_edite_id{{ $question->id }}" />
-
-                                                                                                <input type="hidden"
-                                                                                                    value="{{ $element->id }}"
-                                                                                                    name="section_id[]"
-                                                                                                    class="section_edite_id"
-                                                                                                    id="section_edite_id{{ $question->id }}" />
-
-                                                                                                <input type="hidden"
-                                                                                                    value='{{ $item->id }}'
-                                                                                                    name='diagnostic_edite_id[]'
-                                                                                                    class='diagnostic_edite_id'
-                                                                                                    id='diagnostic_edite_id{{ $question->id }}' />
-
-                                                                                                <td class="question_edite_type"
-                                                                                                    id="question_edite_type{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->q_type }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_year"
-                                                                                                    id="question_edite_year{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->year }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_month"
-                                                                                                    id="question_edite_month{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->month }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_code"
-                                                                                                    id="question_edite_code{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ @$question->code->exam_code }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_section"
-                                                                                                    id="question_edite_section{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->section }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_num"
-                                                                                                    id="question_edite_num{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->q_num }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_difficulty"
-                                                                                                    id="question_edite_difficulty{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->difficulty }}
-                                                                                                </td>
-                                                                                                <td class="question_edite_chapter"
-                                                                                                    id="question_edite_chapter{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->lessons->chapter->chapter_name }}
-                                                                                                </td>
-                                                                                                <td class="question_edite_lesson"
-                                                                                                    id="question_edite_lesson{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->lessons->lesson_name }}
-                                                                                                </td>
-
-                                                                                                <td
-                                                                                                    style='width: 150px !important; padding: 0 !important;'>
-                                                                                                    <button
-                                                                                                        type='button'
-                                                                                                        class='remove_qz_edit'>Remove</button>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        @endforeach
-                                                                                    </tbody>
-
-                                                                                </table>
-                                                                            </div>
-                                                                            <span class="dropSection">
-                                                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
-                                                                                    style="color: #1b84ff;"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    @endforeach
+                                                                    <div class="mt-3 nSectionEdit" id="nSectionEdit{{ $loop->iteration }}">
+                                                                    <h1 class="selSectionEdit" style="cursor: pointer; color:#1b84ff; border: none; border-bottom: 3px solid #1b84ff; border-radius: 0;">
+                                                                        Section {{ $loop->iteration }}
+                                                                    </h1>
+                                                                    <div class="tableSectionEdit d-none" style="max-height: 300px; overflow: scroll; padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                                        <!-- Use section ID in the name attribute -->
+                                                                        <input type="hidden" class="arrSectionEdit" id="section_{{ $element->id }}" name="section_{{ $element->id }}" value="{{ $element->id }}">
+                                                                        <table class="table tblData_Edite table-striped" id="tblData_Edite">
+                                                                            <thead class="border-bottom">
+                                                                                <tr>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Type</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Year</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Month</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Code</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Section</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">No</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Difficulty</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Chapter</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Lesson</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <!-- change id of input from id="sel_quz_edit{{ $loop->iteration }}" to id="sel_quz_edit{{ $element->id }}"  -->
+                                                                            <input type="hidden" class="add_new_questions" name="add_new_questions" />
+                                                                            <tbody class="sel_quz_edit" id="sel_quz_edit{{ $element->id }}">
+                                                                                @foreach ($element->questions->sortBy('q_num') as $question)
+                                                                                    <tr class="tr_edite{{ $item->id }}" id="tr_edite{{ $question->id }}">
+                                                                                        <input type="hidden" value="{{ $question->id }}" name="question_id[]" class="question_edite_id" id="question_edite_id{{ $question->id }}" />
+                                                                                        <input type="hidden" value="{{ $element->id }}" name="section_id[]" class="section_edite_id" id="section_edite_id{{ $question->id }}" />
+                                                                                        <input type="hidden" value="{{ $item->id }}" name="diagnostic_edite_id[]" class="diagnostic_edite_id" id="diagnostic_edite_id{{ $question->id }}" />
+                                                                                        <td class="question_edite_type" id="question_edite_type{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->q_type }}</td>
+                                                                                        <td class="question_edite_year" id="question_edite_year{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->year }}</td>
+                                                                                        <td class="question_edite_month" id="question_edite_month{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->month }}</td>
+                                                                                        <td class="question_edite_code" id="question_edite_code{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ @$question->code->exam_code }}</td>
+                                                                                        <td class="question_edite_section" id="question_edite_section{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->section }}</td>
+                                                                                        <td class="question_edite_num" id="question_edite_num{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->q_num }}</td>
+                                                                                        <td class="question_edite_difficulty" id="question_edite_difficulty{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->difficulty }}</td>
+                                                                                        <td class="question_edite_chapter" id="question_edite_chapter{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->lessons->chapter->chapter_name }}</td>
+                                                                                        <td class="question_edite_lesson" id="question_edite_lesson{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->lessons->lesson_name }}</td>
+                                                                                        <td style="width: 150px !important; padding: 0 !important;">
+                                                                                            <button type="button" class="remove_qz_edit">Remove</button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <span class="dropSection">
+                                                                        <i class="routateArrow fa-solid fa-chevron-down fa-2xl" style="color: #1b84ff;"></i>
+                                                                    </span>
+                                                                          </div>
+                                                                             @endforeach
                                                                 </div>
+
 
                                                             </div>
                                                         </div>
@@ -2203,8 +2108,6 @@
                 var quizze_idd = $(this).closest(".lesson_quizze").find(".quizze_ID").val();
 
 
-
-
                 // var quziId = $(this).closest("tr").find(".idd").text();
                 var quziType = $(this).closest("tr").find(".type").text();
                 var quziYear = $(this).closest("tr").find(".year").text();
@@ -2252,19 +2155,6 @@
                     console.log("##########")
                     console.log("edit_eray", edit_eray);
 
-
-                    // Get the unique id of the .nSectionEdit element
-                //var get_id = $(this).find(".nSectionEdit").attr("id");
-                // console.log("get_id",element_idd)
-
-                // Use the id to select the specific element and get the value of .arrSectionEdit
-                //var element_idd = $("#" + get_id).closest('.arrSectionEdit').val();
-                // console.log("element_idd",element_idd)
-
-                    //edit input 2 :from class=question_edite_id  to  class=question_edite_sectionid
-                    //edit input 2 :from id=question_edite_id${question_idd} to section_edite_id${question_idd}
-
-                    // val section_idd = $(".nSectionEdit").find(".arrSectionEdit").attr("value");
 
                     var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
                             <input type="hidden"
@@ -2323,6 +2213,9 @@
                     )
                 }
             });
+
+            /* #### Filter Edit #### */
+
 
             $(document).on('click', '.remove_qz_edit', function() {
 
@@ -2450,7 +2343,7 @@
 
                     var parEle = $(childVal).find(".sel_quz_edit");
                     var allSectionsEdite = [];
-
+                    console.log(parEle)
 
 
                     ///////////////////////////////////////////////////////////////////Edit from here
@@ -2535,20 +2428,13 @@
                     console.log("parTableEle2", parTableEle)
 
 
-
                         /* ########### */
-                        // Find the closest parent section with the class 'nSectionEdit'
-                        var parentSection = $(valEle).closest('.nSectionEdit');
-                        var sectionId = parentSection.attr('id');
-                        console.log('Section ID:', sectionId);
-                        // Find the section element using the section ID
-                        var parentSection = $('#' + sectionId);
-                        // Find the hidden input element within the section
-                        var hiddenInput = parentSection.find('input.arrSectionEdit');
+                        var hiddenInput = $(childVal).find('input.arrSectionEdit');
                         // Get the ID of the hidden input element
                         var inputId = hiddenInput.attr('value');
                         // Log the input ID
                         console.log('Input ID:', inputId);
+
 
                          /* ########### */
                         var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
