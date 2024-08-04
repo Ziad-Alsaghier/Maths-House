@@ -145,7 +145,7 @@ class ExamController extends Controller
        ExamQuestion::where('exam_id', $info['exam_id'])
        ->delete();
        for ( $i=1; $i < count($req->data); $i++ ) { 
-            for ( $j=1; $j < count($req->data[$i]); $j++ ) {
+            for ( $j=0; $j < count($req->data[$i]); $j++ ) {
                 ExamQuestion::create([
                     'exam_id' => $info['exam_id'],
                     'question_id' => $req->data[$i][$j]['question_ID'],
