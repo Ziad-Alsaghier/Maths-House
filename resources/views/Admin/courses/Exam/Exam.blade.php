@@ -2529,7 +2529,7 @@
                             console.log(data);
                             console.log(allDataEdite);
                             // Reload the page after successful AJAX request
-                            // location.reload();
+                            location.reload();
                         },
                         error: function(xhr, status, error) {
                             console.error('Error occurred:', error);
