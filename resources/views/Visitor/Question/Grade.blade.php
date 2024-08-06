@@ -305,6 +305,7 @@
                             ->where('section', $question->section)
                             ->where('q_num', $question->q_num)
                             ->where('id', '!=', $question->id)
+                            ->where('q_type', '!=', 'Extra')
                             ->get();
                         @endphp
 
