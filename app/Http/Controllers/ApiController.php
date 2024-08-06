@@ -2172,7 +2172,7 @@ class ApiController extends Controller
         $data = StudentQuizze::
         where('student_id', auth()->user()->id)
         ->where('lesson_id', $id)
-        ->with('quizze')
+        ->with(['quizze', 'questions'])
         ->get();
         $arr = [];
 
