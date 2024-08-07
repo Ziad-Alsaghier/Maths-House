@@ -948,8 +948,10 @@ class ApiController extends Controller
         $quiz = $lesson->quizze_api;
         for ($i = 1; $i < count($quiz); $i++) {
             $question = $quiz[$i];
-            if (isset($question->question_api[$i]->q_url)) {
-                $question->question_api[$i]->q_url = url('images/questions/' . $question->question_api[$i]->q_url);
+            for ($j=0; $j < count($question->question_api); $j++) {
+                if (isset($question->question_api[$j]->q_url)) {
+                    $question->question_api[$j]->q_url = url('images/questions/' . $question->question_api[$j]->q_url);
+                }
             }
         }
 
@@ -1047,31 +1049,63 @@ class ApiController extends Controller
         ]);
     }
 
-    public function api_exam_mistakes($id)
-    {
+    public function api_exam_mistakes($id){
+    //     $questions = ExamMistake::where('user_id', auth()->user()->id)
+    //         ->where('student_exam_id', $id)
+    //         ->with('question')
+    //         ->get();
+    //     $arr = [];
+    //     $recommandition = [];
+    //     $new_arr = [];
 
+    //     foreach ($questions as $key => $item) {
+    //         $arr[] = Question::where('id', $item['question']['id'])
+    //             ->with('api_lesson')
+    //             ->first();
+    //     }
+    //     foreach ( $arr as $item ) {
+    //         $item->q_url = url('images/questions/' . $item->q_url);
+    //         $new_arr[] = $item;
+    //     }
+    //     $arr = $new_arr;
+
+    //     foreach ($arr as $item) {
+    //         $recommandition[$item['api_lesson']['api_chapter']['chapter_name']] = $item['api_lesson']['api_chapter'];
+    //     }
+    //     $recommandition = array_values($recommandition);
+
+    //     return response()->json([
+    //         'questions' => $questions,
+    //         'recommandition' => $recommandition
+    //     ]);
+    
         $questions = ExamMistake::where('user_id', auth()->user()->id)
-            ->where('student_exam_id', $id)
-            ->with('question')
-            ->get();
-        $arr = [];
-        $recommandition = [];
+        ->where('student_exam_id', $id)
+        ->with('question.api_lesson.api_chapter') // Eager load relationships to optimize performance
+        ->get();
 
-        foreach ($questions as $key => $item) {
-            $arr[] = Question::where('id', $item['question']['id'])
-                ->with('api_lesson')
-                ->first();
+    $newArr = [];
+
+    foreach ($questions as $question) {
+        $question->question->q_url = url('images/questions/' . $question->question->q_url);
+        $newArr[] = $question->question;
+    }
+
+    $recommendation = [];
+
+    foreach ($newArr as $question) {
+        $chapterName = $question->api_lesson->api_chapter->chapter_name;
+        if (!isset($recommendation[$chapterName])) {
+            $recommendation[$chapterName] = $question->api_lesson->api_chapter;
         }
+    }
 
-        foreach ($arr as $item) {
-            $recommandition[$item['api_lesson']['api_chapter']['chapter_name']] = $item['api_lesson']['api_chapter'];
-        }
-        $recommandition = array_values($recommandition);
+    $recommendation = array_values($recommendation);
 
-        return response()->json([
-            'questions' => $questions,
-            'recommandition' => $recommandition
-        ]);
+    return response()->json([
+        'questions' => $questions,
+        'recommendation' => $recommendation
+    ]);
     }
 
     public function api_dia_exam_mistakes($id)
@@ -1913,6 +1947,7 @@ class ApiController extends Controller
     public function session_request(Request $request)
     {
         try {
+            $sessionData = [];
             $request_live_session = $request->only($this->live_session_request);
 
             $session = Category::where('id', $request_live_session['category_id'])
@@ -2137,8 +2172,13 @@ class ApiController extends Controller
         $data = StudentQuizze::
         where('student_id', auth()->user()->id)
         ->where('lesson_id', $id)
-        ->with('quizze')
+        ->with(['quizze', 'questions'])
         ->get();
+        foreach ( $data as $key => $item ) {
+            foreach ( $item->questions as $key => $element ) {
+                $element->q_url = url($element->q_url);
+            }
+        }
         $arr = [];
 
         foreach ( $data as $item ) {

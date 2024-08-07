@@ -127,7 +127,39 @@ class ExamController extends Controller
         return redirect()->back();
     }
 
-    public function edit_q_exam( Request $req ){     
+    public function edit_exam( Request $req){
+       $info = $req->data[0][0];
+       $arr = [
+            'title' => $info['title'],
+            'description' => $info['description'],
+            'score' => $info['score'],
+            'pass_score' => $info['pass_score'],
+            'score_id' => $info['score_id'],
+            'state' => $info['state'],
+            'time' => $info['time'],
+        ];
+       $exam = Exam::
+       where('id', $info['exam_id'])
+       ->update($arr);
+       
+       ExamQuestion::where('exam_id', $info['exam_id'])
+       ->delete();
+       for ( $i=1; $i < count($req->data); $i++ ) { 
+            for ( $j=0; $j < count($req->data[$i]); $j++ ) {
+                ExamQuestion::create([
+                    'exam_id' => $info['exam_id'],
+                    'question_id' => $req->data[$i][$j]['question_ID'],
+                    'section_id' => $req->data[$i][$j]['question_SectionID'],
+                ]);
+            }
+       }
+
+       return response()->json([
+        'success' => 'Exam Edited Success'
+       ]);
+    }
+
+    public function edit_q_exam( Request $req ){
         Exam::where('id', $req->data[0][0]['diagnostic_ID'])
         ->update([
             'title' => $req->data[0][0]['title'],
@@ -244,37 +276,6 @@ class ExamController extends Controller
         ->delete();
 
         return redirect()->back();
-    }
-
-    public function edit_exam( Request $req){
-
-        $info = $req->data[0][0];
-       $arr = [
-            'title' => $info['title'],
-            'description' => $info['description'],
-            'score' => $info['score'],
-            'pass_score' => $info['pass_score'],
-            'score_id' => $info['score_id'],
-            'state' => $info['state'],
-            'time' => $info['time'],
-        ];
-       $exam = Exam::
-       where('id', $info['exam_id'])
-       ->update($arr);
-       
-       ExamQuestion::where('exam_id', $info['exam_id'])
-       ->delete();
-
-        for ( $i=1, $end = count($req->data); $i < $end; $i++ ) {
-            ExamQuestion::create([
-                'exam_id' => $info['exam_id'],
-                'question_id' => $req->data[$i]['question_ID'],
-            ]);
-        }
-
-       return response()->json([
-        'success' => 'Exam Edited Success'
-       ]);
     }
 
     public function scoreEdit( Request $req ){ 

@@ -848,7 +848,7 @@
                                 data.teacher.forEach(item => {
                                     if (item.user.id == teacher_id) {
                                         teacher_session_2[j].innerHTML += `
-                                    <option value="${item.user.id}">
+                                    <option value="${item.user.id}" selected>
                                         ${item.user.nick_name}
                                     </option>
                                     `;
@@ -886,7 +886,7 @@
                                 data.teacher.forEach(item => {
                                     if (item.user.id == teacher_id) {
                                         teacher_session_2[j].innerHTML += `
-                                    <option value="${item.user.id}">
+                                    <option value="${item.user.id}" selected>
                                         ${item.user.nick_name}
                                     </option>
                                     `;
@@ -989,7 +989,7 @@
                     data.teacher.forEach(item => {
                         if (item.user.id == teacher_id) {
                             teacher_session.innerHTML += `
-                            <option value="${item.user.id}">
+                            <option value="${item.user.id}" selected>
                                 ${item.user.nick_name}
                             </option>
                             `;

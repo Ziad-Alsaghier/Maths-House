@@ -62,6 +62,7 @@ class Stu_LiveController extends Controller
             ->leftJoin('chapters', 'lessons.chapter_id', '=', 'chapters.id')
             ->where('chapters.course_id', $req->course_id)
             ->where('sessions.date', '>=', $req->from)
+            ->where('sessions.type', '!=', 'private')
             ->get();
             
             return view('Student.VisitorLive.Live', compact('categories', 'courses', 'data', 'sessions'));
@@ -72,6 +73,7 @@ class Stu_LiveController extends Controller
             ->leftJoin('chapters', 'lessons.chapter_id', '=', 'chapters.id')
             ->where('chapters.course_id', $req->course_id)
             ->where('sessions.date', '<=', $req->to)
+            ->where('sessions.type', '!=', 'private')
             ->get();
             
             return view('Student.VisitorLive.Live', compact('categories', 'courses', 'data', 'sessions'));
@@ -83,6 +85,7 @@ class Stu_LiveController extends Controller
             ->where('chapters.course_id', $req->course_id)
             ->where('sessions.date', '>=', $req->from )
             ->where('sessions.date', '<=', $req->to )
+            ->where('sessions.type', '!=', 'private')
             ->get();
             
             return view('Student.VisitorLive.Live', compact('categories', 'courses', 'data', 'sessions'));
@@ -92,6 +95,7 @@ class Stu_LiveController extends Controller
             ->leftJoin('lessons', 'sessions.lesson_id', '=', 'lessons.id')
             ->leftJoin('chapters', 'lessons.chapter_id', '=', 'chapters.id')
             ->where('chapters.course_id', $req->course_id)
+            ->where('sessions.type', '!=', 'private')
             ->get();
             
             return view('Student.VisitorLive.Live', compact('categories', 'courses', 'data', 'sessions'));

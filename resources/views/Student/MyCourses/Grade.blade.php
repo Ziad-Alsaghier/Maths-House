@@ -405,6 +405,7 @@
                             ->where('section', $item->section)
                             ->where('q_num', $item->q_num)
                             ->where('id', '!=', $item->id)
+                            ->where('q_type', '!=', 'Extra')
                             ->get();
                         @endphp
 

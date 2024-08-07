@@ -205,44 +205,6 @@
         }
     </style>
 
-    <div class="app-email card my-3">
-        <div class="border-0">
-            <div class="row g-0">
-
-
-                <!-- Emails List -->
-                <div class="col app-emails-list">
-                    <div class="card shadow-none border-0">
-                        <div class="card-body emails-list-header p-3 py-lg-3 py-2">
-                            <!-- Email List: Search -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center w-100">
-                                    <i class="bx bx-menu bx-sm cursor-pointer d-block d-lg-none me-3" data-bs-toggle="sidebar"
-                                        data-target="#app-email-sidebar" data-overlay=""></i>
-                                    <div class="mb-0 mb-lg-2 w-100">
-                                        <div class="d-flex justify-content-center">
-                                            @if ($ans)
-                                                <button class="btn btn-success">
-                                                    Success
-                                                </button>
-                                            @else
-                                                <button class="btn btn-danger">
-                                                    Faild
-                                                </button>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="mx-n3 emails-list-header-hr">
-                            <!-- Email List: Actions -->
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <div class="app-email card my-3 mistakes_questions">

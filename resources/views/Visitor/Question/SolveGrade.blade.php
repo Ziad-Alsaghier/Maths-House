@@ -281,44 +281,13 @@
                     </div>
                 @endif
 
-                @foreach ($question->q_ans as $q_ans)
-                    <div class="answer">
-                        <h5 class="ansName">Question @if (isset($question->ans_type) && $question->ans_type == 'MCQ')
-                                {{ @$question->mcq[0]->mcq_answers }}
-                            @else
-                                {{ @$question->g_ans[0]->grid_ans }}
-                            @endif:</h5>
 
-                        <button class="ansShow" data-bs-toggle="modal" data-bs-target="#modalAnswer{{ $q_ans->id }}">Show
+                        <button class="ansShow" data-bs-toggle="modal" data-bs-target="#modalAnswer1">View
                             Answer</button>
-
-                        <button class="ansVideo" data-bs-toggle="modal" data-bs-target="#modalVideo{{ $q_ans->id }}">Show
-                            Video</button>
-
-                        <a href="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" class="ansPdf" download>Dwonload Pdf
-                            {{ $loop->iteration }}</a>
-
-                        @php
-                            $solve_parallel = DB::table('questions')
-                            ->where('month', $question->month)
-                            ->where('year', $question->year)
-                            ->where('section', $question->section)
-                            ->where('q_num', $question->q_num)
-                            ->where('id', '!=', $question->id)
-                            ->where('q_type', '!=', 'Extra')
-                            ->get();
-                        @endphp
-
-                        @if ( count($solve_parallel) > 0 && $loop->iteration == 1 )
-                        <button class="Solve"><a href="{{ route('question_parallel', ['id' => $question->id]) }}">
-                                Solve Parallel
-                            </a>
-                        </button>
-                        @endif
                     </div>
 
                     {{-- Modal Answer --}}
-                    <div class="modal fade" id="modalAnswer{{ $q_ans->id }}" tabindex="-1" aria-hidden="true"
+                    <div class="modal fade" id="modalAnswer1" tabindex="-1" aria-hidden="true"
                         style="display: none;">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -329,79 +298,21 @@
                                         aria-label="Close"></button>
                                 </div>
 
-                                Answer :
-                                @if ($question->ans_type == 'MCQ')
-                                    {{ $question->mcq[0]->mcq_answers }}
-                                @else
-                                    {{ $question->g_ans[0]->grid_ans }}
-                                @endif
-                                <br />
-                                <div
-                                    style="width: 100% !important;display: flex;align-items: center;justify-content: center;overflow: hidden;">
-                                    <img class="imgMistakeModal" src="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" />
-                                </div>
 
+                                <h5 class="m-3">
+                                    Are You want to Show Answer ??
+                                </h5>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                                         Close
                                     </button>
+                                    <a href="{{route('parallel_answer', $question->id)}}" class="btn btn-success">
+                                        Show
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- Modal Video --}}
-                    <div class="modal fade" id="modalVideo{{ $q_ans->id }}" tabindex="-1" aria-hidden="true"
-                        style="display: none;">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-
-                                    <h5 class="modal-title" id="modalCenterTitle">Video</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-
-                                <div
-                                    style="width: 100% !important;display: flex;align-items: flex-start;justify-content: space-around;column-gap: 100px; overflow: hidden;padding: 10px 0;">
-
-                                    {{-- <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe> --}}
-
-                                <iframe scrolling="no" width="560" height="315"
-                                src="{{ $q_ans->ans_video }}" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        
-
-                                    @if (!empty($q_ans->ans_video))
-                                        <div class="list_cont">
-                                            <i class="fa-solid fa-ellipsis-vertical iconList"></i>
-                                            <div class="list_item d-none">
-                                                @foreach ($reports as $report)
-                                                    <span class="report_item">
-                                                        <input type="hidden" class="report_val"
-                                                            value="{{ $report }}" />
-                                                        <input type="hidden" class="q_ans_val"
-                                                            value="{{ $q_ans }}" />
-                                                        {{ $report->list }}
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
 
             </div>
         </div>

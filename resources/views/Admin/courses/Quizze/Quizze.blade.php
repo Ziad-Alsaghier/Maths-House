@@ -2167,7 +2167,7 @@
 
 
                     var question_obj = {
-                        question_ID: ques_ID,
+                        question_ID: ques_ID
                         question_Type: ques_TYPE,
                         question_Year: ques_YEAR,
                         question_Month: ques_MONTH,
