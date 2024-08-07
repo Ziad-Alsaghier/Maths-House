@@ -323,14 +323,16 @@ class ApiController extends Controller
                 ->first();
             $arr = [];
 
-            foreach ($exams->question as $item) {
-                $ans = Mcq_ans::where('q_id', $item->id)
-                    ->get();
-                $item->q_url = url('images/questions/' . $item->q_url);
-                $arr['questionExam'][] = [
-                    'question' => $item,
-                    'Answers' => $ans
-                ];
+            if ( $exams->question ) {
+                foreach ($exams->question as $item) {
+                    $ans = Mcq_ans::where('q_id', $item->id)
+                        ->get();
+                    $item->q_url = url('images/questions/' . $item->q_url);
+                    $arr['questionExam'][] = [
+                        'question' => $item,
+                        'Answers' => $ans
+                    ];
+                }
             }
 
             return response()->json([
@@ -1088,6 +1090,9 @@ class ApiController extends Controller
 
     foreach ($questions as $question) {
         $question->question->q_url = url('images/questions/' . $question->question->q_url);
+        foreach ( $question->question_api as $element ) {
+            $element->q_url = url('images/questions/' . $element->q_url);
+        }
         $newArr[] = $question->question;
     }
 
