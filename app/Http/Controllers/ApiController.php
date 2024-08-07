@@ -948,16 +948,13 @@ class ApiController extends Controller
         $lesson = Lesson::where('id', $id)
             ->first();
         $quiz = $lesson->quizze_api;
-        for ($i = 1; $i < count($quiz); $i++) {
-            $question = $quiz[$i];
-            for ($j=0; $j < count($question->question_api); $j++) {
-                return response()->json([
-                    'fdgdf' => $quiz,
-                ]);
-                if (isset($question->question_api[$j]->q_url)) {
-                    $quiz[$i]->question_api[$j]->q_url = url('images/questions/' . $question->question_api[$j]->q_url);
-                }
+        foreach ($quiz as $key => $item) {
+            $arr1 = [];
+            foreach ( $item->question_api as $element ) {
+                $element->q_url = url('images/questions/' . $element->q_url);
+                $arr1[] = $element;
             }
+            $quiz[$key] = $arr1;
         }
 
         return response()->json([
