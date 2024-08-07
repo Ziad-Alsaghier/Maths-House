@@ -951,6 +951,9 @@ class ApiController extends Controller
         for ($i = 1; $i < count($quiz); $i++) {
             $question = $quiz[$i];
             for ($j=0; $j < count($question->question_api); $j++) {
+                return response()->json([
+                    'quiz' => $quiz,
+                ]);
                 if (isset($question->question_api[$j]->q_url)) {
                     $quiz[$i]->question_api[$j]->q_url = url('images/questions/' . $question->question_api[$j]->q_url);
                 }
