@@ -198,11 +198,18 @@ class Stu_MyCourseController extends Controller
             ->first();
             $quiz_item = 0;
             foreach ($stu_quizze as $item) {
-                if ($item->quizze->quizze_order > $quiz_item && $item->quizze->lesson_id == $quizze->lesson_id ) {
+                if ($item->quizze->quizze_order > $quiz_item && 
+                $item->quizze->lesson_id == $quizze->lesson_id &&
+                $item->score >= $quizze->pass_score ) {
                     $quiz_item = $item->quizze->quizze_order;
                 }
             }
-            if ( $quizze->quizze_order > $quiz_item ) {
+            $next_quiz = quizze::where('lesson_id', $quizze->lesson_id )
+            ->where('quizze_order', '>',$quiz_item)
+            ->orderBy('quizze_order')
+            ->first();
+            
+            if ( $quizze->quizze_order > $next_quiz->quizze_order ) {
                 session()->flash('faild', 'You Must Pass Last Quiz First');
                 return redirect()->back();
             }
