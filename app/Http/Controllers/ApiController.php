@@ -1090,9 +1090,12 @@ class ApiController extends Controller
 
     foreach ($questions as $question) {
         $question->question->q_url = url('images/questions/' . $question->question->q_url);
+        $arr1 = [];
         foreach ( $question->question_api as $element ) {
             $element->q_url = url('images/questions/' . $element->q_url);
+            $arr1[] = $element;
         }
+        $question['question_api'] = $arr1;
         $newArr[] = $question->question;
     }
 
