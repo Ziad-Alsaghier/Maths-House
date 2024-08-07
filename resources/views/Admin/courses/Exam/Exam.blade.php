@@ -1220,10 +1220,12 @@
                                                                                 Section {{ $loop->iteration }}</h1>
                                                                             <div class="tableSectionEdit d-none"
                                                                                 style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+
+                                                                                <!-- change name="section_1" to "section_{{ $loop->iteration }}"  -->
                                                                                 <input type="hidden"
                                                                                     class="arrSectionEdit"
                                                                                     id="section_{{ $loop->iteration }}"
-                                                                                    name="section_1"
+                                                                                    name="section_{{ $loop->iteration }}"
                                                                                     value="{{ $loop->iteration }}">
                                                                                 <table
                                                                                     class="table tblData_Edite table-striped"
@@ -1282,8 +1284,8 @@
                                                                                                 <input type="hidden"
                                                                                                     value="{{ $element->id }}"
                                                                                                     name="section_id[]"
-                                                                                                    class="question_edite_id"
-                                                                                                    id="question_edite_id{{ $question->id }}" />
+                                                                                                    class="section_edite_id"
+                                                                                                    id="section_edite_id{{ $question->id }}" />
 
                                                                                                 <input type="hidden"
                                                                                                     value='{{ $item->id }}'
@@ -1781,20 +1783,20 @@
                     quizze_item.innerHTML = null;
                     data.forEach((element, index) => {
                         quizze_item.innerHTML += `<tr>
-                          <th scope="row" class="idd d-none">${element.question_id}</th>
-                          <th>${index + 1}</th>
-                          <td class="type" id="type">${element.q_type}</td>
-                          <td class="year" id="year">${element.year}</td>
-                          <td class="month" id="month">${element.month}</td>
-                          <td class="code" id="code">${element.code.exam_code}</td>
-                          <td class="section" id="section">${element.section}</td>
-                          <td class="noNum" id="noNum">${element.q_num}</td>
-                          <td class="diff" id="diff">${element.difficulty}</td>
-                          <td class="chapter" id="chapter">${element.chapter_name}</td>
-                          <td class="lessone" id="lessone">${element.lesson_name}</td>
-                          <td class="p-0">
-                            <button type="button" class="add_qz">Add</button>
-                          </td>
+                            <th scope="row" class="idd d-none">${element.question_id}</th>
+                            <th>${index + 1}</th>
+                            <td class="type" id="type">${element.q_type}</td>
+                            <td class="year" id="year">${element.year}</td>
+                            <td class="month" id="month">${element.month}</td>
+                            <td class="code" id="code">${element.code.exam_code}</td>
+                            <td class="section" id="section">${element.section}</td>
+                            <td class="noNum" id="noNum">${element.q_num}</td>
+                            <td class="diff" id="diff">${element.difficulty}</td>
+                            <td class="chapter" id="chapter">${element.chapter_name}</td>
+                            <td class="lessone" id="lessone">${element.lesson_name}</td>
+                            <td class="p-0">
+                                <button type="button" class="add_qz">Add</button>
+                            </td>
                         </tr>`;
                     });
 
@@ -2165,21 +2167,21 @@
                             $(parFilterEdit).parent().find(".lesson_quizze").empty();
                             (data.questions).forEach((element, index) => {
                                 $(parFilterEdit).parent().find(".lesson_quizze").append(`<tr>
-                      <input type="hidden" value=${$(tableEdite).val()} class="question_id ques_id quizze_ID" />
-                      <th>${index + 1}</th>
-                      <td class="type" id="type">${element.q_type}</td>
-                      <td class="year" id="year">${element.year}</td>
-                      <td class="month" id="month">${element.month}</td>
-                      <td class="code" id="code">${element.code.exam_code}</td>
-                      <td class="section" id="section">${element.section}</td>
-                      <td class="noNum" id="noNum">${element.q_num}</td>
-                      <td class="diff" id="diff">${element.difficulty}</td>
-                      <td class="chapE" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
-                      <td class="lessE" id="lessone">${element.api_lesson.lesson_name}</td>
-                      <td class="p-0">
-                        <button type="button" class="edit_qz add_question">Add</button>
-                      </td>
-                    </tr>`);
+                        <input type="hidden" value=${$(tableEdite).val()} class="question_id ques_id quizze_ID" />
+                        <th>${index + 1}</th>
+                        <td class="type" id="type">${element.q_type}</td>
+                        <td class="year" id="year">${element.year}</td>
+                        <td class="month" id="month">${element.month}</td>
+                        <td class="code" id="code">${element.code.exam_code}</td>
+                        <td class="section" id="section">${element.section}</td>
+                        <td class="noNum" id="noNum">${element.q_num}</td>
+                        <td class="diff" id="diff">${element.difficulty}</td>
+                        <td class="chapE" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
+                        <td class="lessE" id="lessone">${element.api_lesson.lesson_name}</td>
+                        <td class="p-0">
+                            <button type="button" class="edit_qz add_question">Add</button>
+                        </td>
+                        </tr>`);
                             });
                         } else {
                             console.log("NotFaild")
@@ -2246,22 +2248,29 @@
                     console.log("edit_eray", edit_eray);
 
                     //edit input 2 :from class=question_edite_id  to  class=question_edite_sectionid
+                    //edit input 2 :from id=question_edite_id${question_idd} to section_edite_id${question_idd}
+
+                    // val section_idd=$(this).closest(".nSectionEdit").find(".arrSectionEdit").val();
 
                     var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
                             <input type="hidden"
                             value=${question_idd}
                             name='question_id[]'
-                            class='question_edite_id' id='question_edite_id${question_idd}'/>
+                            class='question_edite_id'
+                            id='question_edite_id${question_idd}'/>
 
                             <input type='hidden'
-                            value='{{ $element->id }}'
+                            value="{{ $element->id }}"
                             name='section_id[]'
-                            class='question_edite_sectionid'
-                            id='question_edite_id${question_idd}' />
+                            class='section_edite_id'
+                            id='section_edite_id${question_idd}' />
+
+
                             <input type="hidden"
                             value=${quizze_idd}
                             name='diagnostic_edite_id[]'
-                            class='diagnostic_edite_id' id='diagnostic_edite_id${question_idd}'/>
+                            class='diagnostic_edite_id'
+                            id='diagnostic_edite_id${question_idd}'/>
 
                             <td class="question_edite_type" id='question_edite_type${question_idd}' style="font-weight: 500; font-size: 1.1rem">
                                 ${quziType}
@@ -2430,6 +2439,8 @@
                     var parEle = $(childVal).find(".sel_quz_edit");
                     var allSectionsEdite = [];
 
+
+
                     ///////////////////////////////////////////////////////////////////Edit from here
                     // $(childVal).each((indexEle, valEle) => {
 
@@ -2509,11 +2520,15 @@
                     console.log("indexEle", indexEle);
                     console.log("valEle", valEle);
 
+
                     var parTableEle = `#${$(valEle).attr("id")}`;
                     console.log("parTableEle2", parTableEle)
 
-                     /* ########### */
-                        var question_section_id = `#${$(parTableEle).find(".question_edite_sectionid").attr("id")}`;
+                        /* ########### */
+                        // var question_section_id = `#${$(parTableEle).find(".section_edite_id").attr("id")}`;
+                        // var ques_sectionID = $(question_section_id).val();
+
+                        var question_section_id = `#${$(parTableEle).find(".section_edite_id").attr("id")}`;
                         var ques_sectionID = $(question_section_id).val();
 
                          /* ########### */
@@ -2562,24 +2577,23 @@
                         var ques_Lesson = $(question_edit_lesson).text().trim();
                         /* ########### */
 
-
                         var section_obj = {
-                            question_Section_ID:ques_sectionID,
+                            question_SectionID:ques_sectionID,
                             question_ID: ques_ID,
                             question_Type: ques_TYPE,
-                            question_Year: JSON.parse(ques_YEAR),
-                            question_Month: JSON.parse(ques_MONTH),
+                            question_Year: ques_YEAR,
+                            question_Month: ques_MONTH,
                             question_Code: ques_CODE,
-                            question_Section: JSON.parse(ques_SECTION),
-                            question_Num: JSON.parse(ques_NUM),
+                            question_Section: ques_SECTION,
+                            question_Num: ques_NUM,
                             question_Difficulty: ques_DIFFICULTY,
                             question_Chapter: ques_chapter,
                             // question_Lesson: ques_lesson,
                         }
                         console.log("section_obj", section_obj)
                         allSectionsEdite.push(section_obj);
-
                     })
+
 
                   ///////////////////////////////////////////////////////////////////End here
                     console.log("parEle", parEle)
@@ -2590,16 +2604,15 @@
                     allDataEdite.push(allSectionsEdite);
                 })
 
-                console.log("#############")
-                console.log("parEdite", parEdite)
-                console.log("parModel", parModel)
-                console.log("#############")
-                console.log("InfoEdite", InfoEdite)
-                console.log("allDataEdite", allDataEdite)
-                console.log("#############")
+                    console.log("#############")
+                    console.log("parEdite", parEdite)
+                    console.log("parModel", parModel)
+                    console.log("#############")
+                    console.log("InfoEdite", InfoEdite)
+                    console.log("allDataEdite", allDataEdite)
+                    console.log("#############")
 
                 // var idExam = $(this).parent().find('#dia_id').val();
-
 
                 $.ajax({
                     url: `{{ route('edit_exam') }}`,
@@ -2610,8 +2623,12 @@
                     success: function(data) {
                         console.log(data);
                         console.log(allDataEdite);
-                        //location.reload();
-                    }
+                        // Reload the page after successful AJAX request
+                        location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error occurred:', error);
+                        }
                 });
             })
 

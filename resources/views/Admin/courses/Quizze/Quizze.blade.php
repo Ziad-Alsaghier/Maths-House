@@ -376,7 +376,7 @@
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
-            </div> 
+            </div>
 
             <!--begin::Input group-->
             <div class="d-flex" style="align-items: flex-end;">
@@ -1729,13 +1729,13 @@
     lessons = JSON.parse(lessons);
 
     sel_cate2.addEventListener('change', (e) => {
-        sel_course2.innerHTML = `                            
+        sel_course2.innerHTML = `
     <option disabled selected>
         Select Course
     </option>`;
         courses.forEach(element => {
             if (e.target.value == element.category_id) {
-                sel_course2.innerHTML += `                            
+                sel_course2.innerHTML += `
         <option value="${element.id}">
             ${element.course_name}
         </option>`;
@@ -1744,13 +1744,13 @@
         });
     });
     sel_course2.addEventListener('change', (e) => {
-        sel_chapter2.innerHTML = `                            
+        sel_chapter2.innerHTML = `
     <option disabled selected>
         Select Chapter
     </option>`;
         chapters.forEach(element => {
             if (e.target.value == element.course_id) {
-                sel_chapter2.innerHTML += `                            
+                sel_chapter2.innerHTML += `
         <option value="${element.id}">
             ${element.chapter_name}
         </option>`;
@@ -1759,13 +1759,13 @@
         });
     });
     sel_chapter2.addEventListener('change', (e) => {
-        sel_lesson2.innerHTML = `                            
+        sel_lesson2.innerHTML = `
     <option disabled selected>
         Select Lesson
     </option>`;
         lessons.forEach(element => {
             if (e.target.value == element.chapter_id) {
-                sel_lesson2.innerHTML += `                            
+                sel_lesson2.innerHTML += `
         <option value="${element.id}">
             ${element.lesson_name}
         </option>`;
@@ -1773,20 +1773,20 @@
             }
         });
     });
-    
+
         let select_category = document.querySelector('.select_category');
         let select_course = document.querySelector('.select_course');
         let select_chapter = document.querySelector('.select_chapter');
         let select_lesson = document.querySelector('.select_lesson');
         console.log(select_category);
         select_category.addEventListener('change', (e) => {
-            select_course.innerHTML = `                            
+            select_course.innerHTML = `
             <option disabled selected>
                 Select Course
             </option>`;
             courses.forEach(element => {
                 if (e.target.value == element.category_id) {
-                    select_course.innerHTML += `                            
+                    select_course.innerHTML += `
                     <option value="${element.id}">
                         ${element.course_name}
                     </option>`;
@@ -1795,13 +1795,13 @@
             });
         });
         select_course.addEventListener('change', (e) => {
-            select_chapter.innerHTML = `                            
+            select_chapter.innerHTML = `
             <option disabled selected>
                 Select Chapter
             </option>`;
             chapters.forEach(element => {
                 if (e.target.value == element.course_id) {
-                    select_chapter.innerHTML += `                            
+                    select_chapter.innerHTML += `
                     <option value="${element.id}">
                         ${element.chapter_name}
                     </option>`;
@@ -1810,13 +1810,13 @@
             });
         });
         select_chapter.addEventListener('change', (e) => {
-            select_lesson.innerHTML = `                            
+            select_lesson.innerHTML = `
             <option disabled selected>
                 Select Lesson
             </option>`;
             lessons.forEach(element => {
                 if (e.target.value == element.chapter_id) {
-                    select_lesson.innerHTML += `                            
+                    select_lesson.innerHTML += `
                     <option value="${element.id}">
                         ${element.lesson_name}
                     </option>`;
@@ -1983,7 +1983,7 @@
                                 value=${question_idd}
                                 name='question_id[]'
                                 class='question_edite_id' id='question_edite_id${question_idd}'/>
-                                
+
                                 <input type="hidden"
                                 value=${quizze_idd}
                                 name='diagnostic_edite_id[]'
@@ -2167,13 +2167,13 @@
 
 
                     var question_obj = {
-                        question_ID: JSON.parse(ques_ID),
+                        question_ID: ques_ID,
                         question_Type: ques_TYPE,
-                        question_Year: JSON.parse(ques_YEAR),
-                        question_Month: JSON.parse(ques_MONTH),
+                        question_Year: ques_YEAR,
+                        question_Month: ques_MONTH,
                         question_Code: ques_CODE,
-                        question_Section: JSON.parse(ques_SECTION),
-                        question_Num: JSON.parse(ques_NUM),
+                        question_Section: ques_SECTION,
+                        question_Num: ques_NUM,
                         question_Difficulty: ques_DIFFICULTY,
                         question_Chapter: ques_chapter,
                         question_Lesson: ques_less,

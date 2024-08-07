@@ -217,13 +217,13 @@
 
                 $(sel_cate).change((e) => {
                     console.log("ddddddd")
-                    var course = `                            
+                    var course = `
                 <option selected>
                                 Select Course
                             </option>`;
                     courses.forEach(ele => {
                         if (e.target.value == ele.category_id) {
-                            sel_course2.innerHTML += `                            
+                            sel_course2.innerHTML += `
                         <option value="${ele.id}">
                             ${ele.course_name}
                             </option>`;
@@ -508,13 +508,13 @@
         let sel_chapter2 = document.querySelector('#sel_chapter');
         let sel_lesson2 = document.querySelector('#sel_lesson');
         sel_cate2.addEventListener('change', (e) => {
-            sel_course2.innerHTML = `                            
+            sel_course2.innerHTML = `
         <option selected>
             Select Course
         </option>`;
             courses.forEach(element => {
                 if (e.target.value == element.category_id) {
-                    sel_course2.innerHTML += `                            
+                    sel_course2.innerHTML += `
             <option value="${element.id}">
                 ${element.course_name}
             </option>`;
@@ -523,13 +523,13 @@
             });
         });
         sel_course2.addEventListener('change', (e) => {
-            sel_chapter2.innerHTML = `                            
+            sel_chapter2.innerHTML = `
         <option selected>
             Select Chapter
         </option>`;
             chapters.forEach(element => {
                 if (e.target.value == element.course_id) {
-                    sel_chapter2.innerHTML += `                            
+                    sel_chapter2.innerHTML += `
             <option value="${element.id}">
                 ${element.chapter_name}
             </option>`;
@@ -538,13 +538,13 @@
             });
         });
         sel_chapter2.addEventListener('change', (e) => {
-            sel_lesson2.innerHTML = `                            
+            sel_lesson2.innerHTML = `
         <option selected>
             Select Lesson
         </option>`;
             lessons.forEach(element => {
                 if (e.target.value == element.chapter_id) {
-                    sel_lesson2.innerHTML += `                            
+                    sel_lesson2.innerHTML += `
             <option value="${element.id}">
                 ${element.lesson_name}
             </option>`;
@@ -802,7 +802,7 @@
                                                             @endif
                                                             @endforeach
                                                             <div class="my-2 newAnswerSe">
-                                                                
+
                                                             </div>
                                                     <div class="newAnswer gap-3">
                                                         <button type="button" class="removeNewAnswer d-none">Remove
@@ -1190,32 +1190,32 @@
 
     <script>
         $(document).ready(function() {
-            $("#add_new_idea").click(function() {
-                var newIdea = `
-                <div class="idea mt-4">
-                    <div class="idea my-2">
-                        <div class="section_idea">
-                            <span>Answer PDF</span>
-                            <input type="file" name="ans_pdf[]" class="form-control">
-                        </div>
-                        <div class="section_syllabus">
-                            <span>Answer Video</span>
-                            <input name="ans_video[]" class="form-control">
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-danger btn_remove_idea">Remove</button>
-                </div>`;
+            // $("#add_new_idea").click(function() {
+            //     var newIdea = `
+            //     <div class="idea mt-4">
+            //         <div class="idea my-2">
+            //             <div class="section_idea">
+            //                 <span>Answer PDF</span>
+            //                 <input type="file" name="ans_pdf[]" class="form-control">
+            //             </div>
+            //             <div class="section_syllabus">
+            //                 <span>Answer Video</span>
+            //                 <input name="ans_video[]" class="form-control">
+            //             </div>
+            //         </div>
+            //         <button type="button" class="btn btn-danger btn_remove_idea">Remove</button>
+            //     </div>`;
 
-                $(".ideas").append(newIdea)
+            //     $(".ideas").append(newIdea)
 
-                $(".btn_remove_idea").each((val, ele) => {
-                    // console.log("ele",ele)
-                    $(ele).click(function() {
-                        $(ele).closest(".idea").remove();
-                    })
-                    // console.log("val",val)
-                })
-            });
+            //     $(".btn_remove_idea").each((val, ele) => {
+            //         // console.log("ele",ele)
+            //         $(ele).click(function() {
+            //             $(ele).closest(".idea").remove();
+            //         })
+            //         // console.log("val",val)
+            //     })
+            // });
 
             $(".removeLastAnswer").click(function(){
                 $(this).parent().remove();
@@ -1263,13 +1263,13 @@
         lessons = lessons.value;
         lessons = JSON.parse(lessons);
         sel_cate.addEventListener('change', (e) => {
-            sel_course.innerHTML = `                            
+            sel_course.innerHTML = `
             <option selected>
                 Select Course
             </option>`;
             courses.forEach(element => {
                 if (e.target.value == element.category_id) {
-                    sel_course.innerHTML += `                            
+                    sel_course.innerHTML += `
             <option value="${element.id}">
                 ${element.course_name}
             </option>`;
@@ -1279,13 +1279,13 @@
         });
 
         sel_course.addEventListener('change', (e) => {
-            sel_chapter.innerHTML = `                            
+            sel_chapter.innerHTML = `
             <option selected>
                 Select Chapter
             </option>`;
             chapters.forEach(element => {
                 if (e.target.value == element.course_id) {
-                    sel_chapter.innerHTML += `                            
+                    sel_chapter.innerHTML += `
             <option value="${element.id}">
                 ${element.chapter_name}
             </option>`;
@@ -1295,13 +1295,13 @@
         });
 
         sel_chapter.addEventListener('change', (e) => {
-            sel_lesson.innerHTML = `                            
+            sel_lesson.innerHTML = `
             <option selected>
                 Select Lesson
             </option>`;
             lessons.forEach(element => {
                 if (e.target.value == element.chapter_id) {
-                    sel_lesson.innerHTML += `                            
+                    sel_lesson.innerHTML += `
             <option value="${element.id}">
                 ${element.lesson_name}
             </option>`;
@@ -1319,13 +1319,13 @@
             sel_cate3[i].addEventListener('change', (e) => {
                 for (let j = 0; j < end; j++) {
                     if (sel_cate3[j] == e.target) {
-                        sel_course3[j].innerHTML = `                            
+                        sel_course3[j].innerHTML = `
                         <option selected>
                             Select Course
                         </option>`;
                         courses.forEach(element => {
                             if (e.target.value == element.category_id) {
-                                sel_course3[j].innerHTML += `                            
+                                sel_course3[j].innerHTML += `
                                 <option value="${element.id}">
                                     ${element.course_name}
                                 </option>`;
@@ -1341,13 +1341,13 @@
             sel_course3[i].addEventListener('change', (e) => {
                 for (let j = 0; j < end; j++) {
                     if (sel_course3[j] == e.target) {
-                        sel_chapter3[j].innerHTML = `                            
+                        sel_chapter3[j].innerHTML = `
                         <option selected>
                             Select Chapter
                         </option>`;
                         chapters.forEach(element => {
                             if (e.target.value == element.course_id) {
-                                sel_chapter3[j].innerHTML += `                            
+                                sel_chapter3[j].innerHTML += `
                                 <option value="${element.id}">
                                     ${element.chapter_name}
                                 </option>`;
@@ -1363,13 +1363,13 @@
             sel_chapter3[i].addEventListener('change', (e) => {
                 for (let j = 0; j < end; j++) {
                     if (sel_chapter3[j] == e.target) {
-                        sel_lesson3[j].innerHTML = `                            
+                        sel_lesson3[j].innerHTML = `
                         <option selected>
                             Select Lesson
                         </option>`;
                         lessons.forEach(element => {
                             if (e.target.value == element.chapter_id) {
-                                sel_lesson3[j].innerHTML += `                            
+                                sel_lesson3[j].innerHTML += `
                                 <option value="${element.id}">
                                     ${element.lesson_name}
                                 </option>`;
