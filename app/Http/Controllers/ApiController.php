@@ -2176,7 +2176,7 @@ class ApiController extends Controller
         ->get();
         foreach ( $data as $key => $item ) {
             foreach ( $item->questions as $key => $element ) {
-                $element->q_url = url($element->q_url);
+                $element->q_url = url('images/questions/' . $element->q_url);
             }
         }
         $arr = [];
