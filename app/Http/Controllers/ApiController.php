@@ -945,9 +945,6 @@ class ApiController extends Controller
 
     public function api_quiz($id)
     {
-        return response()->json([
-            'quizsd' => 'fgdr',
-        ]);
         $lesson = Lesson::where('id', $id)
             ->first();
         $quiz = $lesson->quizze_api;
