@@ -374,7 +374,7 @@
 
                         <div class="radio-button">
                             <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
-                                class="radio-button__input" type="radio">
+                                class="radio-button__input payment_method_radio" type="radio">
                             <label for="radio{{ $item->id }}" class="radio-button__label">
                                 <div class="">
                                     <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
@@ -386,25 +386,25 @@
                         </div>
                     @endforeach
 
+                    {{-- Using Wallet --}}
+                    <div class=" d-flex align-items-center justify-content-start" style="column-gap: 0.6rem">
+                        <label class="containerCheck">
+                            {{-- <input type="checkbox" checked="checked"> --}}
+                            <input type="checkbox" class="walletRadio" name="payment_method_id" value="Wallet">
+                            <div class="checkmark"></div>
+                        </label>
+                        <h3 style="color: #727272;font-weight: 700">Using Wallet</h3>
+                    </div>
                 </div>
             </div>
             {{-- Receipt && Phone --}}
-            <div class="col-9 d-flex align-items-center justify-content-between" style="column-gap: 1rem">
+            <div class="col-9 d-none align-items-center justify-content-between upload_receipt" style="column-gap: 1rem">
                 <label for="img" id="selImg" class="d-flex align-items-center justify-content-center" style="column-gap: 0.3rem">
                     <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
                     <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </label>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
-            </div>
-            {{-- Using Wallet --}}
-            <div class="col-9 d-flex align-items-center justify-content-start" style="column-gap: 0.6rem">
-                <label class="containerCheck">
-                    {{-- <input type="checkbox" checked="checked"> --}}
-                    <input type="checkbox" class="walletRadio" name="payment_method_id" value="Wallet">
-                    <div class="checkmark"></div>
-                </label>
-                <h3 style="color: #727272;font-weight: 700">Using Wallet</h3>
             </div>
 
             {{-- Footer Check Out --}}
@@ -418,6 +418,26 @@
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 <script>
+    let payment_method_radio = document.querySelectorAll('.payment_method_radio');
+    let walletRadio = document.querySelector('.walletRadio');
+    let upload_receipt = document.querySelector('.upload_receipt');
+
+    for (let i = 0, end = payment_method_radio.length; i < end; i++) {
+        payment_method_radio[i].addEventListener('change', ( e ) => {
+            for (let j = 0; j < end; j++) {
+                if ( e.target.value == payment_method_radio[j].value ) {
+                    upload_receipt.classList.remove('d-none');
+                    upload_receipt.classList.add('d-flex');
+                }
+            }
+        });
+    }
+
+    walletRadio.addEventListener('change', () => {
+        upload_receipt.classList.add('d-none');
+        upload_receipt.classList.remove('d-flex');
+    });
+    
     $(document).ready(function() {
         /* radio-button__input */
         console.log("first")
@@ -430,11 +450,17 @@
                 type: "GET",
                 url: "{{ route('api_chechout_description') }}",
                 data: {
-                    id,
-                    $(this).val()
+                    id: $(this).val()
                 },
                 success: function(data) {
                     console.log(data)
+                    $(".desPay").text(data.description)
+                    if ($(".walletRadio").is(':checked')) {
+                        $(".secDescription").addClass("d-none")
+                    } else {
+                        $(".secDescription").removeClass("d-none")
+
+                    }
                 }
             })
         })
@@ -446,6 +472,7 @@
                 if ($(".walletRadio").is(':checked')) {
                     console.log(val)
                     console.log(ele)
+                    $(".secDescription").addClass("d-none")
                     $(ele).removeAttr("checked")
                 }
             })
@@ -456,6 +483,7 @@
                     console.log(val)
                     console.log(ele)
                     $(ele).removeAttr("checked")
+                    $(".secDescription").addClass("d-none")
                 })
             }
         })
