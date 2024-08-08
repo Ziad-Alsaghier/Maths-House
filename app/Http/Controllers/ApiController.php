@@ -954,7 +954,7 @@ class ApiController extends Controller
                 $element->q_url = url('images/questions/' . $element->q_url);
                 $arr1[] = $element;
             }
-            $quiz[$key] = $arr1;
+            $item->question_api = $arr1;
         }
 
         return response()->json([
