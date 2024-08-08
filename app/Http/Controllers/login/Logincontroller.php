@@ -227,7 +227,7 @@ class Logincontroller extends Controller
         }
         
         public function destroy(){
-                if ( auth()->user() ) {
+                if ( auth()->user() && !empty( auth()->user()) ) {
                         LoginUser::where('type' , 'web')
                         ->where('user_id', auth()->user()->id)
                         ->delete();
@@ -240,7 +240,7 @@ class Logincontroller extends Controller
 
         } 
         public function delete_account($id){
-                if ( auth()->user() ) {
+                if ( auth()->user() && !empty( auth()->user()) ) {
                         LoginUser::where('type' , 'web')
                         ->where('user_id', auth()->user()->id)
                         ->delete();
