@@ -176,7 +176,9 @@ class Stu_MyCourseController extends Controller
             // Return Exam
             $quizze = quizze::where('id', $quizze_id)
             ->first();
-
+            if ( empty($quizze->pass_score) ) {
+                $quizze->pass_score = 0;
+            }
             $stu_quizze = StudentQuizze::where('student_id', auth()->user()->id)
             ->where('score', '>=', $quizze->pass_score)
             ->with('quizze')

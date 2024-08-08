@@ -372,136 +372,34 @@
                     </div>
                 @endif
                 <div class="ans_item ">
-                    <b> Answer :
-                    @if ( $item->ans_type == 'MCQ' )
-                        {{$item->mcq[0]->mcq_answers}}
-                    @else 
-                    {{$item->g_ans[0]->grid_ans}}
-                    @endif
-                    </b>
-                    <br />
-                    @foreach ( $item->q_ans as $q_ans )
                     <div class="answer">
-                        <h5 class="ansName">Question @if (isset($item->ans_type) && $item->ans_type == 'MCQ')
-                                {{ @$item->mcq[0]->mcq_answers }}
-                            @else
-                                {{ @$item->g_ans[0]->grid_ans }}
-                            @endif:</h5>
-
-                        <button class="ansShow" data-bs-toggle="modal" data-bs-target="#modalAnswer{{ $q_ans->id }}">Show
+                        <button class="ansShow" data-bs-toggle="modal" data-bs-target="#modalAnswer{{ $item->id }}">Show
                             Answer</button>
-    
-                        <button class="ansVideo" data-bs-toggle="modal" data-bs-target="#modalVideo{{ $q_ans->id }}">Show
-                            Video</button>
-    
-                        <a href="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" class="ansPdf" download>Dwonload Pdf
-                            {{ $loop->iteration }}</a>
-    
-
-                            @php
-                            $solve_parallel = DB::table('questions')
-                            ->where('month', $item->month)
-                            ->where('year', $item->year)
-                            ->where('section', $item->section)
-                            ->where('q_num', $item->q_num)
-                            ->where('id', '!=', $item->id)
-                            ->where('q_type', '!=', 'Extra')
-                            ->get();
-                        @endphp
-
-                        @if ( count($solve_parallel) > 0 && $loop->iteration == 1 )
-                        <button class="Solve"><a href="{{ route('question_parallel', ['id' => $item->id]) }}">
-                                Solve Parallel
-                            </a>
-                        </button>
-                        @endif
                     </div>
     
                     {{-- Modal Answer --}}
-                    <div class="modal fade" id="modalAnswer{{ $q_ans->id }}" tabindex="-1" aria-hidden="true"
+                    <div class="modal fade" id="modalAnswer{{ $item->id }}" tabindex="-1" aria-hidden="true"
                         style="display: none;">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
     
-                                    <h5 class="modal-title" id="modalCenterTitle">Answer</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-    
-                                Answer :
-                                @if ($item->ans_type == 'MCQ')
-                                    {{ $item->mcq[0]->mcq_answers }}
-                                @else
-                                    {{ $item->g_ans[0]->grid_ans }}
-                                @endif
-                                <br />
-                                <div
-                                    style="width: 100% !important;display: flex;align-items: center;justify-content: center;overflow: hidden;">
-                                    <img class="imgMistakeModal" src="{{ asset('files/q_pdf/' . $q_ans->ans_pdf) }}" />
+                                   Show answer it will deduct from question package ??
                                 </div>
     
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                                         Close
                                     </button>
+                                    <a href="{{route('parallel_answer', $item->id)}}" class="btn btn-success">
+                                        Show
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- Modal Video --}}
-                    <div class="modal fade" id="modalVideo{{ $q_ans->id }}" tabindex="-1" aria-hidden="true"
-                        style="display: none;">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-    
-                                    <h5 class="modal-title" id="modalCenterTitle">Video</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-    
-                                <div
-                                    style="width: 100% !important;display: flex;align-items: flex-start;justify-content: space-around;column-gap: 100px; overflow: hidden;padding: 10px 0;">
-    
-                                    {{-- <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen></iframe> --}}
-    
-                                    <iframe scrolling="no" allowfullscreen width="560" height="315"
-                                        src="{{ $q_ans->ans_video }}" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-    
-                                    @if (!empty($q_ans->ans_video))
-                                        <div class="list_cont">
-                                            <i class="fa-solid fa-ellipsis-vertical iconList"></i>
-                                            <div class="list_item d-none">
-                                                @foreach ($report_v as $report)
-                                                    <span class="report_item">
-                                                        <input type="hidden" class="report_val"
-                                                            value="{{ $report }}" />
-                                                        <input type="hidden" class="q_ans_val"
-                                                            value="{{ $q_ans }}" />
-                                                        {{ $report->list }}
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-    
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                  </div>
+                    
+                </div>
 
                 <hr />
             @endforeach
