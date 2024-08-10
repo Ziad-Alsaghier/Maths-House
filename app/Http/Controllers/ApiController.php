@@ -2163,6 +2163,11 @@ class ApiController extends Controller
         where('student_quizze_id', $id)
         ->with('question')
         ->get();
+        foreach ($mistakes as $item) {
+            foreach ( $item->question as $element) {
+                $element->q_url = url($element->q_url);
+            }
+        }
 
         return response()->json([
             'mistakes' => $mistakes,
