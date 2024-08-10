@@ -369,7 +369,7 @@
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen></iframe> --}}
 
-                                <iframe scrolling="no" width="2000" style="margin: 0 20px;" height="315"
+                                <iframe scrolling="no" width="2500" style="margin: 0 20px;" height="315"
                                 src="{{ $q_ans->ans_video }}" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
