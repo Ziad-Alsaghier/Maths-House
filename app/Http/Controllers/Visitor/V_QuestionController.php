@@ -191,7 +191,7 @@ class V_QuestionController extends Controller
             $question = Question::where('id', $id)
             ->first();
             
-            return view('Visitor.Question.Show_Question', compact('question', 'reports'));
+            return view('Visitor.Question.Show_Parallel_Question', compact('question', 'reports'));
         }
     }
 
@@ -255,8 +255,66 @@ class V_QuestionController extends Controller
        // $arr['time'] = ;
         QuestionHistory::create($arr);
         $reports = ReportVideoList::all();
+        return view('Visitor.Question.Grade', compact('ans', 'question', 'reports'));
+    }
+    
+
+    public function q_parallel_sol( Request $req ){ 
+        $timer_val = json_decode(Cookie::get('timer'));
+        $arr = [];
+        $ans = false;
+        $question = [];
+        if ( isset($req->q_answers[0]) ) {
+            $solve = json_decode($req->q_answers[0]);
+           // {"q_id":18,"mcq_id":"1","answer":"A"}
+           $question = Question::where('id', $solve->q_id)
+           ->first();
+           $arr['question_id'] = $solve->q_id;
+           if ( isset($question->mcq[0]->mcq_answers) ) {
+                $stu_solve = $question->mcq[0]->mcq_answers;
+                $q_solve = isset($solve->answer) ? $solve->answer : 0;
+                if ( $stu_solve == $q_solve ) {
+                     $ans = true;
+                }
+           }
+        }
+        else {
+            // "q_grid_answers":["{\"q_id\":1}"],"q_grid_ans":["1"]}
+            $q_id = json_decode($req->q_grid_answers[0]);
+            $question = Question::where('id', $q_id->q_id)
+            ->first();
+            $arr['question_id'] = $q_id->q_id;
+            $solve = $question->g_ans;
+
+            foreach ($solve as $item) {
+                if ( strpos($req->q_grid_ans[0], '/') ) {
+                    $arr_ans = explode('/', $req->q_grid_ans[0]);
+                    $answer = floatval($arr_ans[0]) / floatval($arr_ans[1]);
+                    if ( floatval($item->grid_ans) == $answer || 
+                    (floatval($item->grid_ans) - $answer < .06 && floatval($item->grid_ans) - $answer > 0 ) ||
+                    ($answer - floatval($item->grid_ans) < .06 && $answer - floatval($item->grid_ans) > 0 ) ) {
+                        $ans = true;
+                    }
+                    else {
+                        $mistakes[] = $question;
+                    }
+                }
+                if ( $item->grid_ans == $req->q_grid_ans[0] ) {
+                    $ans = true;
+                }
+            }
+          
+            
+        } 
+        $arr['user_id'] = auth()->user()->id;
+        $arr['answer'] = $ans;
+        $arr['time'] = $timer_val;
+       // $arr['time'] = ;
+        QuestionHistory::create($arr);
+        $reports = ReportVideoList::all();
         return view('Visitor.Question.SolveGrade', compact('ans', 'question', 'reports'));
     }
+
     public function parallel_answer( $id ){
         
         $reports = ReportQuestionList::all();

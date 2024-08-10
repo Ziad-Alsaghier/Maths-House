@@ -331,7 +331,7 @@
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen></iframe> --}}
 
-                                <iframe scrolling="no" width="560" height="315"
+                                <iframe scrolling="no" style="width: 100%; margin: 0 20px;" height="315"
                                 src="{{ $q_ans->ans_video }}" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>

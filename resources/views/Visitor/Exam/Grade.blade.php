@@ -546,14 +546,14 @@
                             </div>
 
                             <div
-                                style="width: 100% !important;display: flex;align-items: flex-start;justify-content: space-around;column-gap: 100px; overflow: hidden;padding: 10px 0;">
+                                style="width: 100% !important;display: flex;align-items: flex-start;justify-content: center;column-gap: 100px; overflow: hidden;padding: 10px 0;">
 
                                 {{-- <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}"
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen></iframe> --}}
 
-                                <iframe scrolling="no" allowfullscreen width="560" height="315"
+                                <iframe scrolling="no" allowfullscreen style="width: 100%; margin: 0 20px;" height="315"
                                     src="{{ $q_ans->ans_video }}" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>

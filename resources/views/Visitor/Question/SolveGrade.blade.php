@@ -300,7 +300,7 @@
 
 
                                 <h5 class="m-3">
-                                    Are You want to Show Answer ??
+                                    Are You want to Show Answer it will deduct from packge ??
                                 </h5>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">

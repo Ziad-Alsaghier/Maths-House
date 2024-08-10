@@ -110,6 +110,7 @@ use App\Models\Wallet;
         Route::get('/Question/{id}', 'q_page')->name('q_page');
         Route::get('/Question_Package', 'q_package')->name('q_package');
         Route::post('/Question/Solve', 'q_sol')->name('q_sol');
+        Route::post('/Question/SolveParallel', 'q_parallel_sol')->name('q_parallel_sol');
         Route::get('/Question/ParallelAnswer/{id}', 'parallel_answer')->name('parallel_answer');
         Route::get('/Question/SolveParallel/{id}', 'solve_parallel_question')->name('solve_parallel_question');
     });
