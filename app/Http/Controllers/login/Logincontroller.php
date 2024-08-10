@@ -177,7 +177,7 @@ class Logincontroller extends Controller
                         ->where('created_at', '>=', $timeMinus120Minutes)
                         ->first();
                         if ( !empty($l_user) ) {
-                                return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
+                                return view('Visitor.Login.login');
                         }
                         LoginUser::
                         where('ip', $value)
