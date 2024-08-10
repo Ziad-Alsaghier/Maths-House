@@ -954,47 +954,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="quizze_item lesson_quizze">
-                                                                        @foreach ($questions as $question)
-                                                                            @if ($question->course_id == $item->course_id)
-                                                                                <tr>
-                                                                                    <input type="hidden"
-                                                                                        value="{{ $item->id }}"
-                                                                                        name="quizze_id"
-                                                                                        class="quizze_ID" />
-
-                                                                                    <input type="hidden"
-                                                                                        value="{{ $question->question_id }}"
-                                                                                        class="question_id ques_id" />
-                                                                                    <th>{{ $loop->iteration }}</th>
-                                                                                    <td class="type">
-                                                                                        {{ $question->q_type }}</td>
-                                                                                    <td class="year">
-                                                                                        {{ $question->year }}</td>
-                                                                                    <td class="month">
-                                                                                        {{ $question->month }}</td>
-                                                                                    <td class="code">
-                                                                                        {{ @$question->code->exam_code }}
-                                                                                    </td>
-                                                                                    <td class="section">
-                                                                                        {{ $question->section }}</td>
-                                                                                    <td class="noNum">
-                                                                                        {{ $question->q_num }}</td>
-                                                                                    <td class="diff">
-                                                                                        {{ $question->difficulty }}
-                                                                                    </td>
-                                                                                    <td class="chapE">
-                                                                                        {{ $question->lessons->chapter->chapter_name }}
-                                                                                    </td>
-                                                                                    <td class="lessE">
-                                                                                        {{ $question->lessons->lesson_name }}
-                                                                                    </td>
-                                                                                    <td class="p-0">
-                                                                                        <button type="button"
-                                                                                            class="edit_qz add_question">Add</button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            @endif
-                                                                        @endforeach
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -1909,11 +1869,11 @@
                     var question_obj = {
                         question_ID: JSON.parse(ques_ID),
                         question_Type: ques_TYPE,
-                        question_Year: JSON.parse(ques_YEAR),
-                        question_Month: JSON.parse(ques_MONTH),
+                        question_Year: ques_YEAR,
+                        question_Month: ques_MONTH,
                         question_Code: ques_CODE,
-                        question_Section: JSON.parse(ques_SECTION),
-                        question_Num: JSON.parse(ques_NUM),
+                        question_Section: ques_SECTION,
+                        question_Num: ques_NUM,
                         question_Difficulty: ques_DIFFICULTY,
                         question_Chapter: ques_chapter,
                         // question_Lesson: ques_lesson,
