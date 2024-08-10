@@ -2167,7 +2167,7 @@ class ApiController extends Controller
             foreach ( $item->question as $element) {
                 
         return response()->json([
-            'question' => $element,
+            'question' => $item,
         ]);
                 $element->q_url = url($element->q_url);
             }
