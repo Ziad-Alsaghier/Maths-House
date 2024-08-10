@@ -283,6 +283,9 @@
         <button class="btn_add_quizz my-3" type="button" data-toggle="modal" data-target="#exampleModalCenter">New
             Exam</button>
     </div>
+
+    
+
     <!-- Modal Add Quizze -->
     <div class="modal fade" id="exampleModalCenter" style="transform: translate(20px, 0px); " tabindex="-1"
         role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

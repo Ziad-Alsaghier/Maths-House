@@ -190,7 +190,7 @@ class Stu_MyCourseController extends Controller
             ->first();
 
             if ( !empty($solve_quizze) ) {
-                session()->flash('faild', 'You Passed The Quiz Last Time');
+                session()->flash('faild', 'You Solved this quiz before.');
                 return redirect()->back();
             }
 
