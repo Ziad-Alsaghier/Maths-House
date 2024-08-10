@@ -170,6 +170,7 @@ class Stu_PackageController extends Controller
                 'payment_request_id' => $p_request->id,
                 'package_id' => $package_data->id,
                 'date' => now(),
+                'number' => $package->number,
                 'user_id' => auth()->user()->id,
             ]);
             if ( !empty(Cookie::get('affilate')) ) {
