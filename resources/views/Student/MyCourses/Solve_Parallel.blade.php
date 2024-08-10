@@ -102,7 +102,7 @@
                     </div>
                     @endif
                     @if ( !empty($q_ans->ans_video) )
-                    <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{$q_ans->ans_video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe  scrolling="no" allowfullscreen width="3000" height="315" src="{{$q_ans->ans_video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     @endif
                     </div>
                     @endforeach
