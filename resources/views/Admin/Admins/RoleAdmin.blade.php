@@ -59,6 +59,11 @@ $arr = [];
           </div>
 
           <div class="m-3 form-check form-switch form-switch-sm form-check-custom form-check-solid">
+            <input id="Packages_item" class="form-check-input" type="checkbox" value="ReportIssues" name="roles[]">
+            <label for="Packages_item" class="form-check-label">ReportIssues</label>
+          </div>
+
+          <div class="m-3 form-check form-switch form-switch-sm form-check-custom form-check-solid">
             <input id="Packages_item" class="form-check-input" type="checkbox" value="Packages" name="roles[]">
             <label for="Packages_item" class="form-check-label">Packages</label>
           </div>
@@ -259,6 +264,19 @@ $arr = [];
                         <input id="Packages{{$item->id}}" class="form-check-input" type="checkbox" value="Packages"
                           name="roles[]">
                         <label for="Packages{{$item->id}}" class="form-check-label">Packages</label>
+                      </div>
+                      @endif
+                      @if(in_array('ReportIssues', $arr))
+                      <div class="m-3 form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                        <input id="ReportIssues{{$item->id}}" class="form-check-input" type="checkbox" value="ReportIssues"
+                          name="roles[]" checked='checked'>
+                        <label for="ReportIssues{{$item->id}}" class="form-check-label">Report Issues</label>
+                      </div>
+                      @else
+                      <div class="m-3 form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                        <input id="ReportIssues{{$item->id}}" class="form-check-input" type="checkbox" value="ReportIssues"
+                          name="roles[]">
+                        <label for="ReportIssues{{$item->id}}" class="form-check-label">Report Issues</label>
                       </div>
                       @endif
                       @if(in_array('Payment', $arr))
