@@ -252,20 +252,34 @@ class CoursesController extends Controller
             }
         }
 
-        $data = json_encode(Cookie::get('marketing')); 
+        $data = json_decode(Cookie::get('marketing')); 
         $chapters_price = floatval(Cookie::get('chapters_price'));  
         $chapter_discount = 0;
-        $price_data = json_decode($data);
+        $price_data = ($data);
         $price_arr = [];
-        foreach ( $price_data as $item ) {
-            $min = $item->price[0];
-            foreach ($item->price as $element) {
-                if ( $element->price < $min->price ) {
-                    $min = $element;
+        
+        if ( is_array($price_data) ) {
+            foreach ( $price_data as $item ) {
+                $min = $item->price[0];
+                foreach ($item->price as $element) {
+                    if ( $element->price < $min->price ) {
+                        $min = $element;
+                    }
+                }
+                $chapter_discount += $min->price - ($min->price * $min->discount / 100);
+                $price_arr[] = $min;
+            }
+        }
+        else{ 
+            $min_price = $price_data->prices[0];
+            foreach ($price_data->prices as $element) {
+                if ( $element->price < $min_price->price ) {
+                    $min_price = $element;
                 }
             }
-            $chapter_discount += $min->price - ($min->price * $min->discount / 100);
-            $price_arr[] = $min;
+            $chapter_discount += $min_price->price - ($min_price->price * $min_price->discount / 100);
+            $min_price_data = $course->prices[0];
+            return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
         }
         
         if ( empty($req->chapters_data) ) {

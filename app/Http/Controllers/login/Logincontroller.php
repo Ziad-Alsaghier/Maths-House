@@ -154,14 +154,14 @@ class Logincontroller extends Controller
 
                         $user = User::where('email',$request->input('email'))->first();
                         if(!$user){
-                                return redirect()->back();
+                                return view('Visitor.Login.login');
 
                         }
                         if ($user->state == 'hidden') {
-                                return redirect()->back();
+                                return view('Visitor.Login.login');
                         }
                         if(!password_verify($request->input('password'),$user->password)){
-                                return redirect()->back();
+                                return view('Visitor.Login.login');
 
                         }
                         $now = Carbon::now();
@@ -220,7 +220,7 @@ class Logincontroller extends Controller
                                 return view();
                         }
                         if(!$authantecated){
-                                return redirect()->back();
+                                return view('Visitor.Login.login');
                         }
 
                            
