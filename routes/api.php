@@ -180,7 +180,7 @@ Route::post('/update_password', [ApiController::class, 'update_password'])->name
 
 Route::get('/Quiz/Report/{id}', [DomPdfController::class, 'quizze_report'])->middleware('auth:sanctum');
 
-Route::middleware(['auth:sanctum', 'auth.student'])->prefix('MobileStudent')->group(function(){
+Route::middleware(['auth:sanctum'])->prefix('MobileStudent')->group(function(){
     Route::controller(ApiController::class)->prefix('ApiMyCourses')->group(function(){
         Route::get('/stu_courses','api_stu_my_courses')->name('api_stu_my_courses');
         Route::get('/stu_chapters','api_stu_my_chapter')->name('api_stu_my_chapter');
