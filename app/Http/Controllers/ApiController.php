@@ -2164,7 +2164,7 @@ class ApiController extends Controller
         ->with('question')
         ->get();
         foreach ($mistakes as $item) {
-            $item->q_url = url($item->q_url);
+            $item->question->q_url = url($item->question->q_url);
         }
 
         return response()->json([
