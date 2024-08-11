@@ -2023,14 +2023,15 @@ class ApiController extends Controller
                     foreach ($chapter->lessons as $lesson) { // Get Lesson
                         $today = Carbon::now();
                         $sessionAvillable = $lesson->sessions
-                            ->whereBetween('date', [$today->format('Y-m-d'), $endDate]); // Filter Session Time Now to $end_date
+                            ->whereBetween('date', [$today->format('Y-m-d'), $endDate]); 
+                            return response()->json([
+                                'success' => $sessionAvillable
+                            ], 400);
+                            // Filter Session Time Now to $end_date
                         foreach ($sessionAvillable as $session_now) {
                             if (!empty($session)) {
 
                                 if (!empty($lesson->sessions)) {
-                                    return response()->json([
-                                        'success' => $session
-                                    ], 400);
                                     $sessionData[] = [
                                         'chapter' => $chapter->chapter_name,
                                         'lessonSessions' => $lesson->lesson_name,
