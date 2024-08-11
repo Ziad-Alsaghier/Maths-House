@@ -1210,158 +1210,67 @@
                                                                     style="display: flex; align-items: center; justify-content: center">
                                                                 </div>
 
+
+                                                                <!-- change div class="mt-3 nSectionEdit" id from id="nSectionEdit{{ $item->id }} to id="nSectionEdit{{ $loop->iteration }}" -->
+
+
                                                                 <div class="allSectionsTableEdit"
                                                                     id="allSectionsTableEdit">
                                                                     @foreach ($item->sections_data as $element)
-                                                                        <div class="mt-3 nSectionEdit"
-                                                                            id="nSectionEdit{{ $item->id }}">
-                                                                            <h1 class="selSectionEdit"
-                                                                                style="cursor: pointer; color:#1b84ff; border: none;border-bottom: 3px solid #1b84ff;border-radius: 0;">
-                                                                                Section {{ $loop->iteration }}</h1>
-                                                                            <div class="tableSectionEdit d-none"
-                                                                                style="max-height: 300px;overflow: scroll;padding: 12px 0; border-bottom: 2px solid #8f8f8f">
-                                                                                <input type="hidden"
-                                                                                    class="arrSectionEdit"
-                                                                                    id="section_{{ $loop->iteration }}"
-                                                                                    name="section_1"
-                                                                                    value="{{ $loop->iteration }}">
-                                                                                <table
-                                                                                    class="table tblData_Edite table-striped"
-                                                                                    id="tblData_Edite">
-                                                                                    <thead class="border-bottom">
-                                                                                        <tr>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Type</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Year</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Month</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Code</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Section</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                No
-                                                                                            </th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Difficulty</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Chapter</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Lessone</th>
-                                                                                            <th scope="col"
-                                                                                                style="font-weight: 500; font-size: 1.1rem">
-                                                                                                Action</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <input type="hidden"
-                                                                                        class="add_new_questions"
-                                                                                        name="add_new_questions" />
-
-                                                                                    <tbody class="sel_quz_edit"
-                                                                                        id="sel_quz_edit{{ $loop->iteration }}">
-                                                                                        @foreach ($element->questions->sortBy('q_num') as $question)
-                                                                                            <tr class="tr_edite{{ $item->id }}"
-                                                                                                id="tr_edite{{ $question->id }}">
-
-                                                                                                <input type="hidden"
-                                                                                                    value="{{ $question->id }}"
-                                                                                                    name="question_id[]"
-                                                                                                    class="question_edite_id"
-                                                                                                    id="question_edite_id{{ $question->id }}" />
-
-                                                                                                <input type="hidden"
-                                                                                                    value="{{ $element->id }}"
-                                                                                                    name="section_id[]"
-                                                                                                    class="question_edite_id"
-                                                                                                    id="question_edite_id{{ $question->id }}" />
-
-                                                                                                <input type="hidden"
-                                                                                                    value={{ $item->id }}
-                                                                                                    name='diagnostic_edite_id[]'
-                                                                                                    class='diagnostic_edite_id'
-                                                                                                    id='diagnostic_edite_id{{ $question->id }}' />
-
-                                                                                                <td class="question_edite_type"
-                                                                                                    id="question_edite_type{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->q_type }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_year"
-                                                                                                    id="question_edite_year{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->year }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_month"
-                                                                                                    id="question_edite_month{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->month }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_code"
-                                                                                                    id="question_edite_code{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ @$question->code->exam_code }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_section"
-                                                                                                    id="question_edite_section{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->section }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_num"
-                                                                                                    id="question_edite_num{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->q_num }}
-                                                                                                </td>
-
-                                                                                                <td class="question_edite_difficulty"
-                                                                                                    id="question_edite_difficulty{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->difficulty }}
-                                                                                                </td>
-                                                                                                <td class="question_edite_chapter"
-                                                                                                    id="question_edite_chapter{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->lessons->chapter->chapter_name }}
-                                                                                                </td>
-                                                                                                <td class="question_edite_lesson"
-                                                                                                    id="question_edite_lesson{{ $question->id }}"
-                                                                                                    style="font-weight: 500; font-size: 1.1rem">
-                                                                                                    {{ $question->lessons->lesson_name }}
-                                                                                                </td>
-
-                                                                                                <td
-                                                                                                    style='width: 150px !important; padding: 0 !important;'>
-                                                                                                    <button
-                                                                                                        type='button'
-                                                                                                        class='remove_qz_edit'>Remove</button>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        @endforeach
-                                                                                    </tbody>
-
-                                                                                </table>
-                                                                            </div>
-                                                                            <span class="dropSection">
-                                                                                <i class="routateArrow fa-solid fa-chevron-down fa-2xl"
-                                                                                    style="color: #1b84ff;"></i>
-                                                                            </span>
-                                                                        </div>
-                                                                    @endforeach
+                                                                    <div class="mt-3 nSectionEdit" id="nSectionEdit{{ $item->id }}">
+                                                                    <h1 class="selSectionEdit" style="cursor: pointer; color:#1b84ff; border: none; border-bottom: 3px solid #1b84ff; border-radius: 0;">
+                                                                        Section {{ $loop->iteration }}
+                                                                    </h1>
+                                                                    <div class="tableSectionEdit d-none" style="max-height: 300px; overflow: scroll; padding: 12px 0; border-bottom: 2px solid #8f8f8f">
+                                                                        <!-- Use section ID in the name attribute -->
+                                                                        <input type="hidden" class="arrSectionEdit" id="section_{{ $element->id }}" name="section_{{ $element->id }}" value="{{ $element->id }}">
+                                                                        <table class="table tblData_Edite table-striped" id="tblData_Edite">
+                                                                            <thead class="border-bottom">
+                                                                                <tr>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Type</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Year</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Month</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Code</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Section</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">No</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Difficulty</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Chapter</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Lesson</th>
+                                                                                    <th scope="col" style="font-weight: 500; font-size: 1.1rem">Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <!-- change id of input from id="sel_quz_edit{{ $loop->iteration }}" to id="sel_quz_edit{{ $element->id }}"  -->
+                                                                            <input type="hidden" class="add_new_questions" name="add_new_questions" />
+                                                                            <tbody class="sel_quz_edit" id="sel_quz_edit{{ $loop->iteration }}">
+                                                                                @foreach ($element->questions->sortBy('q_num') as $question)
+                                                                                    <tr class="tr_edite{{ $item->id }}" id="tr_edite{{ $question->id }}">
+                                                                                        <input type="hidden" value="{{ $question->id }}" name="question_id[]" class="question_edite_id" id="question_edite_id{{ $question->id }}" />
+                                                                                        <input type="hidden" value="{{ $element->id }}" name="section_id[]" class="section_edite_id" id="section_edite_id{{ $question->id }}" />
+                                                                                        <input type="hidden" value="{{ $item->id }}" name="diagnostic_edite_id[]" class="diagnostic_edite_id" id="diagnostic_edite_id{{ $question->id }}" />
+                                                                                        <td class="question_edite_type" id="question_edite_type{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->q_type }}</td>
+                                                                                        <td class="question_edite_year" id="question_edite_year{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->year }}</td>
+                                                                                        <td class="question_edite_month" id="question_edite_month{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->month }}</td>
+                                                                                        <td class="question_edite_code" id="question_edite_code{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ @$question->code->exam_code }}</td>
+                                                                                        <td class="question_edite_section" id="question_edite_section{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->section }}</td>
+                                                                                        <td class="question_edite_num" id="question_edite_num{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->q_num }}</td>
+                                                                                        <td class="question_edite_difficulty" id="question_edite_difficulty{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->difficulty }}</td>
+                                                                                        <td class="question_edite_chapter" id="question_edite_chapter{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->lessons->chapter->chapter_name }}</td>
+                                                                                        <td class="question_edite_lesson" id="question_edite_lesson{{ $question->id }}" style="font-weight: 500; font-size: 1.1rem">{{ $question->lessons->lesson_name }}</td>
+                                                                                        <td style="width: 150px !important; padding: 0 !important;">
+                                                                                            <button type="button" class="remove_qz_edit">Remove</button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <span class="dropSection">
+                                                                        <i class="routateArrow fa-solid fa-chevron-down fa-2xl" style="color: #1b84ff;"></i>
+                                                                    </span>
+                                                                          </div>
+                                                                             @endforeach
                                                                 </div>
+
 
                                                             </div>
                                                         </div>
@@ -1712,6 +1621,7 @@
                     }
                 })
             })
+
             $("#sel_chp").change(function() {
                 $("#sel_less").empty();
                 var defOptionLess = `<option value="">Select Lessone</option>`;
@@ -1781,20 +1691,20 @@
                     quizze_item.innerHTML = null;
                     data.forEach((element, index) => {
                         quizze_item.innerHTML += `<tr>
-                          <th scope="row" class="idd d-none">${element.question_id}</th>
-                          <th>${index + 1}</th>
-                          <td class="type" id="type">${element.q_type}</td>
-                          <td class="year" id="year">${element.year}</td>
-                          <td class="month" id="month">${element.month}</td>
-                          <td class="code" id="code">${element.code.exam_code}</td>
-                          <td class="section" id="section">${element.section}</td>
-                          <td class="noNum" id="noNum">${element.q_num}</td>
-                          <td class="diff" id="diff">${element.difficulty}</td>
-                          <td class="chapter" id="chapter">${element.chapter_name}</td>
-                          <td class="lessone" id="lessone">${element.lesson_name}</td>
-                          <td class="p-0">
-                            <button type="button" class="add_qz">Add</button>
-                          </td>
+                            <th scope="row" class="idd d-none">${element.question_id}</th>
+                            <th>${index + 1}</th>
+                            <td class="type" id="type">${element.q_type}</td>
+                            <td class="year" id="year">${element.year}</td>
+                            <td class="month" id="month">${element.month}</td>
+                            <td class="code" id="code">${element.code.exam_code}</td>
+                            <td class="section" id="section">${element.section}</td>
+                            <td class="noNum" id="noNum">${element.q_num}</td>
+                            <td class="diff" id="diff">${element.difficulty}</td>
+                            <td class="chapter" id="chapter">${element.chapter_name}</td>
+                            <td class="lessone" id="lessone">${element.lesson_name}</td>
+                            <td class="p-0">
+                                <button type="button" class="add_qz">Add</button>
+                            </td>
                         </tr>`;
                     });
 
@@ -2165,21 +2075,21 @@
                             $(parFilterEdit).parent().find(".lesson_quizze").empty();
                             (data.questions).forEach((element, index) => {
                                 $(parFilterEdit).parent().find(".lesson_quizze").append(`<tr>
-                      <input type="hidden" value=${$(tableEdite).val()} class="question_id ques_id quizze_ID" />
-                      <th>${index + 1}</th>
-                      <td class="type" id="type">${element.q_type}</td>
-                      <td class="year" id="year">${element.year}</td>
-                      <td class="month" id="month">${element.month}</td>
-                      <td class="code" id="code">${element.code.exam_code}</td>
-                      <td class="section" id="section">${element.section}</td>
-                      <td class="noNum" id="noNum">${element.q_num}</td>
-                      <td class="diff" id="diff">${element.difficulty}</td>
-                      <td class="chapE" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
-                      <td class="lessE" id="lessone">${element.api_lesson.lesson_name}</td>
-                      <td class="p-0">
-                        <button type="button" class="edit_qz add_question">Add</button>
-                      </td>
-                    </tr>`);
+                        <input type="hidden" value=${element.id} class="question_id ques_id quizze_ID" />
+                        <th>${index + 1}</th>
+                        <td class="type" id="type">${element.q_type}</td>
+                        <td class="year" id="year">${element.year}</td>
+                        <td class="month" id="month">${element.month}</td>
+                        <td class="code" id="code">${element.code.exam_code}</td>
+                        <td class="section" id="section">${element.section}</td>
+                        <td class="noNum" id="noNum">${element.q_num}</td>
+                        <td class="diff" id="diff">${element.difficulty}</td>
+                        <td class="chapE" id="chapter">${element.api_lesson.api_chapter.chapter_name}</td>
+                        <td class="lessE" id="lessone">${element.api_lesson.lesson_name}</td>
+                        <td class="p-0">
+                            <button type="button" class="edit_qz add_question">Add</button>
+                        </td>
+                        </tr>`);
                             });
                         } else {
                             console.log("NotFaild")
@@ -2190,12 +2100,13 @@
                     }
 
                 })
-
             })
+
             /* #### Filter Edit #### */
             $(document).on("click", ".edit_qz", function() {
                 var question_idd = $(this).closest("tr").find(".question_id").val();
                 var quizze_idd = $(this).closest(".lesson_quizze").find(".quizze_ID").val();
+
 
                 // var quziId = $(this).closest("tr").find(".idd").text();
                 var quziType = $(this).closest("tr").find(".type").text();
@@ -2230,7 +2141,6 @@
                     // console.log("indexQuizze", indexQuizze)
                     console.log("##############")
 
-
                     console.log("question_idd", question_idd);
                     console.log("quizze_idd", quizze_idd);
 
@@ -2245,16 +2155,24 @@
                     console.log("##########")
                     console.log("edit_eray", edit_eray);
 
+
                     var new_Ele_Edit = `<tr class='tr_edite${quizze_idd}' id='tr_edite${question_idd}'>
                             <input type="hidden"
                             value=${question_idd}
                             name='question_id[]'
-                            class='question_edite_id' id='question_edite_id${question_idd}'/>
+                            class='question_edite_id'
+                            id='question_edite_id${question_idd}'/>
+
+                            <input type='hidden'
+                            name='section_id[]'
+                            class='section_edite_id'
+                            id='section_edite_id${question_idd}' />
 
                             <input type="hidden"
                             value=${quizze_idd}
                             name='diagnostic_edite_id[]'
-                            class='diagnostic_edite_id' id='diagnostic_edite_id${question_idd}'/>
+                            class='diagnostic_edite_id'
+                            id='diagnostic_edite_id${question_idd}'/>
 
                             <td class="question_edite_type" id='question_edite_type${question_idd}' style="font-weight: 500; font-size: 1.1rem">
                                 ${quziType}
@@ -2295,6 +2213,9 @@
                     )
                 }
             });
+
+            /* #### Filter Edit #### */
+
 
             $(document).on('click', '.remove_qz_edit', function() {
 
@@ -2350,6 +2271,8 @@
                 };
                 addEmptyRow();
             })
+
+
             /* send Data at edit */
             var allDataEdite = [];
             $(document).on("click", ".edit_filter_exam", function() {
@@ -2416,86 +2339,158 @@
                 console.log("childEdite", childEdite)
                 console.log("childEdite length", $(childEdite).length)
 
-
                 $(childEdite).each((childEle, childVal) => {
 
                     var parEle = $(childVal).find(".sel_quz_edit");
                     var allSectionsEdite = [];
-                    $(childVal).each((indexEle, valEle) => {
+                    console.log(parEle)
 
-                        console.log("indexEle", indexEle)
-                        console.log("valEle", valEle)
 
-                        var parTableEle = `#${$(valEle).find(".sel_quz_edit").attr("id")}`;
-                        console.log("parTableEle2", parTableEle)
+                    ///////////////////////////////////////////////////////////////////Edit from here
+                    // $(childVal).each((indexEle, valEle) => {
+
+                    //     console.log("indexEle", indexEle)
+                    //     console.log("valEle", valEle)
+
+                    //     var parTableEle = `#${$(valEle).find(".sel_quz_edit").attr("id")}`;
+                    //     console.log("parTableEle2", parTableEle)
+
+                    //     /* ########### */
+                    //     var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
+                    //     var ques_ID = $(question_edit_id).val();
+
+                    //     /* ########### */
+                    //     var question_edit_type =
+                    //         `#${$(parTableEle).find(".question_edite_type").attr("id")}`;
+                    //     var ques_TYPE = $(question_edit_type).text().trim();
+
+                    //     /* ########### */
+                    //     var question_edit_year =
+                    //         `#${$(parTableEle).find(".question_edite_year").attr("id")}`;
+                    //     var ques_YEAR = $(question_edit_year).text();
+
+                    //     /* ########### */
+                    //     var question_edit_month =
+                    //         `#${$(parTableEle).find(".question_edite_month").attr("id")}`;
+                    //     var ques_MONTH = $(question_edit_month).text();
+
+                    //     /* ########### */
+                    //     var question_edit_code =
+                    //         `#${$(parTableEle).find(".question_edite_code").attr("id")}`;
+                    //     var ques_CODE = $(question_edit_code).text().trim();
+
+                    //     /* ########### */
+                    //     var question_edit_section =
+                    //         `#${$(parTableEle).find(".question_edite_section").attr("id")}`;
+                    //     var ques_SECTION = $(question_edit_section).text();
+
+                    //     /* ########### */
+                    //     var question_edit_num = `#${$(parTableEle).find(".question_edite_num").attr("id")}`;
+                    //     var ques_NUM = $(question_edit_num).text();
+                    //     /* ########### */
+                    //     var question_edit_difficulty =
+                    //         `#${$(parTableEle).find(".question_edite_difficulty").attr("id")}`;
+                    //     var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
+                    //     /* ########### */
+                    //     var question_edit_chapter =
+                    //         `#${$(parTableEle).find(".question_edite_chapter").attr("id")}`;
+                    //     var ques_chapter = $(question_edit_chapter).text().trim();
+                    //     /* ########### */
+                    //     var question_edit_lesson =
+                    //         `#${$(parTableEle).find(".question_edite_lesson").attr("id")}`;
+                    //     var ques_Lesson = $(question_edit_lesson).text().trim();
+                    //     /* ########### */
+
+
+                    //     var section_obj = {
+                    //         question_ID: ques_ID,
+                    //         question_Type: ques_TYPE,
+                    //         question_Year: JSON.parse(ques_YEAR),
+                    //         question_Month: JSON.parse(ques_MONTH),
+                    //         question_Code: ques_CODE,
+                    //         question_Section: JSON.parse(ques_SECTION),
+                    //         question_Num: JSON.parse(ques_NUM),
+                    //         question_Difficulty: ques_DIFFICULTY,
+                    //         question_Chapter: ques_chapter,
+                    //         // question_Lesson: ques_lesson,
+                    //     }
+                    //     console.log("section_obj", section_obj)
+                    //     allSectionsEdite.push(section_obj);
+
+                    // })
+
+                     // Corrected the loop to iterate over each row in the table section
+                    $(parEle).find("tr").each((indexEle, valEle) => {
+                    console.log("indexEle", indexEle);
+                    console.log("valEle", valEle);
+
+                    var parTableEle = `#${$(valEle).attr("id")}`;
+                    console.log("parTableEle2", parTableEle)
 
 
                         /* ########### */
+                        var hiddenInput = $(childVal).find('input.arrSectionEdit');
+                        // Get the ID of the hidden input element
+                        var inputId = hiddenInput.attr('value');
+                        // Log the input ID
+                        console.log('Input ID:', inputId);
+
+
+                         /* ########### */
                         var question_edit_id = `#${$(parTableEle).find(".question_edite_id").attr("id")}`;
                         var ques_ID = $(question_edit_id).val();
 
-                        /* ########### */
+                         /* ########### */
                         var question_edit_type =
                             `#${$(parTableEle).find(".question_edite_type").attr("id")}`;
                         var ques_TYPE = $(question_edit_type).text().trim();
 
-                        /* ########### */
+                         /* ########### */
                         var question_edit_year =
                             `#${$(parTableEle).find(".question_edite_year").attr("id")}`;
                         var ques_YEAR = $(question_edit_year).text();
 
-                        /* ########### */
+                         /* ########### */
                         var question_edit_month =
                             `#${$(parTableEle).find(".question_edite_month").attr("id")}`;
                         var ques_MONTH = $(question_edit_month).text();
 
-                        /* ########### */
+                         /* ########### */
                         var question_edit_code =
                             `#${$(parTableEle).find(".question_edite_code").attr("id")}`;
                         var ques_CODE = $(question_edit_code).text().trim();
 
-                        /* ########### */
+                         /* ########### */
                         var question_edit_section =
                             `#${$(parTableEle).find(".question_edite_section").attr("id")}`;
                         var ques_SECTION = $(question_edit_section).text();
 
-                        /* ########### */
+                         /* ########### */
                         var question_edit_num = `#${$(parTableEle).find(".question_edite_num").attr("id")}`;
                         var ques_NUM = $(question_edit_num).text();
-                        /* ########### */
+                         /* ########### */
                         var question_edit_difficulty =
                             `#${$(parTableEle).find(".question_edite_difficulty").attr("id")}`;
                         var ques_DIFFICULTY = $(question_edit_difficulty).text().trim();
-                        /* ########### */
+                         /* ########### */
                         var question_edit_chapter =
                             `#${$(parTableEle).find(".question_edite_chapter").attr("id")}`;
                         var ques_chapter = $(question_edit_chapter).text().trim();
-                        /* ########### */
+                         /* ########### */
                         var question_edit_lesson =
                             `#${$(parTableEle).find(".question_edite_lesson").attr("id")}`;
                         var ques_Lesson = $(question_edit_lesson).text().trim();
                         /* ########### */
 
-                        // var section_obj = {
-                        //     question_ID: JSON.parse(ques_ID),
-                        //     question_Type: ques_TYPE,
-                        //     question_Year: JSON.parse(ques_YEAR),
-                        //     question_Month: JSON.parse(ques_MONTH),
-                        //     question_Code: ques_CODE,
-                        //     question_Section: JSON.parse(ques_SECTION),
-                        //     question_Num: JSON.parse(ques_NUM),
-                        //     question_Difficulty: ques_DIFFICULTY,
-                        //     question_Chapter: ques_chapter,
-                        //     // question_Lesson: ques_lesson,
-                        // }
                         var section_obj = {
+                            question_SectionID:inputId,
                             question_ID: ques_ID,
                             question_Type: ques_TYPE,
-                            question_Year: JSON.parse(ques_YEAR),
-                            question_Month: JSON.parse(ques_MONTH),
+                            question_Year: ques_YEAR,
+                            question_Month: ques_MONTH,
                             question_Code: ques_CODE,
-                            question_Section: JSON.parse(ques_SECTION),
-                            question_Num: JSON.parse(ques_NUM),
+                            question_Section: ques_SECTION,
+                            question_Num: ques_NUM,
                             question_Difficulty: ques_DIFFICULTY,
                             question_Chapter: ques_chapter,
                             // question_Lesson: ques_lesson,
@@ -2504,41 +2499,48 @@
                         allSectionsEdite.push(section_obj);
                     })
 
+
+                  ///////////////////////////////////////////////////////////////////End here
                     console.log("parEle", parEle)
                     console.log("childEle", childEle)
                     console.log("childVal", childVal)
 
                     console.log("allSectionsEdite", allSectionsEdite)
-
                     allDataEdite.push(allSectionsEdite);
                 })
 
-                console.log("#############")
-                console.log("parEdite", parEdite)
-                console.log("parModel", parModel)
-                console.log("#############")
-                console.log("InfoEdite", InfoEdite)
-                console.log("allDataEdite", allDataEdite)
-                console.log("#############")
+                    console.log("#############")
+                    console.log("parEdite", parEdite)
+                    console.log("parModel", parModel)
+                    console.log("#############")
+                    console.log("InfoEdite", InfoEdite)
+                    console.log("allDataEdite", allDataEdite)
+                    console.log("#############")
 
                 // var idExam = $(this).parent().find('#dia_id').val();
-
-
-                $.ajax({
-                    url: `{{ route('edit_exam') }}`,
-                    type: 'GET', // http method
-                    data: {
-                        data: allDataEdite,
-                    }, // data to submit
-                    success: function(data) {
-                        console.log(data);
-                        console.log(allDataEdite);
-                        //location.reload();
-                    }
-                });
+                    $.ajax({
+                        url: `{{ route('edit_exam') }}`,
+                        type: 'POST', // Changed from GET to POST
+                        data: {
+                            data: allDataEdite,
+                            _token: '{{ csrf_token() }}', // Include the CSRF token
+                        }, // data to submit
+                        success: function(data) {
+                            console.log(data);
+                            console.log(allDataEdite);
+                            // Reload the page after successful AJAX request
+                            location.reload()
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error occurred:', error);
+                        }
+                    });
             })
 
+
+
         });
+
     </script>
 
 </x-default-layout>

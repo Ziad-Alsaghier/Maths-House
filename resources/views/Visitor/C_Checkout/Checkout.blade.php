@@ -366,7 +366,9 @@
                                 src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
                         </label>
 
-                    </div> --}}
+                    </div>
+
+                     --}}
 
                         {{-- <input type="file" id="reset_img{{ $item->id }}" name="image[]"
                         class="form-control d-none" />
@@ -394,10 +396,14 @@
                                     {{ $item->payment }}
                                 </div>
                             </label>
+                            <div class="col-6 secDescription d-none" data-method-id="{{ $item->id }}">
+                                <h3>Description {{ $item->payment }}:</h3>
+                                <p class="desPay">{{ $item->description }}</p>
+                            </div>
                         </div>
                     @endforeach
 
-                    
+
             {{-- Using Wallet --}}
             <div class="radio-button d-flex align-items-center justify-content-start" style="column-gap: 0.6rem">
                 <label class="containerCheck">
@@ -419,10 +425,10 @@
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
-                <div class="col-6 secDescription d-none">
+                <!-- <div class="col-6 secDescription d-none">
                     <h3>Description:</h3>
                     <p class="desPay"></p>
-                </div>
+                </div> -->
             </div>
 
             {{-- Footer Check Out --}}
@@ -463,7 +469,7 @@
             $("#img").click();
         })
 
-        $(".radio-button__input").click(function() {
+        /*$(".radio-button__input").click(function() {
             $.ajax({
                 type: "GET",
                 url: "{{ route('api_chechout_description') }}",
@@ -482,9 +488,6 @@
                 }
             })
         })
-
-
-
         $(".radio-button__input").click(function() {
             $(".radio-button__input").each((val, ele) => {
                 if ($(".walletRadio").is(':checked')) {
@@ -504,7 +507,49 @@
                     $(".secDescription").addClass("d-none")
                 })
             }
-        })
+        })*/
+
+        $(".radio-button__input").on('change', function() {
+        // Get the value of the selected radio button
+        var selectedMethodId = $(this).val();
+
+        // Make an AJAX request to get the description
+        $.ajax({
+            type: "GET",
+            url: "{{ route('api_chechout_description') }}",
+            data: {
+                id: selectedMethodId
+            },
+            success: function(data) {
+                console.log(data);
+
+                // Hide all descriptions
+                $(".secDescription").addClass("d-none");
+
+                // Update and show the description for the selected radio button
+                $(".secDescription[data-method-id='" + selectedMethodId + "']").removeClass("d-none").find(".desPay").text(data.description);
+            }
+        });
+
+        // Uncheck walletRadio if any payment method is selected
+        $(".walletRadio").prop("checked", false);
+    });
+
+    // Event handler for walletRadio change
+    $(".walletRadio").on('change', function() {
+        if ($(this).is(':checked')) {
+            // Uncheck all payment method radio buttons
+            $(".radio-button__input").prop("checked", false);
+
+            // Hide all descriptions
+            $(".secDescription").addClass("d-none");
+        }
+    });
+
+
+
+
+
     })
 </script>
 @include('Visitor.inc.footer')

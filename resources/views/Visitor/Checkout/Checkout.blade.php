@@ -39,11 +39,25 @@
 
     #selImg {
         /* width: 30% !important; */
-        background: #FDF4F5;
+        /* updated from here */
+        /* background: #FDF4F5;
         color: #fff;
         padding: 10px 30px;
         border-radius: 10px;
+        cursor: pointer; */
+        background: #CF202F;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: 10px 30px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
         cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    .#selImg:hover {
+        background: #ae101d
     }
 
     .phoneNum {
@@ -190,6 +204,23 @@
         animation-fill-mode: forwards;
         display: none;
         stroke: #CF202F;
+    }
+
+    .secDescription {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 20px;
+    }
+
+    .secDescription>h3 {
+        color: #CF202F;
+    }
+
+    .secDescription>p {
+        color: #B9B9B9;
+        font-weight: 600;
     }
 
     @keyframes kfr-celebrate {
@@ -383,6 +414,11 @@
                                     {{ $item->payment }}
                                 </div>
                             </label>
+                            <!-- updated here : add secDescription -->
+                            <div class="col-6 secDescription d-none" data-method-id="{{ $item->id }}">
+                                <h3>Description {{ $item->payment }}:</h3>
+                                <p class="desPay">{{ $item->description }}</p>
+                            </div>
                         </div>
                     @endforeach
 
@@ -400,7 +436,7 @@
             {{-- Receipt && Phone --}}
             <div class="col-9 d-none align-items-center justify-content-between upload_receipt" style="column-gap: 1rem">
                 <label for="img" id="selImg" class="d-flex align-items-center justify-content-center" style="column-gap: 0.3rem">
-                    <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
+                    <h3 style="color: #fff;font-weight: 700">Upload Receipt</h3>
                     <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </label>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
@@ -437,7 +473,7 @@
         upload_receipt.classList.add('d-none');
         upload_receipt.classList.remove('d-flex');
     });
-    
+
     $(document).ready(function() {
         /* radio-button__input */
         console.log("first")
@@ -445,7 +481,7 @@
             $("#img").click();
         })
 
-        $(".radio-button__input").click(function() {
+        /*$(".radio-button__input").click(function() {
             $.ajax({
                 type: "GET",
                 url: "{{ route('api_chechout_description') }}",
@@ -464,8 +500,6 @@
                 }
             })
         })
-
-
 
         $(".radio-button__input").click(function() {
             $(".radio-button__input").each((val, ele) => {
@@ -486,7 +520,45 @@
                     $(".secDescription").addClass("d-none")
                 })
             }
-        })
+        })*/
+
+        $(".radio-button__input").on('change', function() {
+        // Get the value of the selected radio button
+        var selectedMethodId = $(this).val();
+
+        // Make an AJAX request to get the description
+        $.ajax({
+            type: "GET",
+            url: "{{ route('api_chechout_description') }}",
+            data: {
+                id: selectedMethodId
+            },
+            success: function(data) {
+                console.log(data);
+
+                // Hide all descriptions
+                $(".secDescription").addClass("d-none");
+
+                // Update and show the description for the selected radio button
+                $(".secDescription[data-method-id='" + selectedMethodId + "']").removeClass("d-none").find(".desPay").text(data.description);
+            }
+        });
+
+        // Uncheck walletRadio if any payment method is selected
+        $(".walletRadio").prop("checked", false);
+    });
+
+    // Event handler for walletRadio change
+    $(".walletRadio").on('change', function() {
+        if ($(this).is(':checked')) {
+            // Uncheck all payment method radio buttons
+            $(".radio-button__input").prop("checked", false);
+
+            // Hide all descriptions
+            $(".secDescription").addClass("d-none");
+        }
+    });
+
     })
 </script>
 @include('Visitor.inc.footer')
