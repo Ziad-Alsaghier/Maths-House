@@ -2028,6 +2028,9 @@ class ApiController extends Controller
                             if (!empty($session)) {
 
                                 if (!empty($lesson->sessions)) {
+                                    return response()->json([
+                                        'success' => $session
+                                    ], 400);
                                     $sessionData[] = [
                                         'chapter' => $chapter->chapter_name,
                                         'lessonSessions' => $lesson->lesson_name,
@@ -2035,9 +2038,6 @@ class ApiController extends Controller
 
                                     ];
                                 }
-                                return response()->json([
-                                    'success' => $session
-                                ], 400);
                             }
                         }
                     }
