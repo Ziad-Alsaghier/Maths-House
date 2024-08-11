@@ -159,7 +159,7 @@ class CoursesController extends Controller
             return view('Visitor.Login.login');
         }
         else{
-            $chapters = json_decode($data); 
+            $chapters = $data; 
             return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
         }
     }
