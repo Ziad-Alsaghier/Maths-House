@@ -121,13 +121,13 @@ class CoursesController extends Controller
                 $min_price_data = $price;
             }
         }
-        Cookie::queue(Cookie::forget('min_price_data'));
-        Cookie::queue('marketing', json_encode($course), 180);
         
         if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
             return view('Visitor.Login.login');
         }
         elseif ( $min_price == $req->chapters_price ) {
+            Cookie::queue(Cookie::forget('min_price_data'));
+            Cookie::queue('marketing', json_encode($course), 180);
             Cookie::queue('min_price_data', json_encode($min_price_data), 180); 
             return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
         }
@@ -148,7 +148,7 @@ class CoursesController extends Controller
             $price_arr[] = $min;
         }
         
-        if ( empty($req->chapters_data) ) {
+        if ( !empty($req->chapters_data) ) {
             $data = json_decode(Cookie::get('marketing'));
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
