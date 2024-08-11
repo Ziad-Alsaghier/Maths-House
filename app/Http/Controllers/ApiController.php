@@ -696,9 +696,9 @@ class ApiController extends Controller
             ->with('lesson_api')
             ->with('questions')
             ->with('quizze')
-            ->get(); 
-            for ($i=0, $end = count($q_history); $i < $end; $i++) { 
-                $q_history[0]->question->q_url = url('images/questions/' . $q_history[0]->question->q_url);
+            ->get();
+            foreach ($q_history as $item) {
+                $item->question->q_url = url('images/questions/' . $item->question->q_url);
             }
         return response()->json([
             'question' => $q_history,
