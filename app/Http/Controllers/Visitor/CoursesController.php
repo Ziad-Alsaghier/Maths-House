@@ -135,9 +135,9 @@ class CoursesController extends Controller
         $data = $req->chapters_data;
         $chapters_price = $req->chapters_price;
         $chapter_discount = 0;
+        $price_data = json_decode($data);
         $price_arr = [];
-        $data = json_decode($data);
-        foreach ( $data as $item ) {
+        foreach ( $price_data as $item ) {
             $min = $item->price[0];
             foreach ($item->price as $element) {
                 if ( $element->price < $min->price ) {
@@ -148,7 +148,7 @@ class CoursesController extends Controller
             $price_arr[] = $min;
         }
         
-        if ( !empty($req->chapters_data) ) {
+        if ( empty($req->chapters_data) ) {
             $data = json_decode(Cookie::get('marketing'));
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
@@ -159,7 +159,7 @@ class CoursesController extends Controller
             return view('Visitor.Login.login');
         }
         else{
-            $chapters = $data; 
+            $chapters = json_decode($data); 
             return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
         }
     }
