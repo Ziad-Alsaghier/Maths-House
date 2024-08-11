@@ -136,6 +136,7 @@ class CoursesController extends Controller
         $chapters_price = $req->chapters_price;
         $chapter_discount = 0;
         $price_arr = [];
+        $data = json_decode($data);
         foreach ( $data as $item ) {
             $min = $item->price[0];
             foreach ($item->price as $element) {
