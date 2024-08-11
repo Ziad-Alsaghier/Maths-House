@@ -2016,6 +2016,9 @@ class ApiController extends Controller
                     });
                 })->first(); // Get Category  &  Course  &  Chapter  &  Lesson  &  Live Session
 
+                return response()->json([
+                    'success' => $session
+                ], 400);
             $session->courses->where('id', $request_live_session['course_id']); //Get Course Where ID == $request Course_id
             $endDate = $request->end_date;
             foreach ($session->courses_live as $data) { // Get Course 
