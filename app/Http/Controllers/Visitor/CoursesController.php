@@ -152,8 +152,7 @@ class CoursesController extends Controller
             $data = json_decode(Cookie::get('marketing'));
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
-        Cookie::queue('marketing', json_encode($data), 180);  
-        Cookie::queue('chapters_price', ($chapters_price), 180);
+        Cookie::queue('marketing', json_encode($data), 180);
          $price_arr = json_encode($price_arr);
         if ( empty(auth()->user()) ) {
             return view('Visitor.Login.login');
