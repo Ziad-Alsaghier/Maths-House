@@ -193,6 +193,6 @@ return [
     |
     */
 
-    'same_site' => 'lax', // or 'strict', 'none', etc.
+    'same_site' => null,
 
 ];
