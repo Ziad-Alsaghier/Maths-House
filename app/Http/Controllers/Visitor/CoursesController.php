@@ -133,6 +133,7 @@ class CoursesController extends Controller
         }
         
         $data = $req->chapters_data;
+        return $data;
         $chapters_price = $req->chapters_price;
         $chapter_discount = 0;
         $price_data = json_decode($data);
