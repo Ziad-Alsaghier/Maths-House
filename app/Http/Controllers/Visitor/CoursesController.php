@@ -147,12 +147,12 @@ class CoursesController extends Controller
             $chapter_discount += $min->price - ($min->price * $min->discount / 100);
             $price_arr[] = $min;
         }
-        
         if ( empty($req->chapters_data) ) {
             $data = json_decode(Cookie::get('marketing'));
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
         else {
+            return empty($req->chapters_data);
             Cookie::queue('marketing', json_encode($data), 180);
         }
          $price_arr = json_encode($price_arr);
