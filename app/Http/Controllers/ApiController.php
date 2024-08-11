@@ -699,7 +699,7 @@ class ApiController extends Controller
             ->get();
             foreach ($q_history as $item) {
                 return response()->json([
-                    'question' =>  $item->question->q_url,
+                    'question' =>  url('images/questions/' .$item->question->q_url)
                 ]);
                 $item->question->q_url = url('images/questions/' . $item->question->q_url);
             }
