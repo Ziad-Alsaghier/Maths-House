@@ -697,12 +697,12 @@ class ApiController extends Controller
             ->with('questions')
             ->with('quizze')
             ->get();
+            $new_arr = [];
             foreach ($q_history as $item) {
-                return response()->json([
-                    'question' =>  url('images/questions/' .$item->question->q_url)
-                ]);
-                $item->question->q_url = url('images/questions/' . $item->question->q_url);
+                $element = url('images/questions/' . $item->question->q_url);
+                $new_arr[] = $element;
             }
+            $q_history = $new_arr;
         return response()->json([
             'question' => $q_history,
             'exam' => $exam_history,
