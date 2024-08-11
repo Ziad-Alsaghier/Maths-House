@@ -2018,6 +2018,7 @@ class ApiController extends Controller
 
             $session->courses->where('id', $request_live_session['course_id']); //Get Course Where ID == $request Course_id
             $endDate = $request->end_date;
+            $sessionData = [];
             foreach ($session->courses_live as $data) { // Get Course 
                 foreach ($data->chapter as $chapter) { // Get Chapter
                     foreach ($chapter->lessons as $lesson) { // Get Lesson
@@ -2025,22 +2026,21 @@ class ApiController extends Controller
                         $sessionAvillable = $lesson->sessions
                             ->whereBetween('date', [$today->format('Y-m-d'), $endDate]); 
                             // Filter Session Time Now to $end_date
-                        foreach ($sessionAvillable as $session_now) {
-                            return response()->json([
-                                'success' => $session
-                            ], 400);
-                            if (!empty($session)) {
-
-                                if (!empty($lesson->sessions)) {
-                                    $sessionData[] = [
-                                        'chapter' => $chapter->chapter_name,
-                                        'lessonSessions' => $lesson->lesson_name,
-                                        'sessionData' => $session_now,
-
-                                    ];
+                            if ( count($sessionAvillable) > 0 ) {
+                                foreach ($sessionAvillable as $session_now) {
+                                    if (!empty($session)) {
+        
+                                        if (!empty($lesson->sessions)) {
+                                            $sessionData[] = [
+                                                'chapter' => $chapter->chapter_name,
+                                                'lessonSessions' => $lesson->lesson_name,
+                                                'sessionData' => $session_now,
+        
+                                            ];
+                                        }
+                                    }
                                 }
                             }
-                        }
                     }
                 }
             }
