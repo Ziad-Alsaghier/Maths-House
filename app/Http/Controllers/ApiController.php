@@ -2022,9 +2022,6 @@ class ApiController extends Controller
                 foreach ($data->chapter as $chapter) { // Get Chapter
                     foreach ($chapter->lessons as $lesson) { // Get Lesson
                         $today = Carbon::now();
-                        return response()->json([
-                            'success' => $session
-                        ], 400);
                         $sessionAvillable = $lesson->sessions
                             ->whereBetween('date', [$today->format('Y-m-d'), $endDate]); // Filter Session Time Now to $end_date
                         foreach ($sessionAvillable as $session_now) {
@@ -2038,6 +2035,9 @@ class ApiController extends Controller
 
                                     ];
                                 }
+                                return response()->json([
+                                    'success' => $session
+                                ], 400);
                             }
                         }
                     }
