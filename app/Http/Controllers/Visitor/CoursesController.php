@@ -123,14 +123,17 @@ class CoursesController extends Controller
                 $min_price_data = $price;
             }
         }
-        Cookie::queue(Cookie::forget('min_price_data'));
         
         if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
             return view('Visitor.Login.login');
         }
         elseif ( $min_price == $req->chapters_price ) {
-            Cookie::queue('marketing', json_encode($course), 180);
-            Cookie::queue('min_price_data', json_encode($min_price_data), 180); 
+            $course_cart = CourseCart::create([
+                'marketing' => json_encode($course),
+                'min_price_data' => json_encode($min_price_data)
+            ]);
+            
+            Cookie::queue('course_cart_id', $course_cart->id, 180); 
             return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
         }
         
@@ -154,8 +157,11 @@ class CoursesController extends Controller
             $data = json_decode(Cookie::get('marketing'));
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
-        Cookie::queue('marketing', json_encode($data), 180);  
-        Cookie::queue('chapters_price', ($chapters_price), 180);
+        $chapter_cart = ChapterCart::create([
+            'marketing' => json_encode($data),
+            'chapters_price' => $chapters_price
+        ]);
+        Cookie::queue('chapter_cart_id', ($chapters_price->id), 180);
          $price_arr = json_encode($price_arr);
         if ( empty(auth()->user()) ) {
             return view('Visitor.Login.login');
