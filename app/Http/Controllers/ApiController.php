@@ -2195,4 +2195,12 @@ class ApiController extends Controller
         ]);
     }
 
+    public function api_q_code(){
+        $codes = ExamCodes::all();
+
+        return response()->json([
+            'codes' => $codes
+        ]);
+    }
+
 }
