@@ -2016,15 +2016,15 @@ class ApiController extends Controller
                     });
                 })->first(); // Get Category  &  Course  &  Chapter  &  Lesson  &  Live Session
 
-                return response()->json([
-                    'success' => $session
-                ], 400);
             $session->courses->where('id', $request_live_session['course_id']); //Get Course Where ID == $request Course_id
             $endDate = $request->end_date;
             foreach ($session->courses_live as $data) { // Get Course 
                 foreach ($data->chapter as $chapter) { // Get Chapter
                     foreach ($chapter->lessons as $lesson) { // Get Lesson
                         $today = Carbon::now();
+                        return response()->json([
+                            'success' => $session
+                        ], 400);
                         $sessionAvillable = $lesson->sessions
                             ->whereBetween('date', [$today->format('Y-m-d'), $endDate]); // Filter Session Time Now to $end_date
                         foreach ($sessionAvillable as $session_now) {
