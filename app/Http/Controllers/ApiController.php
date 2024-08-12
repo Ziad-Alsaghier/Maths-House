@@ -638,6 +638,9 @@ class ApiController extends Controller
             ->with('mcq')
             ->with('g_ans')
             ->get();
+            foreach ($parallel as $item) {
+                $item->q_url = url('images/questions/' . $item->q_url);
+            }
 
         return response()->json([
             'question' => $question,
