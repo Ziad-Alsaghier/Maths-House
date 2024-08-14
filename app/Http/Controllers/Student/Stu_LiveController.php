@@ -106,6 +106,13 @@ class Stu_LiveController extends Controller
     public function use_live( $id ){
         $session = Session::where('id', $id)
         ->first();
+        $session_attendance = SessionAttendance::
+        where('user_id', auth()->user()->id)
+        ->where('session_id', $id)
+        ->first();
+        if ( !empty($session_attendance) ) {
+            return redirect($session->link);
+        }
 
         $package = PaymentPackageOrder::
         where('number', '>', 0)

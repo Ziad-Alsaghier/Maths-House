@@ -398,8 +398,23 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function api_link_live(Request $req)
+    public function api_link_live(Request $req, $id)
     {
+        $session_attendance = SessionAttendance::
+        where('user_id', auth()->user()->id)
+        ->where('session_id', $id)
+        ->first();
+        if ( !empty($session_attendance) ) {
+            // Return Live
+            return response()->json([
+                'success' => 'You Attend Success'
+            ], 200);
+        }
+        SessionAttendance::
+        create([
+            'user_id' => auth()->user()->id,
+            'session_id' => $id
+        ]);
 
         // Code With Packages
         $payments = PaymentPackageOrder::where('state', 1)

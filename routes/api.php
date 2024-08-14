@@ -202,7 +202,7 @@ Route::middleware(['auth:sanctum'])->prefix('MobileStudent')->group(function(){
         Route::get('/stu_quiz_mistakes/{id}','stu_quiz_mistakes')->name('stu_quiz_mistakes');
         Route::post('/stu_quiz_grade','api_quiz_grade')->name('api_quiz_grade');
         Route::get('/stu_profile_edit','api_profile_edit')->name('api_profile_edit');
-        Route::get('/stu_link_live','api_link_live')->name('api_link_live');
+        Route::get('/stu_link_live/{id}','api_link_live')->name('api_link_live');
         Route::get('/stu_exam_grade','api_exam_grade')->name('api_exam_grade');
         Route::any('/stu_dia_exam_grade','api_dia_exam_grade')->name('api_dia_exam_grade');
         Route::any('/stu_exam_mistakes/{id}','api_exam_mistakes')->name('api_exam_mistakes');
