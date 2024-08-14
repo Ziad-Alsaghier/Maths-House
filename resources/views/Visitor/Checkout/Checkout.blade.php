@@ -363,11 +363,11 @@
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Subtotal:</span>
-                        <span class=" text-align-center">${{ $price }}</span>
+                        <span class=" text-align-center" id="subtotal"></span>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center" style="color: #CF202F">Total:</span>
-                        <span class=" text-align-center">${{ $price }}</span>
+                        <span class=" text-align-center" id=discountPrice></span>
                     </div>
                 </div>
                 {{-- Right Section --}}
@@ -454,6 +454,16 @@
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 <script>
+
+
+let storedTotalOriginalPrice = localStorage.getItem('totalOriginalPrice');
+let storedTotalDiscountedPrice = localStorage.getItem('totalDiscountedPrice');
+
+// Display the totalOriginalPrice in the appropriate span
+document.getElementById('subtotal').textContent = `$${storedTotalOriginalPrice}`;
+document.getElementById('discountPrice').textContent = `$${storedTotalDiscountedPrice}`;
+
+
     let payment_method_radio = document.querySelectorAll('.payment_method_radio');
     let walletRadio = document.querySelector('.walletRadio');
     let upload_receipt = document.querySelector('.upload_receipt');

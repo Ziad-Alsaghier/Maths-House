@@ -343,11 +343,11 @@
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Subtotal:</span>
-                        <span class=" text-align-center">${{ $price }}</span>
+                        <span class=" text-align-center" id=subtotal>${{ $price }}</span>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center" style="color: #CF202F">Total:</span>
-                        <span class=" text-align-center">${{ $price }}</span>
+                        <span class=" text-align-center" id=discountPrice>${{ $price }}</span>
                     </div>
                 </div>
                 {{-- Right Section --}}
@@ -365,10 +365,7 @@
                             <img style="height:50px; width:70px;"
                                 src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
                         </label>
-
-                    </div>
-
-                     --}}
+                        </div>--}}
 
                         {{-- <input type="file" id="reset_img{{ $item->id }}" name="image[]"
                         class="form-control d-none" />
@@ -438,10 +435,37 @@
         </form>
     </section>
 
-
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 <script>
+// Function to load specific data (totalPrice and chapterDiscount) from local storage
+function loadPriceDetails() {
+    let storedData = localStorage.getItem('courseDetails');
+    if (storedData) {
+        let courseDetails = JSON.parse(storedData);
+
+        // Loop through the stored course details
+        courseDetails.forEach((detail, index) => {
+            if (detail) {
+                // Retrieve and display the totalPrice and chapterDiscount
+                let storedTotalPrice = detail.totalPrice;
+                let storedDiscountedPrice = detail.chapterDiscount;
+
+                // Assuming you want to display these in specific spans or elements
+                document.getElementById(`subtotal`).textContent = `$${storedDiscountedPrice}`;
+                document.getElementById(`discountPrice`).textContent = `$${storedTotalPrice }`;
+            }
+        });
+    }
+}
+
+// Call the function to load and display the totalPrice and chapterDiscount
+loadPriceDetails();
+
+
+
+
+
     let payment_method_radio = document.querySelectorAll('.payment_method_radio');
     let walletRadio = document.querySelector('.walletRadio');
     let upload_receipt = document.querySelector('.upload_receipt');
