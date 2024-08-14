@@ -219,7 +219,7 @@ class Stu_LiveController extends Controller
     public function private_req_api( Request $req ){
         $course_id = $req->course_id;
         $private_req = Session::where('type', 'private')
-        ->where('date', '>=', now())
+        ->where('date', '>=', date('Y-m-d'))
         ->whereHas('lesson.chapter', function($query) use ($course_id){
             $query->where('course_id', $course_id);
         })
