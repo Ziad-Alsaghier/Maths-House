@@ -389,7 +389,7 @@
         sel_category.addEventListener('change', () => {
             sel_course.innerHTML = `
             <option selected disabled>
-                Select Course ...  
+                Select Course ...
             </option>
         `;
 
@@ -397,7 +397,7 @@
                 if (item.category_id == sel_category.value) {
                     sel_course.innerHTML += `
                     <option value="${item.id}">
-                        ${item.course_name}    
+                        ${item.course_name}
                     </option>
                 `;
                 }
@@ -453,7 +453,7 @@
                         <input type="hidden" value=${ele.id} id="lessonID">
                                         <div class="lesson_left">
                                             <span class="lesson_manth">${month[parseInt((ele.date).slice(5,7) - 1)]}</span>
-                                            <span class="lesson_numDay mb-5">${(ele.date).slice(-2)}</span> 
+                                            <span class="lesson_numDay mb-5">${(ele.date).slice(-2)}</span>
                                         </div>
                                         <div class="lesson_right">
                                             <div class="lesson_time_num">
@@ -502,7 +502,7 @@
                                                         d="M11.6646 15.0093L12 15.177L12.3354 15.0093L18.75 11.802V16.7865L12 20.1615L5.25 16.7865V11.802L11.6646 15.0093Z"
                                                         stroke="#DC3545" stroke-width="1.5"></path>
                                                 </svg>
-                                                <span>${"course: "+ ele.lesson.course.course.course_name}</span>
+                                                <span>${"course: "+ ele.lesson.chapter_my_live.course.course_name}</span>
                                             </div>
                                             <div class="lesson_chapter_name">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -511,7 +511,7 @@
                                                         d="M3.83998 23.52H23.52V7.19998V6.23998V0.47998H3.83998C1.98766 0.47998 0.47998 1.98718 0.47998 3.83998V20.16C0.47998 22.0128 1.98766 23.52 3.83998 23.52ZM3.83998 1.43998H22.56V6.23998H12V3.35998H5.27998V6.23998H3.83998C2.51662 6.23998 1.43998 5.16334 1.43998 3.83998C1.43998 2.51662 2.51662 1.43998 3.83998 1.43998ZM11.04 7.19998V12.8952L8.63998 10.895L6.23998 12.8952V7.19998V6.23998V4.31998H11.04V6.23998V7.19998ZM1.43998 6.18958C1.4443 6.19438 1.44958 6.19822 1.4539 6.20254C1.49134 6.24046 1.53166 6.27502 1.57102 6.31102C1.61134 6.34846 1.6507 6.38686 1.69342 6.4219C1.73518 6.45646 1.77982 6.48814 1.82302 6.52078C1.86622 6.55342 1.90798 6.58702 1.95262 6.61774C1.9987 6.64942 2.04766 6.67678 2.09566 6.70606C2.14078 6.73342 2.18446 6.7627 2.23102 6.78814C2.28094 6.8155 2.33374 6.83902 2.38558 6.86398C2.43262 6.88654 2.47822 6.9115 2.52622 6.93166C2.58046 6.9547 2.6371 6.97342 2.69278 6.99358C2.74078 7.01086 2.78734 7.03102 2.8363 7.04638C2.89774 7.06558 2.9611 7.0795 3.0235 7.09534C3.0691 7.10686 3.11326 7.12078 3.15934 7.13038C3.23278 7.14574 3.30862 7.15486 3.38398 7.16542C3.42094 7.1707 3.45742 7.17838 3.49486 7.18222C3.60814 7.19374 3.72334 7.19998 3.83998 7.19998H5.27998V14.9448L8.63998 12.1449L12 14.9448V7.19998H22.56V22.56H3.83998C2.51662 22.56 1.43998 21.4833 1.43998 20.16V6.18958Z"
                                                         fill="#DC3545" stroke="#DC3545" stroke-width="0.5"></path>
                                                 </svg>
-                                                <span>${"Chapter: " + ele.lesson.course.chapter_name}</span>
+                                                <span>${"Chapter: " + ele.lesson.chapter_my_live.chapter_name}</span>
                                             </div>
                                             <div class="lesson_reservation">
                                                 <button type="button" class="btn_lesson_rese" id="btn_lesson_rese${ele.id}" data-toggle="modal"
