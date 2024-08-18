@@ -53,9 +53,11 @@ class QuestionController extends Controller
             }
         }
 
+        Mcq_ans::where('q_id', $id)
+        ->delete();
+        Grid_ans::where('q_id', $id)
+        ->delete();
         if ( isset($req->mcq_ans) && $req->mcq_answers != null ) {
-            Mcq_ans::where('q_id', $id)
-            ->delete();
 
             for ( $i = 0, $end = count($req->mcq_ans); $i < $end; $i++ ) {
                 Mcq_ans::create([
@@ -68,8 +70,6 @@ class QuestionController extends Controller
         }
         
         if( isset($req->grid_ans) && $req->grid_ans[0] != null ){
-            Grid_ans::where('q_id', $id)
-            ->delete();
             foreach ($req->grid_ans as $key => $item) {
                 Grid_ans::create([
                     'grid_ans' => $item,
