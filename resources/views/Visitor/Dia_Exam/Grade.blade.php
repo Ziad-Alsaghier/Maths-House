@@ -75,7 +75,7 @@
 
                                 <table class="table">
                                     <tr>
-                                        <td>Quizze : </td>
+                                        <td>Diagnostic Exam : </td>
                                         <td>{{ $exam->title }}</td>
                                     </tr>
                                     <tr>
@@ -96,7 +96,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="d-flex justify-content-center">
-                                            <button class="btn btn-primary mistake_btn">
+                                            <button class="btn btn-danger mistake_btn">
                                                 Recommendation
                                             </button>
                                         </td>
