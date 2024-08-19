@@ -64,7 +64,7 @@
         <div class="col-12 d-flex align-items-center justify-content-start gap-2">
             <span class="col-5" style="color: #787878;font-size: 1.4rem;font-weight: 600">Student:
                 {{ auth()->user()->f_name . ' ' . auth()->user()->l_name . '(' . auth()->user()->nick_name . ')' }}</span>
-            <span class="col-6" style="color: #787878;font-size: 1.4rem;font-weight: 600">Course: SAT</span>
+            <span class="col-6" style="color: #787878;font-size: 1.4rem;font-weight: 600">Course: <span class="course_name"></span></span>
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-5">
 
@@ -128,6 +128,7 @@
         let course_data = document.querySelector('.course_data');
         let chapter_data = document.querySelector('.chapter_data');
         let lesson_data = document.querySelector('.lesson_data');
+        let course_name = document.querySelector('.course_name');
 
         let selCourse = document.querySelector('#selCourse');
         let selChapter = document.querySelector('#selChapter');
@@ -147,6 +148,10 @@
                 <option value="${element.id}">${element.chapter_name}</option>`;
                 }
             });
+
+            let selectedIndex = selCourse.selectedIndex;
+            let selectedText = selCourse.options[selectedIndex].text;
+            course_name.innerText = selectedText;
         });
 
         selChapter.addEventListener('change', () => {
@@ -178,7 +183,7 @@
                             console.log("ele", ele)
                             var newRow = `<tr>
                                 <td style="padding-top: 15px !important">${ele.quizze.title}</td>
-                                <td style="padding-top: 15px !important">${ele.quizze.score +"/"+ele.score }</td>
+                                <td style="padding-top: 15px !important">${ele.score + "/" + ele.quizze.score }</td>
                                 <td style="padding-top: 15px !important">${ele.time}</td>
                                 <td style="padding-top: 15px !important">${ele.date}</td>
                                 <td><a class="conBtn" href="MyCourses/Mistakes/${ele.id}">View Mistakes</a></td>
