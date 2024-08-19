@@ -286,25 +286,24 @@ class Stu_MyCourseController extends Controller
             ->where('quizze_id', $req->quizze_id)
             ->first();
 
-        if (empty($stu_q)) {
-            $stu_quizze = StudentQuizze::create([
-                'date' => now(),
-                'lesson_id' => $quizze->lesson_id,
-                'quizze_id' => $quizze->id,
-                'student_id' => auth()->user()->id,
-                'score' => $score,
-                'time' => $timer_val,
-                'r_questions' => $right_question,
-            ]);
-            $quize_id = $stu_quizze->id;
+        $stu_quizze = StudentQuizze::create([
+            'date' => now(),
+            'lesson_id' => $quizze->lesson_id,
+            'quizze_id' => $quizze->id,
+            'student_id' => auth()->user()->id,
+            'score' => $score,
+            'time' => $timer_val,
+            'r_questions' => $right_question,
+        ]);
+        $quize_id = $stu_quizze->id;
 
-            foreach ($mistakes as $item) {
-                StudentQuizzeMistake::create([
-                    'student_quizze_id' => $quize_id,
-                    'question_id' => $item->id
-                ]);
-            }
+        foreach ($mistakes as $item) {
+            StudentQuizzeMistake::create([
+                'student_quizze_id' => $quize_id,
+                'question_id' => $item->id
+            ]);
         }
+
         $report_v = ReportVideoList::all();
 
         return view('Student.MyCourses.Grade', compact('deg', 'quize_id', 'quizze', 'right_question', 'total_question', 'mistakes', 'report_v'));

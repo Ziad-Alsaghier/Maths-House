@@ -966,6 +966,42 @@ class ApiController extends Controller
         $lesson = Lesson::where('id', $id)
             ->first();
         $quiz = $lesson->quizze_api;
+        
+        $stu_quizze = StudentQuizze::where('student_id', auth()->user()->id)
+        ->where('score', '>=', $quiz->pass_score)
+        ->with('quizze')
+        ->get();
+
+        $solve_quizze = StudentQuizze::where('student_id', auth()->user()->id)
+        ->where('score', '>=', $quiz->pass_score)
+        ->where('quizze_id', $quiz->id)
+        ->first();
+
+        if ( !empty($solve_quizze) ) { 
+            return response()->json(['faild' => 'You Solved this quiz before.']);
+        }
+
+        $last_quiz = quizze::where('lesson_id', $quiz->lesson_id )
+        ->where('quizze_order', '<',$quiz->quizze_order)
+        ->orderByDesc('quizze_order')
+        ->first();
+        $quiz_item = 0;
+        foreach ($stu_quizze as $item) {
+            if ($item->quizze->quizze_order > $quiz_item && 
+            $item->quizze->lesson_id == $quiz->lesson_id &&
+            $item->score >= $quiz->pass_score ) {
+                $quiz_item = $item->quizze->quizze_order;
+            }
+        }
+        $next_quiz = quizze::where('lesson_id', $quiz->lesson_id )
+        ->where('quizze_order', '>',$quiz_item)
+        ->orderBy('quizze_order')
+        ->first();
+        
+        if ( $quiz->quizze_order > $next_quiz->quizze_order ) {
+            return response()->json(['faild' => 'You Must Pass Last Quiz First.']);
+        }
+        
         foreach ($quiz as $key => $item) {
             $arr1 = [];
             foreach ( $item->question_api as $element ) {
@@ -985,30 +1021,24 @@ class ApiController extends Controller
         $quizze = quizze::where('id', $req->quizze_id)
             ->first();
 
+        $stu_quizze = StudentQuizze::create([
+            'date' => now(),
+            'lesson_id' => $quizze->lesson_id,
+            'quizze_id' => $quizze->id,
+            'student_id' => auth()->user()->id,
+            'score' => $req->score,
+            'time' => $req->timer,
+            'r_questions' => $req->right_question,
+        ]);
+        $quize_id = $stu_quizze->id;
 
-        $stu_q = StudentQuizze::where('student_id', auth()->user()->id)
-            ->where('quizze_id', $req->quizze_id)
-            ->first();
-
-        if (empty($stu_q)) {
-            $stu_quizze = StudentQuizze::create([
-                'date' => now(),
-                'lesson_id' => $quizze->lesson_id,
-                'quizze_id' => $quizze->id,
-                'student_id' => auth()->user()->id,
-                'score' => $req->score,
-                'time' => $req->timer,
-                'r_questions' => $req->right_question,
+        foreach ($req->mistakes as $item) {
+            StudentQuizzeMistake::create([
+                'student_quizze_id' => $quize_id,
+                'question_id' => $item->id
             ]);
-            $quize_id = $stu_quizze->id;
-
-            foreach ($req->mistakes as $item) {
-                StudentQuizzeMistake::create([
-                    'student_quizze_id' => $quize_id,
-                    'question_id' => $item->id
-                ]);
-            }
         }
+
         return response()->json([
             'success' => 'Data Is Added Successful'
         ]);
