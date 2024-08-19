@@ -183,7 +183,7 @@
 			</div>
 		</div>
 	</section>
-    
+
 <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 @include('Visitor.inc.footer')

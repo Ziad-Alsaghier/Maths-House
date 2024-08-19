@@ -231,13 +231,13 @@
 
 
     <section>
-  
+
 		<form action="{{route('payment_package', ['id' => $package->id])}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-9 d-flex align-items-center justify-content-center">
                 <h1 style="color: #CF202F">Check Out</h1>
             </div>
-            
+
             <div class="col-9 d-flex align-items-start justify-content-start" style="column-gap: 1rem">
 
                 <div class="leftCheckout col-6 d-flex flex-column align-items-start justify-content-start"
@@ -256,7 +256,7 @@
                         <span class=" text-align-center">${{ $package->price }}</span>
                     </div>
                 </div>
-    
+
                 <div class="rightCheckout col-6 d-flex flex-column align-items-start justify-content-start"
                     style="row-gap: 1rem">
                     <h3 style="color: #CF202F">Choose Payment Methods:</h3>
@@ -279,7 +279,7 @@
 
                 </div>
             </div>
-            
+
             <div class="col-9 d-flex align-items-start justify-content-between" style="column-gap: 1rem">
                 <div id="selImg" class="d-flex align-items-center justify-content-center"
                     style="height: 70px; column-gap: 0.3rem">
@@ -295,14 +295,14 @@
             </div>
             <div class="col-9 d-flex align-items-center justify-content-start" style="column-gap: 0.6rem">
                 <label class="containerCheck">
-                    
+
                     <input type="checkbox" class="walletRadio" name="payment_method_id" value="Wallet">
                     <div class="checkmark"></div>
                 </label>
                 <h3 style="color: #727272;font-weight: 700">Using Wallet</h3>
             </div>
 
-            
+
             <div class="col-9 d-flex align-items-center justify-content-start">
                 <button class="btnCheckout">Place Order</button>
             </div>
@@ -315,7 +315,7 @@
 				@csrf
 				<input name="promo_code" class="my-3 form-control" type="search" placeholder="Coupon Code" aria-label="Search">
 				<button class="btn btn2">Apply Coupon</button>
-			
+
 			</form>
 		</div>
 	</div>
@@ -375,12 +375,7 @@
     })
 </script>
 @include('Visitor.inc.footer')
-
-
-
- 
-
-					 --}}
+--}}
 
 
 
@@ -424,12 +419,26 @@
     }
 
     #selImg {
-        /* width: 30% !important; */
-        background: #FDF4F5;
+       /* width: 30% !important; */
+        /* updated from here */
+        /* background: #FDF4F5;
         color: #fff;
         padding: 10px 30px;
         border-radius: 10px;
+        cursor: pointer; */
+        background: #CF202F;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: 10px 30px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
         cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    .#selImg:hover {
+        background: #ae101d
     }
 
     .phoneNum {
@@ -672,11 +681,11 @@
                                                  <li class="subtitle">
                                                      <p>Product <span class="float-right">Total</span></p>
                                                  </li>
-                     
+
                                                  <li>
                                                      <p>{{ $course->course_name }} <span class="float-right">{{ $price }}</span></p>
                                                  </li>
-                     
+
                                                  <li class="subtitle">
                                                      <p>Subtotal <span class="float-right">Subtotal</span></p>
                                                  </li>
@@ -699,9 +708,9 @@
                                                                  <img style="height:50px; width:70px;"
                                                                      src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
                                                              </label>
-                     
+
                                                          </div>
-                     
+
                                                          <input type="file" id="reset_img{{ $item->id }}" name="image[]"
                                                              class="form-control d-none" />
                                                          <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
@@ -725,7 +734,7 @@
                                                                  Using Wallet
                                                              </h3>
                                                          </label>
-                     
+
                                                      </div>
                                                      <script>
                                                          let payment_method_radio = document.querySelectorAll('.payment_method_radio');
@@ -798,7 +807,7 @@
                                                  <img style="height:50px; width:70px;"
                                                      src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
                                              </label>
-                     
+
                                          </div> --}}
 
                         {{-- <input type="file" id="reset_img{{ $item->id }}" name="image[]"
@@ -828,6 +837,10 @@
                                     {{ $item->payment }}
                                 </div>
                             </label>
+                            <div class="col-6 secDescription d-none" data-method-id="{{ $item->id }}">
+                                <h3>Description {{ $item->payment }}:</h3>
+                                <p class="desPay">{{ $item->description }}</p>
+                            </div>
                         </div>
                     @endforeach
 
@@ -846,15 +859,15 @@
             <div class="col-9 d-none upload_receipt align-items-start justify-content-between" style="column-gap: 1rem">
                 <div id="selImg" class="d-flex align-items-center justify-content-center"
                     style="height: 70px; column-gap: 0.3rem">
-                    <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
+                    <h3 style="color: #fff;font-weight: 700">Upload Receipt</h3>
                     <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
                     accept="image/*">
-                <div class="col-6 secDescription d-none">
+                <!-- <div class="col-6 secDescription d-none">
                     <h3>Description:</h3>
                     <p class="desPay"></p>
-                </div>
+                </div> -->
             </div>
 
             {{-- Footer Check Out --}}
@@ -901,7 +914,7 @@
         upload_receipt.classList.add('d-none');
         upload_receipt.classList.remove('d-flex');
     });
-    
+
     $(document).ready(function() {
         /* radio-button__input */
         console.log("first")
@@ -909,48 +922,87 @@
             $("#img").click();
         })
 
-        $(".radio-button__input").click(function() {
-            $.ajax({
-                type: "GET",
-                url: "{{ route('api_chechout_description') }}",
-                data: {
-                    id: $(this).val()
-                },
-                success: function(data) {
-                    console.log(data)
-                    $(".desPay").text(data.description)
-                    if ($(".walletRadio").is(':checked')) {
-                        $(".secDescription").addClass("d-none")
-                    } else {
-                        $(".secDescription").removeClass("d-none")
+        // $(".radio-button__input").click(function() {
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "{{ route('api_chechout_description') }}",
+        //         data: {
+        //             id: $(this).val()
+        //         },
+        //         success: function(data) {
+        //             console.log(data)
+        //             $(".desPay").text(data.description)
+        //             if ($(".walletRadio").is(':checked')) {
+        //                 $(".secDescription").addClass("d-none")
+        //             } else {
+        //                 $(".secDescription").removeClass("d-none")
 
-                    }
-                }
-            })
-        })
+        //             }
+        //         }
+        //     })
+        // })
 
 
 
-        $(".radio-button__input").click(function() {
-            $(".radio-button__input").each((val, ele) => {
-                if ($(".walletRadio").is(':checked')) {
-                    console.log(val)
-                    console.log(ele)
-                    $(".secDescription").addClass("d-none")
-                    $(ele).removeAttr("checked")
-                }
-            })
-        })
-        $(".walletRadio").click(function() {
-            if ($(this).is(':checked')) {
-                $(".radio-button__input").each((val, ele) => {
-                    console.log(val)
-                    console.log(ele)
-                    $(ele).removeAttr("checked")
-                    $(".secDescription").addClass("d-none")
-                })
+        // $(".radio-button__input").click(function() {
+        //     $(".radio-button__input").each((val, ele) => {
+        //         if ($(".walletRadio").is(':checked')) {
+        //             console.log(val)
+        //             console.log(ele)
+        //             $(".secDescription").addClass("d-none")
+        //             $(ele).removeAttr("checked")
+        //         }
+        //     })
+        // })
+        // $(".walletRadio").click(function() {
+        //     if ($(this).is(':checked')) {
+        //         $(".radio-button__input").each((val, ele) => {
+        //             console.log(val)
+        //             console.log(ele)
+        //             $(ele).removeAttr("checked")
+        //             $(".secDescription").addClass("d-none")
+        //         })
+        //     }
+        // })
+
+
+        $(".radio-button__input").on('change', function() {
+        // Get the value of the selected radio button
+        var selectedMethodId = $(this).val();
+
+        // Make an AJAX request to get the description
+        $.ajax({
+            type: "GET",
+            url: "{{ route('api_chechout_description') }}",
+            data: {
+                id: selectedMethodId
+            },
+            success: function(data) {
+                console.log(data);
+
+                // Hide all descriptions
+                $(".secDescription").addClass("d-none");
+
+                // Update and show the description for the selected radio button
+                $(".secDescription[data-method-id='" + selectedMethodId + "']").removeClass("d-none").find(".desPay").text(data.description);
             }
-        })
+        });
+
+        // Uncheck walletRadio if any payment method is selected
+        $(".walletRadio").prop("checked", false);
+    });
+
+    // Event handler for walletRadio change
+    $(".walletRadio").on('change', function() {
+        if ($(this).is(':checked')) {
+            // Uncheck all payment method radio buttons
+            $(".radio-button__input").prop("checked", false);
+
+            // Hide all descriptions
+            $(".secDescription").addClass("d-none");
+        }
+    });
+
     })
 </script>
 @include('Visitor.inc.footer')
