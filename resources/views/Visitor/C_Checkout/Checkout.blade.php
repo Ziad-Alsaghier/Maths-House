@@ -38,12 +38,25 @@
     }
 
     #selImg {
-        /* width: 30% !important; */
+        /* width: 30% !important;
         background: #FDF4F5;
         color: #fff;
         padding: 10px 30px;
         border-radius: 10px;
+        cursor: pointer; */
+        background: #CF202F;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: 10px 30px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
         cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    .#selImg:hover {
+        background: #ae101d
     }
 
     .phoneNum {
@@ -417,7 +430,7 @@
             <div class="col-9 d-none upload_receipt align-items-start justify-content-between upload_receipt" style="column-gap: 1rem">
                 <div id="selImg" class="d-flex align-items-center justify-content-center"
                     style="height: 70px; column-gap: 0.3rem">
-                    <h3 style="color: #CF202F;font-weight: 700">Upload Receipt</h3>
+                    <h3 style="color: #fff;font-weight: 700">Upload Receipt</h3>
                     <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
@@ -438,34 +451,6 @@
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 <script>
-// Function to load specific data (totalPrice and chapterDiscount) from local storage
-function loadPriceDetails() {
-    let storedData = localStorage.getItem('courseDetails');
-    if (storedData) {
-        let courseDetails = JSON.parse(storedData);
-
-        // Loop through the stored course details
-        courseDetails.forEach((detail, index) => {
-            if (detail) {
-                // Retrieve and display the totalPrice and chapterDiscount
-                let storedTotalPrice = detail.totalPrice;
-                let storedDiscountedPrice = detail.chapterDiscount;
-
-                // Assuming you want to display these in specific spans or elements
-                document.getElementById(`subtotal`).textContent = `$${storedDiscountedPrice}`;
-                document.getElementById(`discountPrice`).textContent = `$${storedTotalPrice }`;
-            }
-        });
-    }
-}
-
-// Call the function to load and display the totalPrice and chapterDiscount
-loadPriceDetails();
-
-
-
-
-
     let payment_method_radio = document.querySelectorAll('.payment_method_radio');
     let walletRadio = document.querySelector('.walletRadio');
     let upload_receipt = document.querySelector('.upload_receipt');
@@ -492,46 +477,6 @@ loadPriceDetails();
         $("#selImg").click(function() {
             $("#img").click();
         })
-
-        /*$(".radio-button__input").click(function() {
-            $.ajax({
-                type: "GET",
-                url: "{{ route('api_chechout_description') }}",
-                data: {
-                    id: $(this).val()
-                },
-                success: function(data) {
-                    console.log(data)
-                    $(".desPay").text(data.description)
-                    if ($(".walletRadio").is(':checked')) {
-                        $(".secDescription").addClass("d-none")
-                    } else {
-                        $(".secDescription").removeClass("d-none")
-
-                    }
-                }
-            })
-        })
-        $(".radio-button__input").click(function() {
-            $(".radio-button__input").each((val, ele) => {
-                if ($(".walletRadio").is(':checked')) {
-                    console.log(val)
-                    console.log(ele)
-                    $(".secDescription").addClass("d-none")
-                    $(ele).removeAttr("checked")
-                }
-            })
-        })
-        $(".walletRadio").click(function() {
-            if ($(this).is(':checked')) {
-                $(".radio-button__input").each((val, ele) => {
-                    console.log(val)
-                    console.log(ele)
-                    $(ele).removeAttr("checked")
-                    $(".secDescription").addClass("d-none")
-                })
-            }
-        })*/
 
         $(".radio-button__input").on('change', function() {
         // Get the value of the selected radio button
@@ -569,11 +514,30 @@ loadPriceDetails();
             $(".secDescription").addClass("d-none");
         }
     });
-
-
-
-
-
     })
+
+// Function to load specific data (totalPrice and chapterDiscount) from local storage
+function loadPriceDetails() {
+    let storedData = localStorage.getItem('courseDetails');
+    if (storedData) {
+        let courseDetails = JSON.parse(storedData);
+
+        // Loop through the stored course details
+        courseDetails.forEach((detail, index) => {
+            if (detail) {
+                // Retrieve and display the totalPrice and chapterDiscount
+                let storedTotalPrice = detail.totalPrice;
+                let storedDiscountedPrice = detail.chapterDiscount;
+
+                // Assuming you want to display these in specific spans or elements
+                document.getElementById(`subtotal`).textContent = `$${storedDiscountedPrice}`;
+                document.getElementById(`discountPrice`).textContent = `$${storedTotalPrice }`;
+            }
+        });
+    }
+}
+// Call the function to load and display the totalPrice and chapterDiscount
+loadPriceDetails();
+
 </script>
 @include('Visitor.inc.footer')
