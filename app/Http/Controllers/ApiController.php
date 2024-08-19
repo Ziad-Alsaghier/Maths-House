@@ -1000,12 +1000,12 @@ class ApiController extends Controller
         foreach ($req->mistakes as $item) {
             StudentQuizzeMistake::create([
                 'student_quizze_id' => $quize_id,
-                'question_id' => $item->id
+                'question_id' => $item->id,
             ]);
         }
 
         return response()->json([
-            'success' => $req->mistakes
+            'success' => 'Data Is Added Successful'
         ]);
     }
 
