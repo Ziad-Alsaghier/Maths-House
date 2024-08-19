@@ -965,42 +965,7 @@ class ApiController extends Controller
     {
         $lesson = Lesson::where('id', $id)
             ->first();
-        $quiz = $lesson->quizze_api;
-        
-        $stu_quizze = StudentQuizze::where('student_id', auth()->user()->id)
-        ->where('score', '>=', $quiz->pass_score)
-        ->with('quizze')
-        ->get();
-
-        $solve_quizze = StudentQuizze::where('student_id', auth()->user()->id)
-        ->where('score', '>=', $quiz->pass_score)
-        ->where('quizze_id', $quiz->id)
-        ->first();
-
-        if ( !empty($solve_quizze) ) { 
-            return response()->json(['faild' => 'You Solved this quiz before.']);
-        }
-
-        $last_quiz = quizze::where('lesson_id', $quiz->lesson_id )
-        ->where('quizze_order', '<',$quiz->quizze_order)
-        ->orderByDesc('quizze_order')
-        ->first();
-        $quiz_item = 0;
-        foreach ($stu_quizze as $item) {
-            if ($item->quizze->quizze_order > $quiz_item && 
-            $item->quizze->lesson_id == $quiz->lesson_id &&
-            $item->score >= $quiz->pass_score ) {
-                $quiz_item = $item->quizze->quizze_order;
-            }
-        }
-        $next_quiz = quizze::where('lesson_id', $quiz->lesson_id )
-        ->where('quizze_order', '>',$quiz_item)
-        ->orderBy('quizze_order')
-        ->first();
-        
-        if ( $quiz->quizze_order > $next_quiz->quizze_order ) {
-            return response()->json(['faild' => 'You Must Pass Last Quiz First.']);
-        }
+        $quiz = $lesson->quizze_api; 
         
         foreach ($quiz as $key => $item) {
             $arr1 = [];
