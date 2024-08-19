@@ -338,7 +338,7 @@
                                             View Mistakes
                                         </button>
 
-                                        <button class="btn btn-info recomm_btn mx-2">
+                                        <button id="scrollButton" class="btn btn-danger recomm_btn mx-2">
                                             Recommendation
                                         </button>
 
@@ -679,6 +679,12 @@
         //     })
         // })
     </script>
+<script>
+    // JavaScript to scroll to the end
+    document.getElementById("scrollButton").onclick = function () {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
 
 @endsection
 

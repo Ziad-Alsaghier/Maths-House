@@ -96,7 +96,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="d-flex justify-content-center">
-                                            <button class="btn btn-danger mistake_btn">
+                                            <button id="scrollButton" class="btn btn-danger mistake_btn">
                                                 Recommendation
                                             </button>
                                         </td>
@@ -138,7 +138,7 @@
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            @foreach ($arr as $item)
+                            @foreach ($arr as $item) 
                                 <tr>
                                     <td style="text-align: start !important">{{ $item->lessons->chapter->chapter_name }}
                                     </td>
@@ -187,6 +187,12 @@
         })
     </script>
 
+<script>
+    // JavaScript to scroll to the end
+    document.getElementById("scrollButton").onclick = function () {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
 @endsection
 
 @include('Student.inc.footer')
