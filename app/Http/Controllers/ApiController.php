@@ -964,7 +964,7 @@ class ApiController extends Controller
     public function api_quiz($id)
     {
         $lesson = Lesson::where('id', $id)
-            ->first();
+        ->first();
         $quiz = $lesson->quizze_api; 
         
         foreach ($quiz as $key => $item) {
@@ -2208,7 +2208,7 @@ class ApiController extends Controller
         }
 
         return response()->json([
-            'data' => $data
+            'data' => array_values($arr)
         ]);
     }
 
