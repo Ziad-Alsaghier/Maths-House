@@ -1000,7 +1000,7 @@ class ApiController extends Controller
         foreach ($req->mistakes as $item) {
             StudentQuizzeMistake::create([
                 'student_quizze_id' => $quize_id,
-                'question_id' => $item->id
+                'question_id' => $item->id,
             ]);
         }
 
@@ -2208,7 +2208,7 @@ class ApiController extends Controller
         }
 
         return response()->json([
-            'data' => array_values($arr)
+            'data' => $data
         ]);
     }
 

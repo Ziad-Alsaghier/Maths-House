@@ -484,13 +484,16 @@
 
                                             <select name="course_duration" class="form-control chapter_duration mx-2"
                                                 style="width: 80%; margin-top: 20px; font-size: 1.1rem; border: none;border-bottom: 3px solid red;border-radius: 0;color: #B8B8B8;">
-                                                <option value="{{ $min_price_data->id }}">
-                                                    {{ $min_price_data->duration }} Days
-                                                </option>
                                                 @foreach ($course->prices as $item)
+                                                @if ( $min_price_data->id == $item->id )
+                                                    <option selected value="{{ $item->id }}">
+                                                        {{ $item->duration }} Days
+                                                    </option>
+                                                @else
                                                     <option value="{{ $item->id }}">
                                                         {{ $item->duration }} Days
                                                     </option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                         </td>

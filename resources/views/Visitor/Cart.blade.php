@@ -167,9 +167,15 @@
                                                         {{ $min->duration }} Days
                                                     </option>
                                                     @foreach ($chapter->price as $item)
+                                                    @if ( $min->id == $item->id )
+                                                        <option selected value="{{ $item->id }}">
+                                                            {{ $item->duration }} Days
+                                                        </option>
+                                                    @else
                                                         <option value="{{ $item->id }}">
                                                             {{ $item->duration }} Days
                                                         </option>
+                                                    @endif
                                                     @endforeach
                                                 </select>
                                             </td>
