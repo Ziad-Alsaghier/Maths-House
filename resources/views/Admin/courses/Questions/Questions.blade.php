@@ -138,7 +138,7 @@
         })
     </script>
     {{-- Answer Type --}}
-    <script>
+    <!-- <script>
         $(document).ready(() => {
             $(".answer_val").each((ansVal, ansEle) => {
                 var answerEle = `#${$(ansEle).attr("id")}`
@@ -193,7 +193,67 @@
             })
 
         })
-    </script>
+    </script> -->
+
+    <script>
+    $(document).ready(() => {
+        $(".answer_val").each((ansVal, ansEle) => {
+            var answerEle = `#${$(ansEle).attr("id")}`;
+            var answerCon = `#${$(ansEle).parent().parent().find(".answer_con").attr("id")}`;
+            var answeres = `#${$(answerEle).parent().parent().find(".answeres").attr("id")}`;
+            var addAnswer = `#${$(answerEle).parent().parent().find(".add_answer").attr("id")}`;
+            var mcqContainer = $(answerEle).parent().parent().find('.mcqContainer');
+            var gridContainer = $(answerEle).parent().parent().find('.gridContainer');
+
+            $(addAnswer).click(() => {
+                var ans = `<input type="number" class="form-control my-2" name="grid_ans[]" placeholder="Answer" />`;
+                $(answeres).append(ans);
+            });
+
+            $(answerEle).change(() => {
+                $(answeres).html('');
+
+                if ($(answerEle).val() == 'MCQ') {
+                    $(answerCon).addClass('d-none');
+                    $(mcqContainer).removeClass('d-none'); // Show MCQ container
+                    // $(gridContainer).addClass('d-none'); // Hide Grid in container
+                    $(gridContainer).remove();
+
+                    var answer = `
+                        <div class="my-2">
+                            <input name="mcq_answers" value="A" id="mcq_a" type="radio" />
+                            <input class="form-control mb-3" value="A" name="mcq_char[]" placeholder="Letter Choice" />
+                            <input class="form-control" name="mcq_ans[]" placeholder="Answer A" />
+                        </div>
+                        <div class="my-2">
+                            <input name="mcq_answers" value="B" id="mcq_b" type="radio" />
+                            <input class="form-control mb-3" value="B" name="mcq_char[]" placeholder="Letter Choice" />
+                            <input class="form-control" name="mcq_ans[]" placeholder="Answer B" />
+                        </div>
+                        <div class="my-2">
+                            <input name="mcq_answers" value="C" id="mcq_c" type="radio" />
+                            <input class="form-control mb-3" value="C" name="mcq_char[]" placeholder="Letter Choice" />
+                            <input class="form-control" name="mcq_ans[]" placeholder="Answer C" />
+                        </div>
+                        <div class="my-2">
+                            <input name="mcq_answers" value="D" id="mcq_d" type="radio" />
+                            <input class="form-control mb-3" value="D" name="mcq_char[]" placeholder="Letter Choice" />
+                            <input class="form-control" name="mcq_ans[]" placeholder="Answer D" />
+                        </div>`;
+                    $(answeres).append(answer);
+                } else if ($(answerEle).val() == 'Grid_in') {
+                    $(answerCon).removeClass('d-none');
+                    $(gridContainer).removeClass('d-none'); // Show Grid in container
+                    // $(mcqContainer).addClass('d-none'); // Hide MCQ container
+                    $(mcqContainer).remove();
+                }
+            });
+        });
+    });
+</script>
+
+
+
     <script>
         $(document).ready(() => {
             $(".sel_cate").each((selVal, selEle) => {
@@ -740,7 +800,7 @@
                                                     <!--end::Input-->
                                                 </div>
 
-                                                <div class="d-flex d-none answer_con"
+                                                <div class="d-flex d-none answer_con gridContainer"
                                                     id="add_ans{{ $question->q_id ? $question->q_id : $question->id }}">
                                                     <input type="number" class="form-control" name="grid_ans[]"
                                                         placeholder="Answer" />
@@ -748,7 +808,7 @@
                                                         id="add_ans_btn{{ $question->q_id ? $question->q_id : $question->id }}">Add</button>
                                                 </div>
 
-                                                <div class="answer_con"
+                                                <div class="answer_con mcqContainer"
                                                     id="add_ans{{ $question->q_id ? $question->q_id : $question->id }}">
                                                     @php
                                                         if ($question->q_id) {
