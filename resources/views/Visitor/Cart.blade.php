@@ -419,8 +419,8 @@ function calculateTotalPrice() {
 
 
 // Store total prices as separate properties
-localStorage.setItem('totalOriginalPrice', totalOriginalPrice);
-localStorage.setItem('totalDiscountedPrice', totalDiscountedPrice);
+localStorage.setItem('ChaptersTotalOriginalPrice', totalOriginalPrice);
+localStorage.setItem('ChaptersTotalDiscountedPrice', totalDiscountedPrice);
 
     // Save the updated chapterDetails to local storage
     saveToLocalStorage(chapterDetails);

@@ -278,31 +278,27 @@
 						<div class="order_list_raw">
 							<ul>
 								<li class="list-inline-item">
-									<h4>Order Number</h4>
-									<p>3743</p>
-								</li>
-								<li class="list-inline-item">
 									<h4>Date</h4>
 									<p>{{date('M d, Y')}}</p>
 								</li>
 								<li class="list-inline-item">
 									<h4>Total</h4>
-									<p>${{$price}}</p>
+									<p id="package_price"></p>
 								</li>
 								<li class="list-inline-item">
 									<h4>Payment Method</h4>
-									<p>{{$p_method}}</p>
+									<p id="package_payment"></p>
 								</li>
 							</ul>
 						</div>
 						<div class="order_details">
 							<h4 class="title text-center mb40">Order Details</h4>
 							<div class="od_content">
-								<ul> 
+								<ul>
 									<li>
-                                        {{$package->name}}
-                                         <span class="float-right">${{$package->price}}</span>
-                                    </li> 
+                                    <span id="package_name"></span>
+                                    <span class="float-right" id="package_pr"></span>
+                                    </li>
 								</ul>
 							</div>
 						</div>
@@ -335,7 +331,26 @@
 			</div>
 		</div>
 	</section>
-    
+
 <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
+<script>
+    // Step 1: Retrieve and parse the courseDetails from localStorage
+    const packagesDetailsJSON = localStorage.getItem('packages');
+    const packageDetails = packagesDetailsJSON ? JSON.parse(packagesDetailsJSON) : [];
+
+    // Step 2: Access courseName and totalPrice from the first course object in the array
+    let PackagesName = packageDetails.length > 0 ? packageDetails[0].name : 'Course not found';
+    let PackagesPrice = packageDetails.length > 0 ? packageDetails[0].price : '0';
+
+    // Step 3: Retrieve CourseSelectedMethod from localStorage
+    let PackageSelectedMethod = localStorage.getItem('packages_selectedPaymentMethod') || 'Payment method not selected';
+
+    // Step 4: Display the values in the appropriate spans
+    document.getElementById('package_name').textContent = PackagesName;
+    document.getElementById('package_price').textContent = `$${PackagesPrice}`;
+    document.getElementById('package_payment').textContent = PackageSelectedMethod;
+    document.getElementById('package_pr').textContent = `$${PackagesPrice}`;
+
+</script>
 @include('Visitor.inc.footer')

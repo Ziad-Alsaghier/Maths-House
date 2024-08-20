@@ -143,20 +143,16 @@
 						<div class="order_list_raw">
 							<ul>
 								<li class="list-inline-item">
-									<h4>Order Number</h4>
-									<p>3743</p>
-								</li>
-								<li class="list-inline-item">
 									<h4>Date</h4>
 									<p>{{date('M d, Y')}}</p>
 								</li>
 								<li class="list-inline-item">
 									<h4>Total</h4>
-									<p>${{$price}}</p>
+									<p id="C_price"></p>
 								</li>
 								<li class="list-inline-item">
 									<h4>Payment Method</h4>
-									<p>{{$p_method}}</p>
+									<p id="C_payment"></p>
 								</li>
 							</ul>
 						</div>
@@ -165,8 +161,8 @@
 							<div class="od_content">
 								<ul>
 									<li>
-                                        {{$course->course_name}}
-                                         <span class="float-right">${{$price}}</span>
+                                        <span id="C_Name"></span>
+                                        <span class="float-right" id="course_pr"></span>
                                     </li>
 								</ul>
 							</div>
@@ -186,4 +182,25 @@
 
 <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
+
+<script>
+    // Step 1: Retrieve and parse the courseDetails from localStorage
+    const courseDetailsJSON = localStorage.getItem('courseDetails');
+    const courseDetails = courseDetailsJSON ? JSON.parse(courseDetailsJSON) : [];
+
+    // Step 2: Access courseName and totalPrice from the first course object in the array
+    let CoursesName = courseDetails.length > 0 ? courseDetails[0].courseName : 'Course not found';
+    let TotalCoursePrice = courseDetails.length > 0 ? courseDetails[0].totalPrice : '0';
+
+    // Step 3: Retrieve CourseSelectedMethod from localStorage
+    let CourseSelectedMethod = localStorage.getItem('C_selectedPaymentMethod') || 'Payment method not selected';
+
+    // Step 4: Display the values in the appropriate spans
+    document.getElementById('C_Name').textContent = CoursesName;
+    document.getElementById('C_price').textContent = `$${TotalCoursePrice}`;
+    document.getElementById('C_payment').textContent = CourseSelectedMethod;
+    document.getElementById('course_pr').textContent = `$${TotalCoursePrice}`;
+
+</script>
+
 @include('Visitor.inc.footer')

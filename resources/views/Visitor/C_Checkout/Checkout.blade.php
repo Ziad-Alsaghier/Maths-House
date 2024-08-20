@@ -426,6 +426,7 @@
 
                 </div>
             </div>
+
             {{-- Receipt && Phone --}}
             <div class="col-9 d-none upload_receipt align-items-start justify-content-between upload_receipt" style="column-gap: 1rem">
                 <div id="selImg" class="d-flex align-items-center justify-content-center"
@@ -450,7 +451,7 @@
 
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
-<script>
+<!-- <script>
     let payment_method_radio = document.querySelectorAll('.payment_method_radio');
     let walletRadio = document.querySelector('.walletRadio');
     let upload_receipt = document.querySelector('.upload_receipt');
@@ -477,6 +478,45 @@
         $("#selImg").click(function() {
             $("#img").click();
         })
+        /*$(".radio-button__input").click(function() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('api_chechout_description') }}",
+                data: {
+                    id: $(this).val()
+                },
+                success: function(data) {
+                    console.log(data)
+                    $(".desPay").text(data.description)
+                    if ($(".walletRadio").is(':checked')) {
+                        $(".secDescription").addClass("d-none")
+                    } else {
+                        $(".secDescription").removeClass("d-none")
+
+                    }
+                }
+            })
+        })
+        $(".radio-button__input").click(function() {
+            $(".radio-button__input").each((val, ele) => {
+                if ($(".walletRadio").is(':checked')) {
+                    console.log(val)
+                    console.log(ele)
+                    $(".secDescription").addClass("d-none")
+                    $(ele).removeAttr("checked")
+                }
+            })
+        })
+        $(".walletRadio").click(function() {
+            if ($(this).is(':checked')) {
+                $(".radio-button__input").each((val, ele) => {
+                    console.log(val)
+                    console.log(ele)
+                    $(ele).removeAttr("checked")
+                    $(".secDescription").addClass("d-none")
+                })
+            }
+        })*/
 
         $(".radio-button__input").on('change', function() {
         // Get the value of the selected radio button
@@ -538,6 +578,94 @@ function loadPriceDetails() {
 }
 // Call the function to load and display the totalPrice and chapterDiscount
 loadPriceDetails();
+</script> -->
 
+
+
+<script>
+    // Save the selected payment method to local storage when radio buttons are clicked
+    document.querySelectorAll('.payment_method_radio').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            // Save the payment method name to local storage
+            localStorage.setItem('C_selectedPaymentMethod', e.target.nextElementSibling.textContent.trim());
+        });
+    });
+
+    // Save "Wallet" to local storage when the wallet checkbox is clicked
+    document.querySelector('.walletRadio').addEventListener('change', (e) => {
+        if (e.target.checked) {
+            localStorage.setItem('C_selectedPaymentMethod', 'Wallet');
+        } else {
+            localStorage.removeItem('C_selectedPaymentMethod'); // Remove if unchecked
+        }
+    });
+
+    let payment_method_radio = document.querySelectorAll('.payment_method_radio');
+    let walletRadio = document.querySelector('.walletRadio');
+    let upload_receipt = document.querySelector('.upload_receipt');
+
+    for (let i = 0, end = payment_method_radio.length; i < end; i++) {
+        payment_method_radio[i].addEventListener('change', (e) => {
+            for (let j = 0; j < end; j++) {
+                if (e.target.value == payment_method_radio[j].value) {
+                    upload_receipt.classList.remove('d-none');
+                    upload_receipt.classList.add('d-flex');
+                }
+            }
+        });
+    }
+
+    walletRadio.addEventListener('change', () => {
+        upload_receipt.classList.add('d-none');
+        upload_receipt.classList.remove('d-flex');
+    });
+
+    $(document).ready(function() {
+    /* radio-button__input */
+        console.log("first")
+        $("#selImg").click(function() {
+            $("#img").click();
+        })
+
+        $(".radio-button__input").on('change', function() {
+            var selectedMethodId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{ route('api_chechout_description') }}",
+                data: {
+                    id: selectedMethodId
+                },
+                success: function(data) {
+                    $(".secDescription").addClass("d-none");
+                    $(".secDescription[data-method-id='" + selectedMethodId + "']").removeClass("d-none").find(".desPay").text(data.description);
+                }
+            });
+            $(".walletRadio").prop("checked", false);
+        });
+
+        $(".walletRadio").on('change', function() {
+            if ($(this).is(':checked')) {
+                $(".radio-button__input").prop("checked", false);
+                $(".secDescription").addClass("d-none");
+            }
+        });
+    });
+
+    function loadPriceDetails() {
+        let storedData = localStorage.getItem('courseDetails');
+        if (storedData) {
+            let courseDetails = JSON.parse(storedData);
+            courseDetails.forEach((detail, index) => {
+                if (detail) {
+                    let storedTotalPrice = detail.totalPrice;
+                    let storedDiscountedPrice = detail.courseDiscount;
+                    document.getElementById('subtotal').textContent = `$${storedDiscountedPrice}`;
+                    document.getElementById('discountPrice').textContent = `$${storedTotalPrice}`;
+                }
+            });
+        }
+    }
+    loadPriceDetails();
 </script>
+
 @include('Visitor.inc.footer')

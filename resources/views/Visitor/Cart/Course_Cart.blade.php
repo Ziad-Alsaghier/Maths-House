@@ -574,137 +574,6 @@
 
 <script>
 
-    // let chapter_duration = document.querySelectorAll('.chapter_duration');
-    // let chapters_price = document.querySelectorAll('.chapters_price');
-    // let tbl_chapter_price = document.querySelectorAll('.tbl_chapter_price');
-    // let ch_price = document.querySelectorAll('.ch_price');
-    // let total_price = document.querySelector('.total_price');
-    // let course_price = document.querySelector('.course_price');
-
-    // for (let i = 0, end = chapter_duration.length; i < end; i++) {
-    //     chapter_duration[i].addEventListener('change', (e) => {
-    //         for (let j = 0; j < end; j++) {
-    //             if (e.target == chapter_duration[j]) {
-    //                 let money = chapters_price[j];
-    //                 let discount = 0;
-    //                 money = money.value;
-    //                 money = JSON.parse(money);
-    //                 money.forEach(element => {
-    //                     if (element.id == chapter_duration[j].value) {
-    //                         discount = element.discount;
-    //                         money = element.price;
-    //                     }
-    //                 });
-
-    //                 if (discount != 0 && discount != null) {
-    //                     let total = money - (money * discount / 100);
-    //                     tbl_chapter_price[j].innerHTML = `
-	// 					 <del>${money}$</del>
-	// 					 <span class="text-success">
-	// 						${total}$
-	// 					</span>
-	// 					`;
-    //                     course_price.value = total;
-    //                     total_price.innerHTML = `
-	// 					 <del>${money}$</del>
-	// 					 <span>
-	// 						${total}$
-	// 					</span>`;
-    //                     ch_price[j].value = total;
-    //                 } else {
-    //                     tbl_chapter_price[j].innerHTML = `
-	// 					${money}$
-	// 					`;
-    //                     course_price.value = money;
-    //                     total_price.innerHTML = `${money}$`;
-    //                     ch_price[j].value = money;
-    //                 }
-    //             }
-    //         }
-    //     })
-    // }
-
-
-
-// let chapter_duration = document.querySelectorAll('.chapter_duration');
-// let chapters_price = document.querySelectorAll('.chapters_price');
-// let tbl_chapter_price = document.querySelectorAll('.tbl_chapter_price');
-// let ch_price = document.querySelectorAll('.ch_price');
-// let total_price = document.querySelector('.total_price');
-// let course_price = document.querySelector('.course_price');
-// let course_name = "{{ $course->course_name }}";
-
-// // Function to save data to local storage
-// function saveToLocalStorage(data) {
-//     localStorage.setItem('courseDetails', JSON.stringify(data));
-// }
-
-// // Function to load data from local storage
-// function loadFromLocalStorage() {
-//     let storedData = localStorage.getItem('courseDetails');
-//     return storedData ? JSON.parse(storedData) : [];
-// }
-
-// // Array to store course details
-// let courseDetails = loadFromLocalStorage();
-
-// for (let i = 0, end = chapter_duration.length; i < end; i++) {
-//     chapter_duration[i].addEventListener('change', (e) => {
-//         for (let j = 0; j < end; j++) {
-//             if (e.target == chapter_duration[j]) {
-//                 let money = chapters_price[j].value;
-//                 money = JSON.parse(money);
-//                 let discount = 0;
-//                 let selectedDuration = chapter_duration[j].options[chapter_duration[j].selectedIndex].text;
-
-//                 money.forEach(element => {
-//                     if (element.id == chapter_duration[j].value) {
-//                         discount = element.discount;
-//                         money = element.price;
-//                     }
-//                 });
-
-//                 let finalPrice;
-//                 if (discount != 0 && discount != null) {
-//                     let total = money - (money * discount / 100);
-//                     tbl_chapter_price[j].innerHTML = `
-//                         <del>${money}$</del>
-//                         <span class="text-success">
-//                             ${total}$
-//                         </span>
-//                     `;
-//                     finalPrice = total;
-//                 } else {
-//                     tbl_chapter_price[j].innerHTML = `${money}$`;
-//                     finalPrice = money;
-//                 }
-
-//                 // Update course_price and total_price fields
-//                 course_price.value = finalPrice;
-//                 total_price.innerHTML = `
-//                     <del>${money}$</del>
-//                     <span>${finalPrice}$</span>
-//                 `;
-
-//                 // Store the data in the courseDetails array
-//                 courseDetails[j] = {
-//                     courseName: course_name,
-//                     courseDuration: selectedDuration,
-//                     chapterPrice: finalPrice,
-//                     chapterDiscount: money,
-//                     totalPrice: finalPrice
-//                 };
-
-//                 // Save the updated courseDetails to local storage
-//                 saveToLocalStorage(courseDetails);
-
-//                 console.log(courseDetails); // For debugging purposes
-//             }
-//         }
-//     });
-// }
-
-
     let chapter_duration = document.querySelectorAll('.chapter_duration');
     let chapters_price = document.querySelectorAll('.chapters_price');
     let tbl_chapter_price = document.querySelectorAll('.tbl_chapter_price');
@@ -746,7 +615,7 @@
                 courseName: course_name,
                 courseDuration: chapter_duration[i].options[chapter_duration[i].selectedIndex].text,
                 // chapterPrice: finalPrice,
-                chapterDiscount: price,
+                courseDiscount: price,
                 totalPrice: finalPrice
             };
 
@@ -800,8 +669,8 @@
                     courseDetails[j] = {
                         courseName: course_name,
                         courseDuration: selectedDuration,
-                        chapterPrice: finalPrice,
-                        chapterDiscount: money,
+                        coursePrice: finalPrice,
+                        courseDiscount: money,
                         totalPrice: finalPrice
                     };
 

@@ -356,7 +356,9 @@
                         <ul>
                             @foreach ($chapters as $chapter)
                                 <li>
-                                    <span class="text-align-center">{{ $chapter->chapter_name }}</span>
+                                    <!-- <span class="text-align-center">{{ $chapter->chapter_name }}</span> -->
+                                    <span class="text-align-center" id="ch_Names"></span>
+
                                 </li>
                             @endforeach
                             </>
@@ -454,14 +456,40 @@
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 <script>
+// Step 1: Retrieve the chapterDetails from localStorage
+const chapterDetailsJSON = localStorage.getItem('chapterDetails');
+// Step 2: Parse the JSON if it's stored as a string
+const chapterDetails = chapterDetailsJSON ? JSON.parse(chapterDetailsJSON) : {};
+// Step 3: Extract chapter names from the object
+const chapterNames = Object.values(chapterDetails).map(chapter => chapter.chapterName);
+// Step 4: Log or use the chapter names as needed
+document.getElementById('ch_Names').textContent = chapterNames;
 
 
-let storedTotalOriginalPrice = localStorage.getItem('totalOriginalPrice');
-let storedTotalDiscountedPrice = localStorage.getItem('totalDiscountedPrice');
+
+let storedTotalOriginalPrice = localStorage.getItem('ChaptersTotalOriginalPrice');
+let storedTotalDiscountedPrice = localStorage.getItem('ChaptersTotalDiscountedPrice');
 
 // Display the totalOriginalPrice in the appropriate span
 document.getElementById('subtotal').textContent = `$${storedTotalOriginalPrice}`;
 document.getElementById('discountPrice').textContent = `$${storedTotalDiscountedPrice}`;
+
+// Save the selected payment method to local storage when radio buttons are clicked
+document.querySelectorAll('.payment_method_radio').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            // Save the payment method name to local storage
+            localStorage.setItem('Ch_selectedPaymentMethod', e.target.nextElementSibling.textContent.trim());
+        });
+    });
+
+    // Save "Wallet" to local storage when the wallet checkbox is clicked
+    document.querySelector('.walletRadio').addEventListener('change', (e) => {
+        if (e.target.checked) {
+            localStorage.setItem('Ch_selectedPaymentMethod', 'Wallet');
+        } else {
+            localStorage.removeItem('Ch_selectedPaymentMethod'); // Remove if unchecked
+        }
+    });
 
 
     let payment_method_radio = document.querySelectorAll('.payment_method_radio');
@@ -485,52 +513,11 @@ document.getElementById('discountPrice').textContent = `$${storedTotalDiscounted
     });
 
     $(document).ready(function() {
-        /* radio-button__input */
-        console.log("first")
-        $("#selImg").click(function() {
-            $("#img").click();
-        })
-
-        /*$(".radio-button__input").click(function() {
-            $.ajax({
-                type: "GET",
-                url: "{{ route('api_chechout_description') }}",
-                data: {
-                    id: $(this).val()
-                },
-                success: function(data) {
-                    console.log(data)
-                    $(".desPay").text(data.description)
-                    if ($(".walletRadio").is(':checked')) {
-                        $(".secDescription").addClass("d-none")
-                    } else {
-                        $(".secDescription").removeClass("d-none")
-
-                    }
-                }
-            })
-        })
-
-        $(".radio-button__input").click(function() {
-            $(".radio-button__input").each((val, ele) => {
-                if ($(".walletRadio").is(':checked')) {
-                    console.log(val)
-                    console.log(ele)
-                    $(".secDescription").addClass("d-none")
-                    $(ele).removeAttr("checked")
-                }
-            })
-        })
-        $(".walletRadio").click(function() {
-            if ($(this).is(':checked')) {
-                $(".radio-button__input").each((val, ele) => {
-                    console.log(val)
-                    console.log(ele)
-                    $(ele).removeAttr("checked")
-                    $(".secDescription").addClass("d-none")
-                })
-            }
-        })*/
+        // /* radio-button__input */
+        // console.log("first")
+        // $("#selImg").click(function() {
+        //     $("#img").click();
+        // })
 
         $(".radio-button__input").on('change', function() {
         // Get the value of the selected radio button

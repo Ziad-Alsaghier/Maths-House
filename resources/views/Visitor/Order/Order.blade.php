@@ -127,7 +127,7 @@
 	</div>
 
 	<!-- Main Header Nav For Mobile -->
-	
+
 	@include('Visitor.inc.mobile_menu')
 
 	<!-- Shop Order Content -->
@@ -141,33 +141,29 @@
 						<div class="order_list_raw">
 							<ul>
 								<li class="list-inline-item">
-									<h4>Order Number</h4>
-									<p>3743</p>
-								</li>
-								<li class="list-inline-item">
 									<h4>Date</h4>
 									<p>{{date('M d, Y')}}</p>
 								</li>
 								<li class="list-inline-item">
 									<h4>Total</h4>
-									<p>${{$price}}</p>
+									<p id="ch_finalPrice"></p>
 								</li>
 								<li class="list-inline-item">
 									<h4>Payment Method</h4>
-									<p>{{$p_method}}</p>
+									<p id="ch_payment"></p>
 								</li>
 							</ul>
 						</div>
 						<div class="order_details">
 							<h4 class="title text-center mb40">Order Details</h4>
 							<div class="od_content">
-								<ul>
-                                    @foreach ( $chapters as $chapter )
+								<ul id="chapterList">
+                                    <!-- @foreach ( $chapters as $chapter )
 									<li>
-                                        {{$chapter->chapter_name}}
-                                         <span class="float-right">${{$chapter->ch_price}}</span>
+                                    <span class="float-right">{{$chapter->chapter_name}}</span>
+                                    <span class="float-right">${{$chapter->ch_price}}</span>
                                     </li>
-                                    @endforeach
+                                    @endforeach -->
 								</ul>
 							</div>
 						</div>
@@ -183,7 +179,34 @@
 			</div>
 		</div>
 	</section>
-    
+
 <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
+<script>
+    // Step 1: Retrieve the chapterDetails from localStorage
+    const chapterDetailsJSON = localStorage.getItem('chapterDetails');
+    // Step 2: Parse the JSON if it's stored as a string
+    const chapterDetails = chapterDetailsJSON ? JSON.parse(chapterDetailsJSON) : {};
+    // Step 3: Generate the HTML string for the list items
+    const chapterListHTML = Object.values(chapterDetails).map(chapter => `
+        <li>
+            <span>${chapter.chapterName}</span>
+            <span class="float-right">$${chapter.finalPrice}</span>
+        </li>
+    `).join('');
+    // Step 4: Insert the generated HTML into the ul element
+    document.getElementById('chapterList').innerHTML = chapterListHTML;
+
+
+    //Retrieve ChapterSelectedMethod from localStorage
+    let ChapterSelectedMethod = localStorage.getItem('Ch_selectedPaymentMethod') || 'Payment method not selected';
+    document.getElementById('ch_payment').textContent = ChapterSelectedMethod;
+
+    //Retrieve ChapterTotalPrice from localStorage
+    let ChaptersTotalDiscounted = localStorage.getItem('ChaptersTotalDiscountedPrice');
+    document.getElementById('ch_finalPrice').textContent = ChaptersTotalDiscounted;
+
+
+
+</script>
 @include('Visitor.inc.footer')

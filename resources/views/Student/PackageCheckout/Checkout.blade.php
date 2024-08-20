@@ -781,11 +781,11 @@
                     <h3 style="color: #CF202F">Your Order:</h3>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Product:</span>
-                        <span class=" text-align-center">{{ $package->name }}</span>
+                        <span class=" text-align-center" id="selectedPackageName"></span>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center">Subtotal:</span>
-                        <span class=" text-align-center">${{ $package->price }}</span>
+                        <span class=" text-align-center" id="selectedPackagePrice"></span>
                     </div>
                     <div class="col-12 d-flex align-items-start justify-content-start" style="column-gap: 10px;">
                         <span class="text-align-center" style="color: #CF202F">Total:</span>
@@ -895,6 +895,51 @@
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Step 1: Get the current URL path and extract the package ID
+    const path = window.location.pathname;
+    const segments = path.split('/').filter(segment => segment.length > 0);
+    const packageId = segments.length > 0 ? segments.pop() : null;
+
+    console.log('Package ID from URL path:', packageId);
+
+    if (packageId) {
+        // Step 2: Retrieve packages data from localStorage
+        const packages = JSON.parse(localStorage.getItem('packages')) || [];
+
+        // Step 3: Find the package that matches the packageId
+        const selectedPackage = packages.find(pkg => pkg.id === packageId);
+
+        if (selectedPackage) {
+            // Step 4: Display the package details
+            document.getElementById('selectedPackageName').textContent = selectedPackage.name;
+            document.getElementById('selectedPackagePrice').textContent = `$${selectedPackage.price}`;
+        } else {
+            console.log('Package not found');
+        }
+    } else {
+        console.log('No package ID found in URL');
+    }
+});
+
+
+ // Save the selected payment method to local storage when radio buttons are clicked
+ document.querySelectorAll('.payment_method_radio').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            // Save the payment method name to local storage
+            localStorage.setItem('packages_selectedPaymentMethod', e.target.nextElementSibling.textContent.trim());
+        });
+    });
+
+    // Save "Wallet" to local storage when the wallet checkbox is clicked
+    document.querySelector('.walletRadio').addEventListener('change', (e) => {
+        if (e.target.checked) {
+            localStorage.setItem('packages_selectedPaymentMethod', 'Wallet');
+        } else {
+            localStorage.removeItem('packages_selectedPaymentMethod'); // Remove if unchecked
+        }
+    });
+
     let payment_method_radio = document.querySelectorAll('.payment_method_radio');
     let walletRadio = document.querySelector('.walletRadio');
     let upload_receipt = document.querySelector('.upload_receipt');
