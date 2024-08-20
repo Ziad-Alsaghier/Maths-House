@@ -2208,7 +2208,7 @@ class ApiController extends Controller
         }
 
         return response()->json([
-            'data' => array_values($arr)
+            'data' => $data
         ]);
     }
 
