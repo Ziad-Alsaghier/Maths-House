@@ -79,7 +79,7 @@
 
         .lesson_left {
             width: 171px;
-            height: 120%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -111,7 +111,7 @@
 
         .lesson_right {
             width: 429px;
-            height: 120%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
