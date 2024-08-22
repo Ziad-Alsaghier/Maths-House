@@ -55,13 +55,24 @@
                 </div>
                 <div class='my-3'>
                     <label>Module</label>
-                    <select class="form-control" name="module">
+                    <select class="form-control sel_module" name="module">
                       <option disabled selected>
                         Select Module ...  
                       </option>
                       <option value="Exam">Exam</option>
                       <option value="Question">Question</option>
                       <option value="Live">Live</option>
+                    </select>
+                </div>
+                <div class='my-3 sel_course d-none'>
+                    <label>Course</label>
+                    <select class="form-control" name="course_id">
+                      <option disabled selected>
+                        Select Course ...  
+                      </option>
+                      @foreach ( $courses as $course )
+                      <option value="{{$course->id}}">{{$course->course_name}}</option>
+                      @endforeach
                     </select>
                 </div>
                 <div class='my-3'>
@@ -160,6 +171,23 @@
                                             <option value="Live">Live</option>
                                           </select>
                                       </div>
+                                      @if ( $item->module == 'Live' )
+                                      <div class='my-3'>
+                                          <label>Course</label>
+                                          <select class="form-control" name="course_id">
+                                            <option disabled selected>
+                                              Select Course ...  
+                                            </option>
+                                            @foreach ( $courses as $course )
+                                            @if ( $course->id == $item->course_id )
+                                            <option value="{{$course->id}}" selected>{{$course->course_name}}</option>
+                                            @else
+                                            <option value="{{$course->id}}">{{$course->course_name}}</option>
+                                            @endif
+                                            @endforeach
+                                          </select>
+                                      </div>
+                                      @endif
                                       <div class='my-3'>
                                           <label>Number</label>
                                           <input class='form-control' name="number" value="{{$item->number}}" placeholder="Number" />
@@ -219,5 +247,21 @@
         {{$package->links()}}
     </tbody>
 </table>
+
+<script>
+  let sel_module = document.querySelector('.sel_module');
+  let sel_course = document.querySelector('.sel_course');
+
+  sel_module.addEventListener('change', ( e ) => {
+    console.log(sel_course.classList);
+    
+    if ( e.target.value == 'Live' ) {
+      sel_course.classList.remove('d-none');
+    }
+    else{
+      sel_course.classList.add('d-none');
+    }
+  })
+</script>
 
 </x-default-layout>

@@ -8,15 +8,17 @@ use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\User;
 use App\Models\SmallPackage;
+use App\Models\Course;
 
 class PackagesController extends Controller
 {
     
     public function index(){
+        $courses = Course::all();
         $package = Package::
         orderByDesc('id')
         ->simplePaginate(10);
-        return view('Admin.Packages.Packages', compact('package'));
+        return view('Admin.Packages.Packages', compact('package', 'courses'));
     }
 
     public function del_package( $id ){
@@ -34,7 +36,7 @@ class PackagesController extends Controller
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
         ]);
-        $arr = $req->only('name', 'module', 'number', 'price', 'duration');
+        $arr = $req->only('name', 'module', 'number', 'price', 'duration', 'course_id');
         Package::where('id', $id)
         ->update( $arr );
 
@@ -49,7 +51,7 @@ class PackagesController extends Controller
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
         ]);
-        $arr = $req->only('name', 'module', 'number', 'price', 'duration');
+        $arr = $req->only('name', 'module', 'number', 'price', 'duration', 'course_id');
         Package::create($arr);
 
         return redirect()->back();
