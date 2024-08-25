@@ -24,6 +24,8 @@ use App\Models\ReportVideoList;
 use App\Models\ReportVideo;
 use App\Models\ReportQuestionList;
 use App\Models\ReportQuestion;
+use App\Models\Category;
+use App\Models\Course;
 
 use Carbon\Carbon;
 
@@ -116,6 +118,8 @@ class Stu_MyCourseController extends Controller
 
     public function quizze_ques_ans( $id ){
 
+        $question = Question::where('id', $id)
+        ->first();
         if ( empty(auth()->user()) ) {
             if ( !session()->has('previous_page') ) {
                 session(['previous_page' => url()->current()]);
@@ -155,9 +159,15 @@ class Stu_MyCourseController extends Controller
             } 
             $package = Package::
             where('module', 'Question')
+            ->where('course_id', $question->lessons->chapter->course_id)
             ->get();
+            $categories = Category::get();
+            $courses = Course::get();
+            $module = 'Question';
+ 
             Cookie::queue(Cookie::make('q_ans_id', $id, 90));
-            return view('Student.Exam.Exam_Package', compact('package'));
+            return view('Student.Exam.Exam_Package', 
+            compact('package', 'categories', 'courses', 'module')); 
         }
     }
 

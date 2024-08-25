@@ -43,7 +43,7 @@
                 {{$item->quizze->title}}
             </td>
             <td>
-                {{$item->score}}
+                {{$item->score}}/100
             </td>
             <td>
                 {{count($item->quizze->question)}}
