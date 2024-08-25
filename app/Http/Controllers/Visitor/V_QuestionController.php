@@ -156,6 +156,7 @@ class V_QuestionController extends Controller
                 $item->pay_req->user_id == auth()->user()->id &&
                 $item->date > $newTime &&
                 $item->number > 0
+                && $item->package->course_id == $question->lessons->chapter->course_id 
                  ) 
                  {  
 
@@ -362,6 +363,7 @@ class V_QuestionController extends Controller
                 $item->pay_req->user_id == auth()->user()->id &&
                 $item->date > $newTime &&
                 $item->number > 0
+                && $item->package->course_id == $question->lessons->chapter->course_id 
                  ) 
                  {  
 

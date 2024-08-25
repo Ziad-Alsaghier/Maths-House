@@ -129,6 +129,9 @@ class V_ExamController extends Controller
                 return view('Visitor.Exam.Exam_Question', compact('exam', 'reports'));
             }
 
+            // Return Exam
+            $exam = Exam::where('id', $id)
+            ->first();
             foreach ( $payments as $item ) { 
                 $newTime = Carbon::now()->subDays($item->package->duration); 
 
@@ -136,6 +139,7 @@ class V_ExamController extends Controller
                 $item->pay_req->user_id == auth()->user()->id &&
                 $item->date >= $newTime &&
                 $item->number > 0
+                && $item->package->course_id == $exam->course_id 
                  ) 
                  {  
 
@@ -144,9 +148,6 @@ class V_ExamController extends Controller
                         'number' => $item->number - 1
                     ]);
 
-                    // Return Exam
-                    $exam = Exam::where('id', $id)
-                    ->first();
                     
                     
                     return view('Visitor.Exam.Exam_Question', compact('exam', 'reports'));

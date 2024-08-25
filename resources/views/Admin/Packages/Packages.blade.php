@@ -64,7 +64,7 @@
                       <option value="Live">Live</option>
                     </select>
                 </div>
-                <div class='my-3 sel_course d-none'>
+                <div class='my-3 sel_course'>
                     <label>Course</label>
                     <select class="form-control" name="course_id">
                       <option disabled selected>
@@ -171,7 +171,6 @@
                                             <option value="Live">Live</option>
                                           </select>
                                       </div>
-                                      @if ( $item->module == 'Live' )
                                       <div class='my-3'>
                                           <label>Course</label>
                                           <select class="form-control" name="course_id">
@@ -187,7 +186,6 @@
                                             @endforeach
                                           </select>
                                       </div>
-                                      @endif
                                       <div class='my-3'>
                                           <label>Number</label>
                                           <input class='form-control' name="number" value="{{$item->number}}" placeholder="Number" />
@@ -247,21 +245,5 @@
         {{$package->links()}}
     </tbody>
 </table>
-
-<script>
-  let sel_module = document.querySelector('.sel_module');
-  let sel_course = document.querySelector('.sel_course');
-
-  sel_module.addEventListener('change', ( e ) => {
-    console.log(sel_course.classList);
-    
-    if ( e.target.value == 'Live' ) {
-      sel_course.classList.remove('d-none');
-    }
-    else{
-      sel_course.classList.add('d-none');
-    }
-  })
-</script>
 
 </x-default-layout>
