@@ -120,6 +120,7 @@ use App\Models\Wallet;
         Route::get('/Exams/Filter', 'filter_exam')->name('filter_exam');
         Route::get('/Exam/{id}', 'exam_page')->name('exam_page');
         Route::get('/Exam_package', 'e_package')->name('e_package');
+        Route::get('/filterPackage', 'filter_package')->name('filter_package');
     });
     Route::controller(V_CoursesController::class)->group(function(){
         Route::post('/Use_Promocode', 'use_promocode')->name('use_promocode');

@@ -112,6 +112,8 @@ class V_QuestionController extends Controller
     public function q_page( $id ){
         
         $reports = ReportQuestionList::all();
+        $question = Question::where('id', $id)
+        ->first();
 
         if ( empty(auth()->user()) ) {
             if ( !session()->has('previous_page') ) {
@@ -140,9 +142,6 @@ class V_QuestionController extends Controller
                 ->update([
                     'number' => $small_package->number - 1
                 ]);
-                // Return Exam
-                $question = Question::where('id', $id)
-                ->first();
                 
                 return view('Visitor.Question.Show_Question', compact('question', 'reports'));
             }
@@ -166,12 +165,17 @@ class V_QuestionController extends Controller
                     ]);
                      return view('Visitor.Question.Show_Question', compact('question', 'reports')); 
                 }
-            } 
+            }
             $package = Package::
             where('module', 'Question')
+            ->where('course_id', $question->lessons->chapter->course_id)
             ->get();
+            $categories = Category::get();
+            $courses = Course::get();
+            $module = 'Question';
             Cookie::queue(Cookie::make('q_id', $id, 90));
-            return view('Student.Exam.Exam_Package', compact('package'));
+            return view('Student.Exam.Exam_Package', 
+            compact('package', 'categories', 'courses', 'module'));
         }
     }
  
@@ -200,7 +204,12 @@ class V_QuestionController extends Controller
         $package = Package::
         where('module', 'Question')
         ->get();
-        return view('Student.Exam.Exam_Package', compact('package'));
+        $courses = Course::get();
+        $categories = Category::get();
+        $module = 'Question';
+
+        return view('Student.Exam.Exam_Package', 
+        compact('package', 'courses', 'categories', 'module'));
     }
 
     public function q_sol( Request $req ){ 
@@ -319,6 +328,8 @@ class V_QuestionController extends Controller
     public function parallel_answer( $id ){
         
         $reports = ReportQuestionList::all();
+        $question = Question::where('id', $id)
+        ->first();
 
         if ( empty(auth()->user()) ) {
             if ( !session()->has('previous_page') ) {
@@ -376,9 +387,15 @@ class V_QuestionController extends Controller
             } 
             $package = Package::
             where('module', 'Question')
+            ->where('course_id', $question->lessons->chapter->course_id)
             ->get();
+            $categories = Category::get();
+            $courses = Course::get();
+            $module = 'Question';
+ 
             Cookie::queue(Cookie::make('q_ans_id', $id, 90));
-            return view('Student.Exam.Exam_Package', compact('package'));
+            return view('Student.Exam.Exam_Package', 
+            compact('package', 'categories', 'courses', 'module'));
         }
     }
 

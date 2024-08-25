@@ -94,7 +94,9 @@ class V_ExamController extends Controller
 
     public function exam_page( $id ){
 
-
+        // Return Exam
+        $exam = Exam::where('id', $id)
+        ->first();
         $reports = ReportQuestionList::all();
         if ( empty(auth()->user()) ) {
             if ( !session()->has('previous_page') ) {
@@ -129,9 +131,6 @@ class V_ExamController extends Controller
                 return view('Visitor.Exam.Exam_Question', compact('exam', 'reports'));
             }
 
-            // Return Exam
-            $exam = Exam::where('id', $id)
-            ->first();
             foreach ( $payments as $item ) { 
                 $newTime = Carbon::now()->subDays($item->package->duration); 
 
@@ -156,10 +155,16 @@ class V_ExamController extends Controller
 
             $package = Package::
             where('module', 'Exam')
+            ->where('course_id', $exam->course_id)
             ->get();
             Cookie::queue(Cookie::make('exam_id', $id, 90));
-
-            return view('Student.Exam.Exam_Package', compact('package'));
+ 
+            $categories = Category::get();
+            $courses = Course::get();
+            $module = 'Exam';
+            Cookie::queue(Cookie::make('q_id', $id, 90));
+            return view('Student.Exam.Exam_Package', 
+            compact('package', 'categories', 'courses', 'module'));
              
             
         }
@@ -170,7 +175,26 @@ class V_ExamController extends Controller
         $package = Package::
         where('module', 'Exam')
         ->get();
-        return view('Student.Exam.Exam_Package', compact('package'));
+        $courses = Course::get();
+        $categories = Category::get();
+        $module = 'Exam';
+
+        return view('Student.Exam.Exam_Package', 
+        compact('package', 'courses', 'categories', 'module'));
+    }
+
+    public function filter_package(Request $request){
+        $package = Package::
+        where('module', $request->module)
+        ->where('course_id', $request->course_id)
+        ->get();
+        $courses = Course::get();
+        $categories = Category::get();
+        $module = $request->module;
+        $data = $request->all();
+
+        return view('Student.Exam.Exam_Package', 
+        compact('package', 'courses', 'categories', 'module', 'data'));
     }
 
     public function exam_ans( $id, Request $req )
