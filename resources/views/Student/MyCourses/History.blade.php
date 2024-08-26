@@ -19,6 +19,7 @@
         <th>Question No.</th>
         <th>Score Details</th>
         <th>Time</th>
+        <th>Delay</th>
         <th>Action</th>
     </thead>
 
@@ -56,6 +57,7 @@
             <td>
                 {{$item->time}}
             </td>
+            <th>{{$item->delay}}</th>
             <td>
             <a href="{{route('quizze_mistakes', ['id' => $item->id])}}" class="btn btn-primary mistake_btn">
                 View Mistakes

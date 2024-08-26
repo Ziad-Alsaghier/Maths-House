@@ -77,7 +77,7 @@ class QuizzeController extends Controller
            ]);
 
         $arr = $req->only('title', 'description', 'score', 'pass_score', 'state', 'lesson_id', 'quizze_order');
-        $arr['time'] = $req->time_h . 'hours' . $req->time_m . 'M';
+        $arr['time'] = $req->time_h . ':' . $req->time_m . ':00';
         if ( !isset($ques_id) ) {
             session()->flash('faild','You Must Enter Questions');
             return redirect()->back();

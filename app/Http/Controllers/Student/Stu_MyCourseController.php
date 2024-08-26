@@ -28,6 +28,7 @@ use App\Models\Category;
 use App\Models\Course;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class Stu_MyCourseController extends Controller
 {
@@ -356,6 +357,36 @@ class Stu_MyCourseController extends Controller
         $history = StudentQuizze::where('student_id', auth()->user()->id)
         ->orderByDesc('id')
         ->get();
+        foreach ($history as  $item) {
+
+            // Assume input format is 'H:i:s', e.g., '01:00:00' and '00:10:00'
+            // Retrieve quiz period and solve period from the request
+            $quizPeriod = Carbon::createFromTimeString($item->quizze->time);
+            $solvePeriod = Carbon::createFromTimeString($item->time);
+
+            // Define the two times
+            $time1 = $quizPeriod;
+            $time2 = $solvePeriod;
+
+            // Subtract the times
+            $diff = $time1->diff($time2);
+
+            // Format the difference in hours, minutes, and seconds
+            $hours = $diff->h;
+            $minutes = $diff->i;
+            $seconds = $diff->s;
+
+            // Output the result as H:i:s
+            $formattedDiff = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+
+            if ( $time1 > $time2 ) {
+                $item->delay = '-' . $formattedDiff;
+            } else {
+                $item->delay = '+' . $formattedDiff;
+            }
+            
+            
+        }
 
         return view('Student.MyCourses.History', compact('history'));
     }
