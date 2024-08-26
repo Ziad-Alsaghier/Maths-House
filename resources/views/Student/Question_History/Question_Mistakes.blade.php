@@ -109,7 +109,7 @@
 <div class="allMistakes app-email card my-3 mistakes_questions">
     <div class="row g-0 mistake  p-3"> 
             @if ( !empty($mistake->question->question) )
-                <span class="quesMisake">{{$mistake->question->question}}</span>
+                <span class="quesMisake">{!!$mistake->question->question!!}</span>
             @endif
             @if ( !empty($mistake->question->q_url) )
 
