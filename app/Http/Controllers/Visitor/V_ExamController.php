@@ -162,7 +162,6 @@ class V_ExamController extends Controller
             $categories = Category::get();
             $courses = Course::get();
             $module = 'Exam';
-            Cookie::queue(Cookie::make('q_id', $id, 90));
             return view('Student.Exam.Exam_Package', 
             compact('package', 'categories', 'courses', 'module'));
              
