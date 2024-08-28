@@ -136,6 +136,7 @@ class UserController extends Controller
 
         $sessions = Session::where('lesson_id', $lesson_id)
         ->pluck('id');
+        return $sessions;
 
         if ( $req->attend == 'Attend' ) {
             LiveLesson::create([

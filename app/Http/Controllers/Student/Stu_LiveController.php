@@ -181,7 +181,7 @@ class Stu_LiveController extends Controller
         ->first();
         $sessions = $user->session_attendance;
 
-        return $sessions;
+        return view('Student.Live.MyLiveCourses', compact('sessions'));
     }
 
     public function stu_live_chapters( $course_id ){
