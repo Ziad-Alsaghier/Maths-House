@@ -136,7 +136,6 @@ class UserController extends Controller
 
         $sessions = Session::where('lesson_id', $lesson_id)
         ->pluck('id');
-        return $sessions;
 
         if ( $req->attend == 'Attend' ) {
             LiveLesson::create([
@@ -144,11 +143,12 @@ class UserController extends Controller
                 'lesson_id' => $lesson_id,
             ]);
             foreach ($sessions as $key => $item) {
-                SessionAttendance::create([
+                $mysession = SessionAttendance::create([
                     'user_id' => $users_id,
                     'session_id' => $item
                 ]);
             }
+            return $mysession;
         }
         else {
             LiveLesson::
