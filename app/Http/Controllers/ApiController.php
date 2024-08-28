@@ -1028,8 +1028,13 @@ class ApiController extends Controller
             'r_questions' => $req->right_question,
         ]);
         $quize_id = $stu_quizze->id;
-
-        foreach ($req->mistakes as $item) {
+        if ($req->mistakes == null) {
+            $mistakes = [];
+        } else {
+            $mistakes = json_decode($req->mistakes);
+        }
+         
+        foreach ($mistakes as $item) {
             StudentQuizzeMistake::create([
                 'student_quizze_id' => $quize_id,
                 'question_id' => $item->id,
