@@ -1037,7 +1037,7 @@ class ApiController extends Controller
         foreach ($mistakes as $item) {
             StudentQuizzeMistake::create([
                 'student_quizze_id' => $quize_id,
-                'question_id' => $item->id,
+                'question_id' => $item,
             ]);
         }
 
