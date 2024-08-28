@@ -137,7 +137,6 @@ class UserController extends Controller
         $sessions = Session::where('lesson_id', $lesson_id)
         ->pluck('id');
 
-        return $req->attend;
         if ( $req->attend == 'Attend' ) {
             LiveLesson::create([
                 'user_id' => $users_id,
@@ -149,6 +148,7 @@ class UserController extends Controller
                     'session_id' => $item
                 ]);
             }
+            return $mysession;
         }
         else {
             LiveLesson::
