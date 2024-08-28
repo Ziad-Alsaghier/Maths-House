@@ -1190,11 +1190,15 @@ class ApiController extends Controller
             ->get();
         $Live = Package::where('module', 'Live')
             ->get();
+        $categories = Category::get();
+        $courses = Course::get();
 
         return response()->json([
             'Exams' => $Exams,
             'Questions' => $Questions,
             'Live' => $Live,
+            'categories' => $categories,
+            'courses' => $courses,
         ]);
     }
 
