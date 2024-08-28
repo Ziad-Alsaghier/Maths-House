@@ -148,7 +148,10 @@ class UserController extends Controller
                     'session_id' => $item
                 ]);
             }
-            return $mysession;
+            return response()->json([
+                'user_id' => $users_id,
+                'sessions' => $sessions
+            ]);
         }
         else {
             LiveLesson::
