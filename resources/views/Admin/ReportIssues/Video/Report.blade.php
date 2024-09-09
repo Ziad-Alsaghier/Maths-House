@@ -83,11 +83,7 @@
                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                   allowfullscreen></iframe>
                                 @endif
-                                {{$item->question->question}}
 
-                                @if ( !empty( $item->question->q_url) )
-                                <img class="w-150px h-150px" src="{{asset('images/questions/' . $item->question->q_url)}}" />
-                                @endif
                             </div>
 
                             <div class="modal-footer">
