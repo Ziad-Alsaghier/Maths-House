@@ -58,7 +58,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     Select Category ...
                 </option>
                 @foreach ($categories as $item)
-                    @if (isset($data) && $data['category_id'] == $item->id)
+                    @if ( @$data['category_id'] == $item->id)
                     <option selected value="{{$item->id}}">{{$item->cate_name}}</option>
                     @else
                     <option value="{{$item->id}}">{{$item->cate_name}}</option>
@@ -70,7 +70,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     Select Course ...
                 </option>
                 @foreach ($courses as $item)
-                @if (isset($data) && $data['course_id'] == $item->id)
+                @if ( @$data['course_id'] == $item->id)
                 <option selected value="{{$item->id}}">{{$item->course_name}}</option>
                 @else
                 <option value="{{$item->id}}">{{$item->course_name}}</option>

@@ -201,9 +201,7 @@ class V_QuestionController extends Controller
     }
 
     public function q_package(){ 
-        $package = Package::
-        where('module', 'Question')
-        ->get();
+        $package = [];
         $courses = Course::get();
         $categories = Category::get();
         $module = 'Question';

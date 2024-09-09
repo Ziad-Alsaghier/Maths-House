@@ -14,9 +14,7 @@ class V_LiveController extends Controller
 
     public function live_package(){
         
-        $package = Package::
-        where('module', 'Live')
-        ->get();
+        $package = [];
         $courses = Course::get();
         $categories = Category::get();
         $module = 'Live';

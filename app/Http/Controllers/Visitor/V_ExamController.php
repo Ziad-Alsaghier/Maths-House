@@ -171,9 +171,7 @@ class V_ExamController extends Controller
 
     public function e_package(){
         
-        $package = Package::
-        where('module', 'Exam')
-        ->get();
+        $package = [];
         $courses = Course::get();
         $categories = Category::get();
         $module = 'Exam';
