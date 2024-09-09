@@ -62,6 +62,8 @@ class Stu_ProfileController extends Controller
         move_uploaded_file($tmp_name, 'images/users/' . $img_name);
         User::where('id', auth()->user()->id)
         ->update($arr);
+        
+        session()->flash('success', 'You update your profile success');
         return redirect()->back();
     }
     

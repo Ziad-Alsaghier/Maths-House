@@ -39,7 +39,7 @@
                         {{$item->date}}
                     </td>
                     <td>
-                        {{$item->student->name}}
+                        {{$item->student->nick_name}}
                     </td>
                     <td>
                         <label class="view_text" data-bs-toggle="modal" data-bs-target="#modalQuestion{{$item->id}}">

@@ -105,6 +105,9 @@ class V_QuestionController extends Controller
         $codes = ExamCodes::all();
         $data = $req->all();
 
+        if (count($question) == 0) {
+            session()->flash('faild','No Questions');
+        }
         return view('Visitor.Question.Filter_Question', 
         compact('q_items', 'data', 'categories', 'courses', 'codes'));
     } 

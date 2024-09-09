@@ -87,6 +87,9 @@ class V_ExamController extends Controller
         $courses = Course::all();
         $categories = Category::all();
         $data = $req->all();
+        if (count($exam_items) == 0) {
+            session()->flash('faild','No Exams');
+        }
 
         return view('Visitor.Exam.Filter_Exams', 
         compact('exam_items', 'exam_code', 'courses', 'categories', 'data'));

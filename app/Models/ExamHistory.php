@@ -23,6 +23,10 @@ class ExamHistory extends Model
         'date',
     ];
 
+    public function getdateAttribute($date){
+        return date('d-m-Y', strtotime($date));
+    }
+    
     public function exams(){
         return $this->belongsTo(Exam::class, 'exam_id');
     }

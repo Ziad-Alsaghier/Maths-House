@@ -39,7 +39,7 @@
                         {{$item->date}}
                     </td>
                     <td>
-                        {{$item->student->name}}
+                        {{$item->student->nick_name}}
                     </td>
                     <td>
                       @if ( !empty($item->lesson_video_id) )
@@ -68,6 +68,26 @@
                                 </div> 
 
                             <div class="my-2 px-3">
+                                Video :
+                                <br />
+                                @if (!empty($item->lesson_video_id))
+                                  <iframe  scrolling="no" allowfullscreen style="width: 100%; margin-top: 45px;"
+                                  src="{{ $item->video->v_link }}" title="YouTube video player"
+                                  frameborder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowfullscreen></iframe>
+                                @elseif(!empty($item->lesson_video_id))
+                                  <iframe  scrolling="no" allowfullscreen style="width: 100%; margin-top: 45px;"
+                                  src="{{ $item->q_video->ans_video }}" title="YouTube video player"
+                                  frameborder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowfullscreen></iframe>
+                                @endif
+                                {{$item->question->question}}
+
+                                @if ( !empty( $item->question->q_url) )
+                                <img class="w-150px h-150px" src="{{asset('images/questions/' . $item->question->q_url)}}" />
+                                @endif
                             </div>
 
                             <div class="modal-footer">

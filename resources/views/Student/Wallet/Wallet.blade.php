@@ -79,7 +79,7 @@
 </button>
 </div>
 
-<form action="{{route('wallet_filter')}}" method="POST">
+<form action="{{route('wallet_filter')}}" method="GET">
     @csrf
     <div class="d-flex my-3 d-none wallet_filter">
         <select style="width: 150px;" name="state" class="form-control">
@@ -122,9 +122,6 @@
             </td> 
         </tr>
         @endforeach
-        <div class="d-none wallet_links">
-            {{$wallets->links()}}
-        </div>
     </tbody>
 </table>
 

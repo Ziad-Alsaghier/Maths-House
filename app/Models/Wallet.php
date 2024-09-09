@@ -24,6 +24,10 @@ class Wallet extends Model
         'payment_request_id',
     ];
 
+    public function getdateAttribute($date){
+        return date('d-m-Y', strtotime($date));
+    }
+    
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');

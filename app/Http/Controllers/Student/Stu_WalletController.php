@@ -15,7 +15,7 @@ class Stu_WalletController extends Controller
         $wallets = Wallet::where('student_id', auth()->user()->id)
         ->where('wallet', '>', 0)
         ->orderByDesc('id')
-        ->simplePaginate(10);
+        ->get();
         $money = Wallet::where('student_id', auth()->user()->id)
         ->orderByDesc('id')
         ->where('state', 'Approve')
@@ -30,7 +30,7 @@ class Stu_WalletController extends Controller
         ->where('wallet', '>', 0)
         ->where('state', $req->state)
         ->orderByDesc('id')
-        ->simplePaginate(10);
+        ->get();
         $money = Wallet::where('student_id', auth()->user()->id)
         ->orderByDesc('id')
         ->where('state', 'Approve')

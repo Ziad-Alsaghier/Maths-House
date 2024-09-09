@@ -514,7 +514,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
 
     Route::controller(Stu_WalletController::class)->group(function(){
         Route::get('Wallet', 'index')->name('wallet');
-        Route::post('Wallet/Filter', 'wallet_filter')->name('wallet_filter');
+        Route::get('Wallet/Filter', 'wallet_filter')->name('wallet_filter');
         Route::post('Wallet/Add', 'add_wallet')->name('add_wallet');
     });
     

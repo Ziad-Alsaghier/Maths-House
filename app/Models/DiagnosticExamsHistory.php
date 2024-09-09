@@ -23,6 +23,10 @@ class DiagnosticExamsHistory extends Model
         'date',
     ];
 
+    public function getdateAttribute($date){
+        return date('d-m-Y', strtotime($date));
+    }
+    
     public function exams(){ 
         return $this->belongsTo(DiagnosticExam::class, 'diagnostic_exams_id');
     }
