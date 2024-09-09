@@ -377,6 +377,10 @@
 
                                     @if (!empty($q_ans->ans_video))
                                         <div class="list_cont">
+                                            <h4 class="pr-3 text-success">
+                                                If you have an issues must clicked here
+                                                <i class="fa fa-arrow-right"></i>
+                                            </h4>
                                             <i class="fa-solid fa-ellipsis-vertical iconList"></i>
                                             <div class="list_item d-none">
                                                 @foreach ($reports as $report)
