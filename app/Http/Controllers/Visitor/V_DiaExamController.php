@@ -76,7 +76,6 @@ class V_DiaExamController extends Controller
 
     public function dia_exam_ans( $id, Request $req )
     {
-        return $req->all();
         $timer_val = json_decode(Cookie::get('timer'));
         
         $exam = DiagnosticExam::where('id', $id)
@@ -91,14 +90,17 @@ class V_DiaExamController extends Controller
                 $question = Question::where('id', $mcq_item->q_id)
                 ->first();
 
-                if ( isset($question->mcq[0]) && $question->mcq[0]->mcq_answers ) {
+                if ( isset($question->mcq[0]) && !empty($question->mcq[0]) ) {
                     $stu_solve = $question->mcq[0]->mcq_answers;
                     $arr = ['A', 'B', 'C', 'D', 'E']; 
                     if ( isset($mcq_item->answer) && $stu_solve == $mcq_item->answer ) {
                         $deg++;
                     } else {
-                        $mistakes[$question->lessons->chapter->id] = $question;
+                        $mistakes[] = $question;
                     }
+                }
+                else {
+                    $mistakes[] = $question;
                 }
             }
         }
@@ -127,7 +129,7 @@ class V_DiaExamController extends Controller
                 elseif ( floatval($grid_ans) == floatval($answer) ) {
                     $deg++;
                 } else {
-                    $mistakes[$question->lessons->chapter->course->id] = $question;
+                    $mistakes[] = $question;
                 }
             }
         }
