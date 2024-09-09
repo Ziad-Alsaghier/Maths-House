@@ -19,7 +19,7 @@ class Chapter extends Model
         'teacher_id', 
         'course_id', 
         'pre_requisition', 
-        'gain',  
+        'gain',
         'ch_des', 
         'ch_url',
         'ch_price',

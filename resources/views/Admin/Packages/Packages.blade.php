@@ -55,13 +55,24 @@
                 </div>
                 <div class='my-3'>
                     <label>Module</label>
-                    <select class="form-control" name="module">
+                    <select class="form-control sel_module" name="module">
                       <option disabled selected>
                         Select Module ...  
                       </option>
                       <option value="Exam">Exam</option>
                       <option value="Question">Question</option>
                       <option value="Live">Live</option>
+                    </select>
+                </div>
+                <div class='my-3 sel_course'>
+                    <label>Course</label>
+                    <select class="form-control" name="course_id">
+                      <option disabled selected>
+                        Select Course ...  
+                      </option>
+                      @foreach ( $courses as $course )
+                      <option value="{{$course->id}}">{{$course->course_name}}</option>
+                      @endforeach
                     </select>
                 </div>
                 <div class='my-3'>
@@ -158,6 +169,21 @@
                                             <option value="Exam">Exam</option>
                                             <option value="Question">Question</option>
                                             <option value="Live">Live</option>
+                                          </select>
+                                      </div>
+                                      <div class='my-3'>
+                                          <label>Course</label>
+                                          <select class="form-control" name="course_id">
+                                            <option disabled selected>
+                                              Select Course ...  
+                                            </option>
+                                            @foreach ( $courses as $course )
+                                            @if ( $course->id == $item->course_id )
+                                            <option value="{{$course->id}}" selected>{{$course->course_name}}</option>
+                                            @else
+                                            <option value="{{$course->id}}">{{$course->course_name}}</option>
+                                            @endif
+                                            @endforeach
                                           </select>
                                       </div>
                                       <div class='my-3'>

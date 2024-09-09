@@ -51,7 +51,38 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
         }
     </style>
 
+    <form action="{{route('filter_package')}}" method="get">
+        <div class="d-flex justify-content-center align-items-center my-3">
+            <select name="category_id" style="width: 300px" class="form-control mx-2 selCategory">
+                <option disabled selected>
+                    Select Category ...
+                </option>
+                @foreach ($categories as $item)
+                    @if ( @$data['category_id'] == $item->id)
+                    <option selected value="{{$item->id}}">{{$item->cate_name}}</option>
+                    @else
+                    <option value="{{$item->id}}">{{$item->cate_name}}</option>
+                    @endif
+                @endforeach
+            </select>
+            <select name="course_id" style="width: 300px" class="form-control mx-2 selCourse">
+                <option disabled selected>
+                    Select Course ...
+                </option>
+                @foreach ($courses as $item)
+                @if ( @$data['course_id'] == $item->id)
+                <option selected value="{{$item->id}}">{{$item->course_name}}</option>
+                @else
+                <option value="{{$item->id}}">{{$item->course_name}}</option>
+                @endif
+                @endforeach
+            </select>
+            <input type="hidden" name="module" value="{{$module}}" />
+            <button class="btn btn-danger">Filter</button>
+        </div>
+    </form>
 
+    <input type="hidden" class="courses_data" value="{{$courses}}" />
     <div class="col-12 d-flex align-items-center justify-content-center">
         <h3 class="texRed mt-3">
             Package Details
@@ -68,10 +99,34 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
         @endforeach
     </div>
 
+    <script>
+        let selCategory = document.querySelector('.selCategory');
+        let selCourse = document.querySelector('.selCourse');
+        let courses_data = document.querySelector('.courses_data');
+        console.log(courses_data);
+        
+        courses_data = courses_data.value;
+        courses_data = JSON.parse(courses_data);
+    
+        selCategory.addEventListener('change', (e) => {
+            if (e.target == selCategory) {
+                selCourse.innerHTML = '<option disabled selected>Select Course ...</option>';
+                courses_data.forEach(element => {
+                    if (selCategory.value == element.category_id) {
+                        selCourse.innerHTML += `
+                        <option value="${element.id}">
+                            ${element.course_name}
+                        </option>`;
+                    }
+                });
+            }
+        })
+    </script>
 
 @endsection
 
 <script>
+
     document.addEventListener('DOMContentLoaded', () => {
         // Get all the package elements
         const packageElements = document.querySelectorAll('.allPackages .package');

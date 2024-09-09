@@ -964,7 +964,7 @@ class ApiController extends Controller
     public function api_quiz($id)
     {
         $lesson = Lesson::where('id', $id)
-            ->first();
+        ->first();
         $quiz = $lesson->quizze_api; 
         
         foreach ($quiz as $key => $item) {
@@ -979,6 +979,38 @@ class ApiController extends Controller
         return response()->json([
             'quiz' => $quiz,
         ]);
+    }
+    public function api_check_quiz(Request $request){
+        $lesson = Lesson::where('id', $request->lesson_id)
+        ->first(); // Get lesson
+        $quiz = quizze::where('id', $request->quiz_id)
+        ->first(); // Get quiz
+
+        $last_quiz = $lesson->quizzes
+        ->where('quizze_order', '<', $quiz->quizze_order)
+        ->first();
+        if ( !empty($last_quiz) ) {
+            $stu_quizze = StudentQuizze::
+            where('quizze_id', $last_quiz->id)
+            ->where('student_id', auth()->user()->id)
+            ->where('score', '>=', $last_quiz->pass_score)
+            ->first();
+            if ( empty($stu_quizze) ) {
+                return response()->json(['faild' => 'You must pass at last quiz first']);
+            }
+        }
+        
+        $stu_quizze = StudentQuizze::
+        where('quizze_id', $quiz->id)
+        ->where('student_id', auth()->user()->id)
+        ->where('score', '>=', $quiz->pass_score)
+        ->first();
+        if ( empty($stu_quizze) ) {
+            return response()->json(['success' => 'open quiz']);
+        }
+        else{
+            return response()->json(['faild' => 'You pass at quiz last']);
+        }
     }
 
     public function api_quiz_grade(Request $req)
@@ -996,11 +1028,16 @@ class ApiController extends Controller
             'r_questions' => $req->right_question,
         ]);
         $quize_id = $stu_quizze->id;
-
-        foreach ($req->mistakes as $item) {
+        if ($req->mistakes == null) {
+            $mistakes = [];
+        } else {
+            $mistakes = json_decode($req->mistakes);
+        }
+         
+        foreach ($mistakes as $item) {
             StudentQuizzeMistake::create([
                 'student_quizze_id' => $quize_id,
-                'question_id' => $item->id,
+                'question_id' => $item,
             ]);
         }
 
@@ -1008,7 +1045,7 @@ class ApiController extends Controller
             'success' => 'Data Is Added Successful'
         ]);
     }
-
+ 
     public function api_sign_up_page()
     {
         $countries = Country::all();
@@ -1158,11 +1195,15 @@ class ApiController extends Controller
             ->get();
         $Live = Package::where('module', 'Live')
             ->get();
+        $categories = Category::get();
+        $courses = Course::get();
 
         return response()->json([
             'Exams' => $Exams,
             'Questions' => $Questions,
             'Live' => $Live,
+            'categories' => $categories,
+            'courses' => $courses,
         ]);
     }
 
@@ -2208,7 +2249,7 @@ class ApiController extends Controller
         }
 
         return response()->json([
-            'data' => $data
+            'data' => array_values($arr)
         ]);
     }
 

@@ -194,7 +194,7 @@
         @foreach ($questions as $question)
             <div class="mistake">
                 @if (!empty($question->question))
-                    <span class="quesMisake">{{ $question->question }}</span>
+                    <span class="quesMisake">{!! $question->question !!}</span>
                 @endif
                 @if (!empty($question->q_url))
                     <img class="imgMistake" src="{{ asset('images/questions/' . $question->q_url) }}" data-bs-toggle="modal"

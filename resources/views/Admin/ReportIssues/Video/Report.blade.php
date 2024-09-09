@@ -39,7 +39,7 @@
                         {{$item->date}}
                     </td>
                     <td>
-                        {{$item->student->name}}
+                        {{$item->student->nick_name}}
                     </td>
                     <td>
                       @if ( !empty($item->lesson_video_id) )
@@ -68,6 +68,38 @@
                                 </div> 
 
                             <div class="my-2 px-3">
+                                Video :
+                                <br />
+                                @if (!empty($item->lesson_video_id))
+                                  Category : {{$item->video->lesson->chapter->course->category->cate_name}}
+                                  <br />
+                                  Course : {{$item->video->lesson->chapter->course->course_name}}
+                                  <br />
+                                  Chapter : {{$item->video->lesson->chapter->chapter_name}}
+                                  <br />
+                                  Category : {{$item->video->lesson->lesson_name}}
+                                  <br />
+                                @elseif(!empty($item->q_video_id))
+                                  Answer of question
+                                  <br />
+                                  Category : {{$item->q_video->question->lessons->chapter->course->category->cate_name}}
+                                  <br />
+                                  Course : {{$item->q_video->question->lessons->chapter->course->course_name}}
+                                  <br />
+                                  Chapter : {{$item->q_video->question->lessons->chapter->chapter_name}}
+                                  <br />
+                                  Category : {{$item->q_video->question->lessons->lesson_name}}
+                                  <br />
+                                  Month : {{$item->q_video->question->month}}
+                                  <br />
+                                  Year : {{$item->q_video->question->year}}
+                                  <br />
+                                  Section : {{$item->q_video->question->section}}
+                                  <br />
+                                  Q Num : {{$item->q_video->question->q_num}}
+                                  <br />
+                                @endif
+
                             </div>
 
                             <div class="modal-footer">

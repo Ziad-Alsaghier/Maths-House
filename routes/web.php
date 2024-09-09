@@ -120,6 +120,7 @@ use App\Models\Wallet;
         Route::get('/Exams/Filter', 'filter_exam')->name('filter_exam');
         Route::get('/Exam/{id}', 'exam_page')->name('exam_page');
         Route::get('/Exam_package', 'e_package')->name('e_package');
+        Route::get('/filterPackage', 'filter_package')->name('filter_package');
     });
     Route::controller(V_CoursesController::class)->group(function(){
         Route::post('/Use_Promocode', 'use_promocode')->name('use_promocode');
@@ -513,7 +514,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
 
     Route::controller(Stu_WalletController::class)->group(function(){
         Route::get('Wallet', 'index')->name('wallet');
-        Route::post('Wallet/Filter', 'wallet_filter')->name('wallet_filter');
+        Route::get('Wallet/Filter', 'wallet_filter')->name('wallet_filter');
         Route::post('Wallet/Add', 'add_wallet')->name('add_wallet');
     });
     

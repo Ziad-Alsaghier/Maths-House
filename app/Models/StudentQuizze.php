@@ -24,6 +24,10 @@ class StudentQuizze extends Model
         'r_questions', 
     ];
 
+    public function getdateAttribute($date){
+        return date('d-m-Y', strtotime($date));
+    }
+    
     public function lesson()
     {
         return $this->belongsTo(Lesson::class, 'lesson_id');

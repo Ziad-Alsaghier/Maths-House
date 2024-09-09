@@ -87,6 +87,9 @@ class V_ExamController extends Controller
         $courses = Course::all();
         $categories = Category::all();
         $data = $req->all();
+        if (count($exam_items) == 0) {
+            session()->flash('faild','No Exams');
+        }
 
         return view('Visitor.Exam.Filter_Exams', 
         compact('exam_items', 'exam_code', 'courses', 'categories', 'data'));
@@ -94,7 +97,9 @@ class V_ExamController extends Controller
 
     public function exam_page( $id ){
 
-
+        // Return Exam
+        $exam = Exam::where('id', $id)
+        ->first();
         $reports = ReportQuestionList::all();
         if ( empty(auth()->user()) ) {
             if ( !session()->has('previous_page') ) {
@@ -136,6 +141,7 @@ class V_ExamController extends Controller
                 $item->pay_req->user_id == auth()->user()->id &&
                 $item->date >= $newTime &&
                 $item->number > 0
+                && $item->package->course_id == $exam->course_id 
                  ) 
                  {  
 
@@ -144,9 +150,6 @@ class V_ExamController extends Controller
                         'number' => $item->number - 1
                     ]);
 
-                    // Return Exam
-                    $exam = Exam::where('id', $id)
-                    ->first();
                     
                     
                     return view('Visitor.Exam.Exam_Question', compact('exam', 'reports'));
@@ -155,10 +158,15 @@ class V_ExamController extends Controller
 
             $package = Package::
             where('module', 'Exam')
+            ->where('course_id', $exam->course_id)
             ->get();
             Cookie::queue(Cookie::make('exam_id', $id, 90));
-
-            return view('Student.Exam.Exam_Package', compact('package'));
+ 
+            $categories = Category::get();
+            $courses = Course::get();
+            $module = 'Exam';
+            return view('Student.Exam.Exam_Package', 
+            compact('package', 'categories', 'courses', 'module'));
              
             
         }
@@ -166,10 +174,27 @@ class V_ExamController extends Controller
 
     public function e_package(){
         
+        $package = [];
+        $courses = Course::get();
+        $categories = Category::get();
+        $module = 'Exam';
+
+        return view('Student.Exam.Exam_Package', 
+        compact('package', 'courses', 'categories', 'module'));
+    }
+
+    public function filter_package(Request $request){
         $package = Package::
-        where('module', 'Exam')
+        where('module', $request->module)
+        ->where('course_id', $request->course_id)
         ->get();
-        return view('Student.Exam.Exam_Package', compact('package'));
+        $courses = Course::get();
+        $categories = Category::get();
+        $module = $request->module;
+        $data = $request->all();
+
+        return view('Student.Exam.Exam_Package', 
+        compact('package', 'courses', 'categories', 'module', 'data'));
     }
 
     public function exam_ans( $id, Request $req )

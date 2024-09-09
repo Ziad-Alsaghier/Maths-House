@@ -42,6 +42,7 @@
         }
     }
 </style>
+@include('success')
 <form action="{{ route('filter_exam') }}" method="GET">
     <div style="display: flex !important;align-items: center;justify-content: center; flex-wrap: wrap !important;gap: 25px !important;">
         <select

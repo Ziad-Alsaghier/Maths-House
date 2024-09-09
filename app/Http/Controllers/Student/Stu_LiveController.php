@@ -150,8 +150,8 @@ class Stu_LiveController extends Controller
         
         foreach ( $package as $item ) {
             if ( $item->package_live != null ) {
-                $newTime = Carbon::now()->subDays($item->package_live->duration); 
-                if ( $item->date >= $newTime ) {
+                $newTime = Carbon::now()->subDays($item->package_live->duration);
+                if ( $item->date >= $newTime && $item->package_live->course_id == $session->lesson->chapter->course_id ) {
                     PaymentPackageOrder::
                     where('id', $item->id )
                     ->update([
