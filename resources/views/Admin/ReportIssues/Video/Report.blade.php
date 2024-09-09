@@ -71,17 +71,33 @@
                                 Video :
                                 <br />
                                 @if (!empty($item->lesson_video_id))
-                                  <iframe  scrolling="no" allowfullscreen style="width: 100%; margin-top: 45px;"
-                                  src="{{ $item->video->v_link }}" title="YouTube video player"
-                                  frameborder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                  allowfullscreen></iframe>
-                                @elseif(!empty($item->lesson_video_id))
-                                  <iframe  scrolling="no" allowfullscreen style="width: 100%; margin-top: 45px;"
-                                  src="{{ $item->q_video->ans_video }}" title="YouTube video player"
-                                  frameborder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                  allowfullscreen></iframe>
+                                  Category : {{$item->video->lesson->chapter->course->category->cate_name}}
+                                  <br />
+                                  Course : {{$item->video->lesson->chapter->course->course_name}}
+                                  <br />
+                                  Chapter : {{$item->video->lesson->chapter->chapter_name}}
+                                  <br />
+                                  Category : {{$item->video->lesson->lesson_name}}
+                                  <br />
+                                @elseif(!empty($item->q_video_id))
+                                  Answer of question
+                                  <br />
+                                  Category : {{$item->q_video->question->lessons->chapter->course->category->cate_name}}
+                                  <br />
+                                  Course : {{$item->q_video->question->lessons->chapter->course->course_name}}
+                                  <br />
+                                  Chapter : {{$item->q_video->question->lessons->chapter->chapter_name}}
+                                  <br />
+                                  Category : {{$item->q_video->question->lessons->lesson_name}}
+                                  <br />
+                                  Month : {{$item->q_video->question->month}}
+                                  <br />
+                                  Year : {{$item->q_video->question->year}}
+                                  <br />
+                                  Section : {{$item->q_video->question->section}}
+                                  <br />
+                                  Q Num : {{$item->q_video->question->q_num}}
+                                  <br />
                                 @endif
 
                             </div>

@@ -92,6 +92,24 @@
                                 </div> 
 
                             <div class="my-2 px-3">
+                              Answer of question
+                              <br />
+                              Category : {{$item->question->lessons->chapter->course->category->cate_name}}
+                              <br />
+                              Course : {{$item->question->lessons->chapter->course->course_name}}
+                              <br />
+                              Chapter : {{$item->question->lessons->chapter->chapter_name}}
+                              <br />
+                              Category : {{$item->question->lessons->lesson_name}}
+                              <br />
+                              Month : {{$item->question->month}}
+                              <br />
+                              Year : {{$item->question->year}}
+                              <br />
+                              Section : {{$item->question->section}}
+                              <br />
+                              Q Num : {{$item->question->q_num}}
+                              <br />
                             </div>
 
                             <div class="modal-footer">
