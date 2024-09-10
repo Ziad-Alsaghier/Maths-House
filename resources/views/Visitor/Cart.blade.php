@@ -236,7 +236,6 @@
                                                 placeholder="Discount Code" aria-label="Search">
                                             <button class="applyBtn">Apply</button>
                                         </div>
-                                        <button type="button" class="UpdateCard">Update card</button>
                                     </div>
                             </form>
                         </div>
@@ -266,7 +265,7 @@
                         </li>
                     </ul>
                 </div>
-                <form method="POST" action="{{ route('check_out') }}">
+                <form method="GET" action="{{ route('check_out') }}">
                     @csrf
                     @if (isset($chapter_discount) && $chapter_discount != null && $chapter_discount != 0)
                         <input type="hidden" class="chapters_pricing" name="chapters_pricing"

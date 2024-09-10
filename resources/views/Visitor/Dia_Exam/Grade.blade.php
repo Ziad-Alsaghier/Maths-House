@@ -96,10 +96,13 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="d-flex justify-content-center">
-                                            <button id="scrollButton" class="btn btn-danger mistake_btn">
+                                            <button id="scrollButton" class="btn btn-danger mx-2 mistake_btn">
                                                 Recommendation
                                             </button>
-                                        </td>
+                                            <a href="{{route('dia_exam_mistake_pdf', ['id' => $dia_id])}}" class="btn btn-danger">
+                                                PDF
+                                            </a> 
+                                        </td> 
                                     </tr>
                                 </table>
                             </div>

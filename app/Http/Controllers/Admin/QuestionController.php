@@ -35,12 +35,13 @@ class QuestionController extends Controller
     public function q_edit( $id, Request $req ){
         $arr = $req->only('question', 'lesson_id', 'year', 'month',
         'q_code', 'section', 'q_num', 'difficulty', 'ans_type');
-        
+        $req->id = isset($req->id) ? $req->id : [];
         if ( !empty($req->ans_video) ) {
             extract($_FILES['ans_pdf']);
             $q_ans_item = Q_ans::where('Q_id', $id)
+            ->whereNotIn('id', $req->id)
             ->delete();
-            for ($i=0, $end = count($req->ans_video); $i < $end; $i++) { 
+            for ($i=count($req->id), $end = count($req->ans_video); $i < $end; $i++) {
                 $pdf = now() . rand(1, 10000) . $name[$i];
                 $pdf = str_replace([' ', ':', '-'], 'X', $pdf);
                 

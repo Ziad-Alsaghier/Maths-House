@@ -127,7 +127,7 @@ use App\Models\Wallet;
         Route::post('/CheckOut/Course', 'check_out_course')->name('check_out_course');
         Route::get('/CheckOut/Promo/Course', 'promo_check_out_course')->name('promo_check_out_course');
         Route::post('/CheckOut/Course/PromoCode', 'course_use_promocode')->name('course_use_promocode');
-        Route::post('/CheckOut', 'check_out')->name('check_out');
+        Route::get('/CheckOut', 'check_out')->name('check_out');
         Route::get('/CheckOut/Chapter/Promo', 'promo_check_out_chapter')->name('promo_check_out_chapter');
         Route::post('/Course_Payment_Money', 'course_payment_money')->name('course_payment_money');
         Route::post('/Payment_Money', 'payment_money')->name('payment_money');

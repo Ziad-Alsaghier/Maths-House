@@ -490,6 +490,10 @@
             <div class="container-fluid full__width__padding">
                 <div class="row">
                     <div class="list_cont">
+                        <h4 class="pr-3 text-success">
+                            If you have an issues must clicked here
+                            <i class="fa fa-arrow-right"></i>
+                        </h4>
                         <i class="fa-solid fa-ellipsis-vertical" id="iconList"></i>
                         <div class="list_item d-none">
                             @foreach ( $reports as $report )

@@ -90,14 +90,17 @@ class V_DiaExamController extends Controller
                 $question = Question::where('id', $mcq_item->q_id)
                 ->first();
 
-                if ( isset($question->mcq[0]) && $question->mcq[0]->mcq_answers ) {
+                if ( isset($question->mcq[0]) && !empty($question->mcq[0]) ) {
                     $stu_solve = $question->mcq[0]->mcq_answers;
                     $arr = ['A', 'B', 'C', 'D', 'E']; 
                     if ( isset($mcq_item->answer) && $stu_solve == $mcq_item->answer ) {
                         $deg++;
                     } else {
-                        $mistakes[$question->lessons->chapter->id] = $question;
+                        $mistakes[] = $question;
                     }
+                }
+                else {
+                    $mistakes[] = $question;
                 }
             }
         }
@@ -126,7 +129,7 @@ class V_DiaExamController extends Controller
                 elseif ( floatval($grid_ans) == floatval($answer) ) {
                     $deg++;
                 } else {
-                    $mistakes[$question->lessons->chapter->course->id] = $question;
+                    $mistakes[] = $question;
                 }
             }
         }
@@ -140,29 +143,31 @@ class V_DiaExamController extends Controller
         $grade = $exam->pass_score < $score ? true : false;
         $deg =  $deg / $total_question * 100;
 
-        $stu_q = DiagnosticExamsHistory::where('user_id', auth()->user()->id)
-            ->where('diagnostic_exams_id', $req->quizze_id)
-            ->first();
+        // $stu_q = DiagnosticExamsHistory::where('user_id', auth()->user()->id)
+        //     ->where('diagnostic_exams_id', $req->quizze_id)
+        //     ->first();
             
-        if (empty($stu_q)) {
-            $stu_exam = DiagnosticExamsHistory::create([
-                'date' => now(),
-                'user_id' => auth()->user()->id,
-                'diagnostic_exams_id' => $exam->id,
-                'score' => $score,
-                'time' => $timer_val, 
-                'r_questions' => $right_question,
+        // if (empty($stu_q)) {
+        $stu_exam = DiagnosticExamsHistory::create([
+            'date' => now(),
+            'user_id' => auth()->user()->id,
+            'diagnostic_exams_id' => $exam->id,
+            'score' => $score,
+            'time' => $timer_val, 
+            'r_questions' => $right_question,
+        ]);
+
+        foreach ($mistakes as $item) {
+            DaiExamMistake::create([
+                'student_exam_id' => $stu_exam->id,
+                'question_id' => $item->id
             ]);
-
-            foreach ($mistakes as $item) {
-                DaiExamMistake::create([
-                    'student_exam_id' => $stu_exam->id,
-                    'question_id' => $item->id
-                ]);
-            }
         }
+        // }
 
-        return view('Visitor.Dia_Exam.Grade', compact('deg', 'grade', 'score', 'exam', 'right_question', 'total_question', 'mistakes'));
+        $dia_id = $stu_exam->id;
+        return view('Visitor.Dia_Exam.Grade', compact('deg', 'grade', 'score', 'exam', 
+        'dia_id', 'right_question', 'total_question', 'mistakes'));
     }
 
     public function dia_exam_history(){

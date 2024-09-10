@@ -528,7 +528,6 @@
                                             placeholder="Discount Code" aria-label="Search">
                                         <button class="applyBtn">Apply</button>
                                     </div>
-                                    <button type="button" class="UpdateCard">Update card</button>
                                 </div>
                             </form>
                         </div>
@@ -557,7 +556,7 @@
                             </li>
                         </ul>
                     </div>
-                    <form method="POST" action="{{ route('check_out_course') }}">
+                    <form method="GET" action="{{ route('check_out_course') }}">
                         @csrf
                         <input type="hidden" class="course_price" name="price"
                             value="{{ $min_price_data->price - ($min_price_data->discount * $min_price_data->price) / 100 }}" />
