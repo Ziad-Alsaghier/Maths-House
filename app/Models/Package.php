@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
+use App\Models\Course;
 
 class Package extends Model
 {
@@ -23,6 +24,11 @@ class Package extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_packages');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
 }

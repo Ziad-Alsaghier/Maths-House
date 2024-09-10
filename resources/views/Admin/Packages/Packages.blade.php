@@ -36,6 +36,9 @@
   Add New Package
 </button>
 
+<input type="hidden" class="categories" value="{{$categories}}" />
+<input type="hidden" class="courses" value="{{$courses}}" />
+
 <form method="POST" action="{{route('add_package')}}" enctype="multipart/form-data">
     @csrf
     <div class="modal fade" id="addModalCenter" tabindex="-1" aria-hidden="true" style="display: none;">
@@ -64,15 +67,23 @@
                       <option value="Live">Live</option>
                     </select>
                 </div>
+                <div class='my-3'>
+                    <label>Category</label>
+                    <select class="form-control sel_category1" name="course_id">
+                      <option disabled selected>
+                        Select Category ...  
+                      </option>
+                      @foreach ( $categories as $category )
+                      <option value="{{$category->id}}">{{$category->cate_name}}</option>
+                      @endforeach
+                    </select>
+                </div>
                 <div class='my-3 sel_course'>
                     <label>Course</label>
-                    <select class="form-control" name="course_id">
+                    <select class="form-control sel_course1" name="course_id">
                       <option disabled selected>
                         Select Course ...  
-                      </option>
-                      @foreach ( $courses as $course )
-                      <option value="{{$course->id}}">{{$course->course_name}}</option>
-                      @endforeach
+                      </option> 
                     </select>
                 </div>
                 <div class='my-3'>
@@ -101,13 +112,14 @@
     </div>
 </form>
 
-
 <table id="kt_profile_overview_table" class="table table-row-bordered table-row-dashed gy-4 align-middle fw-bold dataTable no-footer">
     <thead class="fs-7 text-gray-500 text-uppercase">
         <tr>
             <th class="min-w-250px sorting sorting_desc" tabindex="0" aria-controls="kt_profile_overview_table" rowspan="1" colspan="1" aria-label="Manager: activate to sort column ascending" style="width: 336.359px;" aria-sort="descending">#</th>
             <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_profile_overview_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 205.188px;">Name</th>
             <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_profile_overview_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 205.188px;">Module</th>
+            <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_profile_overview_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 205.188px;">Category</th>
+            <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_profile_overview_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 205.188px;">Course</th>
             <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_profile_overview_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 205.188px;">Number</th>
             <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_profile_overview_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 205.188px;">Price</th>
             <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_profile_overview_table" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 205.188px;">Duration</th>
@@ -124,6 +136,12 @@
             </td>
             <td>
                 {{$item->module}}
+            </td>
+            <td>
+                {{$item->course->category->cate_name}}
+            </td>
+            <td>
+                {{$item->course->course_name}}
             </td>
             <td>
                 {{$item->number}}
@@ -164,20 +182,46 @@
                                       </div>
                                       <div class='my-3'>
                                           <label>Module</label>
-                                          <select class="form-control" name="module">
-                                            <option value="{{$item->module}}" selected>{{$item->module}}</option>
-                                            <option value="Exam">Exam</option>
-                                            <option value="Question">Question</option>
-                                            <option value="Live">Live</option>
+                                          <select class="form-control" name="module"> 
+                                            @if ($item->module == 'Exam')
+                                              <option value="Exam" selected>Exam</option>
+                                            @else
+                                              <option value="Exam">Exam</option>
+                                            @endif
+                                            @if ($item->module == 'Question')
+                                              <option value="Question" selected>Question</option>
+                                            @else
+                                              <option value="Question">Question</option>
+                                            @endif
+                                            @if ($item->module == 'Live')
+                                              <option value="Live" selected>Live</option>
+                                            @else
+                                              <option value="Live">Live</option>
+                                            @endif 
+                                          </select>
+                                      </div>
+                                      <div class='my-3'>
+                                          <label>Category</label>
+                                          <select class="form-control sel_category2" name="course_id">
+                                            <option disabled selected>
+                                              Select Category ...  
+                                            </option>
+                                            @foreach ( $categories as $category )
+                                            @if ($category->id == $item->course->category->id)
+                                            <option selected value="{{$category->id}}">{{$category->cate_name}}</option>
+                                            @else
+                                            <option value="{{$category->id}}">{{$category->cate_name}}</option>
+                                            @endif
+                                            @endforeach
                                           </select>
                                       </div>
                                       <div class='my-3'>
                                           <label>Course</label>
-                                          <select class="form-control" name="course_id">
+                                          <select class="form-control sel_course2" name="course_id">
                                             <option disabled selected>
                                               Select Course ...  
                                             </option>
-                                            @foreach ( $courses as $course )
+                                            @foreach ( $courses->where('category_id', $item->course->category->id) as $course )
                                             @if ( $course->id == $item->course_id )
                                             <option value="{{$course->id}}" selected>{{$course->course_name}}</option>
                                             @else
@@ -246,4 +290,44 @@
     </tbody>
 </table>
 
+<script>
+  let sel_category1 = document.querySelector('.sel_category1');
+  let sel_course1 = document.querySelector('.sel_course1');
+
+  let sel_category2 = document.querySelectorAll('.sel_category2');
+  let sel_course2 = document.querySelectorAll('.sel_course2');
+ 
+  let courses = document.querySelector('.courses');
+  courses = courses.value;
+  courses = JSON.parse(courses);
+
+  sel_category1.addEventListener('change', () => {
+    sel_course1.innerHTML = `<option selected disabled>Select Course ...</option>`;
+    courses.forEach(item => {
+      if (sel_category1.value == item.category_id) {
+        sel_course1.innerHTML += `
+        <option value="${item.id}">${item.course_name}</option>
+        `;
+      }
+    });
+  });
+
+  for (let i = 0, end = sel_category2.length; i < end; i++) {
+    sel_category2[i].addEventListener('change', ( e ) => {
+      for (let j = 0; j < end; j++) { 
+        if (e.target == sel_category2[j]) {
+          sel_course2[j].innerHTML = `<option selected disabled>Select Course ...</option>`;
+          courses.forEach(item => {
+            if (sel_category2[j].value == item.category_id) {
+              sel_course2[j].innerHTML += `
+              <option value="${item.id}">${item.course_name}</option>
+              `;
+            }
+          })
+        }
+      }
+    })
+  }
+
+</script>
 </x-default-layout>

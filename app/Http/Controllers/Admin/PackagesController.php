@@ -9,16 +9,18 @@ use App\Models\Package;
 use App\Models\User;
 use App\Models\SmallPackage;
 use App\Models\Course;
+use App\Models\Category;
 
 class PackagesController extends Controller
 {
     
     public function index(){
         $courses = Course::all();
+        $categories = Category::all();
         $package = Package::
         orderByDesc('id')
         ->simplePaginate(10);
-        return view('Admin.Packages.Packages', compact('package', 'courses'));
+        return view('Admin.Packages.Packages', compact('package', 'courses', 'categories'));
     }
 
     public function del_package( $id ){
