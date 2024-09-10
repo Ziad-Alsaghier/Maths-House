@@ -9,12 +9,23 @@
 
 @section('page_content')
 
+<style>
+ .innerTr{
+    display: flex;
+    justify-content: space-between;
+ }
+ .innerTd{
+    border-bottom:0
+ }
+
+</style>
+
 <table class="table">
     <thead>
         <th>#</th>
         <th>Name</th>
-        <th>Date</th> 
-        <th>Score</th> 
+        <th>Date</th>
+        <th>Score</th>
         <th>Time</th>
         <th>PDF</th>
         <th>Report</th>
@@ -35,25 +46,25 @@
             </td>
             <td>
                 {{$item->score}}
-            </td> 
+            </td>
             <td>
                 {{$item->time}}
-            </td> 
+            </td>
             <td>
                 <a href="{{route('dia_exam_mistake_pdf', ['id' => $item->id])}}" class="btn btn-primary">
                     PDF
-                </a> 
+                </a>
             </td>
             <td>
                 <a href="{{route('dia_exam_report_pdf', ['id' => $item->id])}}" class="btn btn-primary">
                     Report
-                </a> 
+                </a>
             </td>
             <td>
                 <button class="btn btn-primary mistake_btn">
                     Recommendation
-                </button> 
-                            
+                </button>
+
                 <div class="app-email card my-3 mistakes_questions d-none">
                     <div class="border-0">
                         <div class="row g-0  p-3 align-items-center">
@@ -97,7 +108,7 @@
     let mistake_btn = document.querySelectorAll('.mistake_btn');
     let ans_item_btn = document.querySelectorAll('.ans_item_btn');
     let ans_item = document.querySelectorAll('.ans_item');
-    
+
     for (let i = 0, end = ans_item_btn.length; i < end; i++) {
         ans_item_btn[i].addEventListener('click', ( e ) => {
             for (let j = 0; j < end; j++) {

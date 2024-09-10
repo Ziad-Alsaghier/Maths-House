@@ -237,6 +237,21 @@
         color: #B9B9B9;
         font-weight: 600;
     }
+
+    /* Default flex direction (row) */
+    .flex-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+    }
+
+    /* Media query for screens with a minimum width of 600px */
+    @media (max-width: 600px) {
+    .flex-container {
+        flex-direction: column;
+    }
+    }
+
 </style>
 <div class="wrapper">
     <div class="preloader"></div>
@@ -338,8 +353,10 @@
 
 
     <section>
+
+    <!-- Pop-up Modal (Hidden by Default) -->
         <form class="col-12 d-flex flex-column justify-content-center align-items-center" style="row-gap: 3rem"
-            action="{{ route('course_payment_money') }}" method="POST" enctype="multipart/form-data">
+            action="{{ route('course_payment_money') }}" method="POST" enctype="multipart/form-data" id="orderForm">
             @csrf
             <div class="col-9 d-flex align-items-center justify-content-center">
                 <h1 style="color: #CF202F">Check Out</h1>
@@ -428,7 +445,7 @@
             </div>
 
             {{-- Receipt && Phone --}}
-            <div class="col-9 d-none upload_receipt align-items-start justify-content-between upload_receipt" style="column-gap: 1rem">
+            <div class="col-9 d-none upload_receipt align-items-start justify-content-start upload_receipt flex-container" style="column-gap: 1rem">
                 <div id="selImg" class="d-flex align-items-center justify-content-center"
                     style="height: 70px; column-gap: 0.3rem">
                     <h3 style="color: #fff;font-weight: 700">Upload Receipt</h3>
@@ -440,13 +457,35 @@
                     <h3>Description:</h3>
                     <p class="desPay"></p>
                 </div> -->
-            </div>
 
+                <div class="d-flex align-items-center justify-content-start" style="column-gap: 0.6rem ;padding: 10px; background-color: #f8f9fa;border-radius: 5px;">
+                <h3 id="fileUrl" class="desPay"></h3>
+                </div>
+            </div>
             {{-- Footer Check Out --}}
             <div class="col-9 d-flex align-items-center justify-content-start">
-                <button class="btnCheckout">Place Order</button>
+                <button class="btnCheckout"  id="placeOrderBtn">Place Order</button>
             </div>
         </form>
+
+<!-- Modal Structure -->
+<div id="orderModal" class="modal fade" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Order Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        This process is under review and will be completed within 24 hours.
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="confirmBtn" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     </section>
 
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
@@ -623,9 +662,55 @@ loadPriceDetails();
     $(document).ready(function() {
     /* radio-button__input */
         console.log("first")
-        $("#selImg").click(function() {
-            $("#img").click();
-        })
+        // $("#selImg").click(function() {
+        //     $("#img").click();
+        // })
+
+    // Get the elements
+    const selImg = document.getElementById('selImg');
+    const imgInput = document.getElementById('img');
+    const fileUrl = document.getElementById('fileUrl');
+
+    // Trigger file input click when the div is clicked
+    selImg.addEventListener('click', () => {
+        imgInput.click();
+    });
+
+    // Display file URL and make it clickable when an image is selected
+    imgInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const file = this.files[0];
+            let url = URL.createObjectURL(file);
+
+            // Remove "blob:" from the beginning of the URL
+            url = url.replace('blob:', '');
+
+            // Create an anchor tag with the URL and make it clickable
+            fileUrl.innerHTML = `<a href="${url}" target="_blank" style="font-size: 18px; font-weight: bold; color: #CF202F; text-decoration: none;">
+                                ${url}
+                            </a>`;
+            fileUrl.style.display = 'block'; // Make the file URL visible
+        }
+    });
+
+// Get elements
+  let placeOrderBtn = document.getElementById('placeOrderBtn');
+  let orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+  let confirmBtn = document.getElementById('confirmBtn');
+  let orderForm = document.getElementById('orderForm');
+
+  // Show the modal when clicking the Place Order button
+  placeOrderBtn.onclick = function(event) {
+    event.preventDefault(); // Prevent form from submitting immediately
+    orderModal.show(); // Show modal using Bootstrap's modal method
+  }
+
+  // Proceed with form submission when clicking OK
+  confirmBtn.onclick = function() {
+    orderModal.hide(); // Hide modal using Bootstrap's modal method
+    orderForm.submit(); // Submit the form
+  }
+
 
         $(".radio-button__input").on('change', function() {
             var selectedMethodId = $(this).val();
