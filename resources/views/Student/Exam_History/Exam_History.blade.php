@@ -9,12 +9,23 @@
 
 @section('page_content')
 
+<style>
+ .innerTr{
+    display: flex;
+    justify-content: space-between;
+ }
+ .innerTd{
+    border-bottom:0
+ }
+
+</style>
+
 <table class="table">
     <thead>
         <th>#</th>
         <th>Name</th>
-        <th>Date</th> 
-        <th>Score</th> 
+        <th>Date</th>
+        <th>Score</th>
         <th>PDF</th>
         <th>View Mistakes</th>
         <th>Recommendation</th>
@@ -34,7 +45,7 @@
             </td>
             <td>
                 {{$element->score}}
-            </td> 
+            </td>
             <td>
             <a href="{{route('exam_mistake_pdf', ['id' => $element->id])}}" class="btn btn-primary mistake_btn">
                 PDF
@@ -48,10 +59,10 @@
             <td>
             <button class="btn btn-primary recomm_btn">
                 Recommendation
-            </button> 
-            
+            </button>
+
 <div class="app-email card my-3 reomm_questions d-none">
-    <div class="border-0">
+    <div class="border-0 p-0">
         <div class="row g-0  p-3 align-items-center">
             @php
                 $arr_id = [];
@@ -59,12 +70,12 @@
             @endphp
             @foreach ( $element->mistakes as $item )
             @if ( !isset($ch_arr[$item->question->lessons->chapter->chapter_name]) )
-            <table class="table">
-                <tr>
-                    <td>
+            <table class="table innerTable">
+                <tr class="innerTr">
+                    <td class="innerTd">
                     Chapter => {{$item->question->lessons->chapter->chapter_name}}
                     </td>
-                    <td>
+                    <td class="innerTd">
                         <a href="{{route('buy_chapter', ['id' => $item->question->lessons->chapter->id])}}" class="btn btn-primary">
                             Buy
                         </a>
@@ -73,6 +84,7 @@
                         @endphp
                     </td>
                 </tr>
+                <hr/>
             </table>
             @endif
             @php
@@ -93,7 +105,7 @@
     let q_ans_item = document.querySelectorAll('.q_ans_item');
     let close_qiuzze_btn = document.querySelectorAll('.close_qiuzze_btn');
     let close_form_btn = document.querySelectorAll('.close_form_btn');
-    
+
     for (let i = 0, end = ans_item_btn.length; i < end; i++) {
         ans_item_btn[i].addEventListener('click', ( e ) => {
             for (let j = 0; j < end; j++) {
@@ -125,7 +137,7 @@
 <script>
     let reomm_questions = document.querySelectorAll('.reomm_questions');
     let recomm_btn = document.querySelectorAll('.recomm_btn');
-    
+
     for (let i = 0, end = recomm_btn.length; i < end; i++) {
         recomm_btn[i].addEventListener('click', ( e ) => {
             for (let j = 0; j < end; j++) {

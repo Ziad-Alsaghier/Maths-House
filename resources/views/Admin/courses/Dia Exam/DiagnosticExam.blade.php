@@ -954,7 +954,7 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="quizze_item lesson_quizze">
-                                                                        
+
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -1335,13 +1335,17 @@
                     console.log("darar", data)
                     quizze_item.innerHTML = null;
                     data.forEach((element, index) => {
+
+                            // Check if exam_code exists in element.code, otherwise set it to 'null'
+                            const examCode = element.code && element.code.exam_code ? element.code.exam_code : 'null';
+                            
                         quizze_item.innerHTML += `<tr>
                           <th scope="row" class="idd d-none">${element.question_id}</th>
                           <th>${index + 1}</th>
                           <td class="type" id="type">${element.q_type}</td>
                           <td class="year" id="year">${element.year}</td>
                           <td class="month" id="month">${element.month}</td>
-                          <td class="code" id="code">${element.code.exam_code}</td>
+                          <td class="code" id="code">${examCode}</td>
                           <td class="section" id="section">${element.section}</td>
                           <td class="noNum" id="noNum">${element.q_num}</td>
                           <td class="diff" id="diff">${element.difficulty}</td>
@@ -1489,13 +1493,17 @@
                                     /* data.questions */
                                     quizze_item.innerHTML = null;
                                     (data.questions).forEach((element, index) => {
+
+                                        // Check if exam_code exists in element.code, otherwise set it to 'null'
+                            const examCode = element.code && element.code.exam_code ? element.code.exam_code : 'null';
+
                                         quizze_item.innerHTML += `<tr class="filterResult">
                                     <th scope="row" class="idd d-none">${element.id}</th>
                                     <th>${index + 1}</th>
                                     <td class="type" id="type">${element.q_type}</td>
                                     <td class="year" id="year">${element.year}</td>
                                     <td class="month" id="month">${element.month}</td>
-                                    <td class="code" id="code">${element.code.exam_code}</td>
+                                    <td class="code" id="code">${examCode}</td>
                                     <td class="section" id="section">${element.section}</td>
                                     <td class="noNum" id="noNum">${element.q_num}</td>
                                     <td class="diff" id="diff">${element.difficulty}</td>
@@ -1593,13 +1601,16 @@
                             /* data.questions */
                             $(parFilterEdit).parent().find(".lesson_quizze").empty();
                             (data.questions).forEach((element, index) => {
-                                $(parFilterEdit).parent().find(".lesson_quizze").append(`<tr class="filterResultEdit">
+
+                            // Check if exam_code exists in element.code, otherwise set it to 'null'
+                            const examCode = element.code && element.code.exam_code ? element.code.exam_code : 'null';
+                        $(parFilterEdit).parent().find(".lesson_quizze").append(`<tr class="filterResultEdit">
                           <input type="hidden" value=${element.id} class="question_id ques_id quizze_ID" />
                           <th>${index + 1}</th>
                           <td class="type" id="type">${element.q_type}</td>
                           <td class="year" id="year">${element.year}</td>
                           <td class="month" id="month">${element.month}</td>
-                          <td class="code" id="code">${element.code.exam_code}</td>
+                          <td class="code" id="code">${examCode}</td>
                           <td class="section" id="section">${element.section}</td>
                           <td class="noNum" id="noNum">${element.q_num}</td>
                           <td class="diff" id="diff">${element.difficulty}</td>
