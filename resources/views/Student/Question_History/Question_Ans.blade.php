@@ -208,7 +208,7 @@
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></iframe> --}}
                                 
-                                    <iframe  scrolling="no" allowfullscreen width="560" height="315" src="{{ $q_ans->ans_video }}" frameborder="0"
+                                    <iframe  scrolling="no" allowfullscreen width="1500" height="315" src="{{ $q_ans->ans_video }}" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>
 
