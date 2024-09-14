@@ -81,14 +81,26 @@
 
 <form action="{{route('wallet_filter')}}" method="GET">
     @csrf
-    <div class="d-flex my-3 d-none wallet_filter">
+    <div class="d-flex my-3 {{isset($data) ? 'null': 'd-none'}} wallet_filter">
         <select style="width: 150px;" name="state" class="form-control">
             <option value="Pendding">
                 Select State ...
             </option>
+            @if (@$data['state'] == 'Pendding')
+            <option value="Pendding" selected>Pendding</option>
+            @else
             <option value="Pendding">Pendding</option>
+            @endif
+            @if (@$data['state'] == 'Approve')
+            <option value="Approve" selected>Approve</option>
+            @else
             <option value="Approve">Approve</option>
+            @endif
+            @if (@$data['state'] == 'Rejected')
+            <option value="Rejected" selected>Rejected</option>
+            @else
             <option value="Rejected">Rejected</option>
+            @endif  
         </select>
 
         <button class="mx-3 btn btn-info">
@@ -97,7 +109,7 @@
     </div>
 </form>
 
-<table class="table show_history d-none">
+<table class="table show_history {{isset($data) ? 'null': 'd-none'}}">
     <thead>
         <th>#</th>
         <th>Wallet</th> 

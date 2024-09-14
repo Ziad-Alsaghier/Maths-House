@@ -36,8 +36,9 @@ class Stu_WalletController extends Controller
         ->where('state', 'Approve')
         ->sum('wallet');
         $payment_methods = PaymentMethod::all();
+        $data = $req->all();
 
-        return view('Student.Wallet.Wallet', compact('wallets', 'money', 'payment_methods'));
+        return view('Student.Wallet.Wallet', compact('wallets', 'money', 'payment_methods', 'data'));
     }
 
     public function add_wallet( Request $req ){
