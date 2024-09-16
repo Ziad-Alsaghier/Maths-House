@@ -694,7 +694,7 @@
                                 <input name="q_grid_answers[]" type="hidden" class="q_grid_answers"
                                     value="{{ json_encode(['q_id' => $question->id]) }}" />
                                 {{-- Answer Set Value --}}
-                                <div class="answer-setValue">
+                                {{-- <div class="answer-setValue">
                                     <div class="section-setValue">
                                         <span>Answer:</span>
                                         <div class="input_val">
@@ -706,6 +706,19 @@
                                     <div class="section-value">
                                         <span>Answer Preview:</span>
                                         <input type="number" value="00000" readonly>
+                                    </div>
+                                </div> --}}
+                                <div class="answer-setValue">
+                                    <div class="section-setValue">
+                                        <span>Answer:</span>
+                                        <div class="input_val">
+                                            <input type="text" name="q_grid_ans[]" step="0.001" value="0" class="gridVal" id="input_val30">
+                                        </div>
+                                        <input type="button" value="/" class="addSl">
+                                    </div>
+                                    <div class="section-value">
+                                        <span>Answer Preview:</span>
+                                        <input type="number" id="section-value30" value="00000" readonly>
                                     </div>
                                 </div>
                             @endif
@@ -834,7 +847,7 @@
                     console.log("6666")
                 }
             }
-            
+
             var timer_val = $("#timer_val").val();
             $.ajax({
                 url: "{{ route('api_timer') }}",
@@ -924,10 +937,53 @@
         /* /////////////// */
         /* Rewrite value in inpit */
         /* /////////////// */
-        $("#input_val30").keyup(() => {
-            var answerValue = $("#input_val30").val()
-            $("#section-value30").val(answerValue)
-        })
+        // $("#input_val30").keyup(() => {
+        //     var answerValue = $("#input_val30").val()
+        //     $("#section-value30").val(answerValue)
+        // })
+
+
+// Keyup event to handle direct input changes (e.g., "1" or "1/5")
+$("#input_val30").keyup(() => {
+    updatePreview();
+});
+
+// Click event for the "/" button to add "/" to the input field
+$(".addSl").click(() => {
+    var currentValue = $("#input_val30").val();
+
+    // Add "/" only if it doesn't already exist
+    if (!currentValue.includes('/')) {
+        $("#input_val30").val(currentValue + '/');
+    }
+    updatePreview();
+});
+
+// Function to update the Answer Preview based on the input
+function updatePreview() {
+    var answerValue = $("#input_val30").val();
+    var previewValue = answerValue;
+
+    // Check if the input contains a fraction (e.g., "1/5")
+    if (answerValue.includes('/')) {
+        var parts = answerValue.split('/');
+        var numerator = parseFloat(parts[0]);
+        var denominator = parseFloat(parts[1]);
+
+        // Validate if both parts are numbers and denominator is not zero
+        if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
+            previewValue = numerator / denominator;
+        } else {
+            previewValue = "Invalid fraction";  // Optional: Show error for invalid fraction
+        }
+    } else if (!isNaN(answerValue)) {
+        // If the input is just a regular number
+        previewValue = parseFloat(answerValue);
+    }
+
+    // Update the preview field with the calculated or entered value
+    $("#section-value30").val(previewValue);
+}
 
         /* /////////////// */
         /* But border out side the answer  */
@@ -1077,10 +1133,10 @@
             });
 
         });
-        $(".addSl").on("click", function() {
-            var inpVal = $(this).closest(".section-setValue").find(".gridVal");
-            var currentVal = inpVal.val().toString();
-            inpVal.val(currentVal + "/");
-        });
+        // $(".addSl").on("click", function() {
+        //     var inpVal = $(this).closest(".section-setValue").find(".gridVal");
+        //     var currentVal = inpVal.val().toString();
+        //     inpVal.val(currentVal + "/");
+        // });
     });
 </script>
