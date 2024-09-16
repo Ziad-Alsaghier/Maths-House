@@ -116,7 +116,11 @@ class V_DiaExamController extends Controller
                 $answer = $req->q_grid_ans[$i];
                 if ( strpos($answer, '/') ) {
                     $arr_ans = explode('/', $answer);
-                    $answer = floatval($arr_ans[0]) / floatval($arr_ans[1]);
+                    try {
+                        $answer = floatval($arr_ans[0]) / floatval($arr_ans[1]);
+                    } catch (\Throwable $th) {
+                        $answer = 0;
+                    }
                     if ( floatval($grid_ans) == $answer || 
                     (floatval($grid_ans) - $answer < .06 && floatval($grid_ans) - $answer > 0 ) ||
                     ($answer - floatval($grid_ans) < .06 && $answer - floatval($grid_ans) > 0 ) ) {
