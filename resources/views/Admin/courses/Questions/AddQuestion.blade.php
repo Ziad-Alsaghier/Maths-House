@@ -572,7 +572,6 @@
          let sel_category2 = document.querySelector('.sel_category2');
          let sel_my_course2 = document.querySelector('.sel_my_course2');
          let sel_my_chapter2 = document.querySelector('.sel_my_chapter2');
-         let sel_my_lesson2 = document.querySelector('.sel_my_lesson2');
          sel_category2.addEventListener('change', (e) => {
              sel_my_course2.innerHTML = `
         <option value="">
@@ -626,6 +625,7 @@
          let year = document.querySelector('.year');
          let month = document.querySelector('.month');
          let section = document.querySelector('.section');
+         let sel_my_lesson2 = document.querySelector('.sel_my_lesson2');
          let q_type = document.querySelector('.q_type');
          let ques_code = document.querySelector('.ques_code');
          let close_btn = document.querySelector('.close_btn');
@@ -645,6 +645,7 @@
                      'q_num': q_num.value,
                      'q_type': q_type.value,
                      'q_code': ques_code.value,
+                     'lesson' : sel_my_lesson2.value,
                      '_token': "{{ csrf_token() }}"
                  };
                  console.log(obj);
