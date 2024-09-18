@@ -312,6 +312,7 @@ class QuestionController extends Controller
             ->where('section', $req->section)
             ->where('q_num', $req->q_num)
             ->where('q_code', $req->q_code)
+            ->where('lesson_id', $req->lesson)
             ->first();
         }
         else{ 
@@ -320,6 +321,7 @@ class QuestionController extends Controller
             ->where('month', $req->month)
             ->where('section', $req->section)
             ->where('q_num', $req->q_num)
+            ->where('lesson_id', $req->lesson)
             ->first();
         }
 

@@ -328,6 +328,8 @@ class Stu_MyCourseController extends Controller
             ->where('year', $question->year)
             ->where('section', $question->section)
             ->where('q_num', $question->q_num)
+            ->where('q_code', $question->q_code)
+            ->where('lesson_id', $question->lesson_id)
             ->where('id', '!=', $id)
             ->get();
 

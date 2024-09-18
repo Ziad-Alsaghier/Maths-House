@@ -278,7 +278,7 @@ class Logincontroller extends Controller
                  
                 $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone', 'city_id', 'grade');
                 $arr['position'] = 'student';
-                $arr['state'] = 'hidden';
+                $arr['state'] = 'Show';
                 $arr['password'] = bcrypt($req->password);
                 $code = rand(0, 10000);
 
@@ -292,15 +292,11 @@ class Logincontroller extends Controller
                 if( !empty($check) ){
                         return redirect()->back()->withErrors(['email'=>'This Email Already Exist']) ; 
                 }
-                $user = ConfirmSign::create([
-                        'code' => $code,
-                        'email' => $req->email,
-                ]); 
                 $user = User::create($arr);
-                Mail::To($req->email)->send(new Sign_upEmail($req->email, $code, $user->id));
                 
                 $token = $user->createToken("user")->plainTextToken;
-                 $user->token =$token;
+                $user->token =$token ;
+                Auth::loginUsingId($user->id);
                  $value = Cookie::get('device_id');
                  if ( empty($value) ) {
                          $value = rand(1, 99999999999);
@@ -312,7 +308,6 @@ class Logincontroller extends Controller
                  'ip' => $value,
                 ]);
 
-                 $req->session()->put('email_session', 'Check your email for verification');
                 return redirect()->route('stu_dashboard');
         }
 
