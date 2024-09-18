@@ -124,7 +124,7 @@ use App\Models\Wallet;
     });
     Route::controller(V_CoursesController::class)->group(function(){
         Route::post('/Use_Promocode', 'use_promocode')->name('use_promocode');
-        Route::post('/CheckOut/Course', 'check_out_course')->name('check_out_course');
+        Route::get('/CheckOut/Course', 'check_out_course')->name('check_out_course');
         Route::get('/CheckOut/Promo/Course', 'promo_check_out_course')->name('promo_check_out_course');
         Route::post('/CheckOut/Course/PromoCode', 'course_use_promocode')->name('course_use_promocode');
         Route::get('/CheckOut', 'check_out')->name('check_out');
