@@ -119,7 +119,6 @@ class Stu_MyCourseController extends Controller
     }
 
     public function quizze_ques_ans( $id ){
-
         $question = Question::where('id', $id)
         ->first();
         if ( empty(auth()->user()) ) {
@@ -392,6 +391,7 @@ class Stu_MyCourseController extends Controller
             
         }
 
+        return 786;
         return view('Student.MyCourses.History', compact('history'));
     }
 
