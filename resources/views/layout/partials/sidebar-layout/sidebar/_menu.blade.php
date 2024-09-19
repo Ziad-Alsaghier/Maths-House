@@ -506,6 +506,13 @@
 							<span class="menu-title">Exam Code</span>
 						</a>
 						<a class="menu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+							href="{{ route('currency') }}">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Currency</span>
+						</a>
+						<a class="menu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
 							href="{{ route('logout_users') }}">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>

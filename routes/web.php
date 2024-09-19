@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\Ad_ReportsController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\LogoutUsersController;
 use App\Http\Controllers\Admin\PackagesController as Ad_PackagesController;
+use App\Http\Controllers\Admin\CurrencyController;
 
 use App\Http\Controllers\Student\Stu_DashboardController;
 use App\Http\Controllers\Student\Stu_ProfileController;
@@ -157,7 +158,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Update', 'update_slider')->name('update_slider');
         Route::post('/Add', 'add_img_slider')->name('add_img_slider');
     });
-
+    
     // Report Issues
     Route::controller(ReportIssuesController::class)->middleware('can:ReportIssues')
     ->prefix('ReportIssues')->group(function(){
@@ -366,6 +367,13 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     Route::controller(LogoutUsersController::class)->middleware('can:Settings')->group(function(){
         Route::get('/LogoutUsers','index')->name('logout_users');
         Route::get('/LogoutUsers/{id}','logout')->name('logout_account_users');
+    });
+
+    Route::controller(CurrencyController::class)->middleware('can:Settings')->prefix('Currency')->group(function(){
+        Route::get('/', 'view')->name('currency');
+        Route::post('/Add', 'add')->name('add_currency');
+        Route::post('/Edit/{id}', 'modify')->name('edit_currency');
+        Route::get('/delete/{id}', 'delete')->name('delete_currency');
     });
 
     // Diagnostic Exam 
