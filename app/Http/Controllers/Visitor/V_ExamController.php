@@ -88,6 +88,7 @@ class V_ExamController extends Controller
         $courses = Course::all();
         $categories = Category::all();
         $data = $req->all();
+        return count($exam_items);
         if (count($exam_items) == 0) {
             session()->flash('faild','No Exams');
         }
