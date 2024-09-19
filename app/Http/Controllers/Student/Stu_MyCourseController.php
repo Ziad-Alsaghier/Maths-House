@@ -362,6 +362,9 @@ class Stu_MyCourseController extends Controller
         ->get();
         foreach ($history as  $item) {
 
+            if ($item->time == null || !empty($item->time)) {
+                $item->time = '00:00:00';
+            }
             // Assume input format is 'H:i:s', e.g., '01:00:00' and '00:10:00'
             // Retrieve quiz period and solve period from the request
             $quizPeriod = Carbon::createFromTimeString($item->quizze->time);
@@ -391,7 +394,6 @@ class Stu_MyCourseController extends Controller
             
         }
 
-        return 786;
         return view('Student.MyCourses.History', compact('history'));
     }
 
