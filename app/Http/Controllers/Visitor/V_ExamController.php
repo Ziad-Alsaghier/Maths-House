@@ -22,6 +22,7 @@ use App\Models\SmallPackage;
 use App\Models\MarketingPopup;
 use App\Models\ReportQuestionList;
 use App\Models\ReportVideoList;
+use App\Models\Currancy;
 
 use Carbon\Carbon;
 
@@ -165,8 +166,9 @@ class V_ExamController extends Controller
             $categories = Category::get();
             $courses = Course::get();
             $module = 'Exam';
+            $currency = Currancy::all();
             return view('Student.Exam.Exam_Package', 
-            compact('package', 'categories', 'courses', 'module'));
+            compact('package', 'categories', 'courses', 'module', 'currency'));
              
             
         }
@@ -178,9 +180,10 @@ class V_ExamController extends Controller
         $courses = Course::get();
         $categories = Category::get();
         $module = 'Exam';
+        $currency = Currancy::all();
 
         return view('Student.Exam.Exam_Package', 
-        compact('package', 'courses', 'categories', 'module'));
+        compact('package', 'courses', 'categories', 'module', 'currency'));
     }
 
     public function filter_package(Request $request){
@@ -192,9 +195,10 @@ class V_ExamController extends Controller
         $categories = Category::get();
         $module = $request->module;
         $data = $request->all();
+        $currency = Currancy::all();
 
         return view('Student.Exam.Exam_Package', 
-        compact('package', 'courses', 'categories', 'module', 'data'));
+        compact('package', 'courses', 'categories', 'module', 'data', 'currency'));
     }
 
     public function exam_ans( $id, Request $req )

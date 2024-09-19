@@ -26,6 +26,7 @@ use App\Models\ReportQuestionList;
 use App\Models\ReportQuestion;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Currancy;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
@@ -165,10 +166,11 @@ class Stu_MyCourseController extends Controller
             $categories = Category::get();
             $courses = Course::get();
             $module = 'Question';
+            $currency = Currancy::all();
  
             Cookie::queue(Cookie::make('q_ans_id', $id, 90));
             return view('Student.Exam.Exam_Package', 
-            compact('package', 'categories', 'courses', 'module')); 
+            compact('package', 'categories', 'courses', 'module', 'currency')); 
         }
     }
 

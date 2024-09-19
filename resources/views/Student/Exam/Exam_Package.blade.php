@@ -51,6 +51,17 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
         }
     </style>
 
+    <div class="d-flex justify-content-center align-items-center my-3">
+        <select name="category_id" style="width: 300px" class="form-control mx-2 selCategory">
+            <option disabled selected>
+                Select Currency ...
+            </option>
+            @foreach ($currency as $item)
+            <option value="{{$item->id}}">{{$item->currency}}</option>
+            @endforeach
+        </select>
+    </div>
+
     <form action="{{route('filter_package')}}" method="get">
         <div class="d-flex justify-content-center align-items-center my-3">
             <select name="category_id" style="width: 300px" class="form-control mx-2 selCategory">

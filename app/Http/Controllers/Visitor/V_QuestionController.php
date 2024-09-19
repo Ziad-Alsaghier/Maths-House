@@ -20,6 +20,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\ExamCodes;
 use App\Models\ReportVideoList;
+use App\Models\Currancy;
 
 use Carbon\Carbon;
 
@@ -177,8 +178,9 @@ class V_QuestionController extends Controller
             $courses = Course::get();
             $module = 'Question';
             Cookie::queue(Cookie::make('q_id', $id, 90));
+            $currency = Currancy::all();
             return view('Student.Exam.Exam_Package', 
-            compact('package', 'categories', 'courses', 'module'));
+            compact('package', 'categories', 'courses', 'module', 'currency'));
         }
     }
  
@@ -208,9 +210,10 @@ class V_QuestionController extends Controller
         $courses = Course::get();
         $categories = Category::get();
         $module = 'Question';
+        $currency = Currancy::all();
 
         return view('Student.Exam.Exam_Package', 
-        compact('package', 'courses', 'categories', 'module'));
+        compact('package', 'courses', 'categories', 'module', 'currency'));
     }
 
     public function q_sol( Request $req ){ 
@@ -397,10 +400,11 @@ class V_QuestionController extends Controller
             $categories = Category::get();
             $courses = Course::get();
             $module = 'Question';
+            $currency = Currancy::all();
  
             Cookie::queue(Cookie::make('q_ans_id', $id, 90));
             return view('Student.Exam.Exam_Package', 
-            compact('package', 'categories', 'courses', 'module'));
+            compact('package', 'categories', 'courses', 'module', 'currency'));
         }
     }
 

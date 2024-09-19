@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Currancy;
 
 class V_LiveController extends Controller
 {
@@ -18,9 +19,10 @@ class V_LiveController extends Controller
         $courses = Course::get();
         $categories = Category::get();
         $module = 'Live';
+        $currency = Currancy::all();
 
         return view('Student.Exam.Exam_Package', 
-        compact('package', 'courses', 'categories', 'module'));
+        compact('package', 'courses', 'categories', 'module', 'currency'));
     }
 
 }
