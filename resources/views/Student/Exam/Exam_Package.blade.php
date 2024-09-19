@@ -52,6 +52,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     </style>
 
     <div class="d-flex justify-content-center align-items-center my-3">
+        <input type="hidden" class="{{$currency}}" />
         <select name="category_id" style="width: 300px" class="form-control mx-2 selCategory">
             <option disabled selected>
                 Select Currency ...

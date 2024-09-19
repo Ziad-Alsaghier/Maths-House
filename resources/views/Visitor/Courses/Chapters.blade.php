@@ -838,6 +838,15 @@
                 </div>
                 <div class="col-lg-4 col-xl-3">
                     <div class="instructor_pricing_widget">
+                        <div class="d-flex alogn-items-center justify-content-center m-2">
+                            <input type="hidden" class="{{$currency}}" />
+                            <select class="form-control w-150px">
+                                <option selected disabled>Select Currency ...</option>
+                                @foreach ($currency as $item)
+                                    <option value="{{$item->id}}">{{$item->currency}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="price">Price
                             <label><s class="t_price price text-danger">${{ $price }}</s></label>
                             <label class="t_discount_price text-success">${{ $total_price }}</label>

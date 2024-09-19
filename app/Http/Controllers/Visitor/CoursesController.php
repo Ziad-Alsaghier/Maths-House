@@ -26,8 +26,9 @@ use App\Models\MarketingPopup;
 use App\Models\PromoCourse; 
 use App\Models\Lesson; 
 use App\Models\IdeaLesson; 
-use App\Models\Question; 
+use App\Models\Question;
 use App\Models\quizze;
+use App\Models\Currancy;
 
 class CoursesController extends Controller
 {
@@ -62,7 +63,8 @@ class CoursesController extends Controller
         $chapters = Chapter::where('course_id', $id)
         ->get();
         $course = Course::where('id', $id)
-        ->first(); 
+        ->first();
+        $currency = Currancy::all();
         
         foreach ($chapters as $key => $item) { 
             $min =  $item->price[0]->price;
@@ -101,7 +103,7 @@ class CoursesController extends Controller
         
         return view('Visitor.Courses.Chapters', 
         compact('chapters', 'course_price', 'price', 'course', 'total_price', 'related_course',
-        'chapters_count', 'lessons_count', 'videos_count', 'questions', 'quizs'));
+        'chapters_count', 'lessons_count', 'videos_count', 'questions', 'quizs', 'currency'));
     }
     
     public function buy_chapters( Request $req ){
