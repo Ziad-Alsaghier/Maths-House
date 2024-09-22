@@ -53,12 +53,12 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
     <div class="d-flex justify-content-center align-items-center my-3">
         <input type="hidden" class="{{$currency}}" />
-        <select name="category_id" style="width: 300px" class="form-control mx-2 selCategory">
-            <option disabled selected>
-                Select Currency ...
-            </option>
+        <select name="category_id" style="width: 300px" class="form-control mx-2 selCategory" id="selectedCurrency">
+            <option disabled selected>Select Currency ...</option>
             @foreach ($currency as $item)
-            <option value="{{$item->id}}">{{$item->currency}}</option>
+            <option value="{{$item->id}}" data-amount="{{$item->amount}}">
+                {{$item->currency}}
+            </option>
             @endforeach
         </select>
     </div>
@@ -105,7 +105,9 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
             <a href="{{ route('package_checkout', ['id' => $item->id]) }}" class="package" data-id="{{ $item->id }}">
                 <h3 class="packName texRed">{{ $item->name }}</h3>
                 <span class="packDuration">Duration: {{ $item->duration }} days</span>
-                <span class="packPrice">price: {{ $item->price }}$ </span>
+                 <!-- Store original price in data-original-price -->
+                 <span class="packPrice" data-original-price="{{ $item->price }}">price: {{ $item->price }}$ </span>
+                {{-- <span class="packPrice">price: {{ $item->price }}$ </span> --}}
                 <span class="packNum">Number: {{ $item->number }}</span>
             </a>
         @endforeach
@@ -116,10 +118,10 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
         let selCourse = document.querySelector('.selCourse');
         let courses_data = document.querySelector('.courses_data');
         console.log(courses_data);
-        
+
         courses_data = courses_data.value;
         courses_data = JSON.parse(courses_data);
-    
+
         selCategory.addEventListener('change', (e) => {
             if (e.target == selCategory) {
                 selCourse.innerHTML = '<option disabled selected>Select Course ...</option>';
@@ -135,30 +137,53 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
         })
     </script>
 
+    <script>
+        // Listen for changes in the currency dropdown
+        document.getElementById('selectedCurrency').addEventListener('change', function () {
+            // Get the selected currency's amount (exchange rate)
+            const selectedOption = this.options[this.selectedIndex];
+            const currencyAmount = selectedOption.getAttribute('data-amount');  // The exchange rate
+            const currencySymbol = selectedOption.text;  // The selected currency symbol
+
+            // Get all package elements
+            const packageElements = document.querySelectorAll('.allPackages .package');
+
+            // Loop through each package and update the price only once
+            packageElements.forEach(packageElement => {
+                // Get the original price from the data-original-price attribute
+                const originalPrice = parseFloat(packageElement.querySelector('.packPrice').getAttribute('data-original-price'));
+
+                // Multiply the original price by the currency amount (exchange rate)
+                const newPrice = (originalPrice * currencyAmount).toFixed(2);  // Keep 2 decimal places
+
+                // Update the price displayed on the package element
+                packageElement.querySelector('.packPrice').textContent = `price: ${newPrice} ${currencySymbol}`;
+            });
+        });
+    </script>
+
 @endsection
 
-<script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get all the package elements
+            const packageElements = document.querySelectorAll('.allPackages .package');
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Get all the package elements
-        const packageElements = document.querySelectorAll('.allPackages .package');
+            // Create an array to store the package details
+            const packages = Array.from(packageElements).map(packageElement => {
+                return {
+                    id: packageElement.getAttribute('data-id'),
+                    name: packageElement.querySelector('.packName')?.textContent.trim() || 'N/A',
+                    duration: packageElement.querySelector('.packDuration')?.textContent.replace('Duration: ', '').trim() || 'N/A',
+                    price: packageElement.querySelector('.packPrice')?.textContent.replace('price: ', '').replace('$', '').trim() || '0',
+                    number: packageElement.querySelector('.packNum')?.textContent.replace('Number: ', '').trim() || 'N/A'
+                };
+            });
 
-        // Create an array to store the package details
-        const packages = Array.from(packageElements).map(packageElement => {
-            return {
-                id: packageElement.getAttribute('data-id'),
-                name: packageElement.querySelector('.packName')?.textContent.trim() || 'N/A',
-                duration: packageElement.querySelector('.packDuration')?.textContent.replace('Duration: ', '').trim() || 'N/A',
-                price: packageElement.querySelector('.packPrice')?.textContent.replace('price: ', '').replace('$', '').trim() || '0',
-                number: packageElement.querySelector('.packNum')?.textContent.replace('Number: ', '').trim() || 'N/A'
-            };
+            // Store the packages array in localStorage
+            localStorage.setItem('packages', JSON.stringify(packages));
+            console.log(packages);  // Log to console for debugging
         });
-
-        // Store the packages array in localStorage
-        localStorage.setItem('packages', JSON.stringify(packages));
-        console.log(packages);  // Log to console for debugging
-    });
-</script>
-
+    </script>
 
 @include('Student.inc.footer')
