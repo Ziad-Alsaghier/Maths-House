@@ -320,6 +320,9 @@ class Ad_ReportsController extends Controller
             ->where('year', $question->year)
             ->where('section', $question->section)
             ->where('q_num', $question->q_num)
+            ->where('lesson_id', $question->lesson_id)
+            ->where('q_code', $question->q_code)
+            ->where('q_type', '!=', 'Extra')
             ->where('id', '!=', $id)
             ->get();
 
