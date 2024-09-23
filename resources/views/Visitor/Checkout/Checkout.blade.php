@@ -576,8 +576,8 @@ document.querySelectorAll('.payment_method_radio').forEach(radio => {
 
             // Create an anchor tag with the URL and make it clickable
             fileUrl.innerHTML = `<a href="${url}" target="_blank" style="font-size: 18px; font-weight: bold; color: #CF202F; text-decoration: none;">
-                                ${url}
-                            </a>`;
+                                    ${url}
+                                 </a>`;
             fileUrl.style.display = 'block'; // Make the file URL visible
         }
     });
