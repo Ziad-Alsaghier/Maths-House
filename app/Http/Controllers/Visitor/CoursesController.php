@@ -378,7 +378,13 @@ class CoursesController extends Controller
                         'promo_id' => $promo->id,
                         'promo' => $req->promo_code
                     ]);
-                    return redirect()->route('promo_check_out_course'); 
+                    $course = json_decode(Cookie::get('marketing'));
+                    $payment_methods = PaymentMethod::
+                    where('statue', 1)
+                    ->get();
+            
+                    return view('Visitor.C_Checkout.Checkout', compact('price', 'course', 'payment_methods'));
+                    return redirect()->route('promo_check_out_course');
                 }
             }
         } 
@@ -527,7 +533,6 @@ class CoursesController extends Controller
             return view('Visitor.Login.login');
         }
         elseif ( $min_price == $chapters_price ) {
-
             Cookie::queue('min_price_data', $min_price_data, 10000);
             return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
         }

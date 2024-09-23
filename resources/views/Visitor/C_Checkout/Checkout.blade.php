@@ -736,21 +736,21 @@ loadPriceDetails();
         });
     });
 
-    function loadPriceDetails() {
-        let storedData = localStorage.getItem('courseDetails');
-        if (storedData) {
-            let courseDetails = JSON.parse(storedData);
-            courseDetails.forEach((detail, index) => {
-                if (detail) {
-                    let storedTotalPrice = detail.totalPrice;
-                    let storedDiscountedPrice = detail.courseDiscount;
-                    document.getElementById('subtotal').textContent = `$${storedDiscountedPrice}`;
-                    document.getElementById('discountPrice').textContent = `$${storedTotalPrice}`;
-                }
-            });
-        }
-    }
-    loadPriceDetails();
+    //function loadPriceDetails() {
+    //    let storedData = localStorage.getItem('courseDetails');
+    //    if (storedData) {
+    //        let courseDetails = JSON.parse(storedData);
+     //       courseDetails.forEach((detail, index) => {
+     //           if (detail) {
+     //               let storedTotalPrice = detail.totalPrice;
+      //              let storedDiscountedPrice = detail.courseDiscount;
+     //               document.getElementById('subtotal').textContent = `$${storedDiscountedPrice}`;
+      //              document.getElementById('discountPrice').textContent = `$${storedTotalPrice}`;
+      //          }
+      //      });
+     //   }
+   // }
+    //loadPriceDetails();
 </script>
 
 @include('Visitor.inc.footer')
