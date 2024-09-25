@@ -274,7 +274,7 @@ class Stu_MyCourseController extends Controller
                 $delay = $delay - $h * 60 * 60;
                 $m = intval($delay / 60);
                 $s = $delay - $m * 60;        
-                $delay = "$h Hours $m Minutes $s Seconds";
+                $delay = abs($h) . " Hours " . abs($m) . " Minutes " . abs($s) . "Seconds";
             }
         }
  
