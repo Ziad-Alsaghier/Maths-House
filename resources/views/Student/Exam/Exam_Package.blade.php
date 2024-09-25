@@ -53,7 +53,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
     <div class="d-flex justify-content-center align-items-center my-3">
         <input type="hidden" class="{{$currency}}" />
-        <select name="category_id" style="width: 300px" class="form-control mx-2 selCategory" id="selectedCurrency">
+        <select name="category_id" style="width: 300px" class="form-control mx-2" id="selectedCurrency">
             <option disabled selected>Select Currency ...</option>
             @foreach ($currency as $item)
             <option value="{{$item->id}}" data-amount="{{$item->amount}}">
