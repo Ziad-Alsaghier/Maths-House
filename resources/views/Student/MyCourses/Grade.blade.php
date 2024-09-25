@@ -306,6 +306,10 @@
                                     <td>Wrong Question : </td>
                                     <td>{{ $total_question - $right_question }}</td>
                                 </tr>
+                                <tr>
+                                    <td>Delay : </td>
+                                    <td class="{{$color ? 'text-success' : 'text-danger'}}">{{ $delay }}</td>
+                                </tr>
                                 <tr colspan="2">
                                     <td class="d-flex justify-content-center">
                                         <button class="btn btn-primary mistake_btn mx-2">

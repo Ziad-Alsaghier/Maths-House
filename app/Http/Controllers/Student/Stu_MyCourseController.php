@@ -235,10 +235,49 @@ class Stu_MyCourseController extends Controller
     public function quizze_ans(Request $req)
     {
         $timer_val = Cookie::get('timer');
+        $timer_val = empty($timer_val) ? '00:00:00' : $timer_val;
         $quizze_id = json_decode($req->quizze)->id;
         $quizze = quizze::where('id', $quizze_id)
         ->first();
         
+        
+        // Parse quiz time
+        $exam_time_parts = explode(':', $quizze->time);
+        $e_hours = isset($exam_time_parts[0]) ? intval($exam_time_parts[0]) : 0;
+        $e_minutes = isset($exam_time_parts[1]) ? intval($exam_time_parts[1]) : 0;
+    
+        // Parse data time
+        $data_time = explode(':', $timer_val);
+        $hours = isset($data_time[0]) ? intval($data_time[0]) : 0;
+        $minutes = isset($data_time[1]) ? intval($data_time[1]) : 0;
+        $seconds = isset($data_time[2]) ? intval($data_time[2]) : 0;
+    
+        // Calculate the times in seconds
+        $e_time = $e_hours * 60 * 60 + $e_minutes * 60;
+        $time = $hours * 60 * 60 + $minutes * 60 + $seconds;
+        $delay = $e_time - $time;
+
+        // Determine delay status
+        if ($delay == 0) {
+            $delay = 'On Time';
+        } else {
+            $color = $delay > 0 ? true : false;  
+            if ($color) {
+                $h = intval($delay / (60 * 60));
+                $delay = $delay - $h * 60 * 60;
+                $m = intval($delay / 60);
+                $s = $delay - $m * 60;        
+                $delay = "-$h Hours -$m Minutes -$s Seconds";
+            }
+            else{ 
+                $h = intval($delay / (60 * 60));
+                $delay = $delay - $h * 60 * 60;
+                $m = intval($delay / 60);
+                $s = $delay - $m * 60;        
+                $delay = "$h Hours $m Minutes $s Seconds";
+            }
+        }
+ 
         $deg = 0;
         $mistakes = [];
         $total_question = 0;
@@ -318,7 +357,9 @@ class Stu_MyCourseController extends Controller
 
         $report_v = ReportVideoList::all();
 
-        return view('Student.MyCourses.Grade', compact('deg', 'quize_id', 'quizze', 'right_question', 'total_question', 'mistakes', 'report_v'));
+        return view('Student.MyCourses.Grade', 
+        compact('deg', 'quize_id', 'quizze', 'right_question', 
+        'total_question', 'mistakes', 'report_v', 'delay', 'color'));
     }
 
     public function question_parallel($id)
