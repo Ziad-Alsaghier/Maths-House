@@ -17,7 +17,12 @@ use App\Models\StudentSession;
 use App\Models\LiveCourse;
 use App\Models\TeacherCourse;
 use App\Models\SessionAttendance;
+use App\Models\PaymentPackageOrder;
+use App\Models\SmallPackage;
 use App\Models\Session;
+use App\Models\Lesson;
+
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -132,12 +137,48 @@ class UserController extends Controller
         return view('Admin.Users.StudentDetails.Live', compact('courses', 'user', 'courses_names'));
     }
 
-    public function live_attend( $users_id, $lesson_id, Request $req ){
-
+    public function live_attend( $users_id, $lesson_id, Request $req ){  
+        if ($req->old_state == 'Attend' && $req->attend == 'Attend') {
+            return redirect()->back();
+        }  
         $sessions = Session::where('lesson_id', $lesson_id)
         ->pluck('id')->toArray();
+        $course_id = Lesson::where('id', $lesson_id)
+        ->first()->chapter->course_id;
+        if ($req->attend != 'Attend') {
+            LiveLesson::
+            where( 'user_id' , $users_id)
+            ->where('lesson_id', $lesson_id)
+            ->delete();
+            SessionAttendance::whereIn('session_id', $sessions)
+            ->where('user_id', $users_id)
+            ->delete();
 
-        if ( $req->attend == 'Attend' ) {
+            return redirect()->back();
+        }
+
+        $package = PaymentPackageOrder::
+        where('number', '>', 0)
+        ->where('user_id', $users_id)
+        ->where('state', 1)
+        ->with('package_live')
+        ->orderByDesc('id')
+        ->get();
+
+        $small_package = SmallPackage::where('user_id', $users_id)
+        ->where('module', 'Live')
+        ->where('number', '>', 0)
+        ->first();
+
+        if ( !empty($small_package) ) {
+            SmallPackage::where('user_id', $users_id)
+            ->where('module', 'Live')
+            ->where('number', '>', 0)
+            ->update([
+                'number' => $small_package->number - 1
+            ]);
+            
+            // Make Live Attend
             LiveLesson::create([
                 'user_id' => $users_id,
                 'lesson_id' => $lesson_id,
@@ -148,18 +189,39 @@ class UserController extends Controller
                     'session_id' => $item
                 ]);
             }
+            return redirect()->back();
         }
-        else {
-            LiveLesson::
-            where( 'user_id' , $users_id)
-            ->where('lesson_id', $lesson_id)
-            ->delete();
-            SessionAttendance::whereIn('session_id', $sessions)
-            ->where('user_id', $users_id)
-            ->delete();
+        
+        foreach ( $package as $item ) {
+            if ( $item->package_live != null ) {
+                $newTime = Carbon::now()->subDays($item->package_live->duration); 
+                if ( $item->date >= $newTime && $item->package_live->course_id == $course_id ) {
+                    PaymentPackageOrder::
+                    where('id', $item->id )
+                    ->update([
+                        'number' => $item->number - 1
+                    ]);
+            
+                    if ( $req->attend == 'Attend' ) {
+                        LiveLesson::create([
+                            'user_id' => $users_id,
+                            'lesson_id' => $lesson_id,
+                        ]);
+                        foreach ($sessions as $key => $item) {
+                            $mysession = SessionAttendance::create([
+                                'user_id' => $users_id,
+                                'session_id' => $item
+                            ]);
+                        }
+                        return redirect()->back();
+                    }
+                }
+            }
         }
-
+        
+        session()->flash('faild', 'This user does not have Package');
         return redirect()->back();
+
     } 
 
     public function add_student(){

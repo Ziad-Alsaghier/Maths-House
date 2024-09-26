@@ -33,6 +33,7 @@
         </div>
     @enderror
     @section('title', 'Live')
+    @include('success')
     
         
 	<head>
@@ -540,8 +541,10 @@
                                             <div class="info_section p-3" id="info_section{{ $lesson->id }}">
                                                 @if ( empty($lesson->live_lesson($user->id)->first()) )
                                                 <input id="attend{{$lesson->id}}" class="form-check-input" type="checkbox" value="Attend" name="attend" />
+                                                <input type="hidden" name="old_state" value="Waitting" />
                                                 @else
-                                                <input id="attend{{$lesson->id}}" class="form-check-input" type="checkbox" value="Waitting" name="attend" checked="checked" />
+                                                <input id="attend{{$lesson->id}}" class="form-check-input" type="checkbox" value="Attend" name="attend" checked="checked" />
+                                                <input type="hidden" name="old_state" value="Attend" />
                                                 @endif
                                                 <label for="attend{{$lesson->id}}">
                                                     Attend
