@@ -64,7 +64,7 @@
             <div class="position-relative">
 
                 <input type="hidden" class="user_id" name="user_id" />
-                <input type="text" class="form-control my-2 secUser" name="user" placeholder="Select Student ..." />
+                <input type="text" required class="form-control my-2 secUser" name="user" placeholder="Select Student ..." />
                 <div class="allUser">
                     {{-- <div class="user">
                         <span class="userNickName">mohamed</span>
@@ -74,6 +74,21 @@
                 </div>
             </div>
 
+            <input type="hidden" class="courses" value="{{$courses}}" />
+            <select name="category_id" class="form-control sel_category my-2">
+                <option selected disabled>Select Category ...</option>
+                @foreach ($categories as $category)
+                    <option value="{{$category->id}}">{{$category->cate_name}}</option>
+                @endforeach
+            </select>
+
+            <select name="course_id" class="form-control sel_course my-2">
+                <option selected disabled>Select Course ...</option>
+                @foreach ($courses as $course)
+                    <option value="{{$course->id}}">{{$course->course_name}}</option>
+                @endforeach
+            </select>
+
             <select name="module" class="form-control secpackage my-2">
                 <option selected disabled>Select Package ...</option>
                 <option value="Exam">Exam</option>
@@ -82,7 +97,7 @@
             </select>
 
             <input type="number" name="number" class="form-control my-2 numPackage"
-                placeholder="The Number of Package" />
+                placeholder="The Number of Package" required />
 
             <div class="d-flex my-2">
                 <button class="btn btn-primary mr-2 sub_btn">Submit</button>
@@ -95,6 +110,25 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+
+        let sel_category = document.querySelector('.sel_category');
+        let sel_course = document.querySelector('.sel_course');
+        let courses = document.querySelector('.courses');
+        courses = courses.value;
+        courses = JSON.parse(courses);
+ 
+        sel_category.addEventListener('change', (e) => {
+            
+            sel_course.innerHTML = `<option selected disabled>Select Course ...</option>`;
+            courses.forEach(item => {
+                if (item.category_id == e.target.value) {
+                    sel_course.innerHTML += `
+                    <option value="${item.id}">${item.course_name}</option>
+                    `;
+                }
+            });
+        });
+
         $(document).ready(function() {
             $(".secUser").keyup(function() {
                 var name = $(this).val();

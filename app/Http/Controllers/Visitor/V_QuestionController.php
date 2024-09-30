@@ -136,12 +136,14 @@ class V_QuestionController extends Controller
 
             $small_package = SmallPackage::where('user_id', auth()->user()->id)
             ->where('module', 'Question')
+            ->where('course_id', $question->lessons->chapter->course_id)
             ->where('number', '>', 0)
             ->first();
 
             if ( !empty($small_package) ) { 
                 SmallPackage::where('user_id', auth()->user()->id)
                 ->where('module', 'Question')
+                ->where('course_id', $question->lessons->chapter->course_id)
                 ->where('number', '>', 0)
                 ->update([
                     'number' => $small_package->number - 1
@@ -356,12 +358,14 @@ class V_QuestionController extends Controller
 
             $small_package = SmallPackage::where('user_id', auth()->user()->id)
             ->where('module', 'Question')
+            ->where('course_id', $question->lessons->chapter->course_id)
             ->where('number', '>', 0)
             ->first();
 
             if ( !empty($small_package) ) { 
                 SmallPackage::where('user_id', auth()->user()->id)
                 ->where('module', 'Question')
+                ->where('course_id', $question->lessons->chapter->course_id)
                 ->where('number', '>', 0)
                 ->update([
                     'number' => $small_package->number - 1

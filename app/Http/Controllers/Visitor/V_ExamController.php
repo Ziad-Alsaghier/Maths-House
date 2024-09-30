@@ -97,10 +97,9 @@ class V_ExamController extends Controller
     }
 
     public function exam_page( $id ){
-
         // Return Exam
         $exam = Exam::where('id', $id)
-        ->first();
+        ->first(); 
         $reports = ReportQuestionList::all();
         if ( empty(auth()->user()) ) {
             if ( !session()->has('previous_page') ) {
@@ -119,11 +118,13 @@ class V_ExamController extends Controller
 
             $small_package = SmallPackage::where('user_id', auth()->user()->id)
             ->where('module', 'Exam')
+            ->where('course_id', $exam->course_id)
             ->where('number', '>', 0)
             ->first();
 
             if ( !empty($small_package) ) { SmallPackage::where('user_id', auth()->user()->id)
                 ->where('module', 'Exam')
+                ->where('course_id', $exam->course_id)
                 ->where('number', '>', 0)
                 ->update([
                     'number' => $small_package->number - 1

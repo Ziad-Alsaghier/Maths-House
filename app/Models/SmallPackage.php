@@ -14,6 +14,8 @@ class SmallPackage extends Model
     
     protected $fillable = [
         'user_id', 
+        'category_id',
+        'course_id',
         'module',
         'number',
         'admin_id',

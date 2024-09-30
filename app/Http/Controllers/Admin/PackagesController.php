@@ -62,8 +62,11 @@ class PackagesController extends Controller
     public function add_stu_package(){
         $users = User::where('position', 'student')
         ->get();
+        $categories = Category::all();
+        $courses = Course::all();
         
-        return view('Admin.Packages.Add_Package', compact('users'));
+        return view('Admin.Packages.Add_Package', 
+        compact('users', 'categories', 'courses'));
     }
 
     public function stu_package_add( Request $req ){
@@ -135,6 +138,8 @@ class PackagesController extends Controller
     public function add_small_package( Request $req ){
         SmallPackage::create([
             'user_id'  => $req->user_id,
+            'category_id'   => $req->category_id,
+            'course_id'   => $req->course_id,
             'module'   => $req->module,
             'number'   => $req->number,
             'admin_id' => auth()->user()->id,
