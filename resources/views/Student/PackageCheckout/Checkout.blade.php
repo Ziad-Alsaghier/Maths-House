@@ -843,6 +843,7 @@
                         <div class="radio-button">
                             <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
                                 class="radio-button__input payment_method_radio" type="radio">
+                            @if ($item->payment == 'Instapay')
                             <label for="radio{{ $item->id }}" class="radio-button__label">
                                 <div class="">
                                     <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
@@ -851,6 +852,7 @@
                                     {{ $item->payment }}
                                 </div>
                             </label>
+                            @endif
                             <div class="col-6 secDescription d-none" data-method-id="{{ $item->id }}">
                                 <h3>Description {{ $item->payment }}:</h3>
                                 <p class="desPay">{{ $item->description }}</p>
