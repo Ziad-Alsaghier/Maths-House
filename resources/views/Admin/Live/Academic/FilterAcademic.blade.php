@@ -163,6 +163,9 @@
             <th>
                 {{$element->lesson_name}}
             </th>
+            @php
+                $arr_absence[$element->id] = 0;
+            @endphp
             @endforeach
         </thead>
 
@@ -182,6 +185,9 @@
                     <i class="fa-solid fa-check"></i>
                     @else
                     <i class="fa-solid fa-xmark"></i>
+                    @php
+                        $arr_absence[$element->id] += 1;
+                    @endphp
                     @endif 
                 </th>
                 @endforeach
@@ -192,7 +198,7 @@
                     {{$loop->iteration}}
                 </td>
                 <td>
-                    {{$item->name}}
+                    {{$item->nick_name}}
                 </td>
                 <td>
                     <i class="fa-solid fa-check"></i>
@@ -204,14 +210,30 @@
                     {{$loop->iteration}}
                 </td>
                 <td>
-                    {{$item->name}}
+                    {{$item->nick_name}}
                 </td>
                 <td>
                     <i class="fa-solid fa-xmark"></i>
+                    @php
+                        $arr_absence[$element->id] += 1;
+                    @endphp
                 </td>
             </tr>
             @endif
             @endforeach
+            <tr>
+                <td>
+                    Total
+                </td>
+                <td>
+                    Absence
+                </td>
+                @foreach( $u_lessons as $element )
+                <th>
+                    {{$arr_absence[$element->id]}}
+                </th>
+                @endforeach
+            </tr>
         </tbody>
     </table>
 
