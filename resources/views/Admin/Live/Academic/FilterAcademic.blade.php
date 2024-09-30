@@ -165,6 +165,7 @@
             </th>
             @php
                 $arr_absence[$element->id] = 0;
+                $iter = 1;
             @endphp
             @endforeach
         </thead>
@@ -174,7 +175,7 @@
             @if ( $state == null )
             <tr>
                 <td>
-                    {{$loop->iteration}}
+                    {{$iter++}}
                 </td>
                 <td>
                     {{$item->nick_name}}
@@ -195,7 +196,7 @@
             @elseif( $state == 'attend' && !empty($item->attendance( $u_lessons[0]->id )->first()) )
             <tr>
                 <td>
-                    {{$loop->iteration}}
+                    {{$iter++}}
                 </td>
                 <td>
                     {{$item->nick_name}}
@@ -207,7 +208,7 @@
             @elseif( $state == 'absence' && empty($item->attendance( $u_lessons[0]->id )->first()) )
             <tr>
                 <td>
-                    {{$loop->iteration}}
+                    {{$iter++}}
                 </td>
                 <td>
                     {{$item->nick_name}}
