@@ -890,7 +890,7 @@
                     <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </div>
                 <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
-                    accept="image/*">
+                    >
                 <!-- <div class="col-6 secDescription d-none">
                     <h3>Description:</h3>
                     <p class="desPay"></p>
