@@ -97,6 +97,7 @@ class Stu_PackageController extends Controller
             Mail::To('Payment@mathshouse.net')
             ->send(new PaymentEmail($req->all(), auth()->user()));
         }
+        return 1;
         $p_request = PaymentRequest::create($arr);
         $p_method = isset($p_request->method->payment) ? $p_request->method->payment : 'Wallet';
         $package_data = json_decode(Cookie::get('package'));
@@ -213,6 +214,21 @@ class Stu_PackageController extends Controller
         }
         move_uploaded_file( $tmp, 'images/payment_reset/' . $img_name);
         $pages = [];
+        $q_id = Cookie::get('q_id');
+        $exam_id = Cookie::get('exam_id');
+        $q_ans_id = Cookie::get('q_ans_id');
+        if ( is_numeric($q_id) ) {
+            $pages['q_id'] = intval($q_id);
+            Cookie::queue(Cookie::forget('q_id'));
+        }
+        elseif ( is_numeric($exam_id) ) {
+            $pages['exam_id'] = intval($exam_id);
+            Cookie::queue(Cookie::forget('exam_id'));
+        }
+        elseif ( is_numeric($q_ans_id) ) {
+            $pages['q_ans_id'] = intval($q_ans_id);
+            Cookie::queue(Cookie::forget('q_ans_id'));
+        }
         
         
         return view('Student.Order.Order', compact('package', 'price', 'p_method', 'pages'));
