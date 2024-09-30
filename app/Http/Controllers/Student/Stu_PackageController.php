@@ -75,7 +75,6 @@ class Stu_PackageController extends Controller
             }
         }
         
-        return 1;
         if ( $req->payment_method_id == 'Wallet' ) {
             $wallet = Wallet::
             where('student_id', auth()->user()->id)
@@ -95,6 +94,7 @@ class Stu_PackageController extends Controller
         }
         else{ 
             $arr['payment_method_id'] = $req->payment_method_id;
+            return 1;
             Mail::To('Payment@mathshouse.net')
             ->send(new PaymentEmail($req->all(), auth()->user()));
         }
