@@ -93,9 +93,10 @@ class Stu_PackageController extends Controller
         
         }
         else{ 
+            $data = $req->except(['image']);
             $arr['payment_method_id'] = $req->payment_method_id;
             Mail::to('Payment@mathshouse.net')
-            ->queue(new PaymentEmail($req->all(), auth()->user()));
+            ->queue(new PaymentEmail($data, auth()->user()));
 
         }
         $p_request = PaymentRequest::create($arr);
