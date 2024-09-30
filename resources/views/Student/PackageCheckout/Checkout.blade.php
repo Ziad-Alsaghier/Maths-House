@@ -849,6 +849,17 @@
                                     <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
                                         alt="">
                                     <span class="radio-button__custom"></span>
+                                    <a class="btn btn-danger" href="{{ $item->description }}">
+                                        {{ $item->payment }}
+                                    </a>
+                                </div>
+                            </label>
+                            @else
+                            <label for="radio{{ $item->id }}" class="radio-button__label">
+                                <div class="">
+                                    <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
+                                        alt="">
+                                    <span class="radio-button__custom"></span>
                                     {{ $item->payment }}
                                 </div>
                             </label>
