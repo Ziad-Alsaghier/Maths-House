@@ -849,7 +849,7 @@
                                     <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
                                         alt="">
                                     <span class="radio-button__custom"></span>
-                                    <a class="btn btn-danger" href="{{ $item->description }}">
+                                    <a class="btn btn-danger" target="_blank" href="{{ $item->description }}">
                                         {{ $item->payment }}
                                     </a>
                                 </div>
