@@ -75,6 +75,7 @@ class Stu_PackageController extends Controller
             }
         }
         
+        return 1;
         if ( $req->payment_method_id == 'Wallet' ) {
             $wallet = Wallet::
             where('student_id', auth()->user()->id)
@@ -97,7 +98,6 @@ class Stu_PackageController extends Controller
             Mail::To('Payment@mathshouse.net')
             ->send(new PaymentEmail($req->all(), auth()->user()));
         }
-        return 1;
         $p_request = PaymentRequest::create($arr);
         $p_method = isset($p_request->method->payment) ? $p_request->method->payment : 'Wallet';
         $package_data = json_decode(Cookie::get('package'));
