@@ -225,7 +225,6 @@ class Stu_PackageController extends Controller
         }
         if($req->payment_method_id != 'Wallet'){ 
             $arr['payment_method_id'] = $req->payment_method_id;
-            return 1;
             Mail::To('Payment@mathshouse.net')
             ->queue(new PaymentEmail($req->all(), auth()->user()));
         }
