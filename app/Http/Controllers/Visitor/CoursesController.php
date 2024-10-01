@@ -67,7 +67,7 @@ class CoursesController extends Controller
         $currency = Currancy::all();
         
         foreach ($chapters as $key => $item) { 
-            if ( count($item->price) == 0) {
+            if ( count($item->price) == 0 || $item->price == null) {
                 $min =  0;
             } else {
                 $min =  $item->price[0]->price;
