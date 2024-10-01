@@ -688,8 +688,8 @@ exams, we'll guide you to success.</p>
                 </div>
             @endforeach
 
-            <div class="d-flex flex-row-reverse">
-                <button type="button" class="btn btn-danger mt-3">view all courses</button>
+            <div class="d-flex align-items-center flex-row-reverse">
+                <a href="{{route('categories')}}" class="btn btn-danger mt-3">view all courses</a>
             </div>
 
         </div>
