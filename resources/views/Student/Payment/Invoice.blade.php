@@ -36,7 +36,23 @@
           </div>
           <div class="col-xl-6 col-md-12 col-sm-7 col-12">
             <h6 class="pb-2">Service</h6>
-            {{$payment->module}}
+            @if ($payment->module == 'Chapters')
+              @if (count($service) == 0)
+                Chapter
+              @else
+              Course: {{$service[0]->chapter->course->course_name}}<br />
+              Chapters: <br />
+              @foreach ($service as $item)
+                {{$item->chapter->chapter_name}}<br />
+              @endforeach
+              @endif
+            @elseif ($payment->module == 'Package')
+              @if (empty($service))
+                Package
+              @else
+               Package: {{$service->package->name}}
+              @endif
+            @endif
           </div>
         </div>
       </div>

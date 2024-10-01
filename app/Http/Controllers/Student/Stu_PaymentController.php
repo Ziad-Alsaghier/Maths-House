@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\PaymentRequest;
+use App\Models\PaymentOrder;
+use App\Models\PaymentPackageOrder;
 
 class Stu_PaymentController extends Controller
 {
@@ -42,8 +44,19 @@ class Stu_PaymentController extends Controller
     public function payment_invoice( $id ){
         $payment = PaymentRequest::where('id', $id)
         ->first();
+        $service = null;
+        if ($payment->module == 'Chapters') {
+            $service = PaymentOrder::
+            where('payment_request_id', $payment->id)
+            ->get();
+        }
+        elseif ($payment->module == 'Package') {
+            $service = PaymentPackageOrder::
+            where('payment_request_id', $payment->id)
+            ->first();
+        }
 
-        return view('Student.Payment.Invoice', compact('payment'));
+        return view('Student.Payment.Invoice', compact('payment', 'service'));
     }
 
 }

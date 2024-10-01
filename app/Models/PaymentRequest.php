@@ -44,9 +44,6 @@ class PaymentRequest extends Model
     public function order(){
         return $this->belongsToMany(Chapter::class, 'payment_orders');
     }
-    public function getCreatedAtAttribute($date){
-    return date('d-m-Y',strtotime($date));
-    }
     public function getUpdatedAtAttribute($date){
     return date('d-m-Y',strtotime($date));
     }
