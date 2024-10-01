@@ -26,7 +26,7 @@ class Course extends Model
         'discount',
         'user_id', 
     ];
- 
+
     public function teacher()
     {
         return $this->belongsTo(User::class);

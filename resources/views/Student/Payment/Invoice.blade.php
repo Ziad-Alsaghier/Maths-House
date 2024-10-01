@@ -31,7 +31,11 @@
         <div class="row p-sm-3 p-0">
           <div class="col-xl-6 col-md-12 col-sm-5 col-12 mb-xl-0 mb-md-4 mb-sm-0 mb-4">
             <h6 class="pb-2">Reciept:</h6>
+            @if (empty($payment->payment_method_id ))
+              Wallet
+            @else
             <img style="height: 150px; width: 150px;" src="{{asset('images/payment_reset/' . $payment->image)}}" />
+            @endif
            
           </div>
           <div class="col-xl-6 col-md-12 col-sm-7 col-12">
@@ -50,7 +54,9 @@
               @if (empty($service))
                 Package
               @else
-               Package: {{$service->package->name}}
+               Package: {{$service->package->name}} <br />
+               Course: {{$service->package->course->course_name}} <br />
+               Category: {{$service->package->course->category->cate_name}}
               @endif
             @endif
           </div>
