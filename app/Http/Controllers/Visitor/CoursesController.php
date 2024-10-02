@@ -68,11 +68,11 @@ class CoursesController extends Controller
         
         foreach ($chapters as $key => $item) { 
             if ( count($item->price) == 0 || $item->price == null) {
-                $min =  0;
+                $min =  100000000;
             } else {
                 $min =  $item->price[0]->price;
             }
-            
+            return $item->price;
             foreach (  $item->price as $element ) {
                 if ( $min > $element->price ) {
                     $min = $element->price;
