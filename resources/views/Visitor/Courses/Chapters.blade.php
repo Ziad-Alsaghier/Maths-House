@@ -828,7 +828,7 @@
                                         <h5>{{$item->course_name}}</h5>
                                     </div>
                                     <div class="tc_footer">
-                                        <div class="tc_price float-right">${{$item->prices->min('price')}}</div>
+                                        <div class="tc_price float-right">${{@$item->prices->min('price')}}</div>
                                     </div>
                                 </a>
                             </div>
