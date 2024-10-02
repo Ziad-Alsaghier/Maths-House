@@ -78,7 +78,6 @@ class CoursesController extends Controller
                     }
                 }
             }
-            return 210;
             $chapters[$key]['ch_price'] = $min;
         } 
         $course_price = Course::
@@ -87,9 +86,11 @@ class CoursesController extends Controller
         ->first();
         $discount = @$course_price->prices[0]->discount;
         $price = @$course_price->prices[0]->price;
-        for ($i=0, $end = count($course_price->prices); $i < $end; $i++) { 
-            if( $price > $course_price->prices[$i]->price){
-                $price = $course_price->prices[$i]->price;
+        if (is_numeric($price)) {
+            for ($i=0, $end = count($course_price->prices); $i < $end; $i++) { 
+                if( $price > $course_price->prices[$i]->price){
+                    $price = $course_price->prices[$i]->price;
+                }
             }
         }
         $total_price = $price - $price * $discount / 100;
