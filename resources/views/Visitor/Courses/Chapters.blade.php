@@ -486,7 +486,26 @@
                                         </div>
                                         <br>
                                         @foreach ($chapters as $chapter)
-                               
+                                            <div class="details d-flex align-items-center">
+                                                <input type="checkbox" class="chapter_item_check"
+                                                    id="{{ $chapter->id }}" checked />
+
+                                                <input type="hidden" class="chapter_id"
+                                                    value="{{ $chapter->id }}" />
+
+                                                @php
+                                                    $min = $chapter->price[0]->price;
+                                                    $discount = $chapter->price[0]->discount;
+                                                @endphp
+
+                                                @foreach ($chapter->price as $ch_price)
+                                                    @if ($min > $ch_price->price)
+                                                        @php
+                                                            $min = $ch_price->price;
+                                                            $discount = $ch_price->discount;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
 
                                                 <input type="hidden" class="chapter_price"
                                                     value="{{ $min }}" />
@@ -794,8 +813,126 @@
                             <h3 class="r_course_title">Related Courses</h3>
                         </div>
                         @foreach ( $related_course as $item)
-                     
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="top_courses">
+                                <div class="thumb">
+                                    <img class="img-whp" src="{{asset('images/courses/' . $item->course_url)}}" alt="t1.jpg">
+                                    <div class="overlay">
+                                        <div class="tag">Best Seller</div>
+                                        <div class="icon"><span class="flaticon-like"></span></div>
+                                        <a class="tc_preview_course" href="{{route('v_course', ['id' => $item->id])}}">Preview Course</a>
+                                    </div>
+                                </div>
+                                <a href="{{route('v_course', ['id' => $item->id])}}" class="details">
+                                    <div class="tc_content">
+                                        <h5>{{$item->course_name}}</h5>
+                                    </div>
+                                    <div class="tc_footer">
+                                        <div class="tc_price float-right">${{$item->prices->min('price')}}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                         @endforeach
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3">
+                    <div class="instructor_pricing_widget">
+                        <div class="d-flex alogn-items-center justify-content-center m-2">
+                            <input type="hidden" class="{{$currency}}" />
+                            <select class="form-control w-150px">
+                                <option selected disabled>Select Currency ...</option>
+                                @foreach ($currency as $item)
+                                    <option value="{{$item->id}}">{{$item->currency}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="price">Price
+                            <label><s class="t_price price text-danger">${{ $price }}</s></label>
+                            <label class="t_discount_price text-success">${{ $total_price }}</label>
+                        </div>
+                        <input class="course_price" type="hidden" value="{{ $price }}" />
+                        <form method="POST" action="{{ route('buy_course') }}">
+                            @csrf
+                            <input type="hidden" class="course_data" name="course_data"
+                                value="{{ $course }}" />
+                            <input type="hidden" class="chapters_data" name="chapters_data"
+                                value="{{ $chapters }}" />
+                            <input type="hidden" class="chapters_price" name="chapters_price"
+                                value="{{ $price }}" />
+                            <button class="cart_btnss_white">Buy Now</button>
+                        </form>
+                        <h5 class="subtitle text-left">Includes</h5>
+                        <ul class="price_quere_list text-left">
+                            <li>
+                                <a href="#"><span class="flaticon-play-button-1"></span>
+                                    <span id="courseVideos">{{ count($videos_count) }}</span>
+                                    <span>Video</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-book-open mr-2"></i>
+                                    <span id="courseChapters">{{ count($chapters_count) }}</span>
+                                    <span>Chapter</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-person-chalkboard mr-2"></i>
+                                    <span id="courseLessons">{{ count($lessons_count) }}</span>
+                                    <span>Lesson</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-circle-question mr-2"></i>
+                                    <span id="courseQuestions">{{ $questions }}</span>
+                                    <span> Question</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-feather mr-2"></i>
+                                    <span id="courseQuizs">{{ $quizs }}</span>
+                                    <span>Quiz</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-file-pdf mr-2"></i>
+                                    <span id="coursePdfs">{{ count($videos_count) }}</span>
+                                    <span>PDF</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="feature_course_widget">
+                        <ul class="list-group">
+                            <h4 class="title">Course Features</h4>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Lectures <span class="float-right">6</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Quizzes <span class="float-right">1</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Duration <span class="float-right">3 hours</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Skill level <span class="float-right">All level</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Language <span class="float-right">English</span>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                                Assessments <span class="float-right">Yes</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="blog_tag_widget">
+                        <h4 class="title">Tags</h4>
+                        <ul class="tag_list">
+                            <li class="list-inline-item"><a href="#">Photoshop</a></li>
+                            <li class="list-inline-item"><a href="#">Sketch</a></li>
+                            <li class="list-inline-item"><a href="#">Beginner</a></li>
+                            <li class="list-inline-item"><a href="#">UX/UI</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

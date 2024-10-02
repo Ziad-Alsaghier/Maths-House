@@ -247,7 +247,7 @@
                                                     aria-hidden="true">
                                                     @foreach ($users as $user)
                                                         <option value="{{ $user->id }}"
-                                                            data-select2-id="add{{ $user->id }}">
+                                                            data-select2-id="add_{{ $user->id }}">
                                                             {{ $user->nick_name }}
                                                         </option>
                                                     @endforeach
