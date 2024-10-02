@@ -813,26 +813,7 @@
                             <h3 class="r_course_title">Related Courses</h3>
                         </div>
                         @foreach ( $related_course as $item)
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="top_courses">
-                                <div class="thumb">
-                                    <img class="img-whp" src="{{asset('images/courses/' . $item->course_url)}}" alt="t1.jpg">
-                                    <div class="overlay">
-                                        <div class="tag">Best Seller</div>
-                                        <div class="icon"><span class="flaticon-like"></span></div>
-                                        <a class="tc_preview_course" href="{{route('v_course', ['id' => $item->id])}}">Preview Course</a>
-                                    </div>
-                                </div>
-                                <a href="{{route('v_course', ['id' => $item->id])}}" class="details">
-                                    <div class="tc_content">
-                                        <h5>{{$item->course_name}}</h5>
-                                    </div>
-                                    <div class="tc_footer">
-                                        <div class="tc_price float-right">${{@$item->prices->min('price')}}</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                     
                         @endforeach
                     </div>
                 </div>
