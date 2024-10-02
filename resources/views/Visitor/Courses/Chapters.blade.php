@@ -486,26 +486,7 @@
                                         </div>
                                         <br>
                                         @foreach ($chapters as $chapter)
-                                            <div class="details d-flex align-items-center">
-                                                <input type="checkbox" class="chapter_item_check"
-                                                    id="{{ $chapter->id }}" checked />
-
-                                                <input type="hidden" class="chapter_id"
-                                                    value="{{ $chapter->id }}" />
-
-                                                @php
-                                                    $min = $chapter->price[0]->price;
-                                                    $discount = $chapter->price[0]->discount;
-                                                @endphp
-
-                                                @foreach ($chapter->price as $ch_price)
-                                                    @if ($min > $ch_price->price)
-                                                        @php
-                                                            $min = $ch_price->price;
-                                                            $discount = $ch_price->discount;
-                                                        @endphp
-                                                    @endif
-                                                @endforeach
+                               
 
                                                 <input type="hidden" class="chapter_price"
                                                     value="{{ $min }}" />
