@@ -84,7 +84,11 @@ class CoursesController extends Controller
         with('prices')
         ->where('id', $id)
         ->first();
-        try {
+        return 20;
+        $discount = 0;
+        $price = 0;
+        $total_price = 0;
+        if ( count($item->price) != 0 && $item->price != null) {
             $discount = @$course_price->prices[0]->discount;
             $price = @$course_price->prices[0]->price;
             if (is_numeric($price)) {
@@ -95,12 +99,8 @@ class CoursesController extends Controller
                 }
             }
             $total_price = $price - $price * $discount / 100;
-        } catch (\Throwable $th) {
-            $discount = 0;
-            $price = 0;
-            $total_price = 0;
         }
-
+        return 88;
         $chapters_count = Chapter::where('course_id', $id)
         ->pluck('id');
         $lessons_count = Lesson::whereIn('chapter_id', $chapters_count)
