@@ -84,7 +84,6 @@ class CoursesController extends Controller
         with('prices')
         ->where('id', $id)
         ->first();
-        return 20;
         try {
             $discount = @$course_price->prices[0]->discount;
             $price = @$course_price->prices[0]->price;
