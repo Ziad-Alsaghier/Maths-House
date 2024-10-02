@@ -39,6 +39,23 @@ class ScoreController extends Controller
     }
 
     public function course_score_sheet( Request $req ) {
+        // https://login.mathshouse.net/api/course_score_sheet
+        // Keys
+        // course_id
+        $studentId = auth()->user()->id;
+        $data = Chapter::
+        where('course_id', $req->course_id)
+        ->with(['lessons.quizs.student_quizs' => function($query) use ($studentId) {
+            $query->where('student_id', $studentId);
+        }])
+        ->get();
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function student_courses( Request $req ) {
         $studentId = auth()->user()->id;
         $data = Chapter::
         where('course_id', $req->course_id)
