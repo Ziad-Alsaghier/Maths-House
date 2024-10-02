@@ -53,7 +53,6 @@ class quizze extends Model
 
     public function student_quizs(){
         return $this->hasMany(StudentQuizze::class, 'lesson_id')
-        ->orderByDesc('created_at')
-        ->first();
+        ->orderByDesc('created_at');
     }
 }
