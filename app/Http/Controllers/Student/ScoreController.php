@@ -42,7 +42,10 @@ class ScoreController extends Controller
         $studentId = auth()->user()->id;
         $data = Chapter::
         where('course_id', $req->course_id)
-        ->with(['lessons.quizs.student_quizs']);
+        ->with(['lessons.quizs.student_quizs' => function($query) use ($studentId) {
+            $query->where('student_id', $studentId);
+        }])
+        ->get();
 
         return response()->json([
             'data' => $data
