@@ -78,6 +78,7 @@ class CoursesController extends Controller
                     }
                 }
             }
+            return 210;
             $chapters[$key]['ch_price'] = $min;
         } 
         $course_price = Course::
