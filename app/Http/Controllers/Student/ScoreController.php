@@ -57,6 +57,7 @@ class ScoreController extends Controller
     }
 
     public function student_courses( Request $req ) {
+        // https://login.mathshouse.net/api/student_courses
         $courses = LiveCourse::
         where('user_id', auth()->user()->id)
         ->with('course')
