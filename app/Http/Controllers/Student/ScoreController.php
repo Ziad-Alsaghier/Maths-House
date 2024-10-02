@@ -52,17 +52,17 @@ class ScoreController extends Controller
             $query->where('student_id', $studentId);
         }])
         ->get();
-        foreach ($data as $item) {
-            foreach ($item->lessons as $element) {
-                $sessions = Session::where('lesson_id', $element->id)
-                ->get();
-                $live_attend = SessionStudent::
-                whereIn('session_id', $sessions->pluck('id'))
-                ->where('user_id', auth()->user()->id)
-                ->first();
-                $element->live_attend = empty($live_attend) ? 'Absent' : 'Attend';
-            }
-        }
+        // foreach ($data as $item) {
+        //     foreach ($item->lessons as $element) {
+        //         $sessions = Session::where('lesson_id', $element->id)
+        //         ->get();
+        //         $live_attend = SessionStudent::
+        //         whereIn('session_id', $sessions->pluck('id'))
+        //         ->where('user_id', auth()->user()->id)
+        //         ->first();
+        //         $element->live_attend = empty($live_attend) ? 'Absent' : 'Attend';
+        //     }
+        // }
 
         return response()->json([
             'data' => $data
