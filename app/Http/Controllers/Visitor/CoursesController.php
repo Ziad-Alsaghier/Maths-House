@@ -84,7 +84,6 @@ class CoursesController extends Controller
         with('prices')
         ->where('id', $id)
         ->first();
-        return 20;
         $discount = 0;
         $price = 0;
         $total_price = 0;
