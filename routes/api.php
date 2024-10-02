@@ -61,6 +61,7 @@ Route::get('/private_req', [Stu_LiveController::class, 'private_req_api'])->name
 Route::get('/private_req_book', [Stu_LiveController::class, 'private_req_book_api'])->name('private_req_book_api');
 Route::get('/stu_sessions_api', [Stu_LiveController::class, 'stu_sessions_api'])->name('stu_sessions_api');
 Route::get('/lesson_score_sheet', [ScoreController::class, 'lesson_score_sheet'])->name('lesson_score_sheet');
+Route::post('/course_score_sheet', [ScoreController::class, 'course_score_sheet'])->name('course_score_sheet');
 
 Route::get('/add_stu_academic', [UserController::class, 'add_stu_academic'])->name('add_stu_academic');
 Route::get('/api_stu_academic', [UserController::class, 'api_stu_academic'])->name('api_stu_academic');

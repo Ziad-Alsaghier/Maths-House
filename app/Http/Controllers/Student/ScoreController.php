@@ -13,7 +13,9 @@ use App\Models\StudentQuizze;
 class ScoreController extends Controller
 {
     public function score_sheet(){
-        $lessons = Lesson::all();
+        $lessons = Lesson::
+        with('quizze')
+        ->all();
         $chapters = Chapter::all();
         $courses = Course::all();
 
@@ -26,14 +28,26 @@ class ScoreController extends Controller
         ->where('lesson_id', $req->lesson_id)
         ->with('quizze')
         ->get();
-        $arr = [];
-
+        $arr = []; 
         foreach ( $data as $item ) {
             $arr[$item->quizze_id] = $item;
         }
 
         return response()->json([
             'data' => array_values($arr)
+        ]);
+    }
+
+    public function course_score_sheet( Request $req ) {
+        $studentId = auth()->user()->id;
+        $data = Chapter::
+        where('course_id', $req->course_id)
+        ->with(['lessons.quizs.student_quizs' => function($query) use ($studentId) {
+            $query->where('student_id', $studentId);
+        }]);
+
+        return response()->json([
+            'data' => $data
         ]);
     }
 

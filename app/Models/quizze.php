@@ -50,4 +50,10 @@ class quizze extends Model
         ->orderByDesc('created_at')
         ->first();
     }
+
+    public function student_quizs(){
+        return $this->hasMany(StudentQuizze::class, 'lesson_id')
+        ->orderByDesc('created_at')
+        ->first();
+    }
 }

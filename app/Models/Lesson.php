@@ -66,6 +66,11 @@ class Lesson extends Model
         return $this->hasMany(quizze::class)
         ->orderByDesc('quizze_order');
     }
+    public function quizs()
+    {
+        return $this->hasMany(quizze::class)
+        ->orderBy('quizze_order');
+    }
     public function quizze_api()
     {
         return $this->hasMany(quizze::class)->orderBy('quizze_order')
