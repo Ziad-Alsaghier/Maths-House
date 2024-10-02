@@ -84,6 +84,7 @@ class CoursesController extends Controller
         with('prices')
         ->where('id', $id)
         ->first();
+        return 20;
         $discount = @$course_price->prices[0]->discount;
         $price = @$course_price->prices[0]->price;
         if (is_numeric($price)) {
