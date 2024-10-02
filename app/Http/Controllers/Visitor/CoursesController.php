@@ -72,11 +72,10 @@ class CoursesController extends Controller
             } 
             else {
                 $min =  $item->price[0]->price;
-            }
-            return $min;
-            foreach (  $item->price as $element ) {
-                if ( $min > $element->price ) {
-                    $min = $element->price;
+                foreach (  $item->price as $element ) {
+                    if ( $min > $element->price ) {
+                        $min = $element->price;
+                    }
                 }
             }
             $chapters[$key]['ch_price'] = $min;
