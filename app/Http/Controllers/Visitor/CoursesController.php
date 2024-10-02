@@ -99,7 +99,6 @@ class CoursesController extends Controller
             }
             $total_price = $price - $price * $discount / 100;
         }
-        return 88;
         $chapters_count = Chapter::where('course_id', $id)
         ->pluck('id');
         $lessons_count = Lesson::whereIn('chapter_id', $chapters_count)
