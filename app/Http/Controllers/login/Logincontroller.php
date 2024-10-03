@@ -82,13 +82,15 @@ class Logincontroller extends Controller
                         }
                         $now = Carbon::now();
                         $timeMinus120Minutes = $now->subMinutes(300);
-                        $l_user = LoginUser::
-                        where('type', 'web') 
-                        ->where('user_id', $user->id)
-                        ->where('created_at', '>=', $timeMinus120Minutes)
-                        ->first();
-                        if ( $l_user ) {
-                                return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
+                        if ( auth()->user() ) {
+                                $l_user = LoginUser::
+                                where('type', 'web') 
+                                ->where('user_id', $user->id)
+                                ->where('created_at', '>=', $timeMinus120Minutes)
+                                ->first();
+                                if ( $l_user ) {
+                                        return redirect()->route('login.index')->withErrors(['error'=>'You are logged in from another device.']);
+                                }
                         }
 
 			Auth::loginUsingId($user->id);
@@ -171,13 +173,15 @@ class Logincontroller extends Controller
                                 $value = rand(1, 99999999999);
                                 Cookie::queue(Cookie::make('device_id', $value, 60 * 24 * 365));
                         }
-                        $l_user = LoginUser::
-                        where('type', 'web') 
-                        ->where('user_id', $user->id)
-                        ->where('created_at', '>=', $timeMinus120Minutes)
-                        ->first();
-                        if ( !empty($l_user) ) {
-                                return view('Visitor.Login.login');
+                        if ( auth()->user() ) {
+                                $l_user = LoginUser::
+                                where('type', 'web') 
+                                ->where('user_id', $user->id)
+                                ->where('created_at', '>=', $timeMinus120Minutes)
+                                ->first();
+                                if ( !empty($l_user) ) {
+                                        return view('Visitor.Login.login');
+                                }
                         }
                         LoginUser::
                         where('ip', $value)
