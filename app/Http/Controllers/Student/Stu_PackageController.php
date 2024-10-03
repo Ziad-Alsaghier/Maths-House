@@ -94,8 +94,8 @@ class Stu_PackageController extends Controller
         }
         else{ 
             $arr['payment_method_id'] = $req->payment_method_id;
-            // Mail::To('Payment@mathshouse.net')
-            // ->send(new PaymentEmail($req->all(), auth()->user()));
+            Mail::To('Payment@mathshouse.net')
+            ->send(new PaymentEmail($req->all(), auth()->user()));
         }
         $p_request = PaymentRequest::create($arr);
         $p_method = isset($p_request->method->payment) ? $p_request->method->payment : 'Wallet';
