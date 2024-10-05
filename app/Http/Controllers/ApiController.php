@@ -1070,7 +1070,7 @@ class ApiController extends Controller
 
         $arr = $req->only('f_name', 'l_name', 'email', 'nick_name', 'phone', 'city_id', 'grade');
         $arr['position'] = 'student';
-        $arr['state'] = 'hidden';
+        $arr['state'] = 'Show';
         $arr['password'] = bcrypt($req->password);
         $arr['city_id'] = (int)$req->city_id;
         $code = rand(0, 10000);
