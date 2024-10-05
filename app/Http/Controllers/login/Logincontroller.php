@@ -105,9 +105,10 @@ class Logincontroller extends Controller
                                 $token = $user->createToken("user")->plainTextToken;
                                 $user->token =$token ;
 
-                                                        
-                                if ( session()->has('previous_page') ) {
-                                        return redirect($request->session()->get('previous_page'));
+                                $current_url = Cookie::get('previous_page'); 
+                                if ($current_url) {
+                                        Cookie::queue(Cookie::forget('previous_page'));
+                                        return redirect($current_url);
                                 }
                                 $value = Cookie::get('device_id');
                                 if ( empty($value) ) {

@@ -21,8 +21,8 @@ class V_DiaExamController extends Controller
     
     public function index(){
         if ( empty(auth()->user()) ) {
-            if ( !session()->has('previous_page') ) {
-                session(['previous_page' => url()->current()]);
+            if ( !Cookie::get('previous_page') ) {
+                Cookie::queue(Cookie::make('previous_page', url()->current(), 90));
             }
             return redirect()->route('login.index');
         }
@@ -41,8 +41,8 @@ class V_DiaExamController extends Controller
 
     public function v_dia_courses( $id ){
         if ( empty(auth()->user()) ) {
-            if ( !session()->has('previous_page') ) {
-                session(['previous_page' => url()->current()]);
+            if ( !Cookie::get('previous_page') ) {
+                Cookie::queue(Cookie::make('previous_page', url()->current(), 90));
             }
             return redirect()->route('login.index');
         }
@@ -55,8 +55,8 @@ class V_DiaExamController extends Controller
 
     public function v_dia_exam( Request $req ){
         if ( empty(auth()->user()) ) {
-            if ( !session()->has('previous_page') ) {
-                session(['previous_page' => url()->current()]);
+            if ( !Cookie::get('previous_page') ) {
+                Cookie::queue(Cookie::make('previous_page', url()->current(), 90));
             }
             return redirect()->route('login.index');
         }

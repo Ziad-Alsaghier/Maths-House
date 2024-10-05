@@ -122,8 +122,8 @@ class Stu_MyCourseController extends Controller
         $question = Question::where('id', $id)
         ->first();
         if ( empty(auth()->user()) ) {
-            if ( !session()->has('previous_page') ) {
-                session(['previous_page' => url()->current()]);
+            if ( !Cookie::get('previous_page') ) {
+                Cookie::queue(Cookie::make('previous_page', url()->current(), 90));
             }
             return redirect()->route('login.index');
         }
@@ -176,8 +176,8 @@ class Stu_MyCourseController extends Controller
     public function stu_quizze($quizze_id)
     {
         if ( empty(auth()->user()) ) {
-            if ( !session()->has('previous_page') ) {
-                session(['previous_page' => url()->current()]);
+            if ( !Cookie::get('previous_page') ) {
+                Cookie::queue(Cookie::make('previous_page', url()->current(), 90));
             }
             return redirect()->route('login.index');
         }

@@ -102,8 +102,8 @@ class V_ExamController extends Controller
         ->first(); 
         $reports = ReportQuestionList::all();
         if ( empty(auth()->user()) ) {
-            if ( !session()->has('previous_page') ) {
-                session(['previous_page' => url()->current()]);
+            if ( !Cookie::get('previous_page') ) {
+                Cookie::queue(Cookie::make('previous_page', url()->current(), 90));
             }
             return redirect()->route('login.index');
         }
