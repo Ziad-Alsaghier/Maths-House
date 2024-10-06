@@ -102,6 +102,9 @@
                                             <a href="{{route('dia_exam_mistake_pdf', ['id' => $dia_id])}}" class="btn btn-danger">
                                                 PDF
                                             </a> 
+                                            <a href="{{route('dia_exam_report_pdf', ['id' => $dia_id])}}" class="btn btn-danger mx-2">
+                                                Report
+                                            </a> 
                                         </td> 
                                     </tr>
                                 </table>

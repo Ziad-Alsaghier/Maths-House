@@ -62,8 +62,10 @@ class DomPdfController extends Controller
     public function dia_exam_report_pdf( $id ){
     
         // Fetch the data
-        $data = DiagnosticExamsHistory::where('id', $id)->first();
-        $exam = DiagnosticExam::where('id', $data->diagnostic_exams_id)->first();
+        $history = DiagnosticExamsHistory::where('id', $id)
+        ->where('user_id', auth()->user()->id)->first();
+        $exam = DiagnosticExam::where('id', $history->diagnostic_exams_id)
+        ->with('course.category')->first();
         $exam_time = $exam->time;
         
         // Parse exam time
@@ -72,10 +74,10 @@ class DomPdfController extends Controller
         $e_minutes = isset($exam_time_parts[1]) ? intval($exam_time_parts[1]) : 0;
     
         // Parse data time
-        $data_time = explode(':', $data->time);
-        $hours = isset($data_time[0]) ? intval($data_time[0]) : 0;
-        $minutes = isset($data_time[1]) ? intval($data_time[1]) : 0;
-        $seconds = isset($data_time[2]) ? intval($data_time[2]) : 0;
+        $history_time = explode(':', $history->time);
+        $hours = isset($history_time[0]) ? intval($history_time[0]) : 0;
+        $minutes = isset($history_time[1]) ? intval($history_time[1]) : 0;
+        $seconds = isset($history_time[2]) ? intval($history_time[2]) : 0;
     
         // Calculate the times in seconds
         $e_time = $e_hours * 60 * 60 + $e_minutes * 60;
@@ -98,14 +100,14 @@ class DomPdfController extends Controller
     
         // Prepare the data to be passed to the view
         $report = [
-            'date' => $data->date,
-            'time' => $data->time,
+            'date' => $history->date,
+            'time' => $history->time,
             'delay' => $delay,
             'color' => $color
         ];
     
         // Generate the PDF
-        $pdf = PDF::loadView('DiaExam', compact('report'));
+        $pdf = PDF::loadView('DiaExam', compact('report', 'exam', 'history'));
         
         // Optionally, save the PDF to a file
         // $pdf->save(storage_path('invoices/invoice.pdf'));
@@ -171,9 +173,11 @@ class DomPdfController extends Controller
     public function dia_exam_mistake_pdf( $id ){
         $mistakes = DaiExamMistake::where('student_exam_id', $id)
         ->get();
+        $dai_exam = DiagnosticExamsHistory::where('id', $id )
+        ->first()->exams;
 
         // Generate the PDF
-        $pdf = PDF::loadView('MistakePDF', compact('mistakes'));
+        $pdf = PDF::loadView('MistakePDF', compact('mistakes', 'dai_exam'));
         // Stream the PDF to the browser
         return $pdf->stream('MistakePDF.pdf');
     }

@@ -97,12 +97,37 @@
     .modal-backdrop.show {
         display: none !important;
     }
+    .exam-details {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.exam-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.student-name, .category, .course {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
 </style>
 
 <h3 class="txMista">Mistakes</h3>
 <div class="allMistakes app-email card my-3 mistakes_questions">
+    <div class="exam-details">
+        <h2 class="exam-title">{{ $dai_exam->title }}</h2>
+        <p class="student-name"><strong>Student:</strong> {{ auth()->user()->nick_name }}</p>
+        <p class="category"><strong>Category:</strong> {{ $dai_exam->course->category->cate_name }}</p>
+        <p class="course"><strong>Course:</strong> {{ $dai_exam->course->course_name }}</p>
+    </div>
+    
     @foreach ( $mistakes as $mistake )
         <div class="row g-0 mistake  p-3"> 
+            <p class="course"><strong>Chapter:</strong> {{ $mistake->question->lessons->chapter->chapter_name }}</p>
                 @if ( !empty($mistake->question->question) )
                     <span class="quesMisake">{!! $mistake->question->question !!}</span>
                 @endif
