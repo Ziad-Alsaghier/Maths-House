@@ -18,7 +18,7 @@ class ScoreController extends Controller
     public function score_sheet(){
         $lessons = Lesson::
         with('quizze')
-        ->all();
+        ->get();
         $chapters = Chapter::all();
         $courses = Course::all();
 
