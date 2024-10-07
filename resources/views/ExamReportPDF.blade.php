@@ -10,8 +10,10 @@
 <body>
     @foreach ( $Questions as $item )
     <h2>
-        <span class="text-primary">Question Number</span>
+        <span class="text-primary">Q.No</span>
         ({{$item->q_num}})
+        <span class="text-primary">Section</span>
+        ({{$item->section}})
         @if ( isset($item->mcq[0]) )
             <span class="text-success">
                 {{$item->mcq[0]['mcq_answers']}}

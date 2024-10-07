@@ -232,23 +232,21 @@ function fun_admin()
                     <label class="required form-label mb-3">Month</label>
                     <!--end::Label-->
                     <!--begin::Input-->
+                    @php
+                        $months = ['Jan', 'Fab', 'Mar', 'April', 'May', 'June', 'Jule',
+                        'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+                    @endphp
                     <select name="month" class="form-control">
                         <option disabled selected>
                             Select Month
                         </option>
-                        
-                        <option value="1">Jan</option>
-                        <option value="2">Fab</option>
-                        <option value="3">Mar</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">Jule</option>
-                        <option value="8">Aug</option>
-                        <option value="9">Sept</option>
-                        <option value="10">Oct</option>
-                        <option value="11">Nov</option>
-                        <option value="12">Dec</option>
+                        @foreach ($months as $key => $item)
+                            @if ($key + 1 == @$data['month'])
+                            <option value="{{$key + 1}}" selected>{{$item}}</option>
+                            @else
+                            <option value="{{$key + 1}}">{{$item}}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
                 <!--end::Input-->
