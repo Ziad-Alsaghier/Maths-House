@@ -45,14 +45,14 @@ class quizze extends Model
     }
 
     public function student_quizzes( $id ){
-        return $this->hasMany(StudentQuizze::class, 'lesson_id')
+        return $this->hasMany(StudentQuizze::class, 'quizze_id')
         ->where('student_id', $id)
         ->orderByDesc('created_at')
         ->first();
     }
 
     public function student_quizs(){
-        return $this->hasMany(StudentQuizze::class, 'lesson_id')
+        return $this->hasMany(StudentQuizze::class, 'quizze_id')
         ->orderByDesc('created_at');
     }
 }

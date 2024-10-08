@@ -43,6 +43,7 @@ class DomPdfController extends Controller
         ->with('mcq')
         ->orderBy('q_num')
         ->get(); 
+        $data = $data->sortBy('q_num');
         $data = [
             'Questions' => $data,
         ];
