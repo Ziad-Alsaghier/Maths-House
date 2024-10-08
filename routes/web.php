@@ -75,7 +75,7 @@ use App\Models\Wallet;
 |
 */
     $controller_path = 'App\Http\Controllers' ;
-    
+
     Route::get('Affilate/Data/{id}', [Aff_DashboardController::class, 'aff_link'])->name('aff_link');
     Route::controller(LoginController::class)->group(function(){
         Route::post('/Market','market_login')->name('market_ch');
@@ -89,11 +89,11 @@ use App\Models\Wallet;
         Route::post('/sign_up/Add','sign_up_add')->name('sign_up_add');
         Route::get('/logout','destroy')->name('logout');
         Route::get('/delete_account/{id}','delete_account')->name('delete_account');
-        
+
     });
-    
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    
+
     Route::controller(V_LiveController::class)->group(function(){
         Route::get('/Live_Package', 'live_package')->name('live_package');
     });
@@ -147,9 +147,9 @@ use App\Models\Wallet;
     Route::get('/Contact', [ContactController::class, 'index'])->name('contact_us');
     Route::post('/Contact/Msg', [ContactController::class, 'contact_msg'])->name('contact_msg');
 
-//  Hello MR Ahmed 
+//  Hello MR Ahmed
 Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
-            
+
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -158,7 +158,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Update', 'update_slider')->name('update_slider');
         Route::post('/Add', 'add_img_slider')->name('add_img_slider');
     });
-    
+
     // Report Issues
     Route::controller(ReportIssuesController::class)->middleware('can:ReportIssues')
     ->prefix('ReportIssues')->group(function(){
@@ -170,18 +170,18 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Question/Action', 'admin_question_action_report')->name('admin_question_action_report');
         Route::post('/Question/Action/Edit/{id}', 'Ad_report_question_edit')->name('Ad_report_question_edit');
         Route::get('/Question/Action/Del/{id}', 'Ad_report_question_del')->name('Ad_report_question_del');
-        
+
         Route::get('/Video/List', 'admin_video_report_list')->name('admin_video_report_list');
         Route::post('/Video/List/Add', 'Ad_report_video_list_add')->name('Ad_report_video_list_add');
         Route::post('/Video/List/Edit/{id}', 'Ad_report_video_list_edit')->name('Ad_report_video_list_edit');
         Route::get('/Video/List/Del/{id}', 'Ad_report_video_list_del')->name('Ad_report_video_list_del');
-        
+
         Route::get('/Video/Action', 'admin_video_action_report')->name('admin_video_action_report');
         Route::post('/Video/Action/Edit/{id}', 'Ad_report_video_edit')->name('Ad_report_video_edit');
         Route::get('/Video/Action/Del/{id}', 'Ad_report_video_del')->name('Ad_report_video_del');
     });
 
-    // Quizze 
+    // Quizze
     Route::controller(QuizzeController::class)->middleware('can:Courses')
     ->prefix('Quizze')->group(function(){
         Route::get('/', 'quizze')->name('quizze');
@@ -191,7 +191,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Filter', 'filter_quiz')->name('filter_quiz');
     });
 
-    // Payment 
+    // Payment
     Route::controller(PaymentController::class)->middleware('can:Payment')->prefix('Payment')->group(function(){
         Route::get('/', 'payment')->name('payment');
         Route::post('/Add', 'payment_add')->name('payment_add');
@@ -243,7 +243,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Filter_Payouts', 'filter_payment')->name('filter_payment');
     });
 
-    // Live 
+    // Live
     Route::controller(LiveController::class)->middleware('can:Live')->prefix('Live')->group(function(){
         Route::get('/', 'index')->name('sessions');
         Route::post('/Edit/{id}', 'session_edit')->name('session_edit');
@@ -269,12 +269,12 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     });
 
     Route::controller(AdminsController::class)->middleware('can:Admin')->prefix('Admins')->group(function(){
-        
+
         Route::post('/Admin/Edit', 'admin_edit')->name('admin_edit');
         Route::get('/Admin/Del/{id}', 'del_admin')->name('del_admin');
         Route::get('/Admin_Add', 'admin_add')->name('admin_add');
         Route::post('/Admin/Add', 'add_admin')->name('add_admin');
-        
+
         Route::get('/RoleAdmin', 'role_admins')->name('role_admins_list');
         Route::post('/RoleAdmin/Add', 'role_admin_add')->name('role_admin_add');
         Route::post('/RoleAdmin/Edit/{id}', 'role_admin_edit')->name('role_admin_edit');
@@ -290,8 +290,8 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     });
 
     Route::controller(UserController::class)->middleware('can:Users')->prefix('Users')->group(function(){
-        
-        // Teacher 
+
+        // Teacher
         Route::post('/Teacher_Filter', 'teacher_filter')->name('teacher_filter');
         Route::get('/Teacher_Filter', 'teacher_filter')->name('teacher_filter');
         Route::get('/Teacher', 'teacher')->name('teacher');
@@ -299,8 +299,8 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Teacher/Add', 'add_teacher')->name('add_teacher');
         Route::get('/Teacher_Add', 'teacher_add')->name('teacher_add');
         Route::get('/Teacher/Del/{id}', 'del_teacher')->name('del_teacher');
-        
-        // Students  
+
+        // Students
         Route::post('/Add_Wallet', 'ad_add_wallet')->name('ad_add_wallet');
         Route::get('/Student', 'student')->name('student');
         Route::post('/Student_Filter', 'student_filter')->name('student_filter');
@@ -324,7 +324,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     Route::get('/dashboard', [ DashboardController::class, 'index'])->name('dashboard');
 
 
-    // Courses 
+    // Courses
     Route::controller(CoursesController::class)->middleware('can:Courses')->group(function(){
         Route::get('/Courses','courses')->name('courses');
         Route::post('/Courses_Filter','course_filter')->name('course_filter');
@@ -335,7 +335,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Courses/Courses/Add','course_add')->name('course_add');
     });
 
-    // Chapters 
+    // Chapters
     Route::controller(ChaptersController::class)->middleware('can:Courses')->group(function(){
         Route::get('/Chapter','chapter')->name('chapter');
         Route::post('/Chapter_Filter','ch_filter')->name('ch_filter');
@@ -345,7 +345,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Chapter/Del/{id}','del_chapter')->name('del_chapter');
     });
 
-    // Questions 
+    // Questions
     Route::controller(QuestionController::class)->middleware('can:Courses')->group(function(){
         Route::get('/Question','question')->name('question');
         Route::post('/Question/Edit/{id}','q_edit')->name('q_edit');
@@ -354,7 +354,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Question/Filter','filter_question')->name('filter_question');
         Route::get('/Question/Del/{id}','del_q')->name('del_q');
     });
-    
+
     //Course Setting
     Route::controller(CourseSettingController::class)->middleware('can:Settings')->group(function(){
         Route::get('/Courses/CodeExam','course_setting')->name('course_setting');
@@ -362,7 +362,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Courses/CodeExam/Edit/{id}','examCodeEdit')->name('examCodeEdit');
         Route::get('/Courses/CodeExam/Del/{id}','examCodeDelete')->name('examCodeDelete');
     });
-    
+
     // Logout Users
     Route::controller(LogoutUsersController::class)->middleware('can:Settings')->group(function(){
         Route::get('/LogoutUsers','index')->name('logout_users');
@@ -376,8 +376,8 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/delete/{id}', 'delete')->name('delete_currency');
     });
 
-    // Diagnostic Exam 
-    Route::controller(DiagnosticExamController::class)->middleware('can:Courses')->group(function(){ 
+    // Diagnostic Exam
+    Route::controller(DiagnosticExamController::class)->middleware('can:Courses')->group(function(){
         Route::get('/Diagnostic_Exam','index')->name('dia_exam');
         Route::post('/Diagnostic_Exam/Add','add_diaexam')->name('add_diaexam');
         Route::get('/Diagnostic_Exam/edit_q_dia_exam','edit_q_dia_exam')->name('edit_q_dia_exam');
@@ -385,10 +385,10 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Diagnostic_Exam/Edit/{id}','edit_dia_exam')->name('edit_dia_exam');
     });
 
-    // Exam 
+    // Exam
     Route::controller(ExamController::class)->middleware('can:Courses')->group(function(){
         Route::get('/Exam/Del/{id}','del_exam')->name('del_exam');
-        Route::post('/Exam/Edit','edit_exam')->name('edit_exam'); 
+        Route::post('/Exam/Edit','edit_exam')->name('edit_exam');
         Route::get('/Exam/edit_q_exam','edit_q_exam')->name('edit_q_exam');
         Route::get('/Exam','index')->name('exam');
         Route::post('/Exam/Add','add_exam')->name('add_exam');
@@ -398,7 +398,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/ScoreSheet','score_sheet')->name('exam_score_sheet');
         Route::post('/ScoreSheet/Add','addScore')->name('addScore');
         Route::post('/ScoreSheet/Edit/{id}','editScore')->name('editScore');
-        Route::get('/ScoreSheet/Del/{id}','scoreDelete')->name('scoreDelete'); 
+        Route::get('/ScoreSheet/Del/{id}','scoreDelete')->name('scoreDelete');
     });
 
     // Category
@@ -409,7 +409,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/category/categoryEdit','editCategory')->name('categoryEdit');
     });
 
-    // Lesson 
+    // Lesson
     Route::controller(LessonController::class)->middleware('can:Courses')->group(function(){
         Route::get('Lesson/Lessons','index')->name('lesson');
         Route::post('Lesson/AddLesson','addLesson')->name('addLesson');
@@ -419,7 +419,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('Lesson/Filter','filter_lesson')->name('filter_lesson');
     });
 
-    // Packages 
+    // Packages
     Route::controller(Ad_PackagesController::class)->middleware('can:Packages')->group(function(){
         Route::get('Packages','index')->name('admin_packages');
         Route::get('Packages/Stu_Add','add_stu_package')->name('add_stu_package');
@@ -432,7 +432,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('Packages/History/Filter','package_history_admin')->name('package_history');
     });
 
-    // Reports 
+    // Reports
     Route::controller(Ad_ReportsController::class)->middleware('can:Reports')->group(function(){
         Route::get('/Report/Live','ad_live_report')->name('ad_live_report');
         Route::get('/Report/Grade','ad_grade_report')->name('ad_grade_report');
@@ -442,7 +442,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Report/ScoreSheet','ad_score_sheet_report')->name('ad_score_sheet_report');
         Route::get('/Report/ScoreSheet/Show/{id}','score_sheet_student')->name('score_sheet_student');
         Route::get('/Report/Question/Filter','ad_report_filter_exam')->name('ad_report_filter_question');
-        
+
         Route::get('/Report/ScoreSheet/Show/Mistakes/{id}','ad_score_sheet_mistake')->name('ad_score_sheet_mistake');
         Route::get('/Report/ScoreSheet/Answer/{id}','ad_score_question_answer')->name('ad_score_question_answer');
         Route::get('/Report/ScoreSheet/Parallel/{id}','ad_question_parallel')->name('ad_question_parallel');
@@ -455,9 +455,9 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     });
 
 });
-          
+
     // Student
-    
+
 Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
     \App::singleton('wallet', function(){
         $money = Wallet::where('student_id', auth()->user()->id)
@@ -466,16 +466,30 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
 
         return $money;
     });
-    
+
 
     Route::controller(DomPdfController::class)->group(function(){
         Route::get('/DiaExam/PDF/{id}', 'dia_exam_mistake_pdf')->name('dia_exam_mistake_pdf');
         Route::get('/Exam/PDF/{id}', 'exam_mistake_pdf')->name('exam_mistake_pdf');
     });
 
-    Route::controller(ScoreController::class)->group(function(){
-        Route::get('ScoreSheet','score_sheet')->name('score_sheet');
+    // Route::controller(ScoreController::class)->group(function(){
+    //     Route::get('ScoreSheet','score_sheet')->name('score_sheet');
+    // });
+
+    // Route::controller(ScoreController::class)->group(function () {
+    //     Route::get('ScoreSheet', 'score_sheet')->name('score_sheet'); // Get the score sheet view
+    //     Route::post('course_score_sheet', 'course_score_sheet')->name('course_score_sheet'); // Fetch course score data
+    // });
+    Route::controller(ScoreController::class)->group(function () {
+        Route::get('ScoreSheet', 'score_sheet')->name('score_sheet'); // Get the score sheet view
+        Route::post('course_score_sheet', 'course_score_sheet')->name('course_score_sheet'); // Fetch course score data
+
+        // New routes for fetching chapters and lessons
+        // Route::post('fetch_chapters', 'fetchChapters')->name('fetch_chapters'); // Fetch chapters based on course
+        // Route::post('fetch_lessons', 'fetchLessons')->name('fetch_lessons'); // Fetch lessons based on chapter
     });
+
 
     Route::controller(Stu_DashboardController::class)->group(function(){
         Route::get('Student','index')->name('stu_dashboard');
@@ -503,7 +517,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
         Route::get('Package/Checkout/{id}', 'package_checkout')->name('package_checkout');
         Route::post('Package/Payment/{id}', 'payment_package')->name('payment_package');
         Route::post('Package/PromoCode', 'package_use_promocode')->name('package_use_promocode');
-    }); 
+    });
 
     Route::controller(Stu_PaymentController::class)->group(function(){
         Route::get('PaymentHistory', 'stu_payment_history')->name('stu_payment_history');
@@ -514,7 +528,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
     Route::controller(Stu_QuestionController::class)->group(function(){
         Route::get('QuestionHistory', 'question_history')->name('question_history');
         Route::get('QuestionMistakes/{id}', 'question_mistakes')->name('question_mistakes');
-    }); 
+    });
 
     Route::controller(Stu_MyPackagesController::class)->group(function(){
         Route::get('MyPackages', 'my_packages')->name('my_packages');
@@ -525,7 +539,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
         Route::get('Wallet/Filter', 'wallet_filter')->name('wallet_filter');
         Route::post('Wallet/Add', 'add_wallet')->name('add_wallet');
     });
-    
+
 
     Route::controller(Stu_ProfileController::class)->group(function(){
 
@@ -537,7 +551,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
         Route::get('/Exam/History','exam_history')->name('exam_history');
         Route::get('/Exam/Mistakes/{id}','exam_mistakes')->name('exam_mistakes');
     });
-    
+
 
     Route::controller(Stu_MyCourseController::class)->prefix('MyCourses')->group(function(){
         Route::get('/','index')->name('stu_my_courses');
@@ -554,14 +568,14 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
         Route::get('/Buy_Chapter/{id}','buy_chapter')->name('buy_chapter');
         Route::post('/Buy_Chapters','dia_buy_chapters')->name('dia_buy_chapters');
     });
-    
+
 });
 
 // Affilate
 
 Route::middleware(['auth','auth.affilate'])->prefix('Affilate')->group(function(){
     Route::controller(Aff_DashboardController::class)->group(function(){
-        Route::get('/', 'index')->name('stu_affilate'); 
+        Route::get('/', 'index')->name('stu_affilate');
     });
 
     Route::controller(Aff_PayoutController::class)->group(function(){
@@ -577,21 +591,21 @@ Route::middleware(['auth','auth.affilate'])->prefix('Affilate')->group(function(
         Route::get('/Profile', 'aff_profile')->name('aff_profile');
         Route::post('/Profile/Edit', 'aff_edit_profile')->name('aff_edit_profile');
     });
-    
+
 });
 
 // Teacher
 
 Route::middleware(['auth','auth.teacher'])->prefix('Teacher')->group(function(){
     Route::get('/',  [TDashboardController::class, 'index'])->name('t_dashboard');
-    
+
     Route::controller(TProfileController::class)->prefix('Profile')->group(function(){
         Route::get('/', 'index')->name('t_profile');
         Route::post('/Edit', 't_edit_profile')->name('t_edit_profile');
     });
-    
+
     Route::controller(TLiveController::class)->prefix('Live')->group(function(){
-        Route::get('/', 'index')->name('t_live'); 
+        Route::get('/', 'index')->name('t_live');
     });
 });
 

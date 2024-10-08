@@ -31,7 +31,7 @@ class ScoreController extends Controller
         ->where('lesson_id', $req->lesson_id)
         ->with('quizze')
         ->get();
-        $arr = []; 
+        $arr = [];
         foreach ( $data as $item ) {
             $arr[$item->quizze_id] = $item;
         }
@@ -68,6 +68,96 @@ class ScoreController extends Controller
             'data' => $data
         ]);
     }
+
+    // public function fetchChapters(Request $request) {
+    //     // Fetch the specific chapter by chapter_id with its associated lessons
+    //     $studentId = auth()->user()->id;
+
+    //     $chapter = Chapter::where('id', $request->chapter_id)
+    //         ->with(['lessons.quizs.student_quizs' => function($query) use ($studentId) {
+    //             $query->where('student_id', $studentId);
+    //         }])
+    //         ->first();
+
+    //     // Loop through the lessons to determine attendance
+    //     foreach ($chapter->lessons as $element) {
+    //         // Get sessions for each lesson
+    //         $sessions = Session::where('lesson_id', $element->id)->get();
+
+    //         // Check attendance for the logged-in user
+    //         $live_attend = SessionStudent::whereIn('session_id', $sessions->pluck('id'))
+    //             ->where('user_id', $studentId)
+    //             ->first();
+
+    //         // Set attendance status
+    //         $element->live_attend = empty($live_attend) ? 'Absent' : 'Attend';
+    //     }
+
+    //     // Return the chapter and its lessons as JSON response
+    //     return response()->json(['chapter' => $chapter]);
+    // }
+
+    // public function fetchLessons(Request $request) {
+    //     $studentId = auth()->user()->id;
+
+    //     // Fetch lessons along with chapter name and associated quizzes for the logged-in student
+    //     $lessons = Lesson::select('lessons.*', 'chapters.chapter_name')
+    //         ->join('chapters', 'lessons.chapter_id', '=', 'chapters.id')
+    //         ->where('lessons.chapter_id', $request->chapter_id)
+    //         ->with(['quizs.student_quizs' => function($query) use ($studentId) {
+    //             $query->where('student_id', $studentId); // Filter student quizzes by student ID
+    //         }])
+    //         ->get();
+
+    //     // Loop through each lesson to determine attendance
+    //     foreach ($lessons as $lesson) {
+    //         // Get sessions for each lesson
+    //         $sessions = Session::where('lesson_id', $lesson->id)->get();
+
+    //         // Check attendance for the logged-in user
+    //         $live_attend = SessionStudent::whereIn('session_id', $sessions->pluck('id'))
+    //             ->where('user_id', $studentId)
+    //             ->first();
+
+    //         // Set attendance status
+    //         $lesson->live_attend = empty($live_attend) ? 'Absent' : 'Attend';
+    //     }
+
+    //     // Return the lessons along with attendance status as JSON response
+    //     return response()->json(['lessons' => $lessons]);
+    // }
+
+
+
+    // public function fetchChapters(Request $request) {
+    //     $chapters = Chapter::where('course_id', $request->course_id)->get();
+    //     return response()->json(['chapters' => $chapters]);
+    // }
+
+    // public function fetchChapters(Request $request) {
+    //     // Fetch the specific chapter by chapter_id with its associated lessons
+    //     $studentId = auth()->user()->id;
+    //     $chapter = Chapter::where('id', $request->chapter_id)
+    //                         ->with(['lessons.quizs.student_quizs' => function($query) use ($studentId) {
+    //                             $query->where('student_id', $studentId);
+    //                         }])
+    //                         ->first();
+
+    //     // Return the chapter and its lessons as JSON response
+    //     return response()->json(['chapter' => $chapter]);
+    // }
+
+    // public function fetchLessons(Request $request) {
+    //     $studentId = auth()->user()->id;
+    //     $lessons = Lesson::select('lessons.*', 'chapters.chapter_name')
+    //     ->join('chapters', 'lessons.chapter_id', '=', 'chapters.id')
+    //     ->where('lessons.chapter_id', $request->chapter_id)
+    //     ->with(['quizs.student_quizs' => function($query) use ($studentId) {
+    //         $query->where('student_id', $studentId); // Filter student quizzes by student ID
+    //     }])
+    //     ->get();
+    //     return response()->json(['lessons' => $lessons]);
+    // }
 
     public function student_courses( Request $req ) {
         // https://login.mathshouse.net/api/student_courses
