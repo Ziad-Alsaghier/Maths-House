@@ -680,24 +680,102 @@
                                 $('#myTable').append(chapterRow);
 
                                 // Check if the chapter has lessons and iterate through them
-                                if (chapter.lessons && chapter.lessons.length > 0) {
-                                    chapter.lessons.forEach(function(lesson) {
-                                        const pass_score = 50; // Example pass score, replace with actual value
-                                        var lessonRow = `<tr>
-                                            <td></td> <!-- Empty cell for chapter row -->
-                                            <td>${lesson.lesson_name}</td>
-                                            <td>${lesson.quizs[0]?.student_quizs?.score && lesson.quizs[0].student_quizs.score >= lesson.quizs[0]?.pass_score ? (lesson.quizs[0].student_quizs.score / lesson.quizs[0].score) : "-"}</td>
-                                            <td>${lesson.quizs[1]?.student_quizs?.score && lesson.quizs[1].student_quizs.score >= lesson.quizs[1]?.pass_score ? (lesson.quizs[1].student_quizs.score / lesson.quizs[1].score) : "-"}</td>
-                                            <td>${lesson.quizs[2]?.student_quizs?.score && lesson.quizs[2].student_quizs.score >= lesson.quizs[2]?.pass_score ? (lesson.quizs[2].student_quizs.score / lesson.quizs[2].score) : "-"}</td>
-                                            <td>${lesson.quizs[3]?.student_quizs?.score && lesson.quizs[3].student_quizs.score >= lesson.quizs[3]?.pass_score ? (lesson.quizs[3].student_quizs.score / lesson.quizs[3].score) : "-"}</td>
-                                            <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
-                                                ${lesson.live_attend}
-                                            </td>
+                                // if (chapter.lessons && chapter.lessons.length > 0) {
+                                //     chapter.lessons.forEach(function(lesson) {
+                                //         const pass_score = 50; // Example pass score, replace with actual value
+                                //         var lessonRow = `<tr>
+                                //             <td></td> <!-- Empty cell for chapter row -->
+                                //             <td>${lesson.lesson_name}</td>
+                                //             <td>${lesson.quizs[0]?.student_quizs?.score && lesson.quizs[0].student_quizs.score >= lesson.quizs[0]?.pass_score ? (lesson.quizs[0].student_quizs.score / lesson.quizs[0].score) : "-"}</td>
+                                //             <td>${lesson.quizs[1]?.student_quizs?.score && lesson.quizs[1].student_quizs.score >= lesson.quizs[1]?.pass_score ? (lesson.quizs[1].student_quizs.score / lesson.quizs[1].score) : "-"}</td>
+                                //             <td>${lesson.quizs[2]?.student_quizs?.score && lesson.quizs[2].student_quizs.score >= lesson.quizs[2]?.pass_score ? (lesson.quizs[2].student_quizs.score / lesson.quizs[2].score) : "-"}</td>
+                                //             <td>${lesson.quizs[3]?.student_quizs?.score && lesson.quizs[3].student_quizs.score >= lesson.quizs[3]?.pass_score ? (lesson.quizs[3].student_quizs.score / lesson.quizs[3].score) : "-"}</td>
+                                //             <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
+                                //                 ${lesson.live_attend}
+                                //             </td>
 
-                                            </tr>`;
-                                        $('#myTable').append(lessonRow);
-                                    });
-                                } else {
+                                //             </tr>`;
+                                //         $('#myTable').append(lessonRow);
+                                //     });
+                                // }
+
+if (chapter.lessons && chapter.lessons.length > 0) {
+    chapter.lessons.forEach(function(lesson) {
+
+        // Dynamically generate quiz columns for the first 4 quizzes in lesson.quizs
+        const quizColumns = lesson.quizs.slice(0, 4)
+            .map(quiz => {
+                // Find the first student quiz with a score above the passing score
+                const validStudentQuiz = quiz.student_quizs.find(studentQuiz =>
+                    studentQuiz?.score >= quiz?.pass_score
+                );
+
+                // Generate the <td> for the found student quiz or a placeholder
+                return `
+                    <td>
+                        ${validStudentQuiz ? `${validStudentQuiz.score}/${quiz.score}` : "-"}
+                    </td>
+                `;
+            }).join(''); // Join all quiz columns for this lesson
+
+        // Fallback if there are fewer than 4 quizzes
+        const emptyColumns = lesson.quizs.length < 4
+            ? `<td>-</td>`.repeat(4 - lesson.quizs.length)
+            : '';
+
+        // Create the lesson row with the quiz columns
+        var lessonRow = `<tr>
+            <td></td> <!-- Empty cell for chapter row -->
+            <td>${lesson.lesson_name}</td>
+            ${quizColumns}${emptyColumns} <!-- Include both quiz columns and any empty columns -->
+            <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
+                ${lesson.live_attend}
+            </td>
+        </tr>`;
+
+        // Append the generated row to the table
+        $('#myTable').append(lessonRow);
+    });
+}
+
+// if (chapter.lessons && chapter.lessons.length > 0) {
+//     chapter.lessons.forEach(function(lesson) {
+//         // Access the quiz at index 7
+//         const quiz = lesson.quizs[7]; // Attempt to access quiz at index 7
+//         let quizColumn = "<td>-</td>"; // Default value if no valid quiz is found
+
+//         // Check if the quiz exists and has student quizzes
+//         if (quiz && quiz.student_quizs && quiz.student_quizs.length > 0) {
+//             // Find the first student quiz with a score above the passing score
+//             const validStudentQuiz = quiz.student_quizs.find(studentQuiz =>
+//                 studentQuiz?.score >= quiz?.pass_score
+//             );
+
+//             // Generate the <td> for the found student quiz or a placeholder
+//             quizColumn = `
+//                 <td>
+//                     ${validStudentQuiz ? `${validStudentQuiz.score}/${quiz.score}` : "-"}
+//                 </td>
+//             `;
+//         }
+
+//         // Create the lesson row with the quiz column
+//         var lessonRow = `<tr>
+//             <td></td> <!-- Empty cell for chapter row -->
+//             <td>${lesson.lesson_name}</td>
+//             ${quizColumn} <!-- Include the quiz column for index 7 -->
+//             <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
+//                 ${lesson.live_attend}
+//             </td>
+//         </tr>`;
+
+//         // Append the generated row to the table
+//         $('#myTable').append(lessonRow);
+//     });
+// }
+
+
+                                 else {
                                     // In case there are no lessons for a chapter
                                     $('#myTable').append(`<tr>
                                         <td></td> <!-- Empty cell for chapter row -->
