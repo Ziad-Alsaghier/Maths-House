@@ -407,6 +407,143 @@
                 </table>
             </div>
         </div>
+        {{-- /*
+        Trigger when chapter selection changes
+        $('#selChapter').on('change', function() {
+            var selectedChapterId = $("#selChapter").val();
+            var selectedCourseId = $("#selCourse").val();
+
+            // Clear previous lesson options
+            $('#selLesson').html('<option value="">Select Lesson</option>');
+
+            // Send the selected chapter_id via AJAX to fetch lessons
+            $.ajax({
+                url: "{{ route('fetch_chapters') }}", // Ensure this matches your route for fetching lessons
+                type: 'POST',
+                data: {
+                    chapter_id: selectedChapterId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log('API response:', response);
+
+                    // Populate the lessons dropdown for the selected chapter
+                    $('#selLesson').html(
+                        '<option value="">Select Lesson</option>'
+                        ); // Clear previous options
+                    response.chapter.lessons.forEach(function(lesson) {
+                        $('#selLesson').append(
+                            `<option value="${lesson.id}">${lesson.lesson_name}</option>`
+                        );
+                    });
+
+                    // Clear the table body before populating new data
+                    $('#myTable').empty();
+
+                    // Iterate through each chapter in the response data
+                    // Create a row for the chapter
+                    var chapterRow = `
+            <tr>
+                <td colspan="7" style="font-weight: bold;">${response.chapter.chapter_name}</td>
+            </tr>`;
+                    $('#myTable').append(chapterRow);
+
+                    // Check if the chapter has lessons and iterate through them
+                    if (response.chapter.lessons && response.chapter.lessons.length > 0) {
+                        response.chapter.lessons.forEach(function(lesson) {
+                            var lessonRow = `
+                <tr>
+                    <td></td> <!-- Empty cell for chapter row -->
+                    <td>${lesson.lesson_name}</td>
+                    <td>${lesson.quizs[0]?.student_quizs?.score && lesson.quizs[0].student_quizs.score >= lesson.quizs[0]?.pass_score ? (lesson.quizs[0].student_quizs.score / lesson.quizs[0].score) : "-"}</td>
+                    <td>${lesson.quizs[1]?.student_quizs?.score && lesson.quizs[1].student_quizs.score >= lesson.quizs[1]?.pass_score ? (lesson.quizs[1].student_quizs.score / lesson.quizs[1].score) : "-"}</td>
+                    <td>${lesson.quizs[2]?.student_quizs?.score && lesson.quizs[2].student_quizs.score >= lesson.quizs[2]?.pass_score ? (lesson.quizs[2].student_quizs.score / lesson.quizs[2].score) : "-"}</td>
+                    <td>${lesson.quizs[3]?.student_quizs?.score && lesson.quizs[3].student_quizs.score >= lesson.quizs[3]?.pass_score ? (lesson.quizs[3].student_quizs.score / lesson.quizs[3].score) : "-"}</td>
+                    <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
+                                            ${lesson.live_attend}
+                    </td>
+               </tr>`;
+                            $('#myTable').append(lessonRow);
+                        });
+                    } else {
+                        // In case there are no lessons for a chapter
+                        $('#myTable').append(`
+            <tr>
+                <td></td> <!-- Empty cell for chapter row -->
+                <td colspan="6" style="color: #888;">No lessons available for this chapter.</td>
+            </tr>`);
+                    }
+                },
+
+                error: function(xhr, status, error) {
+                    console.error('API error:', error);
+                }
+            });
+        })
+
+        $('#selLesson').on('change', function() {
+            var selectedLessonId = $("#selLesson").val();
+            var selectedChapterId = $("#selChapter").val();
+
+            // Send AJAX request with all necessary parameters
+            $.ajax({
+                url: "{{ route('fetch_lessons') }}",
+                type: 'POST',
+                data: {
+                    chapter_id: selectedChapterId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log('API response:', response);
+
+                    // Clear the previous lesson data in the table
+                    $('#myTable').empty();
+                    console.log(selectedLessonId)
+
+                    // Loop through the lessons in the response and find the selected lesson
+                    var selectedLesson = null; // Initialize variable to store selected lesson
+                    response.lessons.forEach(function(lesson) {
+                        if (lesson.id == selectedLessonId) { // Check if lesson ID matches selectedLessonId
+                            selectedLesson = lesson; // Store the matching lesson
+                        }
+                    });
+                    console.log(selectedLesson)
+
+                    if (selectedLesson) {
+                        // Create a new row with the selected lesson details
+                        var lessonRow = `
+                            <tr>
+                                <td>${selectedLesson.chapter_name}</td> <!-- Add chapter name here -->
+                                <td>${selectedLesson.lesson_name}</td>
+                                <td>${selectedLesson.quizs[0]?.student_quizs?.score && selectedLesson.quizs[0].student_quizs.score >= selectedLesson.quizs[0]?.pass_score ? (selectedLesson.quizs[0].student_quizs.score / selectedLesson.quizs[0].score) : "-"}</td>
+                                <td>${selectedLesson.quizs[1]?.student_quizs?.score && selectedLesson.quizs[1].student_quizs.score >= selectedLesson.quizs[1]?.pass_score ? (selectedLesson.quizs[1].student_quizs.score / selectedLesson.quizs[1].score) : "-"}</td>
+                                <td>${selectedLesson.quizs[2]?.student_quizs?.score && selectedLesson.quizs[2].student_quizs.score >= selectedLesson.quizs[2]?.pass_score ? (selectedLesson.quizs[2].student_quizs.score / selectedLesson.quizs[2].score) : "-"}</td>
+                                <td>${selectedLesson.quizs[3]?.student_quizs?.score && selectedLesson.quizs[3].student_quizs.score >= selectedLesson.quizs[3]?.pass_score ? (selectedLesson.quizs[3].student_quizs.score / selectedLesson.quizs[3].score) : "-"}</td>
+                                <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
+                                            ${lesson.live_attend}
+                                </td>
+                            </tr>
+                        `;
+
+                        // Append the new row to the table
+                        $('#myTable').append(lessonRow);
+                    } else {
+                        // Handle case where lesson is not found
+                        $('#myTable').append(`
+                            <tr>
+                                <td colspan="7" style="color: #888;">No lesson details available.</td>
+                            </tr>
+                        `);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('API error:', xhr.responseText); // Display the server response error for debugging
+                }
+            });
+        });
+
+        */ --}}
+
     </div>
 
     <!-- jQuery CDN -->
@@ -582,143 +719,6 @@
                     }
                 });
             });
-
-            //Trigger when chapter selection changes
-            // $('#selChapter').on('change', function() {
-            //     var selectedChapterId = $("#selChapter").val();
-            //     var selectedCourseId = $("#selCourse").val();
-
-            //     // Clear previous lesson options
-            //     $('#selLesson').html('<option value="">Select Lesson</option>');
-
-            //     // Send the selected chapter_id via AJAX to fetch lessons
-            //     $.ajax({
-            //         url: "{{ route('fetch_chapters') }}", // Ensure this matches your route for fetching lessons
-            //         type: 'POST',
-            //         data: {
-            //             chapter_id: selectedChapterId,
-            //             _token: '{{ csrf_token() }}'
-            //         },
-            //         success: function(response) {
-            //             console.log('API response:', response);
-
-            //             // Populate the lessons dropdown for the selected chapter
-            //             $('#selLesson').html(
-            //                 '<option value="">Select Lesson</option>'
-            //                 ); // Clear previous options
-            //             response.chapter.lessons.forEach(function(lesson) {
-            //                 $('#selLesson').append(
-            //                     `<option value="${lesson.id}">${lesson.lesson_name}</option>`
-            //                 );
-            //             });
-
-            //             // Clear the table body before populating new data
-            //             $('#myTable').empty();
-
-            //             // Iterate through each chapter in the response data
-            //             // Create a row for the chapter
-            //             var chapterRow = `
-            //     <tr>
-            //         <td colspan="7" style="font-weight: bold;">${response.chapter.chapter_name}</td>
-            //     </tr>`;
-            //             $('#myTable').append(chapterRow);
-
-            //             // Check if the chapter has lessons and iterate through them
-            //             if (response.chapter.lessons && response.chapter.lessons.length > 0) {
-            //                 response.chapter.lessons.forEach(function(lesson) {
-            //                     var lessonRow = `
-            //         <tr>
-            //             <td></td> <!-- Empty cell for chapter row -->
-            //             <td>${lesson.lesson_name}</td>
-            //             <td>${lesson.quizs[0]?.student_quizs?.score && lesson.quizs[0].student_quizs.score >= lesson.quizs[0]?.pass_score ? (lesson.quizs[0].student_quizs.score / lesson.quizs[0].score) : "-"}</td>
-            //             <td>${lesson.quizs[1]?.student_quizs?.score && lesson.quizs[1].student_quizs.score >= lesson.quizs[1]?.pass_score ? (lesson.quizs[1].student_quizs.score / lesson.quizs[1].score) : "-"}</td>
-            //             <td>${lesson.quizs[2]?.student_quizs?.score && lesson.quizs[2].student_quizs.score >= lesson.quizs[2]?.pass_score ? (lesson.quizs[2].student_quizs.score / lesson.quizs[2].score) : "-"}</td>
-            //             <td>${lesson.quizs[3]?.student_quizs?.score && lesson.quizs[3].student_quizs.score >= lesson.quizs[3]?.pass_score ? (lesson.quizs[3].student_quizs.score / lesson.quizs[3].score) : "-"}</td>
-            //             <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
-            //                                     ${lesson.live_attend}
-            //             </td>
-            //        </tr>`;
-            //                     $('#myTable').append(lessonRow);
-            //                 });
-            //             } else {
-            //                 // In case there are no lessons for a chapter
-            //                 $('#myTable').append(`
-            //     <tr>
-            //         <td></td> <!-- Empty cell for chapter row -->
-            //         <td colspan="6" style="color: #888;">No lessons available for this chapter.</td>
-            //     </tr>`);
-            //             }
-            //         },
-
-            //         error: function(xhr, status, error) {
-            //             console.error('API error:', error);
-            //         }
-            //     });
-            // })
-
-            // $('#selLesson').on('change', function() {
-            //     var selectedLessonId = $("#selLesson").val();
-            //     var selectedChapterId = $("#selChapter").val();
-
-            //     // Send AJAX request with all necessary parameters
-            //     $.ajax({
-            //         url: "{{ route('fetch_lessons') }}",
-            //         type: 'POST',
-            //         data: {
-            //             chapter_id: selectedChapterId,
-            //             _token: '{{ csrf_token() }}'
-            //         },
-            //         success: function(response) {
-            //             console.log('API response:', response);
-
-            //             // Clear the previous lesson data in the table
-            //             $('#myTable').empty();
-            //             console.log(selectedLessonId)
-
-            //             // Loop through the lessons in the response and find the selected lesson
-            //             var selectedLesson = null; // Initialize variable to store selected lesson
-            //             response.lessons.forEach(function(lesson) {
-            //                 if (lesson.id == selectedLessonId) { // Check if lesson ID matches selectedLessonId
-            //                     selectedLesson = lesson; // Store the matching lesson
-            //                 }
-            //             });
-            //             console.log(selectedLesson)
-
-            //             if (selectedLesson) {
-            //                 // Create a new row with the selected lesson details
-            //                 var lessonRow = `
-            //                     <tr>
-            //                         <td>${selectedLesson.chapter_name}</td> <!-- Add chapter name here -->
-            //                         <td>${selectedLesson.lesson_name}</td>
-            //                         <td>${selectedLesson.quizs[0]?.student_quizs?.score && selectedLesson.quizs[0].student_quizs.score >= selectedLesson.quizs[0]?.pass_score ? (selectedLesson.quizs[0].student_quizs.score / selectedLesson.quizs[0].score) : "-"}</td>
-            //                         <td>${selectedLesson.quizs[1]?.student_quizs?.score && selectedLesson.quizs[1].student_quizs.score >= selectedLesson.quizs[1]?.pass_score ? (selectedLesson.quizs[1].student_quizs.score / selectedLesson.quizs[1].score) : "-"}</td>
-            //                         <td>${selectedLesson.quizs[2]?.student_quizs?.score && selectedLesson.quizs[2].student_quizs.score >= selectedLesson.quizs[2]?.pass_score ? (selectedLesson.quizs[2].student_quizs.score / selectedLesson.quizs[2].score) : "-"}</td>
-            //                         <td>${selectedLesson.quizs[3]?.student_quizs?.score && selectedLesson.quizs[3].student_quizs.score >= selectedLesson.quizs[3]?.pass_score ? (selectedLesson.quizs[3].student_quizs.score / selectedLesson.quizs[3].score) : "-"}</td>
-            //                         <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
-            //                                     ${lesson.live_attend}
-            //                         </td>
-            //                     </tr>
-            //                 `;
-
-            //                 // Append the new row to the table
-            //                 $('#myTable').append(lessonRow);
-            //             } else {
-            //                 // Handle case where lesson is not found
-            //                 $('#myTable').append(`
-            //                     <tr>
-            //                         <td colspan="7" style="color: #888;">No lesson details available.</td>
-            //                     </tr>
-            //                 `);
-            //             }
-            //         },
-            //         error: function(xhr, status, error) {
-            //             console.error('API error:', xhr.responseText); // Display the server response error for debugging
-            //         }
-            //     });
-            // });
-
-
-
         });
     </script>
 
