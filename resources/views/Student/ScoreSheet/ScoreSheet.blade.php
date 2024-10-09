@@ -343,7 +343,7 @@
                 Student: <span style="color: #787878;">{{ auth()->user()->f_name . ' ' . auth()->user()->l_name . '(' . auth()->user()->nick_name . ')' }}</span>
             </span>
             <span class="col-6" style="color: #CF202F; font-size: 1.4rem; font-weight: 600;">
-                Course: <span class="course_name" style="color: #787878;"></span>
+                Course: <span class="course_name" style="color: #000;"></span>
             </span>
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-5">
@@ -388,15 +388,15 @@
                         <tr>
                             <th class="col-2" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Chapter</th>
-                            <th class="col-2" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
+                            <th class="col-4" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Lesson</th>
-                            <th class="col-2" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
+                            <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Quizze 1</th>
-                            <th class="col-2" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
+                            <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Quizze 2</th>
-                            <th class="col-2" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
+                            <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Quizze 3</th>
-                            <th class="col-2" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
+                            <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Quizze 4</th>
                             <th class="col-2" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Live Session</th>
@@ -407,6 +407,7 @@
                 </table>
             </div>
         </div>
+
         {{-- /*
         Trigger when chapter selection changes
         $('#selChapter').on('change', function() {
@@ -728,7 +729,7 @@ if (chapter.lessons && chapter.lessons.length > 0) {
             <td></td> <!-- Empty cell for chapter row -->
             <td>${lesson.lesson_name}</td>
             ${quizColumns}${emptyColumns} <!-- Include both quiz columns and any empty columns -->
-            <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;' : 'background-color: green; color:white !important;'}">
+            <td style="${lesson.live_attend === 'Absent' ? 'background-color:#CF202F; color: white !important;display:flex; justify-content:center' : 'background-color: green; color:white !important;display:flex; justify-content:center'}">
                 ${lesson.live_attend}
             </td>
         </tr>`;
