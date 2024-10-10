@@ -83,12 +83,6 @@ table.styled-table {
     table.styled-table tbody tr:hover {
         background-color: #f1f1f1;
     }
-    table .delay{
-        color: #ff0000;
-    }
-    table .not_delay{
-        color:  #CF202F;
-    }
 
     </style>
 </head>
