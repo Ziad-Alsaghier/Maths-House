@@ -343,7 +343,7 @@
                 Student: <span style="color: #787878;">{{ auth()->user()->f_name . ' ' . auth()->user()->l_name . '(' . auth()->user()->nick_name . ')' }}</span>
             </span>
             <span class="col-6" style="color: #CF202F; font-size: 1.4rem; font-weight: 600;">
-                Course: <span class="course_name" style="color: #000;"></span>
+                Course: <span class="course_name" style="color:#787878;"></span>
             </span>
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-5">
@@ -391,13 +391,13 @@
                             <th class="col-4" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Lesson</th>
                             <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
-                                scope="col">Quizze 1</th>
+                                scope="col">Q1</th>
                             <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
-                                scope="col">Quizze 2</th>
+                                scope="col">Q2</th>
                             <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
-                                scope="col">Quizze 3</th>
+                                scope="col">Q3</th>
                             <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
-                                scope="col">Quizze 4</th>
+                                scope="col">Q4</th>
                             <th class="col-2" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
                                 scope="col">Live Session</th>
                         </tr>
@@ -676,7 +676,7 @@
                             response.data.forEach(function(chapter) {
                                 // Create a row for the chapter
                                 var chapterRow = `<tr>
-                                    <td colspan="7" style="font-weight: bold;">${chapter.chapter_name}</td>
+                                    <td colspan="7" style="font-weight: bold;color:blue !important;">${chapter.chapter_name}</td>
                                 </tr>`;
                                 $('#myTable').append(chapterRow);
 
