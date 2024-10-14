@@ -104,7 +104,6 @@ class Stu_LiveController extends Controller
     }
 
     public function use_live( $id ){
-        return $id;
         $session = Session::where('id', $id)
         ->first();
         $session_attendance = SessionAttendance::
@@ -175,6 +174,7 @@ class Stu_LiveController extends Controller
             }
         }
 
+        return '$id';
         session()->flash('faild', 'Your package Expired');
         return redirect()->back();
     }
