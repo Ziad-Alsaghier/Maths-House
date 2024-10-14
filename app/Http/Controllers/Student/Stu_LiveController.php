@@ -104,6 +104,7 @@ class Stu_LiveController extends Controller
     }
 
     public function use_live( $id ){
+        return $id;
         $session = Session::where('id', $id)
         ->first();
         $session_attendance = SessionAttendance::
