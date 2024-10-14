@@ -150,7 +150,6 @@ class Stu_LiveController extends Controller
             return redirect($session->link);
         }
         
-        return '$id';
         foreach ( $package as $item ) {
             if ( $item->package_live != null ) {
                 $newTime = Carbon::now()->subDays($item->package_live->duration);

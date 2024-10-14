@@ -37,6 +37,12 @@ class Stu_MyPackagesController extends Controller
         $s_exams = $small_package->where('module', 'Exam')->sum('number');
         $s_questions = $small_package->where('module', 'Question')->sum('number');
         $s_live = $small_package->where('module', 'Live')->sum('number');
+        // $small_package = SmallPackage::where('user_id', auth()->user()->id)
+        // ->where('module', 'Live')
+        // ->where('course_id', $session->lesson->chapter->course_id)
+        // ->where('number', '>', 0)
+        // ->first();
+        return $s_live;
         $exam = PaymentPackageOrder::
         leftJoin('payment_requests', 'payment_package_order.payment_request_id', '=', 'payment_requests.id')
         ->leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
