@@ -127,7 +127,7 @@ class Stu_LiveController extends Controller
         ->where('course_id', $session->lesson->chapter->course_id)
         ->where('number', '>', 0)
         ->first();
-
+        return $small_package;
         if ( !empty($small_package) ) {
             SmallPackage::where('user_id', auth()->user()->id)
             ->where('module', 'Live')
