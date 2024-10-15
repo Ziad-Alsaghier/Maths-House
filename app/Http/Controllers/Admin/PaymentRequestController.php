@@ -29,8 +29,19 @@ class PaymentRequestController extends Controller
     public function payment_material( $id ){
         $payment = PaymentRequest::where('id', $id)
         ->first();
+        $service = null;
+        if ($payment->module == 'Chapters') {
+            $service = PaymentOrder::
+            where('payment_request_id', $payment->id)
+            ->get();
+        }
+        elseif ($payment->module == 'Package') {
+            $service = PaymentPackageOrder::
+            where('payment_request_id', $payment->id)
+            ->first();
+        }
 
-        return view('Admin.Payment_Request.Invoice', compact('payment'));
+        return view('Admin.Payment_Request.Invoice', compact('payment', 'service'));
     }
 
     public function filter_payment_req( Request $req ){

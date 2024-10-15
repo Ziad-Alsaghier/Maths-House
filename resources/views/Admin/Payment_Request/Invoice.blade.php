@@ -31,19 +31,40 @@
         <div class="row p-sm-3 p-0">
           <div class="col-xl-6 col-md-12 col-sm-5 col-12 mb-xl-0 mb-md-4 mb-sm-0 mb-4">
             <h6 class="pb-2">Reciept:</h6>
-            <img style="height: 150px; width: 150px;" src="{{asset('images/payment_reset/' . $payment->image)}}" />
-           
+            @if (empty($payment->payment_method_id ))
+            Wallet
+          @else
+          <img style="height: 150px; width: 150px;" src="{{asset('images/payment_reset/' . $payment->image)}}" />
+          @endif
           </div>
           <div class="col-xl-6 col-md-12 col-sm-7 col-12">
             <h6 class="pb-2">Service</h6>
-            {{$payment->module}}
+            @if ($payment->module == 'Chapters')
+              @if (count($service) == 0)
+                Chapter
+              @else
+              Course: {{$service[0]->chapter->course->course_name}}<br />
+              Chapters: <br />
+              @foreach ($service as $item)
+                {{$item->chapter->chapter_name}}<br />
+              @endforeach
+              @endif
+            @elseif ($payment->module == 'Package')
+              @if (empty($service))
+                Package
+              @else
+               Package: {{$service->package->name}} <br />
+               Course: {{$service->package->course->course_name}} <br />
+               Category: {{$service->package->course->category->cate_name}}
+              @endif
+            @endif
           </div>
         </div>
       </div>
 
       <div class="d-flex justify-content-betwee">
         <div class="col-xl-6 col-md-12 col-sm-7 col-12 px-4 py-3">
-          <h6 class="pb-2">Statues</h6>
+          <h6 class="pb-2">Status</h6>
           {{$payment->state}}
         </div>
         <div class="table-responsive px-4 py-3">
