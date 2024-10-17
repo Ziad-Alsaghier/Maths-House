@@ -203,12 +203,12 @@ class Stu_LiveController extends Controller
         return view('Student.Live.MyLiveLessons', compact('sessions', 'chapter_id'));
     }
 
-    public function stu_live_lesson( $idea ){
+    public function stu_live_lesson( Request $request ){
         $user = User::where('id', auth()->user()->id)
         ->first();
-        $idea_num = $idea;
+        $idea_num = $request->idea;
         $sessions = $user->session_attendance; 
-        $idea = IdeaLesson::where('id', $idea)
+        $idea = IdeaLesson::where('id', $request->idea)
         ->first();
         $reports = ReportVideoList::all();
 
