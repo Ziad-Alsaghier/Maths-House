@@ -472,9 +472,10 @@
                                         </a>
                                         @foreach ($session->lesson->ideas as $idea)
                                         <form action="{{route('stu_live_lesson')}}" method="post">
+                                            @csrf
                                             <input type="hidden" name="idea" value="{{$idea->id}}">
                                             <button
-                                                class="scc__wrap">
+                                                class="scc__wrap btn">
                                                 <div class="scc__info">
                                                     <i class="icofont-video-alt"></i>
                                                     <h5> <span>
