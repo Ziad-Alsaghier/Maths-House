@@ -1,6 +1,7 @@
 
 @php
     $page_name = 'Lesson';
+    $idea_state = false;
 @endphp
 @section('title', 'Lessons')
 @include('Student.inc.header')
@@ -515,13 +516,18 @@
                                         aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
 
-                                            @foreach ($session->lesson->ideas as $idea)
-                                                <a href="{{ route('stu_live_lesson', ['idea' => $idea->id]) }}"
+                                            @foreach ($session->lesson->ideas as $idea_item)
+                                                @if ($idea == $idea_item)
+                                                    @php
+                                                        $idea_state = true;
+                                                    @endphp
+                                                @endif
+                                                <a href="{{ route('stu_live_lesson', ['idea' => $idea_item->id]) }}"
                                                     class="scc__wrap">
                                                     <div class="scc__info">
                                                         <i class="icofont-video-alt"></i>
                                                         <h5> <span>
-                                                                {{ $idea->idea }}
+                                                                {{ $idea_item->idea }}
                                                             </span> </h5>
                                                     </div>
                                                 </a>
@@ -550,6 +556,7 @@
 
                     </div>
                 </div>
+                @if ($idea_state)
                 <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12"
                 data-aos="fade-up">
                     <div class="lesson__content__main">
@@ -559,13 +566,14 @@
             
                         <div class="plyr__video-embed rbtplayer"> 
                             <iframe style="width: 100%; margin-top: 45px;" scrolling="no" 
-                                src="https://drive.mathshouse.net/video/embed/i4/640x320/40_June_2011_ACT.mp4" title="YouTube video player"
+                                src="{{$idea->v_link}}" title="YouTube video player"
                                 frameborder="0" allowfullscreen
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
 
         </div>
