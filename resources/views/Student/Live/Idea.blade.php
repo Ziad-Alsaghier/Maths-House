@@ -517,7 +517,7 @@
                                         <div class="accordion-body">
 
                                             @foreach ($session->lesson->ideas as $idea_item)
-                                                @if ($idea == $idea_item)
+                                                @if ($idea->id == $idea_item->id)
                                                     @php
                                                         $idea_state = true;
                                                     @endphp
