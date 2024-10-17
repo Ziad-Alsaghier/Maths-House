@@ -1,7 +1,6 @@
 
 @php
     $page_name = 'Lesson';
-    $idea_state = false;
 @endphp
 @section('title', 'Lessons')
 @include('Student.inc.header')
@@ -516,20 +515,13 @@
                                         aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
 
-                                            @foreach ($session->lesson->ideas as $idea_item)
-                                            {{$idea_item->id}} ==> {{$idea->id}}
-                                            <br />
-                                                @if ($idea->id == $idea_item->id)
-                                                    @php
-                                                        $idea_state = true;
-                                                    @endphp
-                                                @endif
-                                                <a href="{{ route('stu_live_lesson', ['idea' => $idea_item->id]) }}"
+                                            @foreach ($session->lesson->ideas as $idea)
+                                                <a href="{{ route('stu_live_lesson', ['idea' => $idea->id]) }}"
                                                     class="scc__wrap">
                                                     <div class="scc__info">
                                                         <i class="icofont-video-alt"></i>
                                                         <h5> <span>
-                                                                {{ $idea_item->idea }}
+                                                                {{ $idea->idea }}
                                                             </span> </h5>
                                                     </div>
                                                 </a>
@@ -558,7 +550,6 @@
 
                     </div>
                 </div>
-                @if ($idea_state)
                 <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12"
                 data-aos="fade-up">
                     <div class="lesson__content__main">
@@ -575,7 +566,6 @@
                         </div>
                     </div>
                 </div>
-                @endif
             </div>
 
         </div>
