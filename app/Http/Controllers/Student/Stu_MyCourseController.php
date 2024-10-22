@@ -352,7 +352,6 @@ class Stu_MyCourseController extends Controller
             'r_questions' => $right_question,
         ]);
         $quize_id = $stu_quizze->id;
-        return $stu_quizze;
 
         foreach ($mistakes as $item) {
             StudentQuizzeMistake::create([
