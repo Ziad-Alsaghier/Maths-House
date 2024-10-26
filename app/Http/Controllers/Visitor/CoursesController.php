@@ -59,61 +59,62 @@ class CoursesController extends Controller
         return view('Visitor.Courses.Courses', compact('courses', 'popup'));
     }
 
-    public function course($id){
-        try {
-            $chapters = Chapter::where('course_id', $id)
-            ->get();
-            $course = Course::where('id', $id)
-            ->first();
-            $currency = Currancy::all();
-            
-            foreach ($chapters as $key => $item) { 
+    public function course($id){ 
+        $chapters = Chapter::where('course_id', $id)
+        ->get();
+        $course = Course::where('id', $id)
+        ->first();
+        $currency = Currancy::all();
+        
+        foreach ($chapters as $key => $item) { 
+            if ( count($item->price) == 0 || $item->price == null) {
+                $min =  0;
+            } 
+            else {
                 $min =  $item->price[0]->price;
                 foreach (  $item->price as $element ) {
                     if ( $min > $element->price ) {
                         $min = $element->price;
                     }
                 }
-                $chapters[$key]['ch_price'] = $min;
-            } 
-            $course_price = Course::
-            with('prices')
-            ->where('id', $id)
-            ->first();
-            $discount = 0;
-            $price = 0;
-            $total_price = 0;
-            if ( count($item->price) != 0 && $item->price != null) {
-                $discount = $course_price->prices[0]->discount;
-                $price = $course_price->prices[0]->price;
-                if (is_numeric($price)) {
-                    for ($i=0, $end = count($course_price->prices); $i < $end; $i++) { 
-                        if( $price > $course_price->prices[$i]->price){
-                            $price = $course_price->prices[$i]->price;
-                        }
+            }
+            $chapters[$key]['ch_price'] = $min;
+        } 
+        $course_price = Course::
+        with('prices')
+        ->where('id', $id)
+        ->first();
+        $discount = 0;
+        $price = 0;
+        $total_price = 0;
+        if ( count($item->price) != 0 && $item->price != null) {
+            $discount = @$course_price->prices[0]->discount;
+            $price = @$course_price->prices[0]->price;
+            if (is_numeric($price)) {
+                for ($i=0, $end = count($course_price->prices); $i < $end; $i++) { 
+                    if( $price > $course_price->prices[$i]->price){
+                        $price = $course_price->prices[$i]->price;
                     }
                 }
-                $total_price = $price - $price * $discount / 100;
             }
-            $chapters_count = Chapter::where('course_id', $id)
-            ->pluck('id');
-            $lessons_count = Lesson::whereIn('chapter_id', $chapters_count)
-            ->pluck('id');
-            $videos_count = IdeaLesson::whereIn('lesson_id', $lessons_count)
-            ->get();
-            $questions = Question::whereIn('lesson_id', $lessons_count)
-            ->count();
-            $quizs = quizze::whereIn('lesson_id', $lessons_count)
-            ->count();
-            $related_course = Course::where('id', '!=', $id)
-            ->get();
-            
-            return view('Visitor.Courses.Chapters', 
-            compact('chapters', 'course_price', 'price', 'course', 'total_price', 'related_course',
-            'chapters_count', 'lessons_count', 'videos_count', 'questions', 'quizs', 'currency'));
-        } catch (\Throwable $th) {
-            return view('errors.404');
+            $total_price = $price - $price * $discount / 100;
         }
+        $chapters_count = Chapter::where('course_id', $id)
+        ->pluck('id');
+        $lessons_count = Lesson::whereIn('chapter_id', $chapters_count)
+        ->pluck('id');
+        $videos_count = IdeaLesson::whereIn('lesson_id', $lessons_count)
+        ->get();
+        $questions = Question::whereIn('lesson_id', $lessons_count)
+        ->count();
+        $quizs = quizze::whereIn('lesson_id', $lessons_count)
+        ->count();
+        $related_course = Course::where('id', '!=', $id)
+        ->get();
+        
+        return view('Visitor.Courses.Chapters', 
+        compact('chapters', 'course_price', 'price', 'course', 'total_price', 'related_course',
+        'chapters_count', 'lessons_count', 'videos_count', 'questions', 'quizs', 'currency'));
     }
     
     public function buy_chapters( Request $req ){
