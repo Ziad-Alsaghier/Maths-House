@@ -17,6 +17,11 @@
  .innerTd{
     border-bottom:0
  }
+ .inner_row{
+    display: flex;
+    justify-content: space-between;
+ }
+
 
 </style>
 
@@ -70,12 +75,12 @@
             @endphp
             @foreach ( $element->mistakes as $item )
             @if ( !isset($ch_arr[$item->question->lessons->chapter->chapter_name]) )
-            <table class="table innerTable">
-                <tr class="innerTr">
-                    <td class="innerTd">
+            <table class="table">
+                <tr class="inner_row">
+                    <td>
                     Chapter => {{$item->question->lessons->chapter->chapter_name}}
                     </td>
-                    <td class="innerTd">
+                    <td>
                         <a href="{{route('buy_chapter', ['id' => $item->question->lessons->chapter->id])}}" class="btn btn-primary">
                             Buy
                         </a>

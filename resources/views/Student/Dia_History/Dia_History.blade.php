@@ -17,6 +17,10 @@
  .innerTd{
     border-bottom:0
  }
+ .inner_row{
+    display: flex;
+    justify-content: space-between;
+ }
 
 </style>
 
@@ -75,7 +79,7 @@
                             @foreach ( $item->mistakes as $item )
                             @if ( !isset($ch_arr[$item->question->lessons->chapter->chapter_name]) )
                             <table class="table">
-                                <tr>
+                                <tr class="inner_row">
                                     <td>
                                     Chapter => {{$item->question->lessons->chapter->chapter_name}}
                                     </td>

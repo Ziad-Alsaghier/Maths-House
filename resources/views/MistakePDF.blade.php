@@ -27,20 +27,27 @@
 
     .mistake {
         width: 100%;
+        height: 95%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: center;
+        justify-content:center;
         row-gap: 20px;
-        padding: 15px;
+        padding: 30px;
         border-radius: 20px;
         background: #c4c4c446;
     }
-
+    .course-title{
+        text-align: center;
+        color :#CF202F;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
     .quesMisake {
         font-size: 1.2rem;
         font-weight: 500;
-        color: #5c5a5a;
+        /* color: #5c5a5a; */
+        color: #000;
     }
 
     .imgMistake {
@@ -124,10 +131,10 @@
         <p class="category"><strong>Category:</strong> {{ $dai_exam->course->category->cate_name }}</p>
         <p class="course"><strong>Course:</strong> {{ $dai_exam->course->course_name }}</p>
     </div>
-    
+
     @foreach ( $mistakes as $mistake )
-        <div class="row g-0 mistake  p-3"> 
-            <p class="course"><strong>Chapter:</strong> {{ $mistake->question->lessons->chapter->chapter_name }}</p>
+        <div class="row mistake">
+                <p class="course-title"><strong>Chapter:</strong> {{ $mistake->question->lessons->chapter->chapter_name }}</p>
                 @if ( !empty($mistake->question->question) )
                     <span class="quesMisake">{!! $mistake->question->question !!}</span>
                 @endif
@@ -136,10 +143,7 @@
                 <img class="imgMistake"
                 src="{{ asset('images/questions/' . $mistake->question->q_url) }}" data-bs-toggle="modal"
                 data-bs-target="#kt_modal_edit{{$mistake->id}}{{$mistake->question->id}}" />
- 
-                @endif  
-
-
+                @endif
         </div>
     @endforeach
 </div>
