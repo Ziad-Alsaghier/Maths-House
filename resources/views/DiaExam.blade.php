@@ -94,44 +94,49 @@ table.styled-table {
             </div>
             <div class="examInfo">
                 <div class="row">
-                    <span class="variable">Exam Name: <span>Math Final</span></span>
-                    <span class="variable">Delay Time: <span>10 minutes</span></span>
-                    <span class="variable">Exam Date: <span>10/15/2024</span></span>
+                    <span class="variable">Exam Name: <span>{{$exam->title}}</span></span>
+                    <span class="variable">Delay Time: <span>{{$report['delay']}}</span></span>
+                    <span class="variable">Exam Date: <span>{{$history->date}}</span></span>
                 </div>
                 <div class="row">
-                    <span class="variable">Grade: <span>10</span></span>
-                    <span class="variable">Course: <span>Mathematics</span></span>
-                    <span class="variable">Category: <span>Final Exam</span></span>
+                    <span class="variable">Grade: <span>{{auth()->user()->grade}}</span></span>
+                    <span class="variable">Course: <span>{{$exam->course->course_name}}</span></span>
+                    <span class="variable">Category: <span>{{$exam->course->category->cate_name}}</span></span>
                 </div>
               </div>
 
-        </div>
+        </div>                
+    @php
+        $arr_id = [];
+        $arr = [];
+    @endphp
+    @foreach ( $mistakes as $item )
+        @php
+            $arr[$item->question->lessons->chapter->id] = $item;
+        @endphp
+    @endforeach
         <table class="styled-table">
             <thead>
                 <tr>
                     <th>N. of questions</th>
-                    <th>N. of chapter</th>
+                    <th>Section</th>
                     <th>Name of chapter</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        {{$report['date']}}
-                    </td>
-                    <td>
-                        {{$report['time']}}
-                    </td>
-                    @if ( $report['color'] )
-                    <td class="delay">
-                        {{$report['delay']}}
-                    </td>
-                    @else
-                    <td class="not_delay">
-                        {{$report['delay']}}
-                    </td>
-                    @endif
-                </tr>
+                @foreach ($arr as $item) 
+                    <tr>
+                        <td style="text-align: start !important">
+                            {{ $item->question->q_num }}
+                        </td>
+                        <td style="text-align: start !important">
+                            {{ $item->question->section }}
+                        </td>
+                        <td style="text-align: start !important">
+                            {{ $item->question->lessons->chapter->chapter_name }}
+                        </td>
+                    </tr>
+                @endforeach
                 <!-- Add more rows as needed -->
             </tbody>
         </table>

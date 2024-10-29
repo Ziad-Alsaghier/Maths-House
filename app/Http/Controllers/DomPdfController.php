@@ -96,7 +96,7 @@ class DomPdfController extends Controller
             $delay = $delay - $h * 60 * 60;
             $m = intval($delay / 60);
             $s = $delay - $m * 60;        
-            $delay = "Delay $h Hours $m Minutes $s Seconds";
+            $delay = "$h H $m M $s S";
         }
     
         // Prepare the data to be passed to the view
@@ -106,9 +106,11 @@ class DomPdfController extends Controller
             'delay' => $delay,
             'color' => $color
         ];
+        $mistakes = DaiExamMistake::where('student_exam_id', $id)
+        ->get();
     
         // Generate the PDF
-        $pdf = PDF::loadView('DiaExam', compact('report', 'exam', 'history'));
+        $pdf = PDF::loadView('DiaExam', compact('report', 'exam', 'history', 'mistakes'));
         
         // Optionally, save the PDF to a file
         // $pdf->save(storage_path('invoices/invoice.pdf'));

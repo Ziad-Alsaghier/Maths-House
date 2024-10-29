@@ -559,7 +559,7 @@
             
                         <div class="plyr__video-embed rbtplayer"> 
                             <iframe style="width: 100%; margin-top: 45px;" scrolling="no" 
-                                src="https://drive.mathshouse.net/video/embed/i4/640x320/40_June_2011_ACT.mp4" title="YouTube video player"
+                                src="{{$idea->v_link}}" title="YouTube video player"
                                 frameborder="0" allowfullscreen
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen></iframe>

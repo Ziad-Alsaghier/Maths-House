@@ -127,7 +127,6 @@ class Stu_LiveController extends Controller
         ->where('course_id', $session->lesson->chapter->course_id)
         ->where('number', '>', 0)
         ->first();
-
         if ( !empty($small_package) ) {
             SmallPackage::where('user_id', auth()->user()->id)
             ->where('module', 'Live')
@@ -153,7 +152,7 @@ class Stu_LiveController extends Controller
         foreach ( $package as $item ) {
             if ( $item->package_live != null ) {
                 $newTime = Carbon::now()->subDays($item->package_live->duration);
-                if ( $item->date >= $newTime && $item->package_live->course_id == $session->lesson->chapter->course_id ) {
+                if ( $item->number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson->chapter->course_id ) {
                     PaymentPackageOrder::
                     where('id', $item->id )
                     ->update([
@@ -204,12 +203,12 @@ class Stu_LiveController extends Controller
         return view('Student.Live.MyLiveLessons', compact('sessions', 'chapter_id'));
     }
 
-    public function stu_live_lesson( $idea ){
+    public function stu_live_lesson( Request $request ){
         $user = User::where('id', auth()->user()->id)
         ->first();
-        $idea_num = $idea;
+        $idea_num = $request->idea;
         $sessions = $user->session_attendance; 
-        $idea = IdeaLesson::where('id', $idea)
+        $idea = IdeaLesson::where('id', $request->idea)
         ->first();
         $reports = ReportVideoList::all();
 

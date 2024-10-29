@@ -251,7 +251,7 @@
                                             <div class="priceing_section d-none"
                                                 id="priceing_section{{ $item->id }}">
                                                 <button type="button" class="btn btn-primary add_price_btn">
-                                                  Add New chapter
+                                                  Add New Price
                                               </button>
                                                 @foreach ($item->price as $price)
                                                     <div class='my-3'>

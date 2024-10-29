@@ -471,15 +471,19 @@
                                             </div>
                                         </a>
                                         @foreach ($session->lesson->ideas as $idea)
-                                            <a href="{{ route('stu_live_lesson', ['idea' => $idea->id]) }}"
-                                                class="scc__wrap">
+                                        <form action="{{route('stu_live_lesson')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="idea" value="{{$idea->id}}">
+                                            <button
+                                                class="scc__wrap btn">
                                                 <div class="scc__info">
                                                     <i class="icofont-video-alt"></i>
                                                     <h5> <span>
                                                             {{ $idea->idea }}
                                                         </span> </h5>
                                                 </div>
-                                            </a>
+                                            </button>
+                                        </form>
                                         @endforeach
 
                                         <hr />

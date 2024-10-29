@@ -500,7 +500,7 @@ Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
         Route::get('Live/Courses', 'stu_myLiveCourse')->name('stu_myLiveCourse');
         Route::get('Live/Chapter/{course_id}', 'stu_live_chapters')->name('stu_live_chapters');
         Route::get('Live/Lessons/{chapter_id}', 'stu_myLiveLesson')->name('stu_myLiveLesson');
-        Route::get('Live/Lesson/{idea}', 'stu_live_lesson')->name('stu_live_lesson');
+        Route::post('Live/Lesson', 'stu_live_lesson')->name('stu_live_lesson');
         Route::get('Live/ShowPDF/{file_name}', 'stu_live_pdf')->name('stu_live_pdf');
         Route::get('UseLive/{id}', 'use_live')->name('use_live');
         Route::get('Live/PrivateRequest', 'stu_private_req')->name('stu_private_req');
