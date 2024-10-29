@@ -60,7 +60,7 @@
     }
 
     .imgMistakeModal {
-        width: auto;
+        width: 100%;
         height: auto;
         object-fit: cover;
         object-position: center;
@@ -139,7 +139,6 @@
                     <span class="quesMisake">{!! $mistake->question->question !!}</span>
                 @endif
                 @if ( !empty($mistake->question->q_url) )
-
                 <img class="imgMistake"
                 src="{{ asset('images/questions/' . $mistake->question->q_url) }}" data-bs-toggle="modal"
                 data-bs-target="#kt_modal_edit{{$mistake->id}}{{$mistake->question->id}}" />
