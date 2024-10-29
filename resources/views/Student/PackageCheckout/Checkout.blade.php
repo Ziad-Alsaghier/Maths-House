@@ -1051,16 +1051,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show the modal when clicking the Place Order button
     placeOrderBtn.onclick = function(event) {
-        event.preventDefault(); // Prevent form from submitting immediately
-        orderModal.show(); // Show modal using Bootstrap's modal method
-    }
+        event.preventDefault(); // Prevent immediate form submission
+        const selectedPaymentMethod = localStorage.getItem('C_selectedPaymentMethod');
 
-    // Proceed with form submission when clicking OK
+        if (selectedPaymentMethod === 'Wallet') {
+            // If Wallet is selected, submit the form directly without showing the modal
+            orderForm.submit();
+        } else {
+            // Show the modal for other payment methods
+            orderModal.show();
+        }
+    };
+
+    // Proceed with form submission when clicking OK in the modal
     confirmBtn.onclick = function() {
-        orderModal.hide(); // Hide modal using Bootstrap's modal method
-        orderForm.submit(); // Submit the form
-    }
-
+        orderModal.hide();
+        orderForm.submit();
+    };
 
         // $(".radio-button__input").click(function() {
         //     $.ajax({

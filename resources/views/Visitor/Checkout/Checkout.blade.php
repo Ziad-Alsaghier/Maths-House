@@ -422,7 +422,7 @@
                         <div class="radio-button">
                             <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
                                 class="radio-button__input payment_method_radio" type="radio">
-                     
+
                             @if ($item->payment == 'Instapay')
                             <label for="radio{{ $item->id }}" class="radio-button__label">
                                 <div class="">
@@ -431,7 +431,7 @@
                                     <span class="radio-button__custom"></span>
                                     <a class="btn btn-danger" target="_blank" href="{{ $item->description }}">
                                         {{ $item->payment }}
-                                    </a>    
+                                    </a>
                                 </div>
                             </label>
                             @else
@@ -440,7 +440,7 @@
                                     <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
                                         alt="">
                                     <span class="radio-button__custom"></span>
-                                        {{ $item->payment }}   
+                                        {{ $item->payment }}
                                 </div>
                             </label>
                             @endif
@@ -604,15 +604,23 @@ document.querySelectorAll('.payment_method_radio').forEach(radio => {
 
     // Show the modal when clicking the Place Order button
     placeOrderBtn.onclick = function(event) {
-        event.preventDefault(); // Prevent form from submitting immediately
-        orderModal.show(); // Show modal using Bootstrap's modal method
-    }
+        event.preventDefault(); // Prevent immediate form submission
+        const selectedPaymentMethod = localStorage.getItem('C_selectedPaymentMethod');
 
-    // Proceed with form submission when clicking OK
+        if (selectedPaymentMethod === 'Wallet') {
+            // If Wallet is selected, submit the form directly without showing the modal
+            orderForm.submit();
+        } else {
+            // Show the modal for other payment methods
+            orderModal.show();
+        }
+    };
+
+    // Proceed with form submission when clicking OK in the modal
     confirmBtn.onclick = function() {
-        orderModal.hide(); // Hide modal using Bootstrap's modal method
-        orderForm.submit(); // Submit the form
-    }
+        orderModal.hide();
+        orderForm.submit();
+    };
 
 
         $(".radio-button__input").on('change', function() {

@@ -139,9 +139,11 @@
                     <span class="quesMisake">{!! $mistake->question->question !!}</span>
                 @endif
                 @if ( !empty($mistake->question->q_url) )
-                <img class="imgMistake"
-                src="{{ asset('images/questions/' . $mistake->question->q_url) }}" data-bs-toggle="modal"
-                data-bs-target="#kt_modal_edit{{$mistake->id}}{{$mistake->question->id}}" />
+                <div style="width: 100%; padding: 5px;">
+                    <img class="imgMistake"
+                    src="{{ asset('images/questions/' . $mistake->question->q_url) }}" data-bs-toggle="modal"
+                    data-bs-target="#kt_modal_edit{{$mistake->id}}{{$mistake->question->id}}" />
+                </div>
                 @endif
         </div>
     @endforeach
