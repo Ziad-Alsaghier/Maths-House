@@ -242,7 +242,7 @@ class Stu_MyCourseController extends Controller
         
         
         // Parse quiz time
-        $exam_time_parts = explode(':', $quizze->time);
+        $exam_time_parts = explode(':', empty($quizze->time) || $quizze->time == null? '00:00:00' : $quizze->time);
         $e_hours = isset($exam_time_parts[0]) ? intval($exam_time_parts[0]) : 0;
         $e_minutes = isset($exam_time_parts[1]) ? intval($exam_time_parts[1]) : 0;
     
