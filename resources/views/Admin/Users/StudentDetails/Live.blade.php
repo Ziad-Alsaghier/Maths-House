@@ -537,7 +537,6 @@
                                                     aria-label="Close"></button>
                                             </div>
 
-
                                             <div class="info_section p-3" id="info_section{{ $lesson->id }}">
                                                 @if ( empty($lesson->live_lesson($user->id)->first()) )
                                                 <input id="attend{{$lesson->id}}" class="form-check-input" type="checkbox" value="Attend" name="attend" />

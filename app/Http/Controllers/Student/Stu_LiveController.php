@@ -115,11 +115,13 @@ class Stu_LiveController extends Controller
         }
 
         $package = PaymentPackageOrder::
-        where('number', '>', 0)
-        ->where('user_id', auth()->user()->id)
-        ->where('state', 1)
+        leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
+        ->where('payment_package_order.number', '>', 0)
+        ->where('payment_package_order.user_id', auth()->user()->id)
+        ->where('payment_package_order.state', 1)
+        ->where('packages.module', 'Live')
         ->with('package_live')
-        ->orderByDesc('id')
+        ->orderByDesc('payment_package_order.id')
         ->get();
 
         $small_package = SmallPackage::where('user_id', auth()->user()->id)
