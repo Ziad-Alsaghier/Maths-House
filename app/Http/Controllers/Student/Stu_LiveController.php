@@ -103,7 +103,7 @@ class Stu_LiveController extends Controller
         
     }
 
-    public function use_live( $id ){
+    public function use_live($id){
         $session = Session::where('id', $id)
         ->first();
         $session_attendance = SessionAttendance::
@@ -129,7 +129,7 @@ class Stu_LiveController extends Controller
         ->where('course_id', $session->lesson->chapter->course_id)
         ->where('number', '>', 0)
         ->first();
-        if ( !empty($small_package) ) {
+        if ( !empty($small_package) && $small_package->number > 0 ) {
             SmallPackage::where('user_id', auth()->user()->id)
             ->where('module', 'Live')
             ->where('course_id', $session->lesson->chapter->course_id)
