@@ -130,14 +130,8 @@ class Stu_LiveController extends Controller
         ->where('number', '>', 0)
         ->first();
         if ( !empty($small_package) && $small_package->number > 0 ) {
-            return $small_package;
-            SmallPackage::where('user_id', auth()->user()->id)
-            ->where('module', 'Live')
-            ->where('course_id', $session->lesson->chapter->course_id)
-            ->where('number', '>', 0)
-            ->update([
-                'number' => $small_package->number - 1
-            ]);
+            $small_package->number = $small_package->number - 1; 
+            $small_package->save();
             
             // Return Live
             LiveLesson::create([
