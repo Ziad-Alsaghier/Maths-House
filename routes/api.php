@@ -27,6 +27,8 @@ use App\Http\Controllers\Student\ScoreController;
 use App\Http\Controllers\DomPdfController;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Student\payment\PaymentPaymobController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -229,6 +231,11 @@ Route::middleware(['auth:sanctum'])->prefix('MobileStudent')->group(function(){
         Route::get('/lesson_score_sheet_api/{id}','lesson_score_sheet_api')->name('lesson_score_sheet_api');
         Route::get('/stu_q_code','api_q_code')->name('api_q_code');
 
+        
+    });
+    Route::prefix('payment')->group(function () {
+    Route::any('/credit',[PaymentPaymobController::class, 'credit']);
+    Route::get('/callback',[PaymentPaymobController::class, 'callback'])->withoutMiddleware(['IsUser','auth:sanctum']);
     });
 });
 Route::get('MobileStudent/customer_category','ApiController@customer_category')->name('customer_category');

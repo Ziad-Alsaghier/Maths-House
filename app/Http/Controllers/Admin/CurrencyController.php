@@ -16,7 +16,7 @@ class CurrencyController extends Controller
     ];
 
     public function view(){
-        $currencies = $this->currency->get();
+        $currencies = $this->currency->with('paymentMethod')->get();
 
         return view('Admin.Currancy.Currancy', compact('currencies'));
     }

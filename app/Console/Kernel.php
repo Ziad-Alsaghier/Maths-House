@@ -16,6 +16,8 @@ class Kernel extends ConsoleKernel
      protected function schedule(Schedule $schedule)
      {
          $schedule->command('tokens:cleanup')->daily();
+             $schedule->command(command: 'exchange-rates:update')->hourly(); // Run hourly
+
      }
 
     /**
@@ -25,6 +27,7 @@ class Kernel extends ConsoleKernel
      */
         protected $commands = [
             \App\Console\Commands\CleanupExpiredTokens::class,
+            \App\Console\Commands\UpdateExchangeRates::class,
         ];
 
 }

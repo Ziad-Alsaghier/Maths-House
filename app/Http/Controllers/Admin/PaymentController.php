@@ -3,23 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Currancy;
 use Illuminate\Http\Request;
 
 use App\Models\PaymentMethod;
 
 class PaymentController extends Controller
 {
-    
+    public function __construct(private Currancy $currancy){}
     public function payment(){
         $payments = PaymentMethod::
-        orderByDesc('id')
+        with('payment_currancies')->orderByDesc('id')
         ->simplePaginate(10);
-
+        $currancies = Currancy::orderByDesc('id')->get();
         return view('Admin.Payment.Payment', 
-        compact('payments'));
+        compact('payments','currancies'));
     }
 
     public function payment_add( Request $req ){
+        $currancies = $req->currancy; // Start Get Currancies References To This Payment
         $img_name = null;
         $arr = $req->only('payment', 'statue', 'description');
         $req->validate([
@@ -31,7 +33,8 @@ class PaymentController extends Controller
             $img_name = str_replace([':', '-', ' '], 'X', $img_name);
             $arr['logo'] = $img_name;
         }
-        PaymentMethod::create($arr);
+        $paymentMethod = PaymentMethod::create($arr);
+         $paymentMethod->payment_currancies()->sync($currancies);
         move_uploaded_file($tmp_name, 'images/payment/' . $img_name);
 
         return redirect()->back();

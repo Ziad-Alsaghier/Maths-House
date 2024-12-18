@@ -46,4 +46,7 @@ class Course extends Model
     public function prices(){
         return $this->hasMany(CoursePrice::class, 'course_id');
     }
+    public function currancy(){
+        return $this->belongsTo(Currancy::class,'currancy_id');
+    }
 }

@@ -22,6 +22,7 @@ class Wallet extends Model
         'payment_method_id',
         'state',
         'payment_request_id',
+        'currency',
     ];
 
     public function getdateAttribute($date){

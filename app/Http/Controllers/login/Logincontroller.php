@@ -13,13 +13,20 @@ use App\Models\ConfirmSign;
 use App\Models\LoginUser;
 use App\Models\Country;
 use App\Models\City;
+use App\Models\Currancy;
+use App\Models\Wallet;
 use Illuminate\Support\Facades\Cookie;
 
 use Carbon\Carbon;
 
 class Logincontroller extends Controller
 {
-
+        
+        public function __construct(
+                private Wallet $wallet,
+                private Currancy $currancy,
+                
+                ){}
         public function index( Request $request ){
                 $now = Carbon::now();
                 $timeMinus120Minutes = $now->subMinutes(300);
@@ -301,7 +308,15 @@ class Logincontroller extends Controller
                 
                 $token = $user->createToken("user")->plainTextToken;
                 $user->token =$token ;
-                Auth::loginUsingId($user->id);
+                $user = Auth::loginUsingId($user->id);
+                        // Start Make Two Wallet EGP and USD
+                $dolar = $this->currancy->select('id')->where('currency', 'USD')->first();
+                $pound = $this->currancy->select('id')->where('currency', 'EGP')->first();
+                $userWallet = [
+                        ['student_id'=>$user->id,'wallet'=>0,'date'=>now(),'currency_id'=>$dolar->id],
+                        ['student_id'=>$user->id,'wallet'=>0,'date'=>now(),'currency_id'=>$pound->id]
+                ];
+                        $this->wallet->insert($userWallet);
                  $value = Cookie::get('device_id');
                  if ( empty($value) ) {
                          $value = rand(1, 99999999999);

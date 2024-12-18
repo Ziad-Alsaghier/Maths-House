@@ -12,4 +12,10 @@ class Currancy extends Model
         'currency', 
         'amount',
     ];
+
+
+
+    public function paymentMethod(){
+        return $this->belongsTo(PaymentMethod::class,'payment_currancies','payment_method_id');
+    }
 }

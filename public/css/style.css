@@ -8128,25 +8128,11 @@ ul.mc_parent_list ul.mc_child_list:hover .pricing_btn{
   color: #ff1053;
 }
 .cart_btnss_white{
-  background-color: #ffffff;
-  border: 2px solid #ff1053;
-  border-radius: 27px;
-  color: #ff1053;
-  display: block;
-  font-size: 15px;
-  font-family: "Open Sans";
-  line-height: 3.2;
-  margin-bottom: 23px;
-  height: 50px;
-  max-width: 234px;
-  -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+  width: 100%;
 }
 .cart_btnss_white:hover{
-  background-color: #ff1053;
-  color: #ffffff;
+  background-color:green;
+  color:  #ffffff;
 }
 /*== Recent Post Widget Blog Page ==*/
 .blog_recent_post_widget{

@@ -16,6 +16,7 @@ class PaymentMethod extends Model
         'description',
         'logo',
         'statue',
+        'currency',
     ];
 
 
@@ -25,5 +26,10 @@ class PaymentMethod extends Model
 
        public function getUpdatedAtAttribute($date){
        return date('d-m-Y',strtotime($date));
+       }
+
+
+       public function payment_currancies(){
+        return $this->belongsToMany(Currancy::class,'payment_currancies');
        }
 }
