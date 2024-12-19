@@ -49,10 +49,11 @@ class PaymentController extends Controller
 
     public function payment_edit( Request $req ){
         $img_name = null;
-        $arr = $req->only('payment', 'description');
+        $arr = $req->only('payment', 'description','currency_id');
         $req->validate([
             'payment' => 'required',
         ]);
+        
         $arr['statue'] = isset($req->statue) ? 1 : 0;
         extract($_FILES['logo']);
         if ( !empty($name) ) {
@@ -60,8 +61,13 @@ class PaymentController extends Controller
             $img_name = str_replace([':', '-', ' '], 'X', $img_name);
             $arr['logo'] = $img_name;
         }
-        PaymentMethod::where('id', $req->id)
-        ->update($arr);
+        $paymentMethod = PaymentMethod::findOrFail($req->id);
+          $paymentMethod->update($arr);
+        if(isset($req->currancy)){
+            $currencies_id = $req->currancy;
+            $paymentMethod->payment_currancies()->sync( $currencies_id);
+        }
+            
         move_uploaded_file($tmp_name, 'images/payment/' . $img_name);
 
         return redirect()->back();

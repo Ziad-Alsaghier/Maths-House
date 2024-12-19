@@ -81,7 +81,7 @@ return 'admin';
           {{-- Form Rebeat For Currancy --}}
           <div class="mb-10 fv-row">
             <label>
-              Students
+              Currencies
             </label>
             <div class="select2-danger" data-select2-id="33">
               <div class="position-relative" data-select2-id="443">
@@ -212,7 +212,28 @@ return 'admin';
                         'checked' : null}} />
                       </div>
                     </div>
-
+                    {{-- Form Repeat For Currency --}}
+                    <div class="mb-10 fv-row">
+                      <label class="m-1">
+                        Students
+                      </label>
+                      <div class="select2-danger" data-select2-id="33">
+                        <div class="position-relative" data-select2-id="443">
+                          <select id="select2Dangeradd{{ $item->id }}" name="currancy[]"
+                            class="select2 form-select select2-hidden-accessible" multiple=""
+                            data-select2-id="select2Dangeradd{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                            @foreach ($currancies as $currancy)
+                            <option value="{{ $currancy->id }}" @if($item->payment_currancies->contains('id',
+                              $currancy->id)) selected
+                              @endif>
+                              {{ $currancy->currency }}
+                            </option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    {{-- Form Repeat For Currency --}}
                     <div class="modal-footer">
                       <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                         Close
