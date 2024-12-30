@@ -1,19 +1,60 @@
-
 @php
-    $page_name = 'Lesson';
+$page_name = 'Lesson';
 @endphp
 @section('title', 'Lessons')
 @include('Student.inc.header')
 @include('Student.inc.menu')
 @extends('Student.inc.nav')
 
-@section('page_content') 
- 
+@section('page_content')
+
 
 @include('success')
 
 <main class="main_wrapper overflow-hidden">
+    <style>
+        .container {
+            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
+        /* Lesson Day Text Styling */
+        #lesson-day {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
 
 
 
@@ -26,8 +67,7 @@
                 <div class="row align-items-center">
                     <div class="col-6">
                         <div class="mobile-logo">
-                            <a class="logo__dark" href="#"><img loading="lazy" src="img/logo/logo_1.png"
-                                    alt="logo"></a>
+                            <a class="logo__dark" href="#"><img loading="lazy" src="img/logo/logo_1.png" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-6">
@@ -106,8 +146,7 @@
                             </div>
 
                             <div class="mobile-off-canvas">
-                                <a class="mobile-aside-button" href="#"><i
-                                        class="icofont-navigation-menu"></i></a>
+                                <a class="mobile-aside-button" href="#"><i class="icofont-navigation-menu"></i></a>
                             </div>
                         </div>
                     </div>
@@ -433,113 +472,112 @@
     <!-- theme fixed shadow -->
 
 
-    <!-- tution__section__start -->  
+    <!-- tution__section__start -->
 
-                        <div style="row d-flex">
-                            @php
-                            $arr = []
-                            @endphp
-                        @foreach ($sessions as $session)
-                        @if (  \Carbon\Carbon::now()->subDays(7) <= $session->date && !in_array($session->lesson->chapter->course->id,$arr) )
-                            
-                        
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-12">
-                                <div class="gridarea__wraper">
-                                    <div class="gridarea__img">
-                                        <a href="{{ route('stu_live_chapters', ['course_id' => $session->lesson->chapter->course->id]) }}">
-                                            <img loading="lazy"
-                                                src="{{ asset('images/courses/' . $session->lesson->chapter->course->course_url) }}"
-                                                alt="grid"></a>
-                                        <div class="gridarea__small__button">
-                                            <div class="grid__badge">Data &amp; Tech</div>
-                                        </div>
-                                        <div class="gridarea__small__icon">
-                                            <a href="#"><i class="icofont-heart-alt"></i></a>
-                                        </div>
+    <div style="row d-flex">
+        @php
+        $arr = []
+        @endphp
+        @foreach ($sessions as $session)
+        @if ( \Carbon\Carbon::now()->subDays(7) <= $session->date &&
+            !in_array($session->lesson->chapter->course->id,$arr) or $session->lesson->extraDays->end_date ?? Null >= now())
 
+
+            <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                <div class="gridarea__wraper">
+                    <div class="gridarea__img">
+                        <a
+                            href="{{ route('stu_live_chapters', ['course_id' => $session->lesson->chapter->course->id]) }}">
+                            <img loading="lazy"
+                                src="{{ asset('images/courses/' . $session->lesson->chapter->course->course_url) }}"
+                                alt="grid"></a>
+                        <div class="gridarea__small__button">
+                            <div class="grid__badge">Data &amp; Tech</div>
+                        </div>
+                        <div class="gridarea__small__icon">
+                            <a href="#"><i class="icofont-heart-alt"></i></a>
+                        </div>
+
+                    </div>
+                    <div class="gridarea__content">
+                        <div class="gridarea__list">
+                            <ul>
+                            </ul>
+                        </div>
+                        <div class="gridarea__heading">
+                            <h3>
+                                <a
+                                    href="{{ route('stu_live_chapters', ['course_id' => $session->lesson->chapter->course->id]) }}">
+                                    {{ $session->lesson->chapter->course->course_name }}
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="gridarea__bottom">
+
+                            <a href="#">
+                                <div class="gridarea__small__img">
+                                    <img loading="lazy" src="../img/grid/grid_small_1.jpg" alt="grid">
+                                    <div class="gridarea__small__content">
+                                        <h6>
+                                            {{ $session->lesson->chapter->course->teacher->name }}
+                                        </h6>
                                     </div>
-                                    <div class="gridarea__content">
-                                        <div class="gridarea__list">
-                                            <ul>
-                                            </ul>
-                                        </div>
-                                        <div class="gridarea__heading">
-                                            <h3>
-                                                <a href="{{ route('stu_live_chapters', ['course_id' => $session->lesson->chapter->course->id]) }}">
-                                                    {{ $session->lesson->chapter->course->course_name }}
-                                                </a></h3>
-                                        </div>
-                                        <div class="gridarea__bottom">
-
-                                            <a href="#">
-                                                <div class="gridarea__small__img">
-                                                    <img loading="lazy"
-                                                        src="../img/grid/grid_small_1.jpg"
-                                                        alt="grid">
-                                                    <div class="gridarea__small__content">
-                                                        <h6>
-                                                            {{ $session->lesson->chapter->course->teacher->name }}
-                                                        </h6>
-                                                    </div>
-                                                </div>
-                                            </a>
-
-                                        </div>
-                                    </div>
-
-
                                 </div>
-                            </div>
+                            </a>
 
-                                {{-- <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingFour">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                            aria-expanded="false" aria-controls="collapseFour">
-                                            {{ $session->lesson->lesson_name }}
-                                        </button>
-                                    </h2>
-                                    <div id="collapseFour" class="accordion-collapse collapse"
-                                        aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-
-                                            @foreach ($session->lesson->ideas as $idea)
-                                                <a href="{{ route('stu_live_lesson', ['idea' => $idea->id]) }}"
-                                                    class="scc__wrap">
-                                                    <div class="scc__info">
-                                                        <i class="icofont-video-alt"></i>
-                                                        <h5> <span>
-                                                                {{ $idea->idea }}
-                                                            </span> </h5>
-                                                    </div>
-                                                </a>
-                                            @endforeach
-
-                                            <hr />
-                                            
-                                            @foreach ($session->lesson->quizze as $quizze)
-                                                <a href="{{ route('stu_quizze', ['id' => $quizze->id]) }}"
-                                                    class="scc__wrap">
-                                                    <div class="scc__info">
-                                                        <i class="fa-solid fa-paperclip"></i>
-                                                        <h5> <span>
-                                                                {{ $quizze->title }}
-                                                            </span> </h5>
-                                                    </div>
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div> --}}
- 
-                                @php
-                                    $arr[] = $session->lesson->chapter->course->id;   
-                                @endphp
-                        @endif
-                        @endforeach
+                        </div>
                     </div>
 
-  
+
+                </div>
+            </div>
+
+            {{-- <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        {{ $session->lesson->lesson_name }}
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+
+                        @foreach ($session->lesson->ideas as $idea)
+                        <a href="{{ route('stu_live_lesson', ['idea' => $idea->id]) }}" class="scc__wrap">
+                            <div class="scc__info">
+                                <i class="icofont-video-alt"></i>
+                                <h5> <span>
+                                        {{ $idea->idea }}
+                                    </span> </h5>
+                            </div>
+                        </a>
+                        @endforeach
+
+                        <hr />
+
+                        @foreach ($session->lesson->quizze as $quizze)
+                        <a href="{{ route('stu_quizze', ['id' => $quizze->id]) }}" class="scc__wrap">
+                            <div class="scc__info">
+                                <i class="fa-solid fa-paperclip"></i>
+                                <h5> <span>
+                                        {{ $quizze->title }}
+                                    </span> </h5>
+                            </div>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div> --}}
+
+            @php
+            $arr[] = $session->lesson->chapter->course->id;
+            @endphp
+            @endif
+            @endforeach
+    </div>
+
+
     </div>
     <!-- tution__section__end -->
 

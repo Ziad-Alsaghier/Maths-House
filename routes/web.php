@@ -26,7 +26,7 @@ use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\LogoutUsersController;
 use App\Http\Controllers\Admin\PackagesController as Ad_PackagesController;
 use App\Http\Controllers\Admin\CurrencyController;
-
+use App\Http\Controllers\Admin\paymob\CallBackPaymobController;
 use App\Http\Controllers\Student\Stu_DashboardController;
 use App\Http\Controllers\Student\Stu_ProfileController;
 use App\Http\Controllers\Student\Stu_MyCourseController;
@@ -311,6 +311,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Student/LiveAttend/{user_id}/{lesson_id}', 'live_attend')->name('live_attend');
         Route::get('/Student/LiveWaiting/{user_id}/{lesson_id}', 'live_waiting')->name('live_waiting');
         Route::get('/Student/LiveContent/{id}', 'stu_live_content')->name('stu_live_content');
+        Route::post('/Student/LiveContent/extraDay/{lesson}', 'extraDays')->name('extraDay');
         Route::get('/Student/LiveContent/{id}/{course_id}', 'stu_live_course_content')->name('stu_live_course_content');
         Route::get('/Add_Student', 'add_student')->name('add_student');
         Route::get('/Student/Del/{id}', 'del_stu')->name('del_stu');
@@ -610,7 +611,7 @@ Route::middleware(['auth','auth.teacher'])->prefix('Teacher')->group(function(){
 });
 
 Route::get('/logout',  [LoginController::class, 'destroy'])->name('logout');
-
+Route::get('/callback', [CallBackPaymobController::class, 'callback'])->name('callback');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::name('user-management.')->group(function () {
         Route::resource('/user-management/users', UserManagementController::class);

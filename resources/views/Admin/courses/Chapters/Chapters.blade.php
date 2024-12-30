@@ -1,8 +1,8 @@
 @php
-    function fun_admin()
-    {
-        return 'admin';
-    }
+function fun_admin()
+{
+return 'admin';
+}
 @endphp
 <x-default-layout>
     @include('success')
@@ -10,34 +10,34 @@
     @section('title', 'Chapters')
 
     @error('chapter_name')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('teacher_id')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('course_id')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('ch_des')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('pre_requisition')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('gain')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -52,9 +52,9 @@
                     Select Category ...
                 </option>
                 @foreach ($categories as $category)
-                    <option {{ @$data['category_id'] == $category->id ? 'selected' : '' }} value="{{ $category->id }}">
-                        {{ $category->cate_name }}
-                    </option>
+                <option {{ @$data['category_id']==$category->id ? 'selected' : '' }} value="{{ $category->id }}">
+                    {{ $category->cate_name }}
+                </option>
                 @endforeach
             </select>
 
@@ -63,15 +63,15 @@
                     Select Course ...
                 </option>
                 @foreach ($courses as $course)
-                    @if (@$data['course_id'] == $course->id)
-                        <option value="{{ $course->id }}" selected>
-                            {{ $course->course_name }}
-                        </option>
-                    @elseif(@$data['category_id'] == $course->category_id)
-                        <option value="{{ $course->id }}">
-                            {{ $course->course_name }}
-                        </option>
-                    @endif
+                @if (@$data['course_id'] == $course->id)
+                <option value="{{ $course->id }}" selected>
+                    {{ $course->course_name }}
+                </option>
+                @elseif(@$data['category_id'] == $course->category_id)
+                <option value="{{ $course->id }}">
+                    {{ $course->course_name }}
+                </option>
+                @endif
                 @endforeach
             </select>
 
@@ -126,205 +126,203 @@
         </thead>
         <tbody class="fs-6">
             @foreach ($chapters as $item)
-                <tr class="odd">
-                    <td class="sorting_1">
-                        {{ $item->chapter_name }}
-                    </td>
-                    <td>
-                        {{ count($item->lessons) }}
-                    </td>
-                    <td data-order="2023-10-25T00:00:00+03:00">
-                        {{ $item->course->category->cate_name }}
-                    </td>
-                    <td data-order="2023-10-25T00:00:00+03:00">
-                        {{ $item->course->course_name }}
-                    </td>
-                    <td>
-                        <div class="mt-3">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#modalCenter{{ $item->id }}">
-                                Edit
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#modalDelete{{ $item->id }}">
-                                Delete
-                            </button>
+            <tr class="odd">
+                <td class="sorting_1">
+                    {{ $item->chapter_name }}
+                </td>
+                <td>
+                    {{ count($item->lessons) }}
+                </td>
+                <td data-order="2023-10-25T00:00:00+03:00">
+                    {{ $item->course->category->cate_name }}
+                </td>
+                <td data-order="2023-10-25T00:00:00+03:00">
+                    {{ $item->course->course_name }}
+                </td>
+                <td>
+                    <div class="mt-3">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#modalCenter{{ $item->id }}">
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#modalDelete{{ $item->id }}">
+                            Delete
+                        </button>
 
-                            <!-- Modal -->
-                            <form method="POST" action="{{ route('chapter_edit') }}" enctype="multipart/form-data">
-                                @csrf
-                                <div class="modal fade" id="modalCenter{{ $item->id }}" tabindex="-1"
-                                    aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content px-2">
-                                            <input type="hidden" value="{{ $item->id }}" class="chapter_id"
-                                                name="chapter_id" />
-
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="modalCenterTitle">Edit Chapter</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="info_section" id="info_section{{ $item->id }}">
-                                                <div class='my-3'>
-                                                    <label>Chapter Name</label>
-                                                    <input class='form-control chapter_name'
-                                                        value="{{ $item->chapter_name }}" name="chapter_name"
-                                                        placeholder="Chapter Name" />
-                                                </div>
-                                                <div class='my-3'>
-                                                    <label>Category</label>
-                                                    <select name="category_id"
-                                                        class="form-control sel_new_cate category_id">
-                                                        <option value="{{ $item->course->category->id }}" selected>
-                                                            {{ $item->course->category->cate_name }}
-                                                        </option>
-                                                        @foreach ($categories as $category)
-                                                            <option value="{{ $category->id }}">
-                                                                {{ $category->cate_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class='my-3'>
-                                                    <label>Course</label>
-                                                    <select name="course_id"
-                                                        class="form-control sel_new_course course_id">
-                                                        <option value="{{ $item->course->id }}" selected>
-                                                            {{ $item->course->course_name }}
-                                                        </option>
-                                                        @foreach ($courses as $course)
-                                                            <option value="{{ $course->id }}">
-                                                                {{ $course->course_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class='my-3'>
-                                                    <label>Description</label>
-                                                    <textarea class='form-control ch_des' name="ch_des" placeholder="Description">{{ $item->ch_des }}</textarea>
-                                                </div>
-
-                                                <div class='my-3'>
-                                                    <label>Image</label>
-                                                    <input class='form-control ch_url' type="file" name="ch_url"
-                                                        placeholder="Image" />
-                                                </div>
-                                                <button type="button" class="btn btn-success details_btn my-3"
-                                                    id="details_btn{{ $item->id }}">
-                                                    Next
-                                                </button>
-                                            </div>
-
-                                            <div class="details_section d-none"
-                                                id="details_section{{ $item->id }}">
-                                                <div class='my-3'>
-                                                    <label>Teachers</label>
-                                                    <select name="teacher_id" class="form-control teacher_id">
-                                                        <option value="{{ @$item->teacher->id }}">
-                                                            {{ @$item->teacher->name }}
-                                                        </option>
-                                                        @foreach ($teachers as $teacher)
-                                                            <option value="{{ $teacher->id }}">
-                                                                {{ $teacher->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class='my-3'>
-                                                    <label>Pre requisition</label>
-                                                    <textarea class='form-control pre_requisition' name="pre_requisition" placeholder="Pre requisition">{{ $item->pre_requisition }}</textarea>
-                                                </div>
-                                                <div class='my-3'>
-                                                    <label>What you gain</label>
-                                                    <textarea class='form-control gain' name="gain" placeholder="What you gain">{{ $item->gain }}</textarea>
-                                                </div>
-                                                <button type="button" class="btn btn-secondary prev_info my-3">
-                                                    Back
-                                                </button>
-                                                <button type="button" class="btn btn-success pricing_btn my-3">
-                                                    Next
-                                                </button>
-                                            </div>
-
-                                            <div class="priceing_section d-none"
-                                                id="priceing_section{{ $item->id }}">
-                                                <button type="button" class="btn btn-primary add_price_btn">
-                                                  Add New Price
-                                              </button>
-                                                @foreach ($item->price as $price)
-                                                    <div class='my-3'>
-                                                        <label>Duration</label>
-                                                        <input class='form-control duration{{ $item->id }}'
-                                                            type="number" value="{{ $price->duration }}"
-                                                            name="duration[]" placeholder="Duration" />
-                                                    </div>
-                                                    <div class='my-3'>
-                                                        <label>Price</label>
-                                                        <input class='form-control price{{ $item->id }}'
-                                                            value="{{ $price->price }}" name="price[]"
-                                                            placeholder="Price" />
-                                                    </div>
-                                                    <div class='my-3'>
-                                                        <label>Discount</label>
-                                                        <input class='form-control discount{{ $item->id }}'
-                                                            value="{{ $price->discount }}" name="discount[]"
-                                                            placeholder="Discount" />
-                                                    </div>
-                                                    <hr />
-                                                @endforeach
-                                                <div class="pricing_div"></div>
-
-                                                <div class="modal-footer">
-                                                    <span class='btn btn-secondary prev_details'>
-                                                        Back
-                                                    </span>
-                                                    <button class='btn btn-primary edit_chapter_btn'>
-                                                        Submit
-                                                    </button>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="modalDelete{{ $item->id }}" tabindex="-1"
-                                aria-hidden="true" style="display: none;">
+                        <!-- Modal -->
+                        <form method="POST" action="{{ route('chapter_edit') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal fade" id="modalCenter{{ $item->id }}" tabindex="-1" aria-hidden="true"
+                                style="display: none;">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
+                                    <div class="modal-content px-2">
+                                        <input type="hidden" value="{{ $item->id }}" class="chapter_id"
+                                            name="chapter_id" />
 
-                                            <h5 class="modal-title" id="modalCenterTitle">Edit Role</h5>
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalCenterTitle">Edit Chapter</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
+                                        <div class="info_section" id="info_section{{ $item->id }}">
+                                            <div class='my-3'>
+                                                <label>Chapter Name</label>
+                                                <input class='form-control chapter_name'
+                                                    value="{{ $item->chapter_name }}" name="chapter_name"
+                                                    placeholder="Chapter Name" />
+                                            </div>
+                                            <div class='my-3'>
+                                                <label>Category</label>
+                                                <select name="category_id"
+                                                    class="form-control sel_new_cate category_id">
+                                                    <option value="{{ $item->course->category->id }}" selected>
+                                                        {{ $item->course->category->cate_name }}
+                                                    </option>
+                                                    @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}">
+                                                        {{ $category->cate_name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class='my-3'>
+                                                <label>Course</label>
+                                                <select name="course_id" class="form-control sel_new_course course_id">
+                                                    <option value="{{ $item->course->id }}" selected>
+                                                        {{ $item->course->course_name }}
+                                                    </option>
+                                                    @foreach ($courses as $course)
+                                                    <option value="{{ $course->id }}">
+                                                        {{ $course->course_name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class='my-3'>
+                                                <label>Description</label>
+                                                <textarea class='form-control ch_des' name="ch_des"
+                                                    placeholder="Description">{{ $item->ch_des }}</textarea>
+                                            </div>
 
-                                        <div class='p-3'>
-                                            Are You Sure To Delete
-                                            <span class='text-danger'>
-                                                {{ $item->chapter_name }} Chapter ??
-                                            </span>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-label-secondary"
-                                                data-bs-dismiss="modal">
-                                                Close
+                                            <div class='my-3'>
+                                                <label>Image</label>
+                                                <input class='form-control ch_url' type="file" name="ch_url"
+                                                    placeholder="Image" />
+                                            </div>
+                                            <button type="button" class="btn btn-success details_btn my-3"
+                                                id="details_btn{{ $item->id }}">
+                                                Next
                                             </button>
-                                            <a href="{{ route('del_chapter', ['id' => $item->id]) }}"
-                                                class="btn btn-danger">Delete</a>
                                         </div>
+
+                                        <div class="details_section d-none" id="details_section{{ $item->id }}">
+                                            <div class='my-3'>
+                                                <label>Teachers</label>
+                                                <select name="teacher_id" class="form-control teacher_id">
+                                                    <option value="{{ @$item->teacher->id }}">
+                                                        {{ @$item->teacher->name }}
+                                                    </option>
+                                                    @foreach ($teachers as $teacher)
+                                                    <option value="{{ $teacher->id }}">
+                                                        {{ $teacher->name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class='my-3'>
+                                                <label>Pre requisition</label>
+                                                <textarea class='form-control pre_requisition' name="pre_requisition"
+                                                    placeholder="Pre requisition">{{ $item->pre_requisition }}</textarea>
+                                            </div>
+                                            <div class='my-3'>
+                                                <label>What you gain</label>
+                                                <textarea class='form-control gain' name="gain"
+                                                    placeholder="What you gain">{{ $item->gain }}</textarea>
+                                            </div>
+                                            <button type="button" class="btn btn-secondary prev_info my-3">
+                                                Back
+                                            </button>
+                                            <button type="button" class="btn btn-success pricing_btn my-3">
+                                                Next
+                                            </button>
+                                        </div>
+
+                                        <div class="priceing_section d-none" id="priceing_section{{ $item->id }}">
+                                            <button type="button" class="btn btn-primary add_price_btn">
+                                                Add New Price
+                                            </button>
+                                            @foreach ($item->price as $price)
+                                            <div class='my-3'>
+                                                <label>Duration</label>
+                                                <input class='form-control duration{{ $item->id }}' type="number"
+                                                    value="{{ $price->duration }}" name="duration[]"
+                                                    placeholder="Duration" />
+                                            </div>
+                                            <div class='my-3'>
+                                                <label>Price</label>
+                                                <input class='form-control price{{ $item->id }}'
+                                                    value="{{ $price->price }}" name="price[]" placeholder="Price" />
+                                            </div>
+                                            <div class='my-3'>
+                                                <label>Discount</label>
+                                                <input class='form-control discount{{ $item->id }}'
+                                                    value="{{ $price->discount }}" name="discount[]"
+                                                    placeholder="Discount" />
+                                            </div>
+                                            <hr />
+                                            @endforeach
+                                            <div class="pricing_div"></div>
+
+                                            <div class="modal-footer">
+                                                <span class='btn btn-secondary prev_details'>
+                                                    Back
+                                                </span>
+                                                <button class='btn btn-primary edit_chapter_btn'>
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalDelete{{ $item->id }}" tabindex="-1" aria-hidden="true"
+                            style="display: none;">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <h5 class="modal-title" id="modalCenterTitle">Edit Role</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+
+                                    <div class='p-3'>
+                                        Are You Sure To Delete
+                                        <span class='text-danger'>
+                                            {{ $item->chapter_name }} Chapter ??
+                                        </span>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <a href="{{ route('del_chapter', ['id' => $item->id]) }}"
+                                            class="btn btn-danger">Delete</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
