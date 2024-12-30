@@ -1232,7 +1232,7 @@ window.onclick = function(event) {
             }
 
             selectedChapters = tempSelectedChapters;
-            chaptersData.value = JSON.stringify([...selectedChapters]);
+            // chaptersData.value = JSON.stringify([...selectedChapters]); // Error When Send Chapters
             chaptersPrice.value = price.toFixed(2);
         }
 
