@@ -29,9 +29,13 @@ use App\Models\IdeaLesson;
 use App\Models\Question;
 use App\Models\quizze;
 use App\Models\Currancy;
+use App\service\PaymentPaymob;
+use Illuminate\Support\Facades\Log;
 
 class CoursesController extends Controller
 {
+use PaymentPaymob;
+
     public function categories(){
         $categories = Category::all();
         $popup = MarketingPopup::
@@ -122,60 +126,80 @@ class CoursesController extends Controller
         return $req->all();
     }
     
-    public function buy_course( Request $req ){
-         $course_data = json_decode($req->course_data);
-        $course = Course::where('id', $course_data->id)
-        ->first();
-        $min_price = $course->prices[0]->price;
-        $min_price_data = $course->prices[0];
-        foreach ( $course->prices as $price) {
-            if ( $min_price > $price->price ) {
-                $min_price = $price->price;
-                $min_price_data = $price;
-            }
-        }
-        Cookie::queue(Cookie::forget('min_price_data'));
-        Cookie::queue('marketing', json_encode($course), 180);
-        
-        if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
-            return view('Visitor.Login.login');
-        }
-        elseif ( $min_price == $req->chapters_price ) {
-            Cookie::queue('min_price_data', json_encode($min_price_data), 180); 
-            return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
-        }
-        
-        $data = $req->chapters_data;
-        $chapters_price = $req->chapters_price;
-        $chapter_discount = 0;
-        $price_data = json_decode($data);
-        $price_arr = [];
-        foreach ( $price_data as $item ) {
-            $min = $item->price[0];
-            foreach ($item->price as $element) {
-                if ( $element->price < $min->price ) {
-                    $min = $element;
-                }
-            }
-            $chapter_discount += $min->price - ($min->price * $min->discount / 100);
-            $price_arr[] = $min;
-        }
-        
-        if ( empty($req->chapters_data) ) {
-            $data = json_decode(Cookie::get('marketing'));
-            $chapters_price = floatval(Cookie::get('chapters_price'));
-        }
-        Cookie::queue('marketing', json_encode($data), 180);  
-        Cookie::queue('chapters_price', ($chapters_price), 180);
-         $price_arr = json_encode($price_arr);
-        if ( empty(auth()->user()) ) {
-            return view('Visitor.Login.login');
-        }
-        else{
-            $chapters = json_decode($data); 
-            return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
-        }
-    }
+  public function buy_course(Request $req)
+  {
+  try {
+  // Decode course data
+  $course_data = json_decode($req->course_data);
+  if (!$course_data || !isset($course_data->id)) {
+  return response()->json(['error' => 'Invalid course data'], 400);
+  }
+
+  // Fetch the course and its minimum price
+  $course = Course::with('prices')->find($course_data->id);
+  if (!$course) {
+  return response()->json(['error' => 'Course not found'], 404);
+  }
+
+  // Find minimum price
+  $min_price_data = collect($course->prices)->sortBy('price')->first();
+  if (!$min_price_data) {
+  return response()->json(['error' => 'Course prices not available'], 400);
+  }
+  $min_price = $min_price_data->price;
+
+  // Handle cookies
+  Cookie::queue(Cookie::forget('min_price_data'));
+  Cookie::queue('marketing', json_encode(['course_id' => $course->id]), 180);
+
+  if (empty(auth()->user()) && $min_price == $req->chapters_price) {
+  return view('Visitor.Login.login');
+  } elseif ($min_price == $req->chapters_price) {
+  Cookie::queue('min_price_data', json_encode($min_price_data), 180);
+  return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
+  }
+
+  // Handle chapter data
+  $chapters_price = $req->chapters_price;
+  $chapter_discount = 0;
+  $price_arr = [];
+  $price_data = json_decode($req->chapters_data);
+
+  if ($price_data) {
+  foreach ($price_data as $item) {
+  $min_price_item = collect($item->price)->sortBy('price')->first();
+  if ($min_price_item) {
+  $chapter_discount += $min_price_item->price - ($min_price_item->price * $min_price_item->discount / 100);
+  $price_arr[] = $min_price_item;
+  }
+  }
+  } else {
+  // Fallback to cookie data if chapters_data is empty
+  $price_arr = json_decode(Cookie::get('marketing', '[]'));
+  $chapters_price = floatval(Cookie::get('chapters_price', 0));
+  }
+
+  // Update cookies
+  Cookie::queue('chapters_price', $chapters_price, 180);
+
+  // Check authentication
+  if (empty(auth()->user())) {
+  return view('Visitor.Login.login');
+  } else {
+  return view('Visitor.Cart', [
+  'chapters' => $price_arr,
+  'chapters_price' => $chapters_price,
+  'price_arr' => json_encode($price_arr),
+  'chapter_discount' => $chapter_discount
+  ]);
+  }
+  } catch (\Exception $e) {
+  // Log and return error response
+  Log::error('Error in buy_course function: ' . $e->getMessage());
+  return response()->json(['error' => 'An unexpected error occurred'], 500);
+  }
+  }
+
 
     public function cart_buy_course( Request $req ){
         
@@ -693,6 +717,10 @@ class CoursesController extends Controller
     }
 
     public function course_payment_money( Request $req ){
+            $payment_methods = PaymentMethod::
+            where('statue', 1)
+            ->where('id',$req->payment_method_id)
+            ->first();
         $arr['price'] = floatval(Cookie::get('chapters_price'));
         $arr['user_id'] = auth()->user()->id;
         $img_state = true;
@@ -713,9 +741,19 @@ class CoursesController extends Controller
                 $tmp = $tmp_name;
             }
         }
+        
+      
+            
+        //   Start Make Paymob Credit
+        if($payment_methods->payment = "Paymob"){
         $course = json_decode(Cookie::get('marketing'));
         $price = floatval(Cookie::get('chapters_price'));
-        
+        $token = $req->_token;
+        $user = auth()->user();
+        $commision = intval(Cookie::get('affilate'));
+        return $this->credit($user,$payment_methods,$course,$price,'Course',$commision);
+        }
+        //   End Make Paymob Credit 
         if ( $req->payment_method_id == 'Wallet' ) {
             $wallet = Wallet::
             where('student_id', auth()->user()->id)
@@ -730,7 +768,12 @@ class CoursesController extends Controller
         
                 return view('Visitor.C_Checkout.Checkout', compact('price', 'course', 'payment_methods'));
             }
+           
             $arr['state'] = 'Approve'; 
+            
+        }elseif( $req->payment_method_id == 'paymob'){
+            return "Welcom To Paymob";
+
         }
         elseif ( $img_state ) { 
             session()->flash('faild', 'You Must Enter Receipt');
