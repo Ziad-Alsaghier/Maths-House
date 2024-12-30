@@ -29,69 +29,69 @@ class LessonController extends Controller
 
     }
 
-    public function lesson_edit( Request $req ){
-        $lesson_name = Lesson::where('id', '!=', $req->lesson_id)
+   public function lesson_edit(Request $req)
+{
+    $lesson_name = Lesson::where('id', '!=', $req->lesson_id)
         ->where('lesson_name', $req->lesson_name)
         ->first();
-        if ( !empty($lesson_name) ) {
-            session()->flash('faild','Lesson is exist');
-            return redirect()->back();
-        }
 
-        $arr = $req->only('lesson_name', 'lesson_des', 'chapter_id', 'teacher_id', 
-        'pre_requisition', 'gain', 'chapter_id');
-        $req->validate([
-            'lesson_name'=>'required',
-            'chapter_id'=>'required|numeric', 
-            ]);
-        $img_name = null;
-        extract($_FILES['lesson_url']);
-        if( !empty($name) ){
-            $img_name = rand(0, 1000) . now() . $name;
-            $img_name = str_replace([' ', ':', '-'], 'X', $img_name);
-            $arr['lesson_url'] = $img_name;   
-        }
-        move_uploaded_file($tmp_name, 'images/lesson/' . $img_name);
-        
-        Lesson::where('id', $req->lesson_id)
-        ->update($arr);
-        IdeaLesson::where('lesson_id', $req->lesson_id)
-        ->delete();
-
-        if ( isset($req->idea) ) { 
-            for ($i=0, $end = count($req->idea); $i < $end; $i++) { 
-                extract($_FILES['pdf']);
-                if ( isset($name[$i]) ) {
-                if ( !empty($name[$i]) ) {
-                    $pdf_name = now() . $name[$i];
-                    $pdf_name = str_replace([':', '-', ' '], 'V', $pdf_name);
-                } else {
-                    $pdf_name = null;
-                }
-                IdeaLesson::create([
-                    'idea'       => $req->idea[$i],
-                    'syllabus'   => $req->syllabus[$i],
-                    'idea_order' => $req->idea_order[$i],
-                    'v_link'     => $req->v_link[$i],
-                    'pdf'        => $pdf_name,
-                    'lesson_id'  => $req->lesson_id,
-                ]);
-                move_uploaded_file($tmp_name[$i], 'files/lessons_pdf/' . $pdf_name);
-                }
-                else {
-                    IdeaLesson::create([
-                        'idea' => $req->idea[$i],
-                        'syllabus' => $req->syllabus[$i],
-                        'idea_order' => $req->idea_order[$i],
-                        'v_link' => $req->v_link[$i], 
-                        'lesson_id' => $req->lesson_id
-                    ]);
-                }
-            }
-        }
-        session()->flash('success','Lesson Edit Successfully');
+    if (!empty($lesson_name)) {
+        session()->flash('faild', 'Lesson already exists');
         return redirect()->back();
     }
+
+    $arr = $req->only('lesson_name', 'lesson_des', 'chapter_id', 'teacher_id', 'pre_requisition', 'gain', 'chapter_id');
+
+    $req->validate([
+        'lesson_name' => 'required',
+        'chapter_id'  => 'required|numeric',
+    ]);
+
+    $img_name = null;
+    if ($req->hasFile('lesson_url')) {
+        $file = $req->file('lesson_url');
+        $img_name = rand(0, 1000) . now() . $file->getClientOriginalName();
+        $img_name = str_replace([' ', ':', '-'], 'X', $img_name);
+        $arr['lesson_url'] = $img_name;
+        $file->move(public_path('images/lesson/'), $img_name);
+    }
+
+    Lesson::where('id', $req->lesson_id)->update($arr);
+
+    $existingIdeas = IdeaLesson::where('lesson_id', $req->lesson_id)->get();
+    $existingIdeas->each(function ($idea) use ($req) {
+        $idea->delete();
+    });
+
+    if (isset($req->idea)) {
+        for ($i = 0, $end = count($req->idea); $i < $end; $i++) {
+            $pdf_name = null;
+
+            // Handle PDF file
+            if ($req->hasFile("pdf.$i")) {
+                $pdfFile = $req->file("pdf.$i");
+                $pdf_name = now() . $pdfFile->getClientOriginalName();
+                $pdf_name = str_replace([':', '-', ' '], 'V', $pdf_name);
+                $pdfFile->move(public_path('files/lessons_pdf/'), $pdf_name);
+            } else if (isset($existingIdeas[$i])) {
+                // Retain existing PDF if no new file is uploaded
+                $pdf_name = $existingIdeas[$i]->pdf;
+            }
+
+            IdeaLesson::create([
+                'idea'       => $req->idea[$i],
+                'syllabus'   => $req->syllabus[$i],
+                'idea_order' => $req->idea_order[$i],
+                'v_link'     => $req->v_link[$i],
+                'pdf'        => $pdf_name,
+                'lesson_id'  => $req->lesson_id,
+            ]);
+        }
+    }
+
+    session()->flash('success', 'Lesson Edited Successfully');
+    return redirect()->back();
+}
 
     public function del_lesson($id){
         Lesson::where('id', $id)

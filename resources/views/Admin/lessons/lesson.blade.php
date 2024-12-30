@@ -1,7 +1,7 @@
 @php
 function fun_admin()
 {
-return 'admin';
+return "admin";
 }
 @endphp
 <x-default-layout>
@@ -265,13 +265,13 @@ return 'admin';
                         {{ $lesson->lesson_name }}
                     </td>
                     <td>
-                        {{ $lesson->chapter->course->category->cate_name }}
+                        {{ $lesson->chapter->course->category->cate_name ?? "Empty" }}
                     </td>
                     <td>
-                        {{ $lesson->chapter->course->course_name }}
+                        {{ $lesson->chapter->course->course_name ?? "Empty" }}
                     </td>
                     <td>
-                        {{ $lesson->chapter->chapter_name }}
+                        {{ $lesson->chapter->chapter_name ?? "Empty" }}
                     </td>
 
                     <td>
@@ -315,8 +315,10 @@ return 'admin';
                                                 <div class='my-3'>
                                                     <label>Category</label>
                                                     <select name="category_id" class="form-control">
-                                                        <option value="{{ $lesson->chapter->course->category->id }}">
-                                                            {{ $lesson->chapter->course->category->cate_name }}
+                                                        <option value="{{ $lesson->chapter->course->category->id ?? "
+                                                            Empty" }}">
+                                                            {{ $lesson->chapter->course->category->cate_name ??
+                                                            "Empty"}}
                                                         </option>
                                                         @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}">
@@ -328,8 +330,8 @@ return 'admin';
                                                 <div class='my-3'>
                                                     <label>Course</label>
                                                     <select name="Course_id" class="form-control">
-                                                        <option value="{{ $lesson->chapter->course->id }}">
-                                                            {{ $lesson->chapter->course->course_name }}
+                                                        <option value="{{ $lesson->chapter->course->id ?? " Empty" }}">
+                                                            {{ $lesson->chapter->course->course_name ?? "Empty"}}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -406,6 +408,7 @@ return 'admin';
                                                 @foreach ($lesson->ideas as $idea)
                                                 <div class='my-3'>
                                                     <label>Idea</label>
+
                                                     <input class='form-control' value="{{ $idea->idea }}" name="idea[]"
                                                         placeholder="Idea" />
                                                 </div>
@@ -416,6 +419,7 @@ return 'admin';
                                                 </div>
                                                 <div class='my-3'>
                                                     <label>Idea Order</label>
+                                                    {{ $idea->idea_order }}
                                                     <input class='form-control' value="{{ $idea->idea_order }}"
                                                         name="idea_order[]" placeholder="Idea Order" />
                                                 </div>
@@ -483,7 +487,7 @@ return 'admin';
                     </td>
                 </tr>
                 @endforeach
-                
+
             </tbody>
         </table>
 

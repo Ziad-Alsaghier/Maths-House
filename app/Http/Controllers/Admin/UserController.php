@@ -484,4 +484,29 @@ class UserController extends Controller
         ]);
     }
 
+    public function extraDays(Lesson $lesson,Request $request ){
+        $user = auth()->user();
+        $user_id = $user->id;
+             $days = $request->dayCounter;
+
+    
+            if(isset($lesson->extraDays->end_date) &&$lesson->extraDays->end_date > now()){ // Check if Extra Days is Not Expired
+                $days = $lesson->extraDays->extra_days + $days; // Add Days on Extra Days
+            }
+            $date = Carbon::now(); // Get Date Now
+                        $extraDate = $date->addDays($days)->format('Y-m-d'); // Add Days On Date 
+              $data = [
+            'extra_days'=>$days,
+            'user_id'=>$user_id,
+            'lesson_id'=>$lesson->id,
+            'end_date'=>$extraDate,
+        ];
+        $lesson->extraDays()->updateOrCreate([
+            'lesson_id'=>$lesson->id,
+        ],$data);
+        session()->flash('success',"Extra Days Added Successfully and End Date: $extraDate");
+        return redirect()->back();
+      
+    }
+
 }

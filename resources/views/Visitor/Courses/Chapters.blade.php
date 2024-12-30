@@ -2,34 +2,33 @@
 @include('Visitor.inc.menu')
 
 <style>
-.share-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
+    .share-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
 
-.share-options {
-    display: none;
-    position: absolute;
-    background-color: white;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    z-index: 1;
-}
+    .share-options {
+        display: none;
+        position: absolute;
+        background-color: white;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
 
-.share-options a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
+    .share-options a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
 
-.share-options a:hover {
-    background-color: #ddd;
-}
-
+    .share-options a:hover {
+        background-color: #ddd;
+    }
 </style>
 
 <div class="wrapper">
@@ -37,298 +36,315 @@
 
     <!-- Main Header Nav -->
     {{-- <header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu">
-		<div class="container-fluid">
-		    <!-- Ace Responsive Menu -->
-		    <nav>
-		        <!-- Menu Toggle btn-->
-		        <div class="menu-toggle">
-		            <img class="nav_logo_img img-fluid" src="images/header-logo.png" alt="header-logo.png">
-		            <button type="button" id="menu-btn">
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-		            </button>
-		        </div>
-		        <a href="#" class="navbar_brand float-left dn-smd">
-		            <img class="logo1 img-fluid" src="images/header-logo.png" alt="header-logo.png">
-		            <img class="logo2 img-fluid" src="images/header-logo2.png" alt="header-logo2.png">
-		            <span>edumy</span>
-		        </a>
-		        <!-- Responsive Menu Structure-->
-		        <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
-		        <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
-		            <li>
-		                <a href="#"><span class="title">Home</span></a>
-		                <!-- Level Two-->
-		                <ul>
-		                    <li><a href="index.html">Home 1</a></li>
-		                    <li><a href="index2.html">Home 2</a></li>
-		                    <li><a href="index3.html">Home 3</a></li>
-		                    <li><a href="index4.html">Home 4</a></li>
-		                    <li><a href="index5.html">Home 5</a></li>
-		                    <li><a href="index6.html">Home - University</a></li>
-		                    <li><a href="index7.html">Home College</a></li>
-		                    <li><a href="index8.html">Home Kindergarten</a></li>
+        <div class="container-fluid">
+            <!-- Ace Responsive Menu -->
+            <nav>
+                <!-- Menu Toggle btn-->
+                <div class="menu-toggle">
+                    <img class="nav_logo_img img-fluid" src="images/header-logo.png" alt="header-logo.png">
+                    <button type="button" id="menu-btn">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <a href="#" class="navbar_brand float-left dn-smd">
+                    <img class="logo1 img-fluid" src="images/header-logo.png" alt="header-logo.png">
+                    <img class="logo2 img-fluid" src="images/header-logo2.png" alt="header-logo2.png">
+                    <span>edumy</span>
+                </a>
+                <!-- Responsive Menu Structure-->
+                <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
+                <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
+                    <li>
+                        <a href="#"><span class="title">Home</span></a>
+                        <!-- Level Two-->
+                        <ul>
+                            <li><a href="index.html">Home 1</a></li>
+                            <li><a href="index2.html">Home 2</a></li>
+                            <li><a href="index3.html">Home 3</a></li>
+                            <li><a href="index4.html">Home 4</a></li>
+                            <li><a href="index5.html">Home 5</a></li>
+                            <li><a href="index6.html">Home - University</a></li>
+                            <li><a href="index7.html">Home College</a></li>
+                            <li><a href="index8.html">Home Kindergarten</a></li>
 
-		                    <li>
-								<a href="#"><span class="title">Update New Homepages</span></a>
-								<!-- Level Two-->
-								<ul>
-									<li><a href="index9.html">New Home 01</a></li>
-									<li><a href="index10.html">New Home 02</a></li>
-									<li><a href="index11.html">New Home 03</a></li>
-									<li><a href="index12.html">New Home 04</a></li>
-									<li><a href="index13.html">New Home 05</a></li>
-								</ul>
-					        </li>
+                            <li>
+                                <a href="#"><span class="title">Update New Homepages</span></a>
+                                <!-- Level Two-->
+                                <ul>
+                                    <li><a href="index9.html">New Home 01</a></li>
+                                    <li><a href="index10.html">New Home 02</a></li>
+                                    <li><a href="index11.html">New Home 03</a></li>
+                                    <li><a href="index12.html">New Home 04</a></li>
+                                    <li><a href="index13.html">New Home 05</a></li>
+                                </ul>
+                            </li>
 
-		                </ul>
-		            </li>
-		            <li>
-		                <a href="#"><span class="title">Courses</span></a>
-		                <!-- Level Two-->
-	                	<ul>
-		                    <li>
-		                        <a href="#">Courses List</a>
-		                        <!-- Level Three-->
-		                        <ul>
-		                            <li><a href="page-course-v1.html">Courses v1</a></li>
-		                            <li><a href="page-course-v2.html">Courses v2</a></li>
-		                            <li><a href="page-course-v3.html">Courses v3</a></li>
-		                        </ul>
-		                    </li>
-		                    <li>
-		                        <a href="#">Courses Single</a>
-		                        <!-- Level Three-->
-		                        <ul>
-		                            <li><a href="page-course-single-v1.html">Single V1</a></li>
-		                            <li><a href="page-course-single-v2.html">Single V2</a></li>
-		                            <li><a href="page-course-single-v3.html">Single V3</a></li>
-		                            <li><a href="page-course-single-v4.html">New Single V4</a></li>
-		                            <li><a href="page-course-single-v5.html">New Single V5</a></li>
-		                            <li><a href="page-course-single-v6.html">New Single V6</a></li>
-		                            <li><a href="page-course-single-v7.html">New Single V7</a></li>
-		                        </ul>
-		                    </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span class="title">Courses</span></a>
+                        <!-- Level Two-->
+                        <ul>
+                            <li>
+                                <a href="#">Courses List</a>
+                                <!-- Level Three-->
+                                <ul>
+                                    <li><a href="page-course-v1.html">Courses v1</a></li>
+                                    <li><a href="page-course-v2.html">Courses v2</a></li>
+                                    <li><a href="page-course-v3.html">Courses v3</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Courses Single</a>
+                                <!-- Level Three-->
+                                <ul>
+                                    <li><a href="page-course-single-v1.html">Single V1</a></li>
+                                    <li><a href="page-course-single-v2.html">Single V2</a></li>
+                                    <li><a href="page-course-single-v3.html">Single V3</a></li>
+                                    <li><a href="page-course-single-v4.html">New Single V4</a></li>
+                                    <li><a href="page-course-single-v5.html">New Single V5</a></li>
+                                    <li><a href="page-course-single-v6.html">New Single V6</a></li>
+                                    <li><a href="page-course-single-v7.html">New Single V7</a></li>
+                                </ul>
+                            </li>
                             <li><a href="page-instructors.html">Instructors</a></li>
-		                    <li><a href="page-instructors-single.html">Instructor Single</a></li>
-	                	</ul>
-		            </li>
-		            <li>
-		                <a href="#"><span class="title">Events</span></a>
-		                <ul>
-		                    <li><a href="page-event.html">Event List</a></li>
-		                    <li><a href="page-event-single.html">Event Single</a></li>
-		                </ul>
-		            </li>
-		            <li>
-		                <a href="#"><span class="title">Pages</span></a>
-		                <ul>
-				            <li>
-				                <a href="#"><span class="title">Shop Pages</span></a>
-				                <ul>
-				                    <li><a href="page-shop.html">Shop</a></li>
-				                    <li><a href="page-shop-single.html">Shop Single</a></li>
-				                    <li><a href="page-shop-cart.html">Cart</a></li>
-				                    <li><a href="page-shop-checkout.html">Checkout</a></li>
-				                    <li><a href="page-shop-order.html">Order</a></li>
-				                </ul>
-				            </li>
-				            <li>
-				                <a href="#"><span class="title">User Admin</span></a>
-				                <ul>
-				                    <li><a href="page-dashboard.html">Dashboard</a></li>
-				                    <li><a href="page-my-courses.html">My Courses</a></li>
-				                    <li><a href="page-my-order.html">My Order</a></li>
-				                    <li><a href="page-my-message.html">My Message</a></li>
-				                    <li><a href="page-my-review.html">My Review</a></li>
-				                    <li><a href="page-my-bookmarks.html">My Bookmarks</a></li>
-				                    <li><a href="page-my-listing.html">My Listing</a></li>
-				                    <li><a href="page-my-setting.html">My Setting</a></li>
-		                        </ul>
-				            </li>
-		                    <li><a href="page-about.html">About Us</a></li>
-		                    <li><a href="page-gallery.html">Gallery</a></li>
-		                    <li><a href="page-gallery2.html">Video Gallery</a></li>
-		                    <li><a href="page-faq.html">Faq</a></li>
-		                    <li><a href="page-login.html">LogIn</a></li>
-		                    <li><a href="page-login2.html">New LogIn V2</a></li>
-		                    <li><a href="page-login3.html">New LogIn V3</a></li>
-		                    <li><a href="page-login4.html">New LogIn V4</a></li>
-		                    <li><a href="page-register.html">Register</a></li>
-		                    <li><a href="page-pricing.html">Membership</a></li>
-		                    <li><a href="page-error.html">404 Page</a></li>
-		                    <li><a href="page-terms.html">Terms and Conditions</a></li>
-		                    <li><a href="page-become-instructor.html">Become an Instructor</a></li>
-		                    <li><a href="page-ui-element.html">UI Elements</a></li>
-		                </ul>
-		            </li>
-		            <li>
-		                <a href="#"><span class="title">Blog</span></a>
-		                <ul>
-		                    <li><a href="page-blog-v1.html">Blog List 1</a></li>
-		                    <li><a href="page-blog-grid.html">Blog List 2</a></li>
-		                    <li><a href="page-blog-list.html">Blog List 3</a></li>
-		                    <li><a href="page-blog-list2.html">New Blog List 4</a></li>
-		                    <li><a href="page-blog-list3.html">New Blog List 5</a></li>
-		                    <li><a href="page-blog-list4.html">New Blog List 6</a></li>
-		                    <li><a href="page-blog-single.html">Single Post</a></li>
-		                </ul>
-		            </li>
-		            <li class="last">
-		                <a href="page-contact.html"><span class="title">Contact</span></a>
-		            </li>
-		        </ul>
-		        <ul class="sign_up_btn pull-right dn-smd mt20">
-	                <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target="#exampleModalCenter"> <span class="dn-lg">Login/Register</span></a></li>
-	                <li class="list-inline-item list_s">
-	                	<div class="cart_btn">
-							<ul class="cart">
-								<li>
-									<a href="#" class="btn cart_btn flaticon-shopping-bag"><span>5</span></a>
-									<ul class="dropdown_content">
-										<li class="list_content">
-											<a href="#">
-												<img class="float-left" src="http://via.placeholder.com/50x50" alt="50x50">
-												<p>Dolar Sit Amet</p>
-												<small>1 × $7.90</small>
-												<span class="close_icon float-right"><i class="fa fa-plus"></i></span>
-											</a>
-										</li>
-										<li class="list_content">
-											<a href="#">
-												<img class="float-left" src="http://via.placeholder.com/50x50" alt="50x50">
-												<p>Lorem Ipsum</p>
-												<small>1 × $7.90</small>
-												<span class="close_icon float-right"><i class="fa fa-plus"></i></span>
-											</a>
-										</li>
-										<li class="list_content">
-											<a href="#">
-												<img class="float-left" src="http://via.placeholder.com/50x50" alt="50x50">
-												<p>Is simply</p>
-												<small>1 × $7.90</small>
-												<span class="close_icon float-right"><i class="fa fa-plus"></i></span>
-											</a>
-										</li>
-										<li class="list_content">
-											<h5>Subtotal: $57.70</h5>
-											<a href="#" class="btn btn-thm cart_btns">View cart</a>
-											<a href="#" class="btn btn-thm3 checkout_btns">Checkout</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-	                </li>
-	                <li class="list-inline-item list_s">
-	                	<div class="search_overlay">
-						 	<a id="search-button-listener" class="mk-search-trigger mk-fullscreen-trigger" href="#">
-						    	<span id="search-button"><i class="flaticon-magnifying-glass"></i></span>
-						 	</a>
-						</div>
-	                </li>
-	            </ul><!-- Button trigger modal -->
-		    </nav>
-		</div>
-	</header> --}}
+                            <li><a href="page-instructors-single.html">Instructor Single</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span class="title">Events</span></a>
+                        <ul>
+                            <li><a href="page-event.html">Event List</a></li>
+                            <li><a href="page-event-single.html">Event Single</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span class="title">Pages</span></a>
+                        <ul>
+                            <li>
+                                <a href="#"><span class="title">Shop Pages</span></a>
+                                <ul>
+                                    <li><a href="page-shop.html">Shop</a></li>
+                                    <li><a href="page-shop-single.html">Shop Single</a></li>
+                                    <li><a href="page-shop-cart.html">Cart</a></li>
+                                    <li><a href="page-shop-checkout.html">Checkout</a></li>
+                                    <li><a href="page-shop-order.html">Order</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><span class="title">User Admin</span></a>
+                                <ul>
+                                    <li><a href="page-dashboard.html">Dashboard</a></li>
+                                    <li><a href="page-my-courses.html">My Courses</a></li>
+                                    <li><a href="page-my-order.html">My Order</a></li>
+                                    <li><a href="page-my-message.html">My Message</a></li>
+                                    <li><a href="page-my-review.html">My Review</a></li>
+                                    <li><a href="page-my-bookmarks.html">My Bookmarks</a></li>
+                                    <li><a href="page-my-listing.html">My Listing</a></li>
+                                    <li><a href="page-my-setting.html">My Setting</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="page-about.html">About Us</a></li>
+                            <li><a href="page-gallery.html">Gallery</a></li>
+                            <li><a href="page-gallery2.html">Video Gallery</a></li>
+                            <li><a href="page-faq.html">Faq</a></li>
+                            <li><a href="page-login.html">LogIn</a></li>
+                            <li><a href="page-login2.html">New LogIn V2</a></li>
+                            <li><a href="page-login3.html">New LogIn V3</a></li>
+                            <li><a href="page-login4.html">New LogIn V4</a></li>
+                            <li><a href="page-register.html">Register</a></li>
+                            <li><a href="page-pricing.html">Membership</a></li>
+                            <li><a href="page-error.html">404 Page</a></li>
+                            <li><a href="page-terms.html">Terms and Conditions</a></li>
+                            <li><a href="page-become-instructor.html">Become an Instructor</a></li>
+                            <li><a href="page-ui-element.html">UI Elements</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span class="title">Blog</span></a>
+                        <ul>
+                            <li><a href="page-blog-v1.html">Blog List 1</a></li>
+                            <li><a href="page-blog-grid.html">Blog List 2</a></li>
+                            <li><a href="page-blog-list.html">Blog List 3</a></li>
+                            <li><a href="page-blog-list2.html">New Blog List 4</a></li>
+                            <li><a href="page-blog-list3.html">New Blog List 5</a></li>
+                            <li><a href="page-blog-list4.html">New Blog List 6</a></li>
+                            <li><a href="page-blog-single.html">Single Post</a></li>
+                        </ul>
+                    </li>
+                    <li class="last">
+                        <a href="page-contact.html"><span class="title">Contact</span></a>
+                    </li>
+                </ul>
+                <ul class="sign_up_btn pull-right dn-smd mt20">
+                    <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal"
+                            data-target="#exampleModalCenter"> <span class="dn-lg">Login/Register</span></a></li>
+                    <li class="list-inline-item list_s">
+                        <div class="cart_btn">
+                            <ul class="cart">
+                                <li>
+                                    <a href="#" class="btn cart_btn flaticon-shopping-bag"><span>5</span></a>
+                                    <ul class="dropdown_content">
+                                        <li class="list_content">
+                                            <a href="#">
+                                                <img class="float-left" src="http://via.placeholder.com/50x50"
+                                                    alt="50x50">
+                                                <p>Dolar Sit Amet</p>
+                                                <small>1 × $7.90</small>
+                                                <span class="close_icon float-right"><i class="fa fa-plus"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="list_content">
+                                            <a href="#">
+                                                <img class="float-left" src="http://via.placeholder.com/50x50"
+                                                    alt="50x50">
+                                                <p>Lorem Ipsum</p>
+                                                <small>1 × $7.90</small>
+                                                <span class="close_icon float-right"><i class="fa fa-plus"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="list_content">
+                                            <a href="#">
+                                                <img class="float-left" src="http://via.placeholder.com/50x50"
+                                                    alt="50x50">
+                                                <p>Is simply</p>
+                                                <small>1 × $7.90</small>
+                                                <span class="close_icon float-right"><i class="fa fa-plus"></i></span>
+                                            </a>
+                                        </li>
+                                        <li class="list_content">
+                                            <h5>Subtotal: $57.70</h5>
+                                            <a href="#" class="btn btn-thm cart_btns">View cart</a>
+                                            <a href="#" class="btn btn-thm3 checkout_btns">Checkout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="list-inline-item list_s">
+                        <div class="search_overlay">
+                            <a id="search-button-listener" class="mk-search-trigger mk-fullscreen-trigger" href="#">
+                                <span id="search-button"><i class="flaticon-magnifying-glass"></i></span>
+                            </a>
+                        </div>
+                    </li>
+                </ul><!-- Button trigger modal -->
+            </nav>
+        </div>
+    </header> --}}
     <!-- Modal -->
     {{-- <div class="sign_up_modal modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
-	  	<div class="modal-dialog modal-dialog-centered" role="document">
-	    	<div class="modal-content">
-		      	<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		      	</div>
-	    		<ul class="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
-				  	<li class="nav-item">
-				    	<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Login</a>
-				  	</li>
-				  	<li class="nav-item">
-				    	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Register</a>
-				  	</li>
-				</ul>
-				<div class="tab-content" id="myTabContent">
-				  	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-						<div class="login_form p30">
-							<form action="#">
-								<div class="heading">
-									<h3 class="text-center">Login to your account</h3>
-									<p class="text-center">Don't have an account? <a class="text-thm" href="#">Sign Up!</a></p>
-								</div>
-								 <div class="form-group">
-							    	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Address">
-								</div>
-								<div class="form-group">
-							    	<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-								</div>
-								<div class="form-group custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="exampleCheck1">
-									<label class="custom-control-label" for="exampleCheck1">Remember me</label>
-									<a class="tdu btn-fpswd float-right" href="#">Forgot Password?</a>
-								</div>
-								<button type="submit" class="btn btn-log btn-block btn-thm2">Login</button>
-								<hr>
-								<div class="row mt40">
-									<div class="col-lg">
-										<button type="submit" class="btn btn-block color-white bgc-fb"><i class="fa fa-facebook float-left mt5"></i> Facebook</button>
-									</div>
-									<div class="col-lg">
-										<button type="submit" class="btn btn-block color-white bgc-gogle"><i class="fa fa-google float-left mt5"></i> Google</button>
-									</div>
-								</div>
-							</form>
-						</div>
-				  	</div>
-				  	<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-						<div class="sign_up_form">
-							<div class="heading">
-								<h3 class="text-center">Create New Account</h3>
-								<p class="text-center">Have an account? <a class="text-thm" href="#">Login</a></p>
-							</div>
-							<form action="#">
-								<div class="form-group">
-							    	<input type="text" class="form-control" id="exampleInputName1" placeholder="Username">
-								</div>
-								 <div class="form-group">
-							    	<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email Address">
-								</div>
-								<div class="form-group">
-							    	<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-								</div>
-								<div class="form-group">
-							    	<input type="password" class="form-control" id="exampleInputPassword3" placeholder="Confirm Password">
-								</div>
-								<div class="form-group custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="exampleCheck2">
-									<label class="custom-control-label" for="exampleCheck2">Want to become an instructor?</label>
-								</div>
-								<button type="submit" class="btn btn-log btn-block btn-thm2">Register</button>
-								<hr>
-								<div class="row mt40">
-									<div class="col-lg">
-										<button type="submit" class="btn btn-block color-white bgc-fb"><i class="fa fa-facebook float-left mt5"></i> Facebook</button>
-									</div>
-									<div class="col-lg">
-										<button type="submit" class="btn btn-block color-white bgc-gogle"><i class="fa fa-google float-left mt5"></i> Google</button>
-									</div>
-								</div>
-							</form>
-						</div>
-				  	</div>
-				</div>
-	    	</div>
-	  	</div>
-	</div> --}}
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <ul class="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                            aria-controls="home" aria-selected="true">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                            aria-controls="profile" aria-selected="false">Register</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="login_form p30">
+                            <form action="#">
+                                <div class="heading">
+                                    <h3 class="text-center">Login to your account</h3>
+                                    <p class="text-center">Don't have an account? <a class="text-thm" href="#">Sign
+                                            Up!</a></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        placeholder="Email Address">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                        placeholder="Password">
+                                </div>
+                                <div class="form-group custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="exampleCheck1">
+                                    <label class="custom-control-label" for="exampleCheck1">Remember me</label>
+                                    <a class="tdu btn-fpswd float-right" href="#">Forgot Password?</a>
+                                </div>
+                                <button type="submit" class="btn btn-log btn-block btn-thm2">Login</button>
+                                <hr>
+                                <div class="row mt40">
+                                    <div class="col-lg">
+                                        <button type="submit" class="btn btn-block color-white bgc-fb"><i
+                                                class="fa fa-facebook float-left mt5"></i> Facebook</button>
+                                    </div>
+                                    <div class="col-lg">
+                                        <button type="submit" class="btn btn-block color-white bgc-gogle"><i
+                                                class="fa fa-google float-left mt5"></i> Google</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="sign_up_form">
+                            <div class="heading">
+                                <h3 class="text-center">Create New Account</h3>
+                                <p class="text-center">Have an account? <a class="text-thm" href="#">Login</a></p>
+                            </div>
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="exampleInputName1"
+                                        placeholder="Username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="exampleInputEmail2"
+                                        placeholder="Email Address">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="exampleInputPassword2"
+                                        placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="exampleInputPassword3"
+                                        placeholder="Confirm Password">
+                                </div>
+                                <div class="form-group custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="exampleCheck2">
+                                    <label class="custom-control-label" for="exampleCheck2">Want to become an
+                                        instructor?</label>
+                                </div>
+                                <button type="submit" class="btn btn-log btn-block btn-thm2">Register</button>
+                                <hr>
+                                <div class="row mt40">
+                                    <div class="col-lg">
+                                        <button type="submit" class="btn btn-block color-white bgc-fb"><i
+                                                class="fa fa-facebook float-left mt5"></i> Facebook</button>
+                                    </div>
+                                    <div class="col-lg">
+                                        <button type="submit" class="btn btn-block color-white bgc-gogle"><i
+                                                class="fa fa-google float-left mt5"></i> Google</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
     <!-- Modal Search Button Bacground Overlay -->
     <div class="search_overlay dn-992">
         <div class="mk-fullscreen-search-overlay" id="mk-search-overlay">
             <a href="#" class="mk-fullscreen-close" id="mk-fullscreen-close-button"><i class="fa fa-times"></i></a>
             <div id="mk-fullscreen-search-wrapper">
                 <form method="get" id="mk-fullscreen-searchform">
-                    <input type="text" value="" placeholder="Search courses..."
-                        id="mk-fullscreen-search-input">
-                    <i class="flaticon-magnifying-glass fullscreen-search-icon"><input value=""
-                            type="submit"></i>
+                    <input type="text" value="" placeholder="Search courses..." id="mk-fullscreen-search-input">
+                    <i class="flaticon-magnifying-glass fullscreen-search-icon"><input value="" type="submit"></i>
                 </form>
             </div>
         </div>
@@ -339,21 +355,21 @@
 
     <!-- Inner Page Breadcrumb -->
     {{-- <section class="inner_page_breadcrumb csv1">
-		<div class="container">
-			<div class="row" style="width: 100%;">
-				<div class="col-xl-6 offset-xl-3 text-center">
-					<div class="breadcrumb_content">
-						<h4 class="breadcrumb_title">Courses</h4>
-						<ol class="breadcrumb">
-						    <li class="breadcrumb-item"><a href="#">Home</a></li>
-						    <li class="breadcrumb-item"><a href="#">Graphic Design </a></li>
-						    <li class="breadcrumb-item active" aria-current="page">Adobe Illustrator</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> --}}
+        <div class="container">
+            <div class="row" style="width: 100%;">
+                <div class="col-xl-6 offset-xl-3 text-center">
+                    <div class="breadcrumb_content">
+                        <h4 class="breadcrumb_title">Courses</h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Graphic Design </a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Adobe Illustrator</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> --}}
 
     <!-- Our Team Members -->
     <section class="our-team pb40">
@@ -367,8 +383,8 @@
                                     <div class="cs_ins_container">
                                         <div class="cs_instructor">
                                             <ul class="cs_instrct_list float-left mb0">
-                                                <li class="list-inline-item"><img class="thumb" src="{{asset('images/inc/amir.png')}}"
-                                                        alt="4.png"></li>
+                                                <li class="list-inline-item"><img class="thumb"
+                                                        src="{{asset('images/inc/amir.png')}}" alt="4.png"></li>
                                                 <li class="list-inline-item"><a href="#">Amir Hemaida</a></li>
                                                 </li>
                                             </ul>
@@ -377,30 +393,27 @@
                                                             class="flaticon-like"></span></a></li>
                                                 <li class="list-inline-item"><a href="#">Add to Wishlist</a></li>
                                                 <li class="list-inline-item">
-                                                    <button class="share-button" onclick="toggleShareOptions()">Share</button>
+                                                    <button class="share-button"
+                                                        onclick="toggleShareOptions()">Share</button>
                                                     <div id="share-options" class="share-options">
                                                         <a href="#" onclick="shareFacebook()">Facebook</a>
                                                         <a href="#" onclick="shareWhatsApp()">WhatsApp</a>
                                                         <a href="#" onclick="shareMessenger()">Messenger</a>
                                                         <a href="#" onclick="shareInstagram()">Instagram</a>
                                                         <a href="#" onclick="shareGmail()">Gmail</a>
-                                                    </div></li>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </div>
                                         <h3 class="cs_title">Designing a Responsive Mobile Website with Muse</h3>
                                         <ul class="cs_review_seller">
                                             <li class="list-inline-item"><a href="#"><span>Best Seller</span></a>
                                             </li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i
-                                                        class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
                                             <li class="list-inline-item"><a href="#">4.5 (11,382 Ratings)</a></li>
                                         </ul>
                                         <ul class="cs_review_enroll">
@@ -412,8 +425,9 @@
                                         </ul>
                                         <div class="courses_big_thumb">
                                             <div class="thumb">
-                                                <iframe scrolling="no" allowfullscreen class="iframe_video" src="//www.youtube.com/embed/57LQI8DKwec"
-                                                    frameborder="0" allowfullscreen></iframe>
+                                                <iframe scrolling="no" allowfullscreen class="iframe_video"
+                                                    src="//www.youtube.com/embed/57LQI8DKwec" frameborder="0"
+                                                    allowfullscreen></iframe>
                                             </div>
                                         </div>
                                     </div>
@@ -486,110 +500,111 @@
                                         </div>
                                         <br>
                                         {{-- @foreach ($chapters as $chapter)
-                                            <div class="details d-flex align-items-center">
-                                                <input type="checkbox" class="chapter_item_check"
-                                                    id="{{ $chapter->id }}" checked />
+                                        <div class="details d-flex align-items-center">
+                                            <input type="checkbox" class="chapter_item_check" id="{{ $chapter->id }}"
+                                                checked />
 
-                                                <input type="hidden" class="chapter_id"
-                                                    value="{{ $chapter->id }}" />
+                                            <input type="hidden" class="chapter_id" value="{{ $chapter->id }}" />
 
-                                                @php
-                                                    $min = $chapter->price[0]->price;
-                                                    $discount = $chapter->price[0]->discount;
-                                                @endphp
+                                            @php
+                                            $min = $chapter->price[0]->price;
+                                            $discount = $chapter->price[0]->discount;
+                                            @endphp
 
-                                                @foreach ($chapter->price as $ch_price)
-                                                    @if ($min > $ch_price->price)
-                                                        @php
-                                                            $min = $ch_price->price;
-                                                            $discount = $ch_price->discount;
-                                                        @endphp
-                                                    @endif
-                                                @endforeach
+                                            @foreach ($chapter->price as $ch_price)
+                                            @if ($min > $ch_price->price)
+                                            @php
+                                            $min = $ch_price->price;
+                                            $discount = $ch_price->discount;
+                                            @endphp
+                                            @endif
+                                            @endforeach
 
-                                                <input type="hidden" class="chapter_price"
-                                                    value="{{ $min }}" />
-                                                <input type="hidden" class="chapter_discount"
-                                                    value="{{ $discount }}" />
-                                                <input type="hidden" class="chapter_data"
-                                                    value="{{ $chapter }}" />
-                                                <div id="accordion" class="panel-group w-100 ml-3 cc_tab">
-                                                    <div class="panel">
-                                                        <div class="panel-heading">
-                                                            <h4 class="panel-title">
-                                                                <a href="#panelBodyCourseStart"
-                                                                    class="accordion-toggle link"
-                                                                    data-toggle="collapse"
-                                                                    data-parent="#accordion">{{ $chapter->chapter_name }}</a>
-                                                            </h4>
-                                                        </div>
-                                                        <div id="panelBodyCourseStart"
-                                                            class="panel-collapse collapse">
-                                                            <div class="panel-body">
-                                                                <ul class="cs_list mb0">
-                                                                    @foreach ($chapter->lessons as $lesson)
-                                                                        <li><span
-                                                                                class="flaticon-play-button-1 icon"></span>
-                                                                            {{ $lesson->lesson_name }}
-                                                                            <span class="cs_preiew">Preview</span>
-                                                                        </li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
+                                            <input type="hidden" class="chapter_price" value="{{ $min }}" />
+                                            <input type="hidden" class="chapter_discount" value="{{ $discount }}" />
+                                            <input type="hidden" class="chapter_data" value="{{ $chapter }}" />
+                                            <div id="accordion" class="panel-group w-100 ml-3 cc_tab">
+                                                <div class="panel">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="#panelBodyCourseStart"
+                                                                class="accordion-toggle link" data-toggle="collapse"
+                                                                data-parent="#accordion">{{ $chapter->chapter_name
+                                                                }}</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="panelBodyCourseStart" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <ul class="cs_list mb0">
+                                                                @foreach ($chapter->lessons as $lesson)
+                                                                <li><span class="flaticon-play-button-1 icon"></span>
+                                                                    {{ $lesson->lesson_name }}
+                                                                    <span class="cs_preiew">Preview</span>
+                                                                </li>
+                                                                @endforeach
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                                         @endforeach --}}
-    @foreach ($chapters as $chapter)
-    <div class="details d-flex align-items-center">
-        <input type="checkbox" class="chapter_item_check" id="{{ $chapter->id }}" checked />
-        <input type="hidden" class="chapter_id" value="{{ $chapter->id }}" />
+                                        @foreach ($chapters as $chapter)
+                                        <div class="details d-flex align-items-center">
+                                            <input type="checkbox" class="chapter_item_check" id="{{ $chapter->id }}"
+                                                checked />
+                                            <input type="hidden" class="chapter_id" value="{{ $chapter->id }}" />
 
-        @php
-            $min = $chapter->price[0]->price;
-            $discount = $chapter->price[0]->discount;
-        @endphp
+                                            @php
+                                            $min = $chapter->price[0]->price;
+                                            $discount = $chapter->price[0]->discount;
+                                            @endphp
 
-        @foreach ($chapter->price as $ch_price)
-            @if ($min > $ch_price->price)
-                @php
-                    $min = $ch_price->price;
-                    $discount = $ch_price->discount;
-                @endphp
-            @endif
-    @endforeach
+                                            @foreach ($chapter->price as $ch_price)
+                                            @if ($min > $ch_price->price)
+                                            @php
+                                            $min = $ch_price->price;
+                                            $discount = $ch_price->discount;
+                                            @endphp
+                                            @endif
+                                            @endforeach
 
-        <input type="hidden" class="chapter_price" value="{{ $min }}" />
-        <input type="hidden" class="chapter_discount" value="{{ $discount }}" />
-        <input type="hidden" class="chapter_data" value="{{ $chapter }}" />
-        <div id="accordion" class="panel-group w-100 ml-3 cc_tab">
-            <div class="panel">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href="#panelBodyCourseStart" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">{{ $chapter->chapter_name }}</a>
-                    </h4>
-                </div>
-                <div id="panelBodyCourseStart" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <ul class="cs_list mb0">
-                            @foreach ($chapter->lessons as $lesson)
-                                <li><span class="flaticon-play-button-1 icon"></span>{{ $lesson->lesson_name }} <span class="cs_preiew">Preview</span></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endforeach
+                                            <input type="hidden" class="chapter_price" value="{{ $min }}" />
+                                            <input type="hidden" class="chapter_discount" value="{{ $discount }}" />
+                                            <input type="hidden" class="chapter_data" value="{{ $chapter }}" />
+                                            <div id="accordion" class="panel-group w-100 ml-3 cc_tab">
+                                                <div class="panel">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="#panelBodyCourseStart"
+                                                                class="accordion-toggle link" data-toggle="collapse"
+                                                                data-parent="#accordion">{{ $chapter->chapter_name
+                                                                }}</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="panelBodyCourseStart" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <ul class="cs_list mb0">
+                                                                @foreach ($chapter->lessons as $lesson)
+                                                                <li><span class="flaticon-play-button-1 icon"></span>{{
+                                                                    $lesson->lesson_name }} <span
+                                                                        class="cs_preiew">Preview</span></li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="cs_row_four">
                                     <div class="about_ins_container">
                                         <h4 class="aii_title">About the instructor</h4>
                                         <div class="about_ins_info">
-                                            <div class="thumb"><img style="height: 60px; width: 70px;" src="{{asset('images/inc/amir.png')}}" alt="6.png"></div>
+                                            <div class="thumb"><img style="height: 60px; width: 70px;"
+                                                    src="{{asset('images/inc/amir.png')}}" alt="6.png"></div>
                                         </div>
                                         <div class="details">
                                             <ul class="review_list">
@@ -610,23 +625,32 @@
                                             </ul>
                                             <h4>Amir Hemaida</h4>
 
-            <h4>Mathematics Enthusiast | Experienced International Curriculum Educator</h4>
-            <p>
-                For over 23 years, I have been passionate about igniting a love for mathematics in
-                students of all backgrounds. As a highly experienced international curriculum educator
-                , I have honed my skills in delivering effective instruction across diverse
-                learning styles and educational frameworks.
-            </p>
-            <h4>My Experience:</h4>
-            •<b>Co-founder of Math House Institution:</b> Leading a dedicated team to provide exceptional math
-            •education to students.
-            •<b>20+Years in International Schools:</b> Bringing my expertise to a global learning environment, fostering
-            •critical thinking and problem-solving skills in students.
-            •<b>Proven Track Record:</b> Proven ability to help students achieve academic success and
-            •improve their math proficiency through engaging and effective teaching methods.
-            <div><b>My Approach:</b></div>
-            I believe in creating a positive and supportive learning environment where every student feels
-            empowered to explore and master mathematical concepts.
+                                            <h4>Mathematics Enthusiast | Experienced International Curriculum Educator
+                                            </h4>
+                                            <p>
+                                                For over 23 years, I have been passionate about igniting a love for
+                                                mathematics in
+                                                students of all backgrounds. As a highly experienced international
+                                                curriculum educator
+                                                , I have honed my skills in delivering effective instruction across
+                                                diverse
+                                                learning styles and educational frameworks.
+                                            </p>
+                                            <h4>My Experience:</h4>
+                                            •<b>Co-founder of Math House Institution:</b> Leading a dedicated team to
+                                            provide exceptional math
+                                            •education to students.
+                                            •<b>20+Years in International Schools:</b> Bringing my expertise to a global
+                                            learning environment, fostering
+                                            •critical thinking and problem-solving skills in students.
+                                            •<b>Proven Track Record:</b> Proven ability to help students achieve
+                                            academic success and
+                                            •improve their math proficiency through engaging and effective teaching
+                                            methods.
+                                            <div><b>My Approach:</b></div>
+                                            I believe in creating a positive and supportive learning environment where
+                                            every student feels
+                                            empowered to explore and master mathematical concepts.
                                         </div>
                                     </div>
                                 </div>
@@ -680,8 +704,7 @@
                                         <h4 class="aii_title">Reviews</h4>
                                         <div class="mbp_pagination_comments">
                                             <div class="mbp_first media csv1">
-                                                <img src="images/resource/review1.png" class="mr-3"
-                                                    alt="review1.png">
+                                                <img src="images/resource/review1.png" class="mr-3" alt="review1.png">
                                                 <div class="media-body">
                                                     <h4 class="sub_title mt-0">Warren Bethell
                                                         <span class="sspd_review float-right">
@@ -716,26 +739,21 @@
                                                             Waren</a></div>
                                                     <div class="custom_hr style2"></div>
                                                     <div class="mbp_sub media csv1">
-                                                        <a href="#"><img src="images/resource/review1.png"
-                                                                class="mr-3" alt="review1.png"></a>
+                                                        <a href="#"><img src="images/resource/review1.png" class="mr-3"
+                                                                alt="review1.png"></a>
                                                         <div class="media-body">
                                                             <h4 class="sub_title mt-0">Anton Hilton
                                                                 <span class="sspd_review float-right">
                                                                     <ul>
-                                                                        <li class="list-inline-item"><a
-                                                                                href="#"><i
+                                                                        <li class="list-inline-item"><a href="#"><i
                                                                                     class="fa fa-star"></i></a></li>
-                                                                        <li class="list-inline-item"><a
-                                                                                href="#"><i
+                                                                        <li class="list-inline-item"><a href="#"><i
                                                                                     class="fa fa-star"></i></a></li>
-                                                                        <li class="list-inline-item"><a
-                                                                                href="#"><i
+                                                                        <li class="list-inline-item"><a href="#"><i
                                                                                     class="fa fa-star"></i></a></li>
-                                                                        <li class="list-inline-item"><a
-                                                                                href="#"><i
+                                                                        <li class="list-inline-item"><a href="#"><i
                                                                                     class="fa fa-star"></i></a></li>
-                                                                        <li class="list-inline-item"><a
-                                                                                href="#"><i
+                                                                        <li class="list-inline-item"><a href="#"><i
                                                                                     class="fa fa-star"></i></a></li>
                                                                         <li class="list-inline-item"></li>
                                                                     </ul>
@@ -839,7 +857,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Review Content</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                        rows="6"></textarea>
                                                 </div>
                                                 <button type="submit" class="btn btn-thm">Submit Review <span
                                                         class="flaticon-right-arrow-1"></span></button>
@@ -858,11 +877,13 @@
                         <div class="col-lg-6 col-xl-4">
                             <div class="top_courses">
                                 <div class="thumb">
-                                    <img class="img-whp" src="{{asset('images/courses/' . $item->course_url)}}" alt="t1.jpg">
+                                    <img class="img-whp" src="{{asset('images/courses/' . $item->course_url)}}"
+                                        alt="t1.jpg">
                                     <div class="overlay">
                                         <div class="tag">Best Seller</div>
                                         <div class="icon"><span class="flaticon-like"></span></div>
-                                        <a class="tc_preview_course" href="{{route('v_course', ['id' => $item->id])}}">Preview Course</a>
+                                        <a class="tc_preview_course"
+                                            href="{{route('v_course', ['id' => $item->id])}}">Preview Course</a>
                                     </div>
                                 </div>
                                 <a href="{{route('v_course', ['id' => $item->id])}}" class="details">
@@ -885,19 +906,16 @@
                             {{-- <select class="form-control w-150px">
                                 <option selected disabled>Select Currency ...</option>
                                 @foreach ($currency as $item)
-                                    <option id="curr-id" value="{{$item->id}}">{{$item->currency}}</option>
+                                <option id="curr-id" value="{{$item->id}}">{{$item->currency}}</option>
                                 @endforeach
                             </select> --}}
-                            <input type="hidden" class="currency-hidden" value="1"/>
+                            <input type="hidden" class="currency-hidden" value="1" />
                             <select class="form-control w-150px currency-selector">
                                 <option selected disabled>Select Currency ...</option>
                                 @foreach ($currency as $item)
-                                    <option
-                                        value="{{ $item->id }}"
-                                        data-amount="{{ $item->amount }}"
-                                    >
-                                        {{ $item->currency}}
-                                    </option>
+                                <option value="{{ $item->id }}" data-amount="{{ $item->amount }}">
+                                    {{ $item->currency}}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -908,12 +926,9 @@
                         <input class="course_price" type="hidden" value="{{ $price }}" />
                         <form method="POST" action="{{ route('buy_course') }}">
                             @csrf
-                            <input type="hidden" class="course_data" name="course_data"
-                                value="{{ $course }}" />
-                            <input type="hidden" class="chapters_data" name="chapters_data"
-                                value="{{ $chapters }}" />
-                            <input type="hidden" class="chapters_price" name="chapters_price"
-                                value="{{ $price }}" />
+                            <input type="hidden" class="course_data" name="course_data" value="{{ $course }}" />
+                            <input type="hidden" class="chapters_data" name="chapters_data" value="{{ $chapters }}" />
+                            <input type="hidden" class="chapters_price" name="chapters_price" value="{{ $price }}" />
                             <button class="cart_btnss_white">Buy Now</button>
                         </form>
                         <h5 class="subtitle text-left">Includes</h5>
@@ -1257,4 +1272,3 @@ window.onclick = function(event) {
 <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 @include('Visitor.inc.footer')
-
