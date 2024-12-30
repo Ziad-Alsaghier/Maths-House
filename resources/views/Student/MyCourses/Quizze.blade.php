@@ -661,14 +661,14 @@
                                     <div class="section-setValue">
                                         <span>Answer:</span>
                                         <div class="input_val">
-                                            <input type="text" name="q_grid_ans[]" step="0.001" value="0"
+                                            <input type="text" step="0.001" value="0"
                                                 class="gridVal">
                                         </div>
                                         <input type="button" value="/" class="addSl">
                                     </div>
                                     <div class="section-value">
                                         <span>Answer Preview:</span>
-                                        <input type="number" value="00000" readonly>
+                                        <input type="number" name="q_grid_ans[]" value="00000" readonly>
                                     </div>
                                 </div>
                             @endif
