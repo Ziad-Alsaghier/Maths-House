@@ -37,6 +37,9 @@ class Chapter extends Model
     {
         return $this->hasMany(Lesson::class);
     }
+    public function paymentOrder(){
+        return $this->hasMany(PaymentOrder::class,'chapter_id');
+    }
     public function price()
     {
         return $this->hasMany(ChapterPrice::class);

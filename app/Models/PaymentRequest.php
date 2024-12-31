@@ -17,6 +17,7 @@ class PaymentRequest extends Model
 
     protected $fillable = [
         'payment_method_id',
+        'transaction_id',
         'user_id',
         'price',
         'image',
@@ -31,6 +32,10 @@ class PaymentRequest extends Model
 
     public function chapters_order(){
         return $this->hasMany(PaymentOrder::class, 'payment_request_id');
+    }
+
+    public function payment_method(){
+        return $this->belongsTo(PaymentMethod::class);
     }
 
     public function method(){
