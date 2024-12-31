@@ -139,7 +139,6 @@ use PaymentPaymob;
             }
         }
        Cookie::queue(Cookie::forget('min_price_data'));
-        Cookie::queue('marketing', json_encode($course), 180);
         
         if ( empty(auth()->user()) && $min_price == $req->chapters_price ) {
             return view('Visitor.Login.login');
@@ -167,7 +166,8 @@ use PaymentPaymob;
         if ( !empty($req->chapters_data) ) {
             // return    $data = json_decode($req->cookie('marketing')); // Change New Method To Take cokie From Cookie
              $data = json_decode(Cookie::get('marketing')); //Old Method To get Data From Cookie
-            $chapters_price = floatval(Cookie::get('chapters_price'));
+        Cookie::queue('marketing', json_encode($course), 180);
+       $chapters_price = floatval(Cookie::get('chapters_price'));
         }
         Cookie::queue('marketing', json_encode($data), 180);  
         Cookie::queue('chapters_price', ($chapters_price), 180);
@@ -270,9 +270,9 @@ use PaymentPaymob;
         }
 
         $data = json_decode(Cookie::get('marketing')); 
-        $chapters_price = floatval(Cookie::get('chapters_price'));  
+      return $chapters_price = floatval(Cookie::get('chapters_price'));
         $chapter_discount = 0;
-        $price_data = ($data);
+       return $price_data = $data;
         $price_arr = [];
         
         if ( is_array($price_data) ) {
@@ -288,7 +288,7 @@ use PaymentPaymob;
             }
         }
         else{ 
-            $min_price = $price_data->prices[0];
+            return $min_price = $price_data->prices[0];
             foreach ($price_data->prices as $element) {
                 if ( $element->price < $min_price->price ) {
                     $min_price = $element;
