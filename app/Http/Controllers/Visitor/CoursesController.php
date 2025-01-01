@@ -557,8 +557,7 @@ use PaymentPaymob;
         $arr['price'] = floatval(Cookie::get('chapters_price'));
         $arr['user_id'] = auth()->user()->id;
         $img_state = true;
-           $course = json_decode(Cookie::get('marketing'));
-           $price = floatval(Cookie::get('chapters_price'));
+
         extract($_FILES['image']);
         $img_name = null;
         $tmp = null;
@@ -739,7 +738,8 @@ use PaymentPaymob;
         }
         //   End Make Paymob Credit 
         if ( $req->payment_method_id == 'Wallet' ) {
-   
+              $course = json_decode(Cookie::get('marketing'));
+              $price = floatval(Cookie::get('chapters_price'));
             $wallet = Wallet::
             where('student_id', auth()->user()->id)
             ->where('state', 'Approve')
