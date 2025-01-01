@@ -163,7 +163,7 @@ use PaymentPaymob;
             $chapter_discount += $min->price - ($min->price * $min->discount / 100);
             $price_arr[] = $min;
         }
-        if ( !empty($req->chapters_data) ) {
+        if ( empty($req->chapters_data) ) {
             // return    $data = json_decode($req->cookie('marketing')); // Change New Method To Take cokie From Cookie
              $data = json_decode(Cookie::get('marketing')); //Old Method To get Data From Cookie
         Cookie::queue('marketing', json_encode($course), 180);
@@ -725,13 +725,16 @@ use PaymentPaymob;
       
             
         //   Start Make Paymob Credit
-        if($payment_methods->payment == "Paymob"){
-        $course = json_decode(Cookie::get('marketing'));
-        $price = floatval(Cookie::get('chapters_price'));
-        $token = $req->_token;
-        $user = auth()->user();
-        $commision = intval(Cookie::get('affilate'));
-        return $this->credit($user,$payment_methods,$course,$price,'Course',$commision);
+        if(isset($payment_methods->payment)){
+            if($payment_methods->payment == "Paymob"){
+                $course = json_decode(Cookie::get('marketing'));
+                $price = floatval(Cookie::get('chapters_price'));
+                $token = $req->_token;
+                $user = auth()->user();
+                $commision = intval(Cookie::get('affilate'));
+                return $this->credit($user,$payment_methods,$course,$price,'Course',$commision);
+            }
+        
         }
         //   End Make Paymob Credit 
         if ( $req->payment_method_id == 'Wallet' ) {
