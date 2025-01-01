@@ -738,6 +738,8 @@ use PaymentPaymob;
         }
         //   End Make Paymob Credit 
         if ( $req->payment_method_id == 'Wallet' ) {
+              $course = json_decode(Cookie::get('marketing'));
+              $price = floatval(Cookie::get('chapters_price'));
             $wallet = Wallet::
             where('student_id', auth()->user()->id)
             ->where('state', 'Approve')
