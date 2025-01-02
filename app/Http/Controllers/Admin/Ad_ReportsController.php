@@ -274,8 +274,11 @@ class Ad_ReportsController extends Controller
         $data = StudentQuizze::
         where('student_id', $req->user_id)
         ->where('lesson_id', $req->lesson_id)
-        ->with('quizze')
-        ->get();
+        ->with('quizze',function($query){
+            $query->with('question', function($query){
+                $query->with('mcq')->with('q_ans')->with('g_ans');
+            });
+        })->get();
         $arr = [];
 
         foreach ( $data as $item ) {
