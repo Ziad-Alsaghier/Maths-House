@@ -169,4 +169,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->addresses?->first();
     }
+
+    public function extraDays()
+    {
+        return $this->hasOne(LessonExtraDays::class,'user_id');
+    }
 }

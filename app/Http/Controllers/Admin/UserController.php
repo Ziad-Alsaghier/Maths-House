@@ -28,6 +28,9 @@ class UserController extends Controller
 {
     // Comment
 
+    public function __construct(private User $user){}
+        
+
     public function student(){
         $students = User::where('position', 'student')
         ->orderByDesc('id')
@@ -122,6 +125,7 @@ class UserController extends Controller
         
         $user = User::where('id', $id)
         ->first();
+        $extraDays = $user->extraDays;
         $courses_names = $user->courses_live;
         $courses = $user->courses_live; 
 
@@ -486,10 +490,11 @@ class UserController extends Controller
 
     public function extraDays(Lesson $lesson,Request $request ){
 
-        $user = auth()->user();
-        $user_id = $user->id;
-             $days = $request->dayCounter;
-
+        
+        $user_id = $request->user_id; // Get User ID
+        $user = $this->user->find($user_id); // Get User ID
+        
+             $days = $request->dayCounter; // Get Days From Request
     
             if(isset($lesson->extraDays->end_date)){ // Check if Extra Days is Not Expired
                 $days = $lesson->extraDays->extra_days + $days; // Add Days on Extra Days
@@ -502,8 +507,8 @@ class UserController extends Controller
             'lesson_id'=>$lesson->id,
             'end_date'=>$extraDate,
         ];
-        $lesson->extraDays()->updateOrCreate([
-            // 'user_id'=>auth()->user()->id,
+         $user->extraDays()->updateOrCreate([
+            'user_id'=>$user_id,
         ],$data);
         session()->flash('success',"Extra Days Added Successfully and End Date: $extraDate");
         return redirect()->back();
