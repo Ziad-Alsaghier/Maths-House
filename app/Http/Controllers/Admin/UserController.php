@@ -508,7 +508,7 @@ class UserController extends Controller
             'end_date'=>$extraDate,
         ];
          $user->extraDays()->updateOrCreate([
-            'user_id'=>$user_id,
+            'lesson_id'=>$lesson->id,
         ],$data);
         session()->flash('success',"Extra Days Added Successfully and End Date: $extraDate");
         return redirect()->back();
