@@ -485,6 +485,7 @@ class UserController extends Controller
     }
 
     public function extraDays(Lesson $lesson,Request $request ){
+
         $user = auth()->user();
         $user_id = $user->id;
              $days = $request->dayCounter;
@@ -502,7 +503,7 @@ class UserController extends Controller
             'end_date'=>$extraDate,
         ];
         $lesson->extraDays()->updateOrCreate([
-            'user_id'=>auth()->user()->id,
+            // 'user_id'=>auth()->user()->id,
         ],$data);
         session()->flash('success',"Extra Days Added Successfully and End Date: $extraDate");
         return redirect()->back();
