@@ -690,8 +690,8 @@ $iter = 1;
                                             method="POST">
                                             @csrf
                                             <input type="hidden" name="dayCounter" id="dayCounter"
-                                                data-expireDate="{{ $lesson->extraDays->end_date ?? 0 }}" value="{{
-                                            $lesson->extraDays->extra_days ?? 0 }}">
+                                                data-expireDate="{{ $user->extraDays->end_date ?? 0 }}" value="{{
+                                            $user->extraDays->extra_days ?? 0 }}">
                                             <input type="hidden" id="manualInput" min="0" name="user_id"
                                                 value="{{ $user->id }}">
                                             <button type="submit">Submit Counter</button>
