@@ -496,7 +496,9 @@ class UserController extends Controller
         
              $days = $request->dayCounter; // Get Days From Request
     
+            if(isset($lesson->extraDays->end_date)){ // Check if Extra Days is Not Expired
                 $days = $lesson->extraDays->extra_days + $days; // Add Days on Extra Days
+            }
             $date = Carbon::now(); // Get Date Now
                         $extraDate = $date->addDays($days)->format('Y-m-d'); // Add Days On Date 
               $data = [
