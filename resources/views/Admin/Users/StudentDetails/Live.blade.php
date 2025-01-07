@@ -680,7 +680,7 @@ $iter = 1;
 
                                         <!-- Counter Increment Button -->
                                         <button type="button" id="incrementButton">Increment Days ({{
-                                            $lesson->extraDays->extra_days ?? 0 }})</button>
+                                            $user->extraDays->extra_days ?? 0 }})</button>
                                         <!-- Number Input -->
 
 
@@ -690,7 +690,7 @@ $iter = 1;
                                             @csrf
                                             <input type="number" id="manualInput" placeholder="Enter Days" min="0"
                                                 name="dayCounter" value="{{
-                                            $lesson->extraDays->extra_days ?? 0 }}">
+                                            $user->extraDays->extra_days ?? 0 }}">
                                             <input type="hidden" id="manualInput" min="0" name="user_id"
                                                 value="{{ $user->id }}">
                                             <button type="submit">Submit Counter</button>
