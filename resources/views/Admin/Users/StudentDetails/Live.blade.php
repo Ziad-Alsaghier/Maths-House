@@ -682,15 +682,17 @@ $iter = 1;
                                         <button type="button" id="incrementButton">Increment Days ({{
                                             $lesson->extraDays->extra_days ?? 0 }})</button>
                                         <!-- Number Input -->
-                                        <input type="number" id="manualInput" placeholder="Enter Days" min="0"
-                                            value="0">
+
+
                                         <!-- Form to Submit -->
                                         <form id="counterForm" action="{{ route('extraDay',['lesson'=>$lesson->id]) }}"
                                             method="POST">
                                             @csrf
-                                            <input type="hidden" name="dayCounter" id="dayCounter"
-                                                data-expireDate="{{ $lesson->extraDays->end_date ?? 0 }}" value="{{
+                                            <input type="number" id="manualInput" placeholder="Enter Days" min="0"
+                                                name="dayCounter" value="{{
                                             $lesson->extraDays->extra_days ?? 0 }}">
+                                            <input type="hidden" id="manualInput" min="0" name="user_id"
+                                                value="{{ $user->id }}">
                                             <button type="submit">Submit Counter</button>
                                         </form>
 

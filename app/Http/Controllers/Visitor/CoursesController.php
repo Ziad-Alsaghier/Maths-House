@@ -30,6 +30,7 @@ use App\Models\Question;
 use App\Models\quizze;
 use App\Models\Currancy;
 use App\service\PaymentPaymob;
+use Illuminate\Support\Facades\Session;
 
 class CoursesController extends Controller
 {
@@ -148,7 +149,20 @@ use PaymentPaymob;
             return view('Visitor.Cart.Course_Cart', compact('course', 'min_price', 'min_price_data'));
         }
         
-        $data = $req->chapters_data; // Get Chapters Data For Convert To json 
+        $chaptersIds = json_decode($req->chapters_data); // Get Chapters Data For Convert To json
+        $data = Chapter::whereIn('id', $chaptersIds)->with('price')->get(); // Get Chapters Data From Database
+    // Minimum Price
+     foreach($data as $chapter){
+             $min = $chapter->price[0]->price;
+              $discount = $chapter->price[0]->discount;
+            foreach ($chapter->price as $ch_price){
+                       if ($min > $ch_price->price){
+                       $chapter->ch_price = $ch_price->price;
+                       $discount = $ch_price->discount;
+                       }
+            }
+        }
+    //Minimum Price
         $chapters_price = $req->chapters_price;
         $chapter_discount = 0;
         $price_data = json_decode($data);
@@ -165,12 +179,15 @@ use PaymentPaymob;
         }
         if ( empty($req->chapters_data) ) {
             // return    $data = json_decode($req->cookie('marketing')); // Change New Method To Take cokie From Cookie
-             $data = json_decode(Cookie::get('marketing')); //Old Method To get Data From Cookie
-        Cookie::queue('marketing', json_encode($course), 180);
+             $data = json_decode(Session::get('marketing')); //Old Method To get Data From Cookie
+        Session::put('marketing', json_encode($course));
        $chapters_price = floatval(Cookie::get('chapters_price'));
         }
-        Cookie::queue('marketing', json_encode($data), 180);  
-        Cookie::queue('chapters_price', ($chapters_price), 180);
+        // return coun$data;
+            $req->session()->put('user', $data);
+
+         Session::put('marketing', json_encode($data));  
+         Cookie::queue('chapters_price', ($chapters_price), 180);
          $price_arr = json_encode($price_arr);
         if ( empty(auth()->user()) ) {
             return view('Visitor.Login.login');
@@ -183,7 +200,7 @@ use PaymentPaymob;
 
     public function cart_buy_course( Request $req ){
         
-        $course_data = json_decode(Cookie::get('marketing')); 
+        $course_data = json_decode(Session::get('marketing')); 
         $chapters_price = floatval(Cookie::get('chapters_price')); 
         if ( isset($course_data->id) ) { 
             
@@ -207,7 +224,7 @@ use PaymentPaymob;
             }
         }
         elseif ( is_array($course_data) ) {
-            $data = json_decode(Cookie::get('marketing')); 
+            $data = json_decode(Session::get('marketing')); 
             $chapters_price = floatval(Cookie::get('chapters_price'));  
             $chapter_discount = 0;
             $price_data = json_decode($data);
@@ -224,14 +241,14 @@ use PaymentPaymob;
             }
             
             if ( empty($req->chapters_data) ) {
-                $data = json_decode(Cookie::get('marketing')); 
+                $data = json_decode(Session::get('marketing')); 
                 $chapters_price = floatval(Cookie::get('chapters_price'));
             }
-            Cookie::queue('marketing', json_encode($data), 10000);
+            Session::put('marketing', json_encode($data));
             Cookie::queue('chapters_price', ($chapters_price), 10000);
             Cookie::queue('price_arr', json_encode($price_arr), 10000);  
             $price_arr = json_encode($price_arr);
-            $chapters = json_decode(Cookie::get('marketing'));
+            $chapters = json_decode(Session::get('marketing'));
             return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
         }
         else{
@@ -245,7 +262,7 @@ use PaymentPaymob;
 
     public function course_payment( Request $req ){
         
-        $course_data = json_decode(Cookie::get('marketing')); 
+        $course_data = json_decode(Session::get('marketing')); 
         $chapters_price = floatval(Cookie::get('chapters_price')); 
         if ( isset($course_data->id) ) { 
             
@@ -269,10 +286,10 @@ use PaymentPaymob;
             }
         }
 
-        $data = json_decode(Cookie::get('marketing')); 
-      return $chapters_price = floatval(Cookie::get('chapters_price'));
+        $data = json_decode(Session::get('marketing')); 
+       $chapters_price = floatval(Cookie::get('chapters_price'));
         $chapter_discount = 0;
-       return $price_data = $data;
+        $price_data = $data;
         $price_arr = [];
         
         if ( is_array($price_data) ) {
@@ -300,19 +317,19 @@ use PaymentPaymob;
         }
         
         if ( empty($req->chapters_data) ) {
-            $data = json_decode(Cookie::get('marketing')); 
+            $data = json_decode(Session::get('marketing')); 
             $chapters_price = floatval(Cookie::get('chapters_price'));
         }
-        Cookie::queue('marketing', json_encode($data), 10000); 
+        Session::put('marketing', json_encode($data)); 
         Cookie::queue('chapters_price', ($chapters_price), 10000); 
         Cookie::queue('price_arr', json_encode($price_arr), 10000);
         $price_arr = json_encode($price_arr);
-        $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode(Session::get('marketing'));
         return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
     }
 
     public function Use_Promocode( Request $req ){
-        $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode(Session::get('marketing'));
         $chapters = json_decode($chapters) ?json_decode($chapters) : $chapters;
         $course_id = $chapters[0]->course_id;
         $uses = UsagePromo::where('user_id', auth()->user()->id)
@@ -351,7 +368,7 @@ use PaymentPaymob;
     }
 
     public function promo_check_out_chapter( Request $req ){ 
-        $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode(Session::get('marketing'));
         $chapters = is_string($chapters) ? json_decode($chapters, true) : $chapters;
         $price = floatval(Cookie::get('chapters_price'));
         $payment_methods = PaymentMethod::
@@ -363,7 +380,7 @@ use PaymentPaymob;
     }
 
     public function course_use_promocode( Request $req ){
-        $courses = json_decode(Cookie::get('marketing'));
+        $courses = json_decode(Session::get('marketing'));
         $course_id = $courses->id;
 
         $uses = UsagePromo::where('user_id', auth()->user()->id)
@@ -393,7 +410,7 @@ use PaymentPaymob;
                         'promo_id' => $promo->id,
                         'promo' => $req->promo_code
                     ]);
-                    $course = json_decode(Cookie::get('marketing'));
+                    $course = json_decode(Session::get('marketing'));
                     $payment_methods = PaymentMethod::
                     where('statue', 1)
                     ->get();
@@ -409,7 +426,7 @@ use PaymentPaymob;
     }
 
     public function promo_check_out_course( Request $req ){
-        $course = json_decode(Cookie::get('marketing'));
+        $course = json_decode(Session::get('marketing'));
         $price = floatval(Cookie::get('chapters_price'));
         $payment_methods = PaymentMethod::
         where('statue', 1)
@@ -419,7 +436,7 @@ use PaymentPaymob;
     }
 
     public function check_out( Request $req ){
-        $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode(Session::get('marketing'));
         $chapters = is_array($chapters) ? $chapters : json_decode($chapters);
         Cookie::queue('chapters_price', $req->chapters_pricing, 10000);
         $price = $req->chapters_pricing;
@@ -433,7 +450,7 @@ use PaymentPaymob;
     public function check_out_course( Request $req ){
         $course = json_decode($req->course);
         $price = $req->price;
-        Cookie::queue('marketing', json_encode($course), 10000);
+        Session::put('marketing', json_encode($course), 10000);
         Cookie::queue('chapters_price', $price, 10000);
         $payment_methods = PaymentMethod::
         where('statue', 1)
@@ -443,7 +460,7 @@ use PaymentPaymob;
     }
 
     public function new_payment(){
-        $course_data = json_decode(Cookie::get('marketing')); 
+        $course_data = json_decode(Session::get('marketing')); 
         $chapters_price = floatval(Cookie::get('chapters_price'));
         if ( isset($course_data->id) && !isset($course_data->chapter_name) ) { 
             
@@ -468,7 +485,7 @@ use PaymentPaymob;
         }
         elseif ( isset($course_data->chapter_name) ) {
  
-            $data = json_decode(Cookie::get('marketing'));
+            $data = json_decode(Session::get('marketing'));
             $chapters_price = Cookie::get('chapters_price');
             $chapter_discount = 0;
             $price_data = json_decode($data);
@@ -484,21 +501,21 @@ use PaymentPaymob;
                 $price_arr[] = $min;
             
             if ( empty($req->chapters_data) ) {
-                $data = json_decode(Cookie::get('marketing'));
+                $data = json_decode(Session::get('marketing'));
                 $chapters_price = floatval(Cookie::get('chapters_price'));
             }
-            Cookie::queue('marketing', json_encode($data), 10000);
+            Session::put('marketing', json_encode($data));
             Cookie::queue('chapters_price', ($chapters_price), 10000);
             Cookie::queue('price_arr', json_encode($price_arr), 10000);
             $price_arr = json_encode($price_arr);
-            $chapters = json_decode(Cookie::get('marketing'));
+            $chapters = json_decode(Session::get('marketing'));
             $chapters = [json_decode($chapters)];
             
             return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
        
         }
 
-        $data = json_decode(Cookie::get('marketing'));
+        $data = json_decode(Session::get('marketing'));
         $chapters_price = json_decode(Cookie::get('chapters_price'));
         $chapter_discount = 0;
         $price_data = json_decode($data);
@@ -516,21 +533,21 @@ use PaymentPaymob;
         }
         
         if ( empty($req->chapters_data) ) {
-            $data = json_decode(Cookie::get('marketing'));
+            $data = json_decode(Session::get('marketing'));
             $chapters_price = json_decode(Cookie::get('chapters_price'));
         }
-        Cookie::queue('marketing', json_encode($data), 10000);
+        Session::put('marketing', json_encode($data));
         Cookie::queue('chapters_price', $chapters_price, 10000);
         Cookie::queue('price_arr', json_encode($price_arr), 10000);
         $price_arr = json_encode($price_arr);
-        $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode(Session::get('marketing'));
         $chapters = json_decode($chapters);
         return view('Visitor.Cart', compact('chapters', 'chapters_price', 'price_arr', 'chapter_discount'));
     }
 
     public function c_new_payment(){
         
-        $course_data = json_decode(Cookie::get('marketing'));
+        $course_data = json_decode(Session::get('marketing'));
         $chapters_price = json_decode(Cookie::get('chapters_price'));
             
         $course = Course::where('id', $course_data->id)
@@ -575,7 +592,7 @@ use PaymentPaymob;
             }
             
         }
-        $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode(Session::get('marketing'));
         try {
             $chapters = json_decode($chapters);
         } catch (\Throwable $th) {
@@ -727,7 +744,7 @@ use PaymentPaymob;
         //   Start Make Paymob Credit
         if(isset($payment_methods->payment)){
             if($payment_methods->payment == "Paymob"){
-                $course = json_decode(Cookie::get('marketing'));
+                $course = json_decode(Session::get('marketing'));
                 $price = floatval(Cookie::get('chapters_price'));
                 $token = $req->_token;
                 $user = auth()->user();
@@ -738,7 +755,7 @@ use PaymentPaymob;
         }
         //   End Make Paymob Credit 
         if ( $req->payment_method_id == 'Wallet' ) {
-              $course = json_decode(Cookie::get('marketing'));
+              $course = json_decode(Session::get('marketing'));
               $price = floatval(Cookie::get('chapters_price'));
             $wallet = Wallet::
             where('student_id', auth()->user()->id)
@@ -867,7 +884,7 @@ use PaymentPaymob;
     }
 
     public function remove_course_package( $id ){
-        $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode(Session::get('marketing'));
        
         $price = json_decode(Cookie::get('chapters_price'));
         $arr = [];
@@ -879,10 +896,10 @@ use PaymentPaymob;
             }
         }
         $arr = json_encode($arr);
-        Cookie::queue('marketing', $arr, 10000);
+        Session::put('marketing', $arr);
         Cookie::queue('chapters_price', $price, 10000);
         $chapters_price = $price;
-        $chapters = json_decode(Cookie::get('marketing'));
+        $chapters = json_decode(Session::get('marketing'));
         return view('Visitor.Cart', compact('chapters', 'chapters_price'));
     }
 
@@ -897,7 +914,7 @@ use PaymentPaymob;
         }
         $arr = json_encode($arr);
 
-        Cookie::queue('marketing', json_encode($arr), 10000);
+        Session::put('marketing', json_encode($arr));
         Cookie::queue('chapters_price', $price, 10000);
         return response()->json([
             'req' => $arr
