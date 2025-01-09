@@ -181,7 +181,7 @@
                                         <input type="hidden" class="chapters_price"
                                             value="{{ json_encode($chapter->price) }}" />
                                         <input type="hidden" class="ch_price" name="ch_price[]"
-                                            value="{{ $chapter->ch_price }}" />
+                                            value="{{ $chapter->ch_price ?? 0 }}" />
                                         <input type="hidden" class="ch_price_discount" name="ch_price_discount[]" />
                                         <input type="hidden" class="chapter_data" name="chapter[]"
                                             value="{{ json_encode($chapter) }}" />
@@ -189,7 +189,7 @@
                                             <span class="d-flex align-items-center"
                                                 style="margin-top: 35px !important;">
 
-                                                ${{ $chapter->ch_price }}
+                                                ${{ $chapter->ch_price ?? 0 }}
                                             </span>
                                         </td>
                                         <td>

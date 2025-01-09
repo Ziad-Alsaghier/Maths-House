@@ -23,6 +23,7 @@ class Chapter extends Model
         'ch_des', 
         'ch_url',
         'ch_price',
+        'currency_id',
     ];
 
     public function teacher()
@@ -32,6 +33,10 @@ class Chapter extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+    public function currency()
+    {
+    return $this->hasOne( Currancy::class);
     }
     public function lessons()
     {
@@ -44,4 +49,5 @@ class Chapter extends Model
     {
         return $this->hasMany(ChapterPrice::class);
     }
+    
 }
