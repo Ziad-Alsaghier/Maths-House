@@ -73,7 +73,7 @@ trait PaymentPaymob
           $data = [
             "auth_token" =>   $tokens,
             "delivery_needed" =>"false",
-            "amount_cents"=> $total * 100 ,
+            "amount_cents"=> $total ,
             "currency"=> $paymentCurrancy->currency,
             "items"=> $items,
             "payment"=> $payment,
