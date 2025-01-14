@@ -484,7 +484,7 @@ $page_name = 'Lesson';
         $arr_sessions[] = $session->lesson_id
         @endphp
         @if ( \Carbon\Carbon::now()->subDays(7) <= $session->date &&
-            !in_array($session->lesson->chapter->course->id,$arr) or (auth()->user()->extraDays->end_date ?? Null >=
+            !in_array($session->lesson->chapter->course->id,$arr) or ($session->lesson->extraDays->end_date >=
             date('Y-m-d')) && !in_array($session->lesson->chapter->course->id,$arr))
 
             <div class="col-xl-4 col-lg-6 col-md-6 col-12">
