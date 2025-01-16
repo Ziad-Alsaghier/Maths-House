@@ -90,6 +90,10 @@ class Lesson extends Model
     }
     public function extraDays()
     {
-        return $this->hasOne(LessonExtraDays::class, 'lesson_id');
+        return $this->hasMany(LessonExtraDays::class, 'lesson_id');
+    }
+    public function getExtraDays($user_id)
+    {
+        return $this->hasMany(LessonExtraDays::class, 'lesson_id')->where('user_id',$user_id)->get();
     }
 }
