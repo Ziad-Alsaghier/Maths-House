@@ -487,11 +487,11 @@ $page_name = 'Lesson';
 
         @endphp
 
-        @foreach(auth()->user()->extraDays as $extraDay)
         @if ( \Carbon\Carbon::now()->subDays(7) <= $session->date &&
             !in_array($session->lesson->chapter->course->id,$arr) or
-            (!in_array($session->lesson->chapter->course->id,$arr) && $extraDay->end_date >= date('Y-m-d'))) <div
-                class="col-xl-4 col-lg-6 col-md-6 col-12">
+            (!in_array($session->lesson->chapter->course->id,$arr) && $session->lesson->getExtraDays() >=
+            date('Y-m-d')))
+            <div class="col-xl-4 col-lg-6 col-md-6 col-12">
                 <div class="gridarea__wraper">
                     <div class="gridarea__img">
                         <a
@@ -583,7 +583,6 @@ $page_name = 'Lesson';
             @endphp
             @endif
 
-            @endforeach
             @endforeach
     </div>
 

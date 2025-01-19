@@ -681,24 +681,19 @@ $iter = 1;
                                         <!-- Counter Increment Button -->
                                         <button type="button" id="incrementButton">Increment Days </button>
                                         <!-- Number Input -->
-                                        @foreach ($lesson->getExtraDays($user->id) as $days)
                                         <div></div>
-                                        @if ($user->end_date >= now())
-                                        <span>Extra Days: </span>
-                                        <span>{{ $days->extra_days }}</span>
-
-
+                                        <span>{{ $lesson->getExtraDays() ? "Extra Day :
+                                            {$lesson->extraDays->extra_days}"
+                                            :0}}</span>
                                         <!-- Form to Submit -->
-
-                                        @endif
-                                        @endforeach
 
                                         <form id="counterForm" action="{{ route('extraDay',['lesson'=>$lesson->id]) }}"
                                             method="POST">
                                             @csrf
 
                                             <input type="number" id="manualInput" placeholder="Enter Days" min="0"
-                                                name="dayCounter" value="{{ $days->extra_days ?? 0 }}">
+                                                name="dayCounter" value="{{ $lesson->getExtraDays() ? " Extra Day :
+                                                {$lesson->extraDays->extra_days}" : 0}}">
                                             <input type="hidden" id="manualInput" min="0" name="user_id"
                                                 value="{{ $user->id }}">
                                             <button type="submit">Submit Counter</button>

@@ -1,14 +1,13 @@
-
 @php
-    $page_name = 'Lesson';
+$page_name = 'Lesson';
 @endphp
 @section('title', 'Lessons')
 @include('Student.inc.header')
 @include('Student.inc.menu')
 @extends('Student.inc.nav')
 
-@section('page_content') 
- 
+@section('page_content')
+
 
 @include('success')
 
@@ -26,8 +25,7 @@
                 <div class="row align-items-center">
                     <div class="col-6">
                         <div class="mobile-logo">
-                            <a class="logo__dark" href="#"><img loading="lazy" src="img/logo/logo_1.png"
-                                    alt="logo"></a>
+                            <a class="logo__dark" href="#"><img loading="lazy" src="img/logo/logo_1.png" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-6">
@@ -106,8 +104,7 @@
                             </div>
 
                             <div class="mobile-off-canvas">
-                                <a class="mobile-aside-button" href="#"><i
-                                        class="icofont-navigation-menu"></i></a>
+                                <a class="mobile-aside-button" href="#"><i class="icofont-navigation-menu"></i></a>
                             </div>
                         </div>
                     </div>
@@ -441,28 +438,36 @@
 
                     <div class="accordion content__cirriculum__wrap" id="accordionExample">
 
-                        @foreach ($sessions as $session)
-                        @if (  \Carbon\Carbon::now()->subDays(7) <= $session->date && $chapter_id == $session->lesson->chapter->id )
-                        
+                        @foreach ($sessions->unique('lesson_id') as $session)
+                        @if ( (\Carbon\Carbon::now()->subDays(7) <= $session->date
+                            &&
+                            $chapter_id == $session->lesson->chapter->id)
+                            or
+                            ($session->lesson->getExtraDays() >= date('Y-m-d')
+                            &&
+                            $chapter_id == $session->lesson->chapter->id)
+                            )
+
                             <div class="accordion-item">
+                                {{
+                                $chapter_id != $session->lesson->chapter->id }}
                                 <h2 class="accordion-header" id="headingFour">
-                                    <button class="accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                        aria-expanded="false" aria-controls="collapseFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour">
                                         {{ $session->lesson->lesson_name }}
                                         <div style="font-size: 16px; " class="text-muted">
                                             <br />
-                                            <br/>
+                                            <br />
                                             {{$session->stu_attend[0]->created_at}}
                                         </div>
                                     </button>
                                 </h2>
-                                <div id="collapseFour" class="accordion-collapse collapse"
-                                    aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                    data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
 
-                                        <a href="{{$session->material_link}}"
-                                            class="scc__wrap">
+                                        <a href="{{$session->material_link}}" class="scc__wrap">
                                             <div class="scc__info text-success">
                                                 <i class="icofont-video-alt"></i>
                                                 <h5> <span>
@@ -474,8 +479,7 @@
                                         <form action="{{route('stu_live_lesson')}}" method="post">
                                             @csrf
                                             <input type="hidden" name="idea" value="{{$idea->id}}">
-                                            <button
-                                                class="scc__wrap btn">
+                                            <button class="scc__wrap btn">
                                                 <div class="scc__info">
                                                     <i class="icofont-video-alt"></i>
                                                     <h5> <span>
@@ -487,53 +491,62 @@
                                         @endforeach
 
                                         <hr />
-                                        
+
                                         @foreach ($session->lesson->quizze as $quizze)
-                                            <a href="{{ route('stu_quizze', ['id' => $quizze->id]) }}"
-                                                class="scc__wrap">
-                                                <div class="scc__info">
-                                                    <i class="fa-solid fa-question text-danger"></i>
-                                                    <h5>
-                                                        <span class="text-primary">
-                                                            Q{{$loop->iteration}}
-                                                        </span>
-                                                        <span>
-                                                            {{ $quizze->title }}
-                                                        </span> </h5>
-                                                </div>
-                                            </a>
+                                        <a href="{{ route('stu_quizze', ['id' => $quizze->id]) }}" class="scc__wrap">
+                                            <div class="scc__info">
+                                                <i class="fa-solid fa-question text-danger"></i>
+                                                <h5>
+                                                    <span class="text-primary">
+                                                        Q{{$loop->iteration}}
+                                                    </span>
+                                                    <span>
+                                                        {{ $quizze->title }}
+                                                    </span>
+                                                </h5>
+                                            </div>
+                                        </a>
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
- 
-                        @endif
-                        @endforeach
+
+                            @endif
+                            @endforeach
 
 
                     </div>
-                </div> 
+                </div>
             </div>
 
         </div>
-    </div>                     
-    @foreach ($sessions as $session)
-    @if ( \Carbon\Carbon::now()->subDays(7) <= $session->date && $chapter_id == $session->lesson->chapter->id )
-    @foreach ($session->lesson->ideas as $idea)
-    @if ( !empty($idea->pdf) )
-        <a class="btn btn-success text-center m-2" href="{{asset('files\\lessons_pdf\\' . $idea->pdf)}}" download="{{asset('files\\lessons_pdf\\' . $idea->pdf)}}">
+    </div>
+    @foreach ($sessions->unique('lesson_id') as $session)
+    @if (
+    \Carbon\Carbon::now()->subDays(7) <= $session->date
+        &&
+        $chapter_id == $session->lesson->chapter->id
+        or
+        $session->lesson->getExtraDays() >= date('Y-m-d')
+        &&
+        $chapter_id == $session->lesson->chapter->id)
+        @foreach ($session->lesson->ideas as $idea)
+        @if ( !empty($idea->pdf) )
+        <a class="btn btn-success text-center m-2" href="{{asset('files\\lessons_pdf\\' . $idea->pdf)}}"
+            download="{{asset('files\\lessons_pdf\\' . $idea->pdf)}}">
             PDF {{$idea->lesson->lesson_name}} {{$idea->idea}}
         </a>
-        <a class="btn btn-info text-center m-2" target="_blank" href="{{route('stu_live_pdf', ['file_name' => $idea->pdf])}}" />
-            Show {{$idea->lesson->lesson_name}} {{$idea->idea}}
+        <a class="btn btn-info text-center m-2" target="_blank"
+            href="{{route('stu_live_pdf', ['file_name' => $idea->pdf])}}" />
+        Show {{$idea->lesson->lesson_name}} {{$idea->idea}}
         </a>
         <br />
-    @endif
-    @endforeach
-    @endif
-    @endforeach
-    </div>
-    <!-- tution__section__end -->
+        @endif
+        @endforeach
+        @endif
+        @endforeach
+        </div>
+        <!-- tution__section__end -->
 
 
 

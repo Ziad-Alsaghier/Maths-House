@@ -88,12 +88,13 @@ class Lesson extends Model
     {
         return $this->hasMany(Session::class, 'lesson_id')->where('type','private');
     }
+ 
     public function extraDays()
     {
-        return $this->hasMany(LessonExtraDays::class, 'lesson_id');
+        return $this->hasOne(LessonExtraDays::class);
     }
-    public function getExtraDays($user_id)
+    public function getExtraDays()
     {
-        return $this->hasMany(LessonExtraDays::class, 'lesson_id')->where('user_id',$user_id)->get();
+        return $this->hasOne(LessonExtraDays::class, 'lesson_id')->where('end_date','>=',date('Y-m-d'))->max('end_date');
     }
 }
