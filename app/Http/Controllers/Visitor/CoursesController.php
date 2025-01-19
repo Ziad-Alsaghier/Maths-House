@@ -574,7 +574,8 @@ use PaymentPaymob;
         $arr['price'] = floatval(Cookie::get('chapters_price'));
         $arr['user_id'] = auth()->user()->id;
         $img_state = true;
-
+        $paymentMethod = PaymentMethod::find($req->payment_method_id);
+        $payment = $paymentMethod->payment;
         extract($_FILES['image']);
         $img_name = null;
         $tmp = null;
@@ -622,6 +623,10 @@ use PaymentPaymob;
             ->send(new PaymentEmail($req->all(), auth()->user()));
         }
         $p_request = PaymentRequest::create($arr);
+        if( $payment == "Paymob"){
+             $user=auth()->user();
+                return $this->credit($user,$paymentMethod,$chapters,$price,'Chapters');
+        }
         if ( $req->payment_method_id == 'Wallet' ) {
             Wallet::create([
                 'student_id' => auth()->user()->id,

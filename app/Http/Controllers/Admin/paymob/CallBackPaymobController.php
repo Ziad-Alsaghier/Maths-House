@@ -58,7 +58,7 @@ class CallBackPaymobController extends Controller
                   $totalAmount = $data['amount_cents'] / 100;
                 $paymentRequest = $this->paymentRequest->where('transaction_id',$transaction_id)->first();
                  $paymentRequest->update(['state'=>'Approve']);
-                $paymentRequest->chapters_order()->update(['state'=>1]);
+                $paymentRequest->chapters_order()->update(['state'=> 1]);
                  $paymentRequest->chapters_order;
                 // Mail::to('wegotores@gmail.com')->send(new PaymentMail($data));
               
@@ -66,7 +66,7 @@ class CallBackPaymobController extends Controller
 
                 $redirectUrl = route('student');;
                    $message = 'Your payment is being processed. Please wait...';
-                   $timer = 30; // 3  seconds
+                   $timer = 5; // 3  seconds
                 $totalAmount = $data['amount_cents'] / 100;
               return view('Student.Payment.paymentSuccess',
               compact('paymentRequest','totalAmount','message','redirectUrl','timer'));

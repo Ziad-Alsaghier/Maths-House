@@ -679,18 +679,21 @@ $iter = 1;
                                         <small>Click the button or enter a number manually.</small>
 
                                         <!-- Counter Increment Button -->
-                                        <button type="button" id="incrementButton">Increment Days ({{
-                                            $lesson->extraDays->extra_days ?? 0 }})</button>
+                                        <button type="button" id="incrementButton">Increment Days </button>
                                         <!-- Number Input -->
-
-
+                                        <div></div>
+                                        <span>{{ $lesson->getExtraDays() ? "Extra Day :
+                                            {$lesson->extraDays->extra_days}"
+                                            :0}}</span>
                                         <!-- Form to Submit -->
+
                                         <form id="counterForm" action="{{ route('extraDay',['lesson'=>$lesson->id]) }}"
                                             method="POST">
                                             @csrf
+
                                             <input type="number" id="manualInput" placeholder="Enter Days" min="0"
-                                                name="dayCounter" value="{{
-                                            $lesson->extraDays->extra_days ?? 0 }}">
+                                                name="dayCounter" value="{{ $lesson->getExtraDays() ? " Extra Day :
+                                                {$lesson->extraDays->extra_days}" : 0}}">
                                             <input type="hidden" id="manualInput" min="0" name="user_id"
                                                 value="{{ $user->id }}">
                                             <button type="submit">Submit Counter</button>

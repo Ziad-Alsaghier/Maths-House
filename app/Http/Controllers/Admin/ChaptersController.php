@@ -125,7 +125,7 @@ class ChaptersController extends Controller
 
     public function add_chapter( Request $req ){
         $arr = $req->only('chapter_name', 'ch_des', 'pre_requisition', 
-        'gain', 'course_id', 'teacher_id');
+        'gain', 'course_id','currency_id', 'teacher_id');
         
         if ( count($req->duration) == 0 || $req->duration[0] == null ) {
             session()->flash('faild','You Must Enter Pricing');
@@ -139,6 +139,7 @@ class ChaptersController extends Controller
             'gain'            => 'required',
             'teacher_id'      => 'required|numeric',
             'course_id'       => 'required|numeric',
+            'currency_id' => 'sometimes|numeric',
            ]);
         $img_name = null;
         extract($_FILES['ch_url']);

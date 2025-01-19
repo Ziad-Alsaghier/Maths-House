@@ -172,6 +172,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function extraDays()
     {
-        return $this->hasOne(LessonExtraDays::class,'user_id');
+    return $this->hasMany(LessonExtraDays::class);
     }
 }

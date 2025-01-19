@@ -215,7 +215,7 @@ return 'admin';
                     {{-- Form Repeat For Currency --}}
                     <div class="mb-10 fv-row">
                       <label class="m-1">
-                        Students
+                        Select Currancies
                       </label>
                       <div class="select2-danger" data-select2-id="33">
                         <div class="position-relative" data-select2-id="443">

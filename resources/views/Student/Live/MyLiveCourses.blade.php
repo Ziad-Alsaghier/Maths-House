@@ -476,13 +476,21 @@ $page_name = 'Lesson';
 
     <div style="row d-flex">
         @php
-        $arr = []
+        $arr = [];
+        $arr_sessions = [];
         @endphp
         @foreach ($sessions as $session)
+        @php
+
+        $arr_sessions[] = $session->lesson_id
+
+
+        @endphp
+
         @if ( \Carbon\Carbon::now()->subDays(7) <= $session->date &&
-            !in_array($session->lesson->chapter->course->id,$arr) or $session->lesson->extraDays->end_date ?? Null >= now())
-
-
+            !in_array($session->lesson->chapter->course->id,$arr) or
+            (!in_array($session->lesson->chapter->course->id,$arr) && $session->lesson->getExtraDays() >=
+            date('Y-m-d')))
             <div class="col-xl-4 col-lg-6 col-md-6 col-12">
                 <div class="gridarea__wraper">
                     <div class="gridarea__img">
@@ -574,6 +582,7 @@ $page_name = 'Lesson';
             $arr[] = $session->lesson->chapter->course->id;
             @endphp
             @endif
+
             @endforeach
     </div>
 
