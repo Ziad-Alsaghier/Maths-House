@@ -9,6 +9,7 @@ use App\Models\quizze;
 use App\Models\Question;
 use App\Models\DiagnosticExamsHistory;
 use App\Models\DiagnosticExam;
+use App\Models\ExamHistory;
 use App\Models\StudentQuizze;
 use App\Models\ExamMistake;
 use App\Models\DaiExamMistake;
@@ -188,9 +189,11 @@ class DomPdfController extends Controller
     public function exam_mistake_pdf( $id ){
         $mistakes = ExamMistake::where('student_exam_id', $id)
         ->get();
+        $dai_exam = ExamHistory::where('id', $id )
+        ->first()->exams;
 
         // Generate the PDF
-        $pdf = PDF::loadView('MistakePDF', compact('mistakes'));
+        $pdf = PDF::loadView('MistakePDF', compact('mistakes', 'dai_exam'));
         // Stream the PDF to the browser
         return $pdf->stream('MistakePDF.pdf');
     }
