@@ -433,7 +433,8 @@ $page_name = 'Lesson';
     <!-- tution__section__start -->
 
     <div style="row">
-        @foreach ($sessions->unique('lesson_id') as $session)
+        {{-- @foreach ($sessions->unique('lesson_id') as $session) --}}
+        @foreach ($sessions as $session)
         @if (
         \Carbon\Carbon::now()->subDays(7) <= $session->date && $course_id == $session->lesson->chapter->course->id
             or

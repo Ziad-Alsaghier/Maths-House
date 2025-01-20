@@ -438,7 +438,8 @@ $page_name = 'Lesson';
 
                     <div class="accordion content__cirriculum__wrap" id="accordionExample">
 
-                        @foreach ($sessions->unique('lesson_id') as $session)
+                        {{-- @foreach ($sessions->unique('lesson_id') as $session) --}}
+                        @foreach ($sessions as $session)
                         @if ( (\Carbon\Carbon::now()->subDays(7) <= $session->date
                             &&
                             $chapter_id == $session->lesson->chapter->id)
@@ -521,7 +522,8 @@ $page_name = 'Lesson';
 
         </div>
     </div>
-    @foreach ($sessions->unique('lesson_id') as $session)
+    {{-- @foreach ($sessions->unique('lesson_id') as $session) --}}
+    @foreach ($sessions as $session)
     @if (
     \Carbon\Carbon::now()->subDays(7) <= $session->date
         &&
