@@ -74,7 +74,7 @@ class DiagnosticExamController extends Controller
         ]);
         $questions = json_decode($req->ques_id);
        $arr = $req->only('title', 'description', 'score', 'pass_score', 'course_id', 'score_id', 'state');
-       $arr['time'] = $req->time_h . 'Hours ' . $req->time_m . ' M';
+       $arr['time'] = $req->time_h . ': ' . $req->time_m . ':00';
        $dia_exam = DiagnosticExam::create($arr);
        foreach ($questions as $ques) {
         DiaQuestion::create([
@@ -90,7 +90,7 @@ class DiagnosticExamController extends Controller
         $questions = json_decode($req->ques_id);
        $arr = $req->only('title', 'description', 'score', 'pass_score', 'course_id', 'score_id');
        $arr['state'] = isset($req->state) ? 1 : 0;
-       $arr['time'] = $req->time_h . 'Hours ' . $req->time_m . ' M';
+       $arr['time'] = $req->time_h . ': ' . $req->time_m . ':00';
        $dia_exam = DiagnosticExam::
        where('id', $id)
        ->update($arr);
