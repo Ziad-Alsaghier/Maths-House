@@ -1361,13 +1361,11 @@ return 'admin';
         $(document).ready(function () {
             // Initially hide all groups
             $('#select_category, #select_course, #select_chapter, .sel_lesson1').parent().show();
-
             // Handle change event for session type dropdown
             $('#select_type_session').on('change', function () {
                 const selectedType = $(this).val();
                     console.log(selectedType);
                 // Hide all dropdown groups
-
                 // Show specific dropdowns based on the selected type
                 if (selectedType === 'rexplanation') {
                     $('#select_category,#select_course,#select_chapter,.sel_lesson1').parent().show();
