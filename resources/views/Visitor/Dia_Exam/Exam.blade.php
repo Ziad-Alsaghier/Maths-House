@@ -1,9 +1,9 @@
 @php
-    $page_name = 'Diagnostic Exam';
-    // $quizze->question;
-    // "Mcq" => $item->mcq
-    // "Grid" => $item->g_ans
-    // api_quizze
+$page_name = 'Diagnostic Exam';
+// $quizze->question;
+// "Mcq" => $item->mcq
+// "Grid" => $item->g_ans
+// api_quizze
 @endphp
 @section('title', 'Quizze')
 @include('success')
@@ -580,47 +580,47 @@
             <div class="options-list d-none">
                 <ul class="options-tx">
                     @foreach ($reports as $report)
-                        <li>
-                            <div type="button" data-bs-toggle="modal" data-bs-target="#modalCenter{{ $report->id }}">
-                                {{ $report->list }}
-                            </div>
-                            <!-- Modal -->
-                            <form method="POST" action="{{ route('Ad_report_list_edit', ['id' => $report->id]) }}"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="modal fade" id="modalCenter{{ $report->id }}" tabindex="-1"
-                                    aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
+                    <li>
+                        <div type="button" data-bs-toggle="modal" data-bs-target="#modalCenter{{ $report->id }}">
+                            {{ $report->list }}
+                        </div>
+                        <!-- Modal -->
+                        <form method="POST" action="{{ route('Ad_report_list_edit', ['id' => $report->id]) }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal fade" id="modalCenter{{ $report->id }}" tabindex="-1" aria-hidden="true"
+                                style="display: none;">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
 
-                                            <div class="modal-header">
+                                        <div class="modal-header">
 
-                                                <h5 class="modal-title" id="modalCenterTitle">Make Report</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
+                                            <h5 class="modal-title" id="modalCenterTitle">Make Report</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
 
 
-                                            <div class="my-2 px-3">
-                                                <label>
-                                                    Report
-                                                </label>
-                                                <input class='form-control' value="{{ $report->list }}" name="list"
-                                                    placeholder="Report" />
-                                            </div>
+                                        <div class="my-2 px-3">
+                                            <label>
+                                                Report
+                                            </label>
+                                            <input class='form-control' value="{{ $report->list }}" name="list"
+                                                placeholder="Report" />
+                                        </div>
 
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-label-secondary"
-                                                    data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button class="btn btn-primary">Submit</button>
-                                            </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-label-secondary"
+                                                data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </li>
+                            </div>
+                        </form>
+                    </li>
                     @endforeach
                 </ul>
             </div>
@@ -631,128 +631,127 @@
             @csrf
             <div class="main-wrapper">
                 @foreach ($exam->question as $question)
-                    <div class="question">
-                        <input type="hidden" value="{{ $question->id }}" class="questionID"
-                            id="questionID{{ $question->id }}">
-                        <div class="question-side">
-                            <div class="text-question">
-                                <span class="question-num">
-                                    {{ $loop->iteration }}
-                                </span>
-                                <p>
-                                    {!! $question->question !!}
-                                </p>
-                            </div>
-                            <div class="img-question">
-                                <span>Examples</span>
-                                @if (!empty($question->q_url))
-                                    <img src="{{ asset('images/questions/' . $question->q_url) }}" alt="question">
-                                @endif
-                            </div>
+                <div class="question">
+                    <input type="hidden" value="{{ $question->id }}" class="questionID"
+                        id="questionID{{ $question->id }}">
+                    <div class="question-side">
+                        <div class="text-question">
+                            <span class="question-num">
+                                {{ $loop->iteration }}
+                            </span>
+                            <p>
+                                {!! $question->question !!}
+                            </p>
                         </div>
-                        <div class="answer-side">
-                            <div class="options">
-                                <i class="fa-solid fa-ellipsis-vertical btn-dropdown"></i>
-                                <div class="options-list d-none">
-                                    <ul class="options-tx">
-                                        @foreach ($reports as $report)
-                                            <li class="report_item">
-                                                {{ $report->list }}
-                                                <input type="hidden" class="reportID" value="{{ $report->id }}">
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-
-                            {{-- Supp Question --}}
-
-                            {{-- Input to set and send value about answer question to array --}}
-                            <input type="hidden" id="timer_val" name="timer_val" />
-                            <input type="hidden" name="quizze" value="{{ $exam }}">
-
-                            {{-- Answer chosen --}}
-
-                            @php
-                                $arr = ['A', 'B', 'C', 'D', 'E'];
-                                $iter = $loop->iteration;
-                            @endphp
-                            @if ($question->ans_type == 'MCQ')
-                                <div class="answer-chosen">
-                                    <input name="q_answers[]" type="hidden" class="q_answers"
-                                        value="{{ json_encode(['q_id' => $question->id]) }}" />
-                                    @foreach ($question->mcq as $mcq)
-                                        <div class="chosen chose_mcq chosen{{ $iter }}"
-                                            id="chosen{{ $iter }}{{ $loop->iteration }}">
-                                            <input type="hidden" class="mcq_id" value="{{ $mcq->id }}">
-                                            <button type="button" class="ans_btn">{{ $mcq->mcq_num }}</button>
-                                            <input type="text" value="{{ $mcq->mcq_ans }}" readonly>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <input name="q_grid_answers[]" type="hidden" class="q_grid_answers"
-                                    value="{{ json_encode(['q_id' => $question->id]) }}" />
-                                {{-- Answer Set Value --}}
-                                {{-- <div class="answer-setValue">
-                                    <div class="section-setValue">
-                                        <span>Answer:</span>
-                                        <div class="input_val">
-                                            <input type="text" name="q_grid_ans[]" step="0.001" value="0"
-                                                class="gridVal">
-                                        </div>
-                                        <input type="button" value="/" class="addSl">
-                                    </div>
-                                    <div class="section-value">
-                                        <span>Answer Preview:</span>
-                                        <input type="number" value="00000" readonly>
-                                    </div>
-                                </div> --}}
-                                <div class="answer-setValue">
-                                    <div class="section-setValue">
-                                        <span>Answer:</span>
-                                        <div class="input_val">
-                                            <input type="text" step="0.001" value="0" class="gridVal" id="input_val30">
-                                        </div>
-                                        <input type="button" value="/" class="addSl">
-                                    </div>
-                                    <div class="section-value">
-                                        <span>Answer Preview:</span>
-                                        <input type="number" name="q_grid_ans[]" id="section-value30" value="00000" readonly>
-                                    </div>
-                                </div>
+                        <div class="img-question">
+                            <span>Examples</span>
+                            @if (!empty($question->q_url))
+                            <img src="{{ asset('images/questions/' . $question->q_url) }}" alt="question">
                             @endif
-
                         </div>
                     </div>
+                    <div class="answer-side">
+                        <div class="options">
+                            <i class="fa-solid fa-ellipsis-vertical btn-dropdown"></i>
+                            <div class="options-list d-none">
+                                <ul class="options-tx">
+                                    @foreach ($reports as $report)
+                                    <li class="report_item">
+                                        {{ $report->list }}
+                                        <input type="hidden" class="reportID" value="{{ $report->id }}">
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+
+                        {{-- Supp Question --}}
+
+                        {{-- Input to set and send value about answer question to array --}}
+                        <input type="hidden" id="timer_val" name="timer_val" />
+                        <input type="hidden" name="quizze" value="{{ $exam }}">
+
+                        {{-- Answer chosen --}}
+
+                        @php
+                        $arr = ['A', 'B', 'C', 'D', 'E'];
+                        $iter = $loop->iteration;
+                        @endphp
+                        @if ($question->ans_type == 'MCQ')
+                        <div class="answer-chosen">
+                            <input name="q_answers[]" type="hidden" class="q_answers"
+                                value="{{ json_encode(['q_id' => $question->id]) }}" />
+                            @foreach ($question->mcq as $mcq)
+                            <div class="chosen chose_mcq chosen{{ $iter }}"
+                                id="chosen{{ $iter }}{{ $loop->iteration }}">
+                                <input type="hidden" class="mcq_id" value="{{ $mcq->id }}">
+                                <button type="button" class="ans_btn">{{ $mcq->mcq_num }}</button>
+                                <input type="text" value="{{ $mcq->mcq_ans }}" readonly>
+                            </div>
+                            @endforeach
+                        </div>
+                        @else
+                        <input name="q_grid_answers[]" type="hidden" class="q_grid_answers"
+                            value="{{ json_encode(['q_id' => $question->id]) }}" />
+                        {{-- Answer Set Value --}}
+                        {{-- <div class="answer-setValue">
+                            <div class="section-setValue">
+                                <span>Answer:</span>
+                                <div class="input_val">
+                                    <input type="text" name="q_grid_ans[]" step="0.001" value="0" class="gridVal">
+                                </div>
+                                <input type="button" value="/" class="addSl">
+                            </div>
+                            <div class="section-value">
+                                <span>Answer Preview:</span>
+                                <input type="number" value="00000" readonly>
+                            </div>
+                        </div> --}}
+                        <div class="answer-setValue">
+                            <div class="section-setValue">
+                                <span>Answer:</span>
+                                <div class="input_val">
+                                    <input type="text" step="0.001" value="0" class="gridVal" id="input_val30">
+                                </div>
+                                <input type="button" value="/" class="addSl">
+                            </div>
+                            <div class="section-value">
+                                <span>Answer Preview:</span>
+                                <input type="number" name="q_grid_ans[]" id="section-value30" value="00000" readonly>
+                            </div>
+                        </div>
+                        @endif
+
+                    </div>
+                </div>
                 @endforeach
             </div>
             {{-- end Section Question --}}
             <ul class="paginationn">
-                {{--             <li class="page-item previouss-page disablee">
-                <a href="#" class="page-link">prev</a>
-            </li>
-            <li class="page-item currentt-page activee">
-                <a href="#" class="page-link">1</a>
-            </li>
-            <li class="page-item dotss">
-                <a href="#" class="page-link">...</a>
-            </li>
-            <li class="page-item currentt-page">
-                <a href="#" class="page-link">5</a>
-            </li>
-            <li class="page-item currentt-page">
-                <a href="#" class="page-link">6</a>
-            </li>
-            <li class="page-item dotss">
-                <a href="#" class="page-link">...</a>
-            </li>
-            <li class="page-item currentt-page">
-                <a href="#" class="page-link">10</a>
-            </li>
-            <li class="page-item nextt-page">
-                <a href="#" class="page-link">Next</a>
-            </li> --}}
+                {{-- <li class="page-item previouss-page disablee">
+                    <a href="#" class="page-link">prev</a>
+                </li>
+                <li class="page-item currentt-page activee">
+                    <a href="#" class="page-link">1</a>
+                </li>
+                <li class="page-item dotss">
+                    <a href="#" class="page-link">...</a>
+                </li>
+                <li class="page-item currentt-page">
+                    <a href="#" class="page-link">5</a>
+                </li>
+                <li class="page-item currentt-page">
+                    <a href="#" class="page-link">6</a>
+                </li>
+                <li class="page-item dotss">
+                    <a href="#" class="page-link">...</a>
+                </li>
+                <li class="page-item currentt-page">
+                    <a href="#" class="page-link">10</a>
+                </li>
+                <li class="page-item nextt-page">
+                    <a href="#" class="page-link">Next</a>
+                </li> --}}
                 <button class="btn-sendQuizz d-none" type="Submit">Submit</button>
             </ul>
         </form>
@@ -847,13 +846,23 @@
                     console.log("6666")
                 }
             }
-
+            $.ajax({
+                url: "{{ route('api_timer') }}",
+                type: "get",
+                data: {
+                    timer_val: $("#timer_val").val(),
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(data) {
+                    console.log("Timer session updated", data);
+                }
+            });
             var timer_val = $("#timer_val").val();
             $.ajax({
                 url: "{{ route('api_timer') }}",
                 type: "GET",
                 data: {
-                    timer_val,
+                    timer_val: timer_val,
                 },
                 success: function(data) {
                     console.log("data", data)
@@ -871,19 +880,28 @@
         }
 
         /* Send Timer */
-        $(".btn-sendQuizz").click(function() {
-            var timer_val = $("#timer_val").val();
+$(".btn-sendQuizz").click(function() {
+            var Hours_quizz = $("#hour").text();
+            var Min_quizz = $("#minutes").text();
+            var Sec_quizz = $("#seconds").text();
+            var alltime = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
+            var objTim = alltime;
+
+            $("#timer_val").val(JSON.stringify(objTim));
+            var timer = $("#timer_val").val();
+            
             $.ajax({
-                url: "{{ route('api_timer') }}",
-                type: "GET",
-                data: {
-                    timer_val,
-                },
-                success: function(data) {
-                    console.log("data", data)
-                }
+                    url: "{{ route('api_timer') }}",
+                    type: "GET",
+                    data: {
+                            timer,
+                    },
+                    success: function(data) {
+                            console.log("data", data)
+                            timer.val = data;
+                    }
             })
-        })
+    })
 
         /* Send Report about the question */
         $(".report_item").on("click", function() {

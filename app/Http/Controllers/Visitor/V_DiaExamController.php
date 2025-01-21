@@ -153,22 +153,24 @@ class V_DiaExamController extends Controller
         //     ->first();
 
         // if (empty($stu_q)) {
-        return $timer_val = json_decode(session('timer_expiration'));
+        
+        $timer_val = json_decode(session('timer'));
+        $endTiemer = date($timer_val);
+        $examtimer = date($exam->time);
+        $finalyTimer = strtotime($examtimer) - strtotime($endTiemer) ;
+        $dailyTime = date('i', $finalyTimer);
         $stu_exam = DiagnosticExamsHistory::create([
             'date' => now(),
             'user_id' => auth()->user()->id,
             'diagnostic_exams_id' => $exam->id,
             'score' => $score,
             'time' => $timer_val, 
-            'dilay_timer' => $timer_val, 
+            'daily' => $dailyTime, 
+            // 'dilay_timer' => $timer_val, 
             'r_questions' => $right_question,
         ]);
-
-        $diagnosticExamTimer =  $exam->time;
-        return $timer_val;
-
         foreach ($mistakes as $item) {
-            DaiExamMistake::create([
+           $studentDiaExam = DaiExamMistake::create([
                 'student_exam_id' => $stu_exam->id,
                 'question_id' => $item->id
             ]);
@@ -177,10 +179,8 @@ class V_DiaExamController extends Controller
         // }
         $dia_id = $stu_exam->id;
         // Make Daily Exam History
-                
-        return $dia_id;
         return view('Visitor.Dia_Exam.Grade', compact('deg', 'grade', 'score', 'exam', 
-        'dia_id', 'right_question', 'total_question', 'mistakes'));
+        'dia_id', 'right_question', 'total_question', 'mistakes','studentDiaExam'));
     }
 
     public function dia_exam_history(){
