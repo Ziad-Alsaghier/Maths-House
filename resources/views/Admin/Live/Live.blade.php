@@ -1,8 +1,8 @@
 @php
-    function fun_admin()
-    {
-        return 'admin';
-    }
+function fun_admin()
+{
+return 'admin';
+}
 @endphp
 <x-default-layout>
     @section('title', 'Live')
@@ -73,54 +73,54 @@
     </style>
 
     @error('link')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('date')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('from')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('to')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('lesson_id')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('type')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('access_dayes')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('price')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('teacher_id')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
     @error('repeat')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
     @enderror
 
     <div class="my-3">
@@ -227,13 +227,14 @@
                                             Select Group ...
                                         </option>
                                         @foreach ($groups as $item)
-                                            <option value="{{ $item->id }}">
-                                                {{ $item->name }}
-                                            </option>
+                                        <option value="{{ $item->id }}">
+                                            {{ $item->name }}
+                                        </option>
                                         @endforeach
                                     </select>
                                     <span class="sessionGroupFaild d-none mt-3">Please Chose Session Group</span>
                                 </div>
+
                                 <div class="mb-5 fv-row">
                                     <label>
                                         Users
@@ -246,10 +247,10 @@
                                                     multiple="" data-select2-id="select2Dangeradd" tabindex="-1"
                                                     aria-hidden="true">
                                                     @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}"
-                                                            data-select2-id="add_{{ $user->id }}">
-                                                            {{ $user->nick_name }}
-                                                        </option>
+                                                    <option value="{{ $user->id }}"
+                                                        data-select2-id="add_{{ $user->id }}">
+                                                        {{ $user->nick_name }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                                 <span class="sessionUserFaild d-none mt-3">Please Set User</span>
@@ -272,16 +273,37 @@
                                     </div>
 
                                     <!--begin::Input group-->
+                                    {{-- Start Make Type For Session Explnation Rexplenation Mistake --}}
+                                    <div class="mb-5 fv-row sel_add_group" id="select_type_group">
+                                        <label>
+                                            Type Session Relational
+                                        </label>
+                                        <select class="form-control sesstionGroup" id="select_type_session"
+                                            name="group_id">
+                                            <option value="">
+                                                Select Type Session ...
+                                            </option>
+                                            @foreach ($types as $item)
+                                            <option value="{{ $item }}">
+                                                {{ $item }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        <span class="sessionGroupFaild d-none mt-3">Please Chose Session Group</span>
+                                    </div>
+
+                                    {{-- End Make Type For Session Explnation Rexplenation Mistake --}}
+
                                     <div class="mb-5 fv-row">
                                         <label>
                                             Category
                                         </label>
-                                        <select class="form-control sel_cate1">
+                                        <select class="form-control sel_cate1" id="select_category">
                                             <option value="">
                                                 Select Category ...
                                             </option>
                                             @foreach ($categories as $item)
-                                                <option value="{{ $item->id }}">{{ $item->cate_name }}</option>
+                                            <option value="{{ $item->id }}">{{ $item->cate_name }}</option>
                                             @endforeach
                                         </select>
                                         <span class="categoryFaild d-none mt-3">Please Chose Category</span>
@@ -291,7 +313,7 @@
                                         <label>
                                             Course
                                         </label>
-                                        <select class="form-control sel_course1">
+                                        <select class="form-control sel_course1" id="select_course">
                                             <option value="">
                                                 Select Course ...
                                             </option>
@@ -303,7 +325,7 @@
                                         <label>
                                             Chapter
                                         </label>
-                                        <select class="form-control sel_chapter1">
+                                        <select class="form-control sel_chapter1" id="select_chapter">
                                             <option value="">
                                                 Select Chapter ...
                                             </option>
@@ -331,9 +353,9 @@
                                                 Select Teacher ...
                                             </option>
                                             @foreach ($teachers as $item)
-                                                <option value="{{ $item->id }}">
-                                                    {{ $item->nick_name }}
-                                                </option>
+                                            <option value="{{ $item->id }}">
+                                                {{ $item->nick_name }}
+                                            </option>
                                             @endforeach
                                         </select>
                                         <span class="teacherFaild d-none mt-3">Please Chose Teacher</span>
@@ -453,359 +475,356 @@
         </thead>
         <tbody class="fs-6">
             @foreach ($sessions as $session)
-                <tr>
-                    <td>
-                        {{ $loop->iteration }}
-                    </td>
-                    <td>
-                        {{ $session->date }}
-                    </td>
-                    <td>
-                        {{ $session->name }}
-                    </td>
-                    <td>
-                        {{ $session->from }}
-                    </td>
-                    <td>
-                        {{ $session->to }}
-                    </td>
-                    {{-- <td>
-                        {{ $session->duration }}
-                    </td> --}}
-                    <td>
-                        {{ $session->lesson->chapter->course->category->cate_name }}
-                    </td>
-                    <td>
-                        {{ $session->lesson->chapter->course->course_name }}
-                    </td>
-                    <td>
-                        {{ $session->lesson->lesson_name }}
-                    </td>
-                    <td>
-                        {{ $session->type }}
-                    </td>
-                    <td>
-                        {{ $session->teacher->nick_name }}
-                    </td>
+            <tr>
+                <td>
+                    {{ $loop->iteration }}
+                </td>
+                <td>
+                    {{ $session->date }}
+                </td>
+                <td>
+                    {{ $session->name }}
+                </td>
+                <td>
+                    {{ $session->from }}
+                </td>
+                <td>
+                    {{ $session->to }}
+                </td>
+                {{-- <td>
+                    {{ $session->duration }}
+                </td> --}}
+                <td>
+                    {{ $session->lesson->chapter->course->category->cate_name }}
+                </td>
+                <td>
+                    {{ $session->lesson->chapter->course->course_name }}
+                </td>
+                <td>
+                    {{ $session->lesson->lesson_name }}
+                </td>
+                <td>
+                    {{ $session->type }}
+                </td>
+                <td>
+                    {{ $session->teacher->nick_name }}
+                </td>
 
-                    <td>
-                        <div class="mt-3">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-sm edit_btn" data-bs-toggle="modal"
-                                data-bs-target="#modalCenter{{ $session->id }}">
-                                Edit
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#modalDelete{{ $session->id }}">
-                                Delete
-                            </button>
+                <td>
+                    <div class="mt-3">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary btn-sm edit_btn" data-bs-toggle="modal"
+                            data-bs-target="#modalCenter{{ $session->id }}">
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#modalDelete{{ $session->id }}">
+                            Delete
+                        </button>
 
-                            <!-- Modal -->
-                            <form method="POST" action="{{ route('session_edit', ['id' => $session->id]) }}">
-                                @csrf
-                                <div class="modal fade" id="modalCenter{{ $session->id }}" tabindex="-1"
-                                    aria-hidden="true">
-                                    <!--begin::Modal dialog-->
-                                    <div class="modal-dialog modal-fullscreen p-9">
-                                        <!--begin::Modal content-->
-                                        <div class="modal-content modal-rounded">
-                                            <!--begin::Modal header-->
-                                            <div class="modal-header py-7 d-flex justify-content-between">
-                                                <!--begin::Modal title-->
-                                                <h2>Edit Session</h2>
-                                                <!--end::Modal title-->
-                                                <!--begin::Close-->
-                                                <div class="btn btn-sm btn-icon btn-active-color-primary"
-                                                    data-bs-dismiss="modal">
-                                                    <i class="ki-duotone ki-cross fs-1">
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
-                                                    </i>
-                                                </div>
-                                                <!--end::Close-->
+                        <!-- Modal -->
+                        <form method="POST" action="{{ route('session_edit', ['id' => $session->id]) }}">
+                            @csrf
+                            <div class="modal fade" id="modalCenter{{ $session->id }}" tabindex="-1" aria-hidden="true">
+                                <!--begin::Modal dialog-->
+                                <div class="modal-dialog modal-fullscreen p-9">
+                                    <!--begin::Modal content-->
+                                    <div class="modal-content modal-rounded">
+                                        <!--begin::Modal header-->
+                                        <div class="modal-header py-7 d-flex justify-content-between">
+                                            <!--begin::Modal title-->
+                                            <h2>Edit Session</h2>
+                                            <!--end::Modal title-->
+                                            <!--begin::Close-->
+                                            <div class="btn btn-sm btn-icon btn-active-color-primary"
+                                                data-bs-dismiss="modal">
+                                                <i class="ki-duotone ki-cross fs-1">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
                                             </div>
-                                            <!--begin::Modal header-->
-                                            <!--begin::Modal body-->
-                                            <div class="modal-body scroll-y m-5">
-                                                <!--begin::Stepper-->
-                                                <div class="info_section" id="info_section{{ $session->id }}">
+                                            <!--end::Close-->
+                                        </div>
+                                        <!--begin::Modal header-->
+                                        <!--begin::Modal body-->
+                                        <div class="modal-body scroll-y m-5">
+                                            <!--begin::Stepper-->
+                                            <div class="info_section" id="info_section{{ $session->id }}">
+                                                <div class="pb-2">
+                                                    <!--begin::Title-->
+                                                    <h1 class="fw-bold text-gray-900">Info</h1>
+                                                    <!--end::Title-->
+                                                </div>
+                                                <div class="mb-5 fv-row">
+                                                    <!--begin::Label-->
+                                                    <label>
+                                                        Session Name
+                                                    </label>
+                                                    <input class="form-control" name="name" value="{{ $session->name }}"
+                                                        placeholder="Session Name">
+                                                </div>
+                                                <div class="mb-5 fv-row">
+                                                    <label>
+                                                        Session Date
+                                                    </label>
+                                                    <input class="form-control" name="date" type="date"
+                                                        value="{{ $session->date }}" placeholder="Session Date">
+                                                </div>
+                                                <div class="mb-5 fv-row">
+                                                    <label>
+                                                        From
+                                                    </label>
+                                                    <input class="form-control" name="from" type="time"
+                                                        value="{{ $session->from }}" placeholder="Session From">
+                                                </div>
+                                                <div class="mb-5 fv-row">
+                                                    <label>
+                                                        To
+                                                    </label>
+                                                    <input class="form-control" value="{{ $session->to }}" name="to"
+                                                        type="time" placeholder="Session To">
+                                                </div>
+                                                <div class="mb-5 fv-row">
+                                                    <label>
+                                                        Type
+                                                    </label>
+                                                    <select class="form-control" name="type">
+                                                        <option value="{{ $session->type }}" selected>
+                                                            {{ $session->type }}
+                                                        </option>
+                                                        <option value="group">
+                                                            group
+                                                        </option>
+                                                        <option value="private">
+                                                            private
+                                                        </option>
+                                                        <option value="session">
+                                                            session
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-5 fv-row">
+                                                    <label>
+                                                        Group
+                                                    </label>
+                                                    <select class="form-control" name="group_id">
+                                                        <option value="{{ $session->group_id }}" selected>
+                                                            {{ @$session->group->name }}
+                                                        </option>
+                                                        @foreach ($groups as $group)
+                                                        <option value="{{ $group->id }}">
+                                                            {{ $group->name }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="mb-5 fv-row">
+                                                    <label>
+                                                        Users
+                                                    </label>
+                                                    <div class="select2-danger" data-select2-id="33">
+                                                        <div class="position-relative" data-select2-id="443">
+                                                            <select id="select2Danger" name="user_id[]"
+                                                                class="select2 form-select select2-hidden-accessible"
+                                                                multiple=""
+                                                                data-select2-id="select2Danger{{ $session->id }}"
+                                                                tabindex="-1" aria-hidden="true">
+                                                                @foreach ($session->users as $user)
+                                                                <option value="{{ $user->id }}" selected
+                                                                    data-select2-id="edit{{ $session->id }}{{ $user->id }}">
+                                                                    {{ $user->nick_name }}</option>
+                                                                @endforeach
+                                                                @foreach ($users as $user)
+                                                                <option value="{{ $user->id }}"
+                                                                    data-select2-id="{{ $user->id }}">
+                                                                    {{ $user->nick_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-success details_btn"
+                                                    id="details_btn">
+                                                    Next
+                                                </button>
+                                            </div>
+                                            {{-- Details Tap --}}
+                                            <div class="details_section d-none" id="details_section{{ $session->id }}">
+                                                <!--begin::Wrapper-->
+                                                <div class="w-100">
                                                     <div class="pb-2">
                                                         <!--begin::Title-->
-                                                        <h1 class="fw-bold text-gray-900">Info</h1>
+                                                        <h1 class="fw-bold text-gray-900">Academic</h1>
                                                         <!--end::Title-->
                                                     </div>
-                                                    <div class="mb-5 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label>
-                                                            Session Name
-                                                        </label>
-                                                        <input class="form-control" name="name"
-                                                            value="{{ $session->name }}" placeholder="Session Name">
-                                                    </div>
+
+                                                    <!--begin::Input group-->
                                                     <div class="mb-5 fv-row">
                                                         <label>
-                                                            Session Date
+                                                            Category
                                                         </label>
-                                                        <input class="form-control" name="date" type="date"
-                                                            value="{{ $session->date }}" placeholder="Session Date">
-                                                    </div>
-                                                    <div class="mb-5 fv-row">
-                                                        <label>
-                                                            From
-                                                        </label>
-                                                        <input class="form-control" name="from" type="time"
-                                                            value="{{ $session->from }}" placeholder="Session From">
-                                                    </div>
-                                                    <div class="mb-5 fv-row">
-                                                        <label>
-                                                            To
-                                                        </label>
-                                                        <input class="form-control" value="{{ $session->to }}"
-                                                            name="to" type="time" placeholder="Session To">
-                                                    </div>
-                                                    <div class="mb-5 fv-row">
-                                                        <label>
-                                                            Type
-                                                        </label>
-                                                        <select class="form-control" name="type">
-                                                            <option value="{{ $session->type }}" selected>
-                                                                {{ $session->type }}
+                                                        <select class="form-control sel_cate2">
+                                                            <option
+                                                                value="{{ $session->lesson->chapter->course->category->id }}"
+                                                                selected>
+                                                                {{
+                                                                $session->lesson->chapter->course->category->cate_name
+                                                                }}
                                                             </option>
-                                                            <option value="group">
-                                                                group
+                                                            @foreach ($categories as $category)
+                                                            <option value="{{ $category->id }}">
+                                                                {{ $category->cate_name }}
                                                             </option>
-                                                            <option value="private">
-                                                                private
-                                                            </option>
-                                                            <option value="session">
-                                                                session
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-5 fv-row">
-                                                        <label>
-                                                            Group
-                                                        </label>
-                                                        <select class="form-control" name="group_id">
-                                                            <option value="{{ $session->group_id }}" selected>
-                                                                {{ @$session->group->name }}
-                                                            </option>
-                                                            @foreach ($groups as $group)
-                                                                <option value="{{ $group->id }}">
-                                                                    {{ $group->name }}
-                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
+
                                                     <div class="mb-5 fv-row">
                                                         <label>
-                                                            Users
+                                                            Course
                                                         </label>
-                                                        <div class="select2-danger" data-select2-id="33">
-                                                            <div class="position-relative" data-select2-id="443">
-                                                                <select id="select2Danger" name="user_id[]"
-                                                                    class="select2 form-select select2-hidden-accessible"
-                                                                    multiple=""
-                                                                    data-select2-id="select2Danger{{ $session->id }}"
-                                                                    tabindex="-1" aria-hidden="true">
-                                                                    @foreach ($session->users as $user)
-                                                                        <option value="{{ $user->id }}" selected
-                                                                            data-select2-id="edit{{ $session->id }}{{ $user->id }}">
-                                                                            {{ $user->nick_name }}</option>
-                                                                    @endforeach
-                                                                    @foreach ($users as $user)
-                                                                        <option value="{{ $user->id }}"
-                                                                            data-select2-id="{{ $user->id }}">
-                                                                            {{ $user->nick_name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
+                                                        <select class="form-control sel_course2">
+                                                            <option value="{{ $session->lesson->chapter->course->id }}"
+                                                                selected>
+                                                                {{ $session->lesson->chapter->course->course_name }}
+                                                            </option>
+                                                        </select>
                                                     </div>
-                                                    <button type="button" class="btn btn-success details_btn"
-                                                        id="details_btn">
-                                                        Next
-                                                    </button>
-                                                </div>
-                                                {{-- Details Tap --}}
-                                                <div class="details_section d-none"
-                                                    id="details_section{{ $session->id }}">
-                                                    <!--begin::Wrapper-->
-                                                    <div class="w-100">
-                                                        <div class="pb-2">
-                                                            <!--begin::Title-->
-                                                            <h1 class="fw-bold text-gray-900">Academic</h1>
-                                                            <!--end::Title-->
-                                                        </div>
 
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-5 fv-row">
-                                                            <label>
-                                                                Category
-                                                            </label>
-                                                            <select class="form-control sel_cate2">
-                                                                <option
-                                                                    value="{{ $session->lesson->chapter->course->category->id }}"
-                                                                    selected>
-                                                                    {{ $session->lesson->chapter->course->category->cate_name }}
-                                                                </option>
-                                                                @foreach ($categories as $category)
-                                                                    <option value="{{ $category->id }}">
-                                                                        {{ $category->cate_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="mb-5 fv-row">
-                                                            <label>
-                                                                Course
-                                                            </label>
-                                                            <select class="form-control sel_course2">
-                                                                <option
-                                                                    value="{{ $session->lesson->chapter->course->id }}"
-                                                                    selected>
-                                                                    {{ $session->lesson->chapter->course->course_name }}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="mb-5 fv-row">
-                                                            <label>
-                                                                Chapter
-                                                            </label>
-                                                            <select class="form-control sel_chapter2">
-                                                                <option value="{{ $session->lesson->chapter->id }}"
-                                                                    selected>
-                                                                    {{ $session->lesson->chapter->chapter_name }}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="mb-5 fv-row">
-                                                            <label>
-                                                                Lesson
-                                                            </label>
-                                                            <select name="lesson_id" class="form-control sel_lesson2">
-                                                                <option value="{{ $session->lesson_id }}" selected>
-                                                                    {{ $session->lesson->lesson_name }}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                        <!--end::Input group-->
-
-                                                        <div class="mb-5 fv-row">
-                                                            <label>
-                                                                Teacher
-                                                            </label>
-                                                            <select class="form-control teacher_session_2"
-                                                                name="teacher_id">
-                                                                <option value="{{ $session->teacher->id }}" selected>
-                                                                    {{ $session->teacher->nick_name }}
-                                                                </option>
-                                                                @foreach ($teachers as $teacher)
-                                                                    <option value="{{ $teacher->id }}">
-                                                                        {{ $teacher->nick_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
+                                                    <div class="mb-5 fv-row">
+                                                        <label>
+                                                            Chapter
+                                                        </label>
+                                                        <select class="form-control sel_chapter2">
+                                                            <option value="{{ $session->lesson->chapter->id }}"
+                                                                selected>
+                                                                {{ $session->lesson->chapter->chapter_name }}
+                                                            </option>
+                                                        </select>
                                                     </div>
-                                                    <button type="button" class="btn btn-secondary prev_info">
-                                                        Back
-                                                    </button>
-                                                    <button type="button" class="btn btn-success pricing_btn">
-                                                        Next
-                                                    </button>
-                                                </div>
-                                                {{-- Priceing Tap --}}
-                                                <div class="priceing_section d-none"
-                                                    id="priceing_section{{ $session->id }}">
-                                                    <!--begin::Wrapper-->
-                                                    <div class="w-100">
 
-                                                        <!--begin::Heading-->
-                                                        <div class="pb-2">
-                                                            <!--begin::Title-->
-                                                            <h1 class="fw-bold text-gray-900">Links</h1>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Heading-->
-                                                        <!--begin::Input group-->
-                                                        <div class="ideas" id="ideas">
-
-                                                            <div class="idea">
-                                                                <div class="section_idea">
-                                                                    <span>Session Link</span>
-                                                                    <input name="link"
-                                                                        value="{{ $session->link }}"
-                                                                        class="form-control form-control-lg form-control-solid">
-                                                                </div>
-                                                                <div class="section_syllabus">
-                                                                    <span>Material Link</span>
-                                                                    <input name="material_link"
-                                                                        value="{{ $session->material_link }}"
-                                                                        class="form-control form-control-lg form-control-solid">
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="mb-5 fv-row">
+                                                        <label>
+                                                            Lesson
+                                                        </label>
+                                                        <select name="lesson_id" class="form-control sel_lesson2">
+                                                            <option value="{{ $session->lesson_id }}" selected>
+                                                                {{ $session->lesson->lesson_name }}
+                                                            </option>
+                                                        </select>
                                                     </div>
-                                                    <div class="mt-3">
-                                                        <span class='btn btn-secondary prev_details'>
-                                                            Back
-                                                        </span>
+                                                    <!--end::Input group-->
+
+                                                    <div class="mb-5 fv-row">
+                                                        <label>
+                                                            Teacher
+                                                        </label>
+                                                        <select class="form-control teacher_session_2"
+                                                            name="teacher_id">
+                                                            <option value="{{ $session->teacher->id }}" selected>
+                                                                {{ $session->teacher->nick_name }}
+                                                            </option>
+                                                            @foreach ($teachers as $teacher)
+                                                            <option value="{{ $teacher->id }}">
+                                                                {{ $teacher->nick_name }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-label-secondary"
-                                                            data-bs-dismiss="modal">
-                                                            Close
-                                                        </button>
-                                                        <button class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                </div>
-                                                <!--end::Stepper-->
+                                                <button type="button" class="btn btn-secondary prev_info">
+                                                    Back
+                                                </button>
+                                                <button type="button" class="btn btn-success pricing_btn">
+                                                    Next
+                                                </button>
                                             </div>
-                                            <!--begin::Modal body-->
+                                            {{-- Priceing Tap --}}
+                                            <div class="priceing_section d-none"
+                                                id="priceing_section{{ $session->id }}">
+                                                <!--begin::Wrapper-->
+                                                <div class="w-100">
+
+                                                    <!--begin::Heading-->
+                                                    <div class="pb-2">
+                                                        <!--begin::Title-->
+                                                        <h1 class="fw-bold text-gray-900">Links</h1>
+                                                        <!--end::Title-->
+                                                    </div>
+                                                    <!--end::Heading-->
+                                                    <!--begin::Input group-->
+                                                    <div class="ideas" id="ideas">
+
+                                                        <div class="idea">
+                                                            <div class="section_idea">
+                                                                <span>Session Link</span>
+                                                                <input name="link" value="{{ $session->link }}"
+                                                                    class="form-control form-control-lg form-control-solid">
+                                                            </div>
+                                                            <div class="section_syllabus">
+                                                                <span>Material Link</span>
+                                                                <input name="material_link"
+                                                                    value="{{ $session->material_link }}"
+                                                                    class="form-control form-control-lg form-control-solid">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <span class='btn btn-secondary prev_details'>
+                                                        Back
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-label-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <button class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                            <!--end::Stepper-->
                                         </div>
+                                        <!--begin::Modal body-->
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                        </form>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="modalDelete{{ $session->id }}" tabindex="-1"
-                                aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalDelete{{ $session->id }}" tabindex="-1" aria-hidden="true"
+                            style="display: none;">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
 
-                                            <h5 class="modal-title" id="modalCenterTitle">Delete Session</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
+                                        <h5 class="modal-title" id="modalCenterTitle">Delete Session</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
 
-                                        <div class='p-3'>
-                                            Are You Sure To Delete
-                                            <span class='text-danger'>
-                                                {{ $session->link }} ?
-                                            </span>
-                                        </div>
+                                    <div class='p-3'>
+                                        Are You Sure To Delete
+                                        <span class='text-danger'>
+                                            {{ $session->link }} ?
+                                        </span>
+                                    </div>
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-label-secondary"
-                                                data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <a href="{{ route('del_session', ['id' => $session->id]) }}"
-                                                class="btn btn-danger">Delete</a>
-                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <a href="{{ route('del_session', ['id' => $session->id]) }}"
+                                            class="btn btn-danger">Delete</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             @endforeach
             {{ $sessions->links() }}
         </tbody>
@@ -1338,20 +1357,43 @@
             })
         })
     </script>
+    <script>
+        $(document).ready(function () {
+            // Initially hide all groups
+            $('#select_category, #select_course, #select_chapter, .sel_lesson1').parent().show();
+            // Handle change event for session type dropdown
+            $('#select_type_session').on('change', function () {
+                const selectedType = $(this).val();
+                    console.log(selectedType);
+                // Hide all dropdown groups
+                // Show specific dropdowns based on the selected type
+                if (selectedType === 'rexplanation') {
+                    $('#select_category,#select_course,#select_chapter,.sel_lesson1').parent().show();
+                } else if (selectedType === 'explanation') {
+                    $('#select_category,#select_course,#select_chapter,.sel_lesson1').parent().show();
+                } else if (selectedType === 'mistake') {
+            $(' #select_chapter, .sel_lesson1').parent().hide();
+            $(' #select_chapter, .sel_lesson1').parent().val();
+                // $('.sel_lesson1').parent().hide();
+                    $('#select_course').parent().show();
+                }
+                // Trigger the change event to set the initial visibility
+            });
+            $('#select_type_session').trigger('change');
+
+        });
+    </script>
+
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-
-    <script src="{{ asset('assets/vendor/libs/hammer/hammer.js') }}"></script>
-
-    <script src="{{ asset('assets/vendor/libs/i18n/i18n.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
-
-    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+    <script src="{{ asset('../../assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('../../assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('../../assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('../../assets/vendor/libs/hammer/hammer.js') }}"></script>
+    <script src="{{ asset('../../assets/vendor/libs/i18n/i18n.js') }}"></script>
+    <script src="{{ asset('../../assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
+    <script src="{{ asset('../../assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
-
     <!-- Vendors JS -->
     <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/tagify/tagify.js') }}"></script>

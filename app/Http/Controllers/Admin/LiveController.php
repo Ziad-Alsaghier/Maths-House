@@ -40,10 +40,10 @@ class LiveController extends Controller
         where('position', 'student')
         ->get();
         $groups = SessionGroup::get();
-
+        $types = ['rexplanation', 'explanation','mistake','other'];
         return view('Admin.Live.Live', 
         compact('sessions', 'groups', 'users', 'categories', 
-        'courses', 'chapters', 'lessons', 'teachers'));
+        'courses', 'chapters', 'lessons','types', 'teachers'));
     }
 
     public function live_calender(){
