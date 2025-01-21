@@ -133,7 +133,17 @@ class Stu_LiveController extends Controller
         ->where('module', 'Live')
         ->where('course_id', $session->lesson->chapter->course_id)
         ->sum('number');
-        if ( !empty($small_package) && $small_package->number > 0 && $small_package_count > 0) {
+        $small_package1 = SmallPackage::where('user_id', auth()->user()->id)
+        ->get();
+        $s_live = $small_package1->where('module', 'Live')->sum('number');
+        $live_count = PaymentPackageOrder::
+        leftJoin('payment_requests', 'payment_package_order.payment_request_id', '=', 'payment_requests.id')
+        ->leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
+        ->where('payment_package_order.state', 1)
+        ->where('packages.module', 'Live')
+        ->where('payment_package_order.user_id', auth()->user()->id)
+        ->sum('payment_package_order.number') + $s_live;
+        if ( !empty($small_package) && $small_package->number > 0 && $small_package_count > 0 && $live_count) {
             $small_package->number = $small_package->number - 1; 
             $small_package->save();
             
@@ -144,7 +154,7 @@ class Stu_LiveController extends Controller
             ]);
             SessionAttendance::create([
                 'user_id' => auth()->user()->id,
-                'session_id' => $session->id
+                'session_id' => $id,
             ]); 
 
             return redirect($session->link);
