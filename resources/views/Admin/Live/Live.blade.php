@@ -273,8 +273,10 @@ return 'admin';
                                     </div>
 
                                     <!--begin::Input group-->
+                                 
                                     {{-- Start Make Type For Session Explnation Rexplenation Mistake --}}
-                                    <div class="mb-5 fv-row sel_add_group" id="select_type_group">
+                                 
+                                    {{-- <div class="mb-5 fv-row sel_add_group" id="select_type_group">
                                         <label>
                                             Type Session Relational
                                         </label>
@@ -290,7 +292,7 @@ return 'admin';
                                             @endforeach
                                         </select>
                                         <span class="sessionGroupFaild d-none mt-3">Please Chose Session Group</span>
-                                    </div>
+                                    </div> --}}
 
                                     {{-- End Make Type For Session Explnation Rexplenation Mistake --}}
 
