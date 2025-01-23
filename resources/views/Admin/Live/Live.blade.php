@@ -273,8 +273,10 @@ return 'admin';
                                     </div>
 
                                     <!--begin::Input group-->
+                                 
                                     {{-- Start Make Type For Session Explnation Rexplenation Mistake --}}
-                                    <div class="mb-5 fv-row sel_add_group" id="select_type_group">
+                                 
+                                    {{-- <div class="mb-5 fv-row sel_add_group" id="select_type_group">
                                         <label>
                                             Type Session Relational
                                         </label>
@@ -290,7 +292,7 @@ return 'admin';
                                             @endforeach
                                         </select>
                                         <span class="sessionGroupFaild d-none mt-3">Please Chose Session Group</span>
-                                    </div>
+                                    </div> --}}
 
                                     {{-- End Make Type For Session Explnation Rexplenation Mistake --}}
 
@@ -1361,13 +1363,11 @@ return 'admin';
         $(document).ready(function () {
             // Initially hide all groups
             $('#select_category, #select_course, #select_chapter, .sel_lesson1').parent().show();
-
             // Handle change event for session type dropdown
             $('#select_type_session').on('change', function () {
                 const selectedType = $(this).val();
                     console.log(selectedType);
                 // Hide all dropdown groups
-
                 // Show specific dropdowns based on the selected type
                 if (selectedType === 'rexplanation') {
                     $('#select_category,#select_course,#select_chapter,.sel_lesson1').parent().show();

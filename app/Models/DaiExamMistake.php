@@ -20,4 +20,8 @@ class DaiExamMistake extends Model
         return $this->belongsTo(Question::class, 'question_id')
         ->with('mcq')->with('g_ans')->with('q_ans');
    }
+
+   public function exam(){
+       return $this->belongsTo(DiagnosticExamsHistory::class, 'student_exam_id');
+   }
 }

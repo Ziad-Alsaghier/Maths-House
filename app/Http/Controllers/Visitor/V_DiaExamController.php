@@ -15,6 +15,7 @@ use App\Models\DaiExamMistake;
 use App\Models\ScoreList;
 use App\Models\MarketingPopup;
 use App\Models\ReportQuestionList;
+use Illuminate\Support\Facades\Session;
 
 class V_DiaExamController extends Controller
 {
@@ -150,28 +151,36 @@ class V_DiaExamController extends Controller
         // $stu_q = DiagnosticExamsHistory::where('user_id', auth()->user()->id)
         //     ->where('diagnostic_exams_id', $req->quizze_id)
         //     ->first();
-            
+
         // if (empty($stu_q)) {
+        
+        $timer_val = json_decode(session('timer'));
+        $endTiemer = date($timer_val);
+        $examtimer = date($exam->time);
+        $finalyTimer = strtotime($examtimer) - strtotime($endTiemer) ;
+        $dailyTime = date('i', $finalyTimer);
         $stu_exam = DiagnosticExamsHistory::create([
             'date' => now(),
             'user_id' => auth()->user()->id,
             'diagnostic_exams_id' => $exam->id,
             'score' => $score,
             'time' => $timer_val, 
+            'daily' => $dailyTime, 
+            // 'dilay_timer' => $timer_val, 
             'r_questions' => $right_question,
         ]);
-
         foreach ($mistakes as $item) {
-            DaiExamMistake::create([
+           $studentDiaExam = DaiExamMistake::create([
                 'student_exam_id' => $stu_exam->id,
                 'question_id' => $item->id
             ]);
         }
-        // }
 
+        // }
         $dia_id = $stu_exam->id;
+        // Make Daily Exam History
         return view('Visitor.Dia_Exam.Grade', compact('deg', 'grade', 'score', 'exam', 
-        'dia_id', 'right_question', 'total_question', 'mistakes'));
+        'dia_id', 'right_question', 'total_question', 'mistakes','studentDiaExam'));
     }
 
     public function dia_exam_history(){
@@ -179,7 +188,6 @@ class V_DiaExamController extends Controller
         where('user_id', auth()->user()->id)
         ->orderByDesc('id')
         ->get();
-
         return view('Student.Dia_History.Dia_History', compact('dia_history'));
     }
 

@@ -25,6 +25,7 @@ use App\Models\ReportVideoList;
 use App\Models\Currancy;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class V_ExamController extends Controller
 {
@@ -304,9 +305,11 @@ class V_ExamController extends Controller
     public function api_timer( Request $req ){
         Cookie::queue(Cookie::forget('timer'));
         Cookie::queue('timer', $req->timer_val, 1);
-
+        $timer = $req->timer_val;
+            session_destroy();
+            Session::put('timer', $timer);
         return response()->json([
-            'success' => $req->timer_val
+            'success' => $timer
         ]);
     }
 

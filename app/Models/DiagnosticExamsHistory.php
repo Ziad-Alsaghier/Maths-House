@@ -19,6 +19,7 @@ class DiagnosticExamsHistory extends Model
         'diagnostic_exams_id',
         'score',
         'time',
+        'daily',
         'r_questions',
         'date',
     ];

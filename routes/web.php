@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\scoreSheet\ScoreSheetExamController;
 use App\Http\Controllers\Apps\PermissionManagementController;
 use App\Http\Controllers\Apps\RoleManagementController;
 use App\Http\Controllers\Apps\UserManagementController;
@@ -64,6 +65,8 @@ use App\Http\Controllers\DomPdfController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Wallet;
+use Illuminate\Support\Facades\App;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -434,13 +437,17 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
     });
 
     // Reports
-    Route::controller(Ad_ReportsController::class)->middleware('can:Reports')->group(function(){
+    Route::middleware('can:Reports')->group(function(){
+        Route::controller(Ad_ReportsController::class)->group(function(){
+
+
         Route::get('/Report/Live','ad_live_report')->name('ad_live_report');
         Route::get('/Report/Grade','ad_grade_report')->name('ad_grade_report');
         Route::get('/Report/Payment','ad_payment_report')->name('ad_payment_report');
         Route::get('/Report/Course','ad_course_report')->name('ad_course_report');
         Route::get('/Report/Question','ad_exam_report')->name('ad_question_report');
         Route::get('/Report/ScoreSheet','ad_score_sheet_report')->name('ad_score_sheet_report');
+      
         Route::get('/Report/ScoreSheet/Show/{id}','score_sheet_student')->name('score_sheet_student');
         Route::get('/Report/Question/Filter','ad_report_filter_exam')->name('ad_report_filter_question');
 
@@ -448,19 +455,27 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::get('/Report/ScoreSheet/Answer/{id}','ad_score_question_answer')->name('ad_score_question_answer');
         Route::get('/Report/ScoreSheet/Parallel/{id}','ad_question_parallel')->name('ad_question_parallel');
         Route::post('/Report/ScoreSheet/Solve/{id}','ad_solve_parallel')->name('ad_solve_parallel');
+        });
+         Route::controller(ScoreSheetExamController::class)->group(function () {
+        Route::get('Report/ScoreSheet/student/{id}', 'index')->name('scor_sheet_exam'); // Fetch course score data
+    });
     });
 
     Route::controller(DomPdfController::class)->middleware('can:Reports')->group(function(){
         Route::post('/Report/Question/pdf','exam_pdf')->name('exam_pdf');
         Route::get('/Report/ScoreSheet/Show/Quiz/Report/{id}', 'quizze_report')->name('quizze_report');
     });
+            //  Start Score Sheet Exam
+   
+            //  End Score Sheet Exam
 
 });
+
 
     // Student
 
 Route::middleware(['auth','auth.student'])->prefix('student')->group(function(){
-    \App::singleton('wallet', function(){
+    App::singleton('wallet', function(){
         $money = Wallet::where('student_id', auth()->user()->id)
         ->where('state', 'Approve')
         ->sum('wallet');

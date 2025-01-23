@@ -1,10 +1,10 @@
 @php
-    function fun_admin()
-    {
-        return 'admin';
-    }
-    $chapter_name = null;
-    $ch_id = [];
+function fun_admin()
+{
+return 'admin';
+}
+$chapter_name = null;
+$ch_id = [];
 @endphp
 <x-default-layout>
     @section('title', 'ScoreSheet Report')
@@ -84,7 +84,8 @@
         <div class="col-12 d-flex align-items-center justify-content-start gap-2">
             <span class="col-5" style="color: #787878;font-size: 1.4rem;font-weight: 600">Student:
                 {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }}</span>
-            <span class="col-6" style="color: #787878;font-size: 1.4rem;font-weight: 600">Course: <span class="course_name"></span></span>
+            <span class="col-6" style="color: #787878;font-size: 1.4rem;font-weight: 600">Course: <span
+                    class="course_name"></span></span>
         </div>
         <div class="col-12 d-flex align-items-center justify-content-start gap-5">
 
@@ -93,7 +94,7 @@
                 name="Course_Course" id="selCourse">
                 <option selected disabled>Select Course</option>
                 @foreach ($courses as $item)
-                    <option value="{{ $item->id }}">{{ $item->course_name }}</option>
+                <option value="{{ $item->id }}">{{ $item->course_name }}</option>
                 @endforeach
             </select>
             <select class="selChapter mx-2"
@@ -147,6 +148,7 @@
                     </button>
                 </div>
         </div>
+
     </div>
 
     <script>

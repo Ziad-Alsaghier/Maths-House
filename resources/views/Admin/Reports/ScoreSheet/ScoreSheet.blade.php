@@ -1,8 +1,8 @@
 @php
-    function fun_admin()
-    {
-        return 'admin';
-    }
+function fun_admin()
+{
+return 'admin';
+}
 @endphp
 <x-default-layout>
     @section('title', 'ScoreSheet Report')
@@ -83,42 +83,47 @@
                     <th scope="row">Phone</th>
                     <th scope="row">Email</th>
                     <th scope="row">Parent Phone</th>
-                    <th scope="row">Action</th>
+                    <th scope="row" colspan="2" class="text-center">Score Sheet</th>
             </thead>
             <tbody id="myTable">
                 @foreach ($students as $item)
-                    <tr>
-                        <td style="width: 20%;">
-                            <p>
+                <tr>
+                    <td style="width: 20%;">
+                        <p>
 
-                                {{ $item->f_name . ' ' . $item->l_name . ' (' . $item->nick_name . ')' }}
-                            </p>
-                        </td>
-                        <td style="width: 20%;">
-                            <p>
-                                {{ $item->phone }}
-                            </p>
-                        </td>
-                        <td style="width: 20%;">
-                            <p>
+                            {{ $item->f_name . ' ' . $item->l_name . ' (' . $item->nick_name . ')' }}
+                        </p>
+                    </td>
+                    <td style="width: 20%;">
+                        <p>
+                            {{ $item->phone }}
+                        </p>
+                    </td>
+                    <td style="width: 20%;">
+                        <p>
 
-                                {{ $item->email }}
-                            </p>
-                        </td>
-                        <td style="width: 20%;">
-                            <p>
+                            {{ $item->email }}
+                        </p>
+                    </td>
+                    <td style="width: 20%;">
+                        <p>
 
-                                {{ $item->parent_phone }}
-                            </p>
-                        </td>
+                            {{ $item->parent_phone }}
+                        </p>
+                    </td>
 
-                        <td>
-                            <a href="{{ route('score_sheet_student', ['id' => $item->id]) }}" class="btn btn-primary">
-                                Score Sheet
-                            </a>
-                        </td>
+                    <td>
+                        <a href="{{ route('score_sheet_student', ['id' => $item->id]) }}" class="btn btn-primary">
+                            Quezzes
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ route('scor_sheet_exam', ['id' => $item->id]) }}" class="btn btn-primary">
+                            Exames
+                        </a>
+                    </td>
 
-                    </tr>
+                </tr>
                 @endforeach
             </tbody>
         </table>

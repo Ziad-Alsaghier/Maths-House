@@ -57,7 +57,7 @@ Route::get('/exam_data', [ExamController::class, 'exam_data'])->name('exam_data'
 Route::get('/ScoreSheet/Edit',[ExamController::class, 'scoreEdit'])->name('scoreEdit'); 
 Route::get('/ad_lesson_score_sheet', [Ad_ReportsController::class, 'ad_lesson_score_sheet'])->name('ad_lesson_score_sheet');
 
-Route::get('/api_timer', [V_ExamController::class, 'api_timer'])->name('api_timer');
+Route::middleware('throttle:60,1')->get('/api_timer', [V_ExamController::class, 'api_timer'])->name('api_timer');
 
 Route::get('/private_req', [Stu_LiveController::class, 'private_req_api'])->name('private_req_api');
 Route::get('/private_req_book', [Stu_LiveController::class, 'private_req_book_api'])->name('private_req_book_api');
