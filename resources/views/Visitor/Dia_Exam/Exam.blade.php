@@ -848,17 +848,7 @@
                 }
             }
 
-            var timer_val = $("#timer_val").val();
-            $.ajax({
-                url: "{{ route('api_timer') }}",
-                type: "GET",
-                data: {
-                    timer_val,
-                },
-                success: function(data) {
-                    console.log("data", data)
-                }
-            })
+
         }
 
         function pad(val) {
@@ -872,12 +862,21 @@
 
         /* Send Timer */
         $(".btn-sendQuizz").click(function() {
-            var timer_val = $("#timer_val").val();
+
+            var Hours_quizz = $("#hour").text();
+            var Min_quizz = $("#minutes").text();
+            var Sec_quizz = $("#seconds").text();
+            var alltime = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
+            var objTim = alltime;
+
+            var timer_val = $("#timer_val").val(JSON.stringify(objTim));
+            var timer = timer_val.val();
+            console.log()
             $.ajax({
                 url: "{{ route('api_timer') }}",
                 type: "GET",
                 data: {
-                    timer_val,
+                    timer,
                 },
                 success: function(data) {
                     console.log("data", data)

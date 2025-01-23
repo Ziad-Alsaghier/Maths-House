@@ -57,8 +57,27 @@
             background: #CF202F !important;
             color: #FEF5F3 !important;
         }
+        .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .action-buttons button {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #CF202F;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .action-buttons button:hover {
+        background-color: #a11b24;
+    }
     </style>
-    <div class="col-12 mt-3 d-flex flex-column align-items-center gap-4">
+    <div class="col-12 mt-3 d-flex flex-column align-items-center gap-10">
         <div class="col-12 d-flex align-items-center justify-content-center">
             <span style="font-size: 1.6rem;font-weight: 600;color: #CF202F">Score Sheet</span>
         </div>
@@ -92,10 +111,17 @@
             <input type="hidden" value="{{ $lessons }}" class="lesson_data" />
         </div>
         <div class="col-12">
+            <div class="action-buttons mb-5">
+                <button id="selectAll">Select All</button>
+                <button id="deselectAll">Deselect All</button>
+            </div>
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <table class="table col-12  mt-2">
                     <thead>
                         <tr>
+                            <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;" scope="col">
+                                Select
+                            </th>
                             <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
                                 scope="col">QUIZZES </th>
                             <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
@@ -111,118 +137,17 @@
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                        {{-- <tr>
-                            <td style="padding-top: 15px !important">QUIZ 1</td>
-                            <td style="padding-top: 15px !important">20/16</td>
-                            <td style="padding-top: 15px !important">20M</td>
-                            <td style="padding-top: 15px !important">16/6/2024</td>
-                            <td><a class="conBtn" href="student_quizzes/id">View Mistakes</a></td>
-                            <td><a class="conBtn" href="">Report</a></td>
-                        </tr> --}}
                     </tbody>
                 </table>
             </div>
+              <!-- Add the button here -->
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                    <button id="generatePdf"  style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
+                        Generate Mistakes PDF
+                    </button>
+                </div>
         </div>
     </div>
-    {{-- <table class="table">
-    <thead>
-        <th style="border: 1px solid #ccc"></th>
-        <th style="border: 1px solid #ccc"></th>
-        <th colspan="5" style="border: 1px solid #ccc">Quiz 1</th> 
-        <th colspan="5" style="border: 1px solid #ccc">Quiz 2</th>
-        <th colspan="5" style="border: 1px solid #ccc">Quiz 3</th>
-        <th colspan="5" style="border: 1px solid #ccc">Quiz 4</th>
-        <th colspan="5" style="border: 1px solid #ccc">Quiz 5</th>
-        <th colspan="5" style="border: 1px solid #ccc">Quiz 6</th>
-    </thead>
-
-    <tbody>
-        <tr>
-            <td style="border: 1px solid #ccc">Chapter</td>
-            <td style="border: 1px solid #ccc">Lesson</td>
-            <td style="border: 1px solid #ccc">Score</td>
-            <td style="border: 1px solid #ccc">Time</td>
-            <td style="border: 1px solid #ccc">Date</td>
-            <td style="border: 1px solid #ccc">View Mistake</td>
-            <td style="border: 1px solid #ccc">Report</td>
-            <td style="border: 1px solid #ccc">Score</td>
-            <td style="border: 1px solid #ccc">Time</td>
-            <td style="border: 1px solid #ccc">Date</td>
-            <td style="border: 1px solid #ccc">View Mistake</td>
-            <td style="border: 1px solid #ccc">Report</td>
-            <td style="border: 1px solid #ccc">Score</td>
-            <td style="border: 1px solid #ccc">Time</td>
-            <td style="border: 1px solid #ccc">Date</td>
-            <td style="border: 1px solid #ccc">View Mistake</td>
-            <td style="border: 1px solid #ccc">Report</td>
-            <td style="border: 1px solid #ccc">Score</td>
-            <td style="border: 1px solid #ccc">Time</td>
-            <td style="border: 1px solid #ccc">Date</td>
-            <td style="border: 1px solid #ccc">View Mistake</td>
-            <td style="border: 1px solid #ccc">Report</td>
-            <td style="border: 1px solid #ccc">Score</td>
-            <td style="border: 1px solid #ccc">Time</td>
-            <td style="border: 1px solid #ccc">Date</td>
-            <td style="border: 1px solid #ccc">View Mistake</td>
-            <td style="border: 1px solid #ccc">Report</td>
-            <td style="border: 1px solid #ccc">Score</td>
-            <td style="border: 1px solid #ccc">Time</td>
-            <td style="border: 1px solid #ccc">Date</td>
-            <td style="border: 1px solid #ccc">View Mistake</td>
-            <td style="border: 1px solid #ccc">Report</td>
-        </tr>
-
-        @foreach ($payment_req as $item)
-            @foreach ($item->chapters_order as $element)
-                    @if (!in_array($element->chapter->id, $ch_id) && $element->chapter->chapter_name != $chapter_name)
-                 
-                    <tr>
-                        <td rowspan="{{count($element->chapter->lessons)}}" style="border: 1px solid #ccc">{{$element->chapter->chapter_name}}</td>
-                    @endif
-                    @if (!in_array($element->chapter->id, $ch_id))
-                        
-                    @foreach ($element->chapter->lessons as $value)
-                        <td style="border: 1px solid #ccc" raw="2">{{$value->lesson_name}}</td>
-                        @foreach ($value->quizze as $quiz)
-                            @php
-                                $student_quizzes = DB::table('student_quizzes')
-                                ->where('student_id', auth()->user()->id)
-                                ->where('quizze_id', $quiz->id)
-                                ->orderByDesc('id')
-                                ->first();
-                            @endphp
-                            <td style="border: 1px solid #ccc">{{@$student_quizzes->score}}</td>
-                            <td style="border: 1px solid #ccc">{{@$student_quizzes->time}}</td>
-                            @if (!empty($student_quizzes->id))
-                            <td style="border: 1px solid #ccc">{{\Carbon\Carbon::parse($student_quizzes->created_at)->format('d-m-Y')}}</td>
-                            @endif
-                            <td style="border: 1px solid #ccc">
-                                @if (!empty($student_quizzes->id))
-                                <a href="{{route('quizze_mistakes', ['id' => $student_quizzes->id])}}" class="btn btn-primary mistake_btn">
-                                    View Mistakes
-                                </a>
-                                @endif
-                            </td>
-                            <td style="border: 1px solid #ccc">
-                                @if (!empty($student_quizzes->id))
-                                <a href="{{route('quizze_report', ['id' => $student_quizzes->id])}}" class="btn btn-primary mistake_btn">
-                                    Report
-                                </a>
-                                @endif
-                            </td>
-                        @endforeach
-                    </tr>
-                    @endforeach
-                    @endif  
-
-                @php
-                $chapter_name = null;
-                $ch_id[] = $element->chapter->id;
-                @endphp
-            @endforeach
-        @endforeach
-    </tbody>
-</table> --}}
 
     <script>
         let course_data = document.querySelector('.course_data');
@@ -266,6 +191,7 @@
             });
         });
         $(document).ready(function() {
+
             $("#selLesson").change(function() {
 
                 var lessonID = $(this).val()
@@ -283,6 +209,9 @@
                         $(data.data).each((index, ele) => {
                             console.log("ele", ele)
                             var newRow = `<tr>
+                                <td style="padding-top: 15px !important">
+                                    <input type="checkbox" class="row-checkbox" data-id="${ele.id}">
+                                </td>
                                 <td style="padding-top: 15px !important">${ele.quizze.title}</td>
                                 <td style="padding-top: 15px !important">${ele.score + "/" + ele.quizze.score}</td>
                                 <td style="padding-top: 15px !important">${ele.time}</td>
@@ -290,19 +219,59 @@
                                 <td><a class="conBtn" href="Mistakes/${ele.id}">View Mistakes</a></td>
                                 <td><a class="conBtn" href="Quiz/Report/${ele.id}">Report</a></td>
                             </tr>`;
-
                             $("#myTable").append(newRow)
+                            console.log(ele)
                         })
 
                     }
                 })
             })
+
+            // Select All functionality
+            $("#selectAll").click(function () {
+                $(".row-checkbox").prop("checked", true); // Select all checkboxes
+                if ($(".row-checkbox:checked").length > 0) {
+                    $("#generatePdf").show(); // Show the button
+                }
+            });
+
+            // Deselect All functionality
+            $("#deselectAll").click(function () {
+                $(".row-checkbox").prop("checked", false); // Deselect all checkboxes
+                $("#generatePdf").hide(); // Hide the button
+            });
+
+             // Show/Hide the "Generate Mistakes PDF" button based on checkbox selection
+            $(document).on('change', '.row-checkbox', function () {
+                if ($('.row-checkbox:checked').length > 0) {
+                    $('#generatePdf').show(); // Show the button if at least one checkbox is selected
+                } else {
+                    $('#generatePdf').hide(); // Hide the button if no checkboxes are selected
+                }
+            });
+
+            // Handle the click event of the "Generate Mistakes PDF" button
+            $('#generatePdf').click(function () {
+                let selectedIds = [];
+                $('.row-checkbox:checked').each(function () {
+                    selectedIds.push($(this).data('id'));
+                });
+                console.log("Selected IDs:", selectedIds);
+
+                // if (selectedIds.length > 0) {
+                //     const doc = new jsPDF();
+                //     doc.text("Selected Mistakes IDs: " + selectedIds.join(", "), 10, 10);
+                //     doc.save("Mistakes.pdf");
+                // }
+            });
+
+
         })
     </script>
 
 
 </x-default-layout>
-{{-- route('lesson_score_sheet') 
+{{-- route('lesson_score_sheet')
     data : {lesson_id : 1}
     MyCourses/Mistakes/1
     Quiz/Report/1

@@ -672,7 +672,7 @@
                                     </div>
                                 </div> --}}
 
-                                <div class="answer-setValue">
+                                {{-- <div class="answer-setValue">
                                     <div class="section-setValue">
                                         <span>Answer:</span>
                                         <div class="input_val">
@@ -684,7 +684,25 @@
                                         <span>Answer Preview:</span>
                                         <input type="number" name="q_grid_ans[]" id="section-value30" value="00000" readonly>
                                     </div>
+                                </div> --}}
+
+                                <div class="answer-setValue">
+                                    <div class="section-setValue">
+                                        <span>Answer:</span>
+                                        <div class="input_val">
+                                            <input type="text" step="0.001" value="0" class="gridVal" id="input_val">
+                                        </div>
+                                        <input type="button" value="/" class="addSl"> <!-- Button to add "/" -->
+                                        <input type="button" value="Enter" class="enterBtn"> <!-- Button for Enter functionality -->
+                                    </div>
+                                    <div class="section-value">
+                                        <span>Answer Preview:</span>
+                                        <input type="number" id="preview_value" readonly> <!-- This will show the preview -->
+                                    </div>
                                 </div>
+
+
+
                             @endif
 
                         </div>
@@ -910,53 +928,112 @@
 
 
 // Keyup event to handle direct input changes (e.g., "1" or "1/5")
-$("#input_val30").keyup(() => {
-    updatePreview();
-});
+// $("#input_val30").keyup(() => {
+//     updatePreview();
+// });
 
 // Click event for the "/" button to add "/" to the input field
-$(".addSl").click(() => {
-    var currentValue = $("#input_val30").val();
+// $(".addSl").click(() => {
 
-    // Add "/" only if it doesn't already exist
-    if (!currentValue.includes('/')) {
-        $("#input_val30").val(currentValue + '/');
-    }
-    updatePreview();
-});
+//     var currentValue = $("#input_val30").val();
+//     console.log("valueee",currentValue)
 
-// Function to update the Answer Preview based on the input
-function updatePreview() {
-    var answerValue = $("#input_val30").val();
-    var previewValue = answerValue;
+//     // Add "/" only if it doesn't already exist
+//     if (!currentValue.includes('/')) {
+//         $("#input_val30").val(currentValue + '/');
+//     }
+//     console.log($("#input_val30").val(currentValue + '/'));
+//     updatePreview();
+// });
 
-    // Check if the input contains a fraction (e.g., "1/5")
-    if (answerValue.includes('/')) {
-        var parts = answerValue.split('/');
-        var numerator = parseFloat(parts[0]);
-        var denominator = parseFloat(parts[1]);
+        // $(".addSl").on("click", function() {
+        //     var inpVal = $(this).closest(".section-setValue").find(".gridVal");
+        //     var currentVal = inpVal.val().toString();
+        //     inpVal.val(currentVal + "/");
+        // });
 
-        // Validate if both parts are numbers and denominator is not zero
-        if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
-            previewValue = numerator / denominator;
+        // $("#input_val30").keyup(() => {
+        //     var answerValue = $("#input_val30").val()
+        //     $("#section-value30").val(answerValue)
+        // })
+
+        // Function to update the Answer Preview based on the input
+        // function updatePreview() {
+        //     var answerValue = $("#input_val30").val();
+        //     var previewValue = answerValue;
+
+        //     // Check if the input contains a fraction (e.g., "1/5")
+        //     if (answerValue.includes('/')) {
+        //         var parts = answerValue.split('/');
+        //         var numerator = parseFloat(parts[0]);
+        //         var denominator = parseFloat(parts[1]);
+
+        //         // Validate if both parts are numbers and denominator is not zero
+        //         if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
+        //             previewValue = numerator / denominator;
+        //         } else {
+        //             previewValue = "Invalid fraction";  // Optional: Show error for invalid fraction
+        //         }
+        //     } else if (!isNaN(answerValue)) {
+        //         // If the input is just a regular number
+        //         previewValue = parseFloat(answerValue);
+        //     }
+
+        //     // Update the preview field with the calculated or entered value
+        //     $("#section-value30").val(previewValue);
+        // }
+  // Event listener for the '/' button to add a '/' to the input
+  $(".addSl").on("click", function () {
+        var inpVal = $(this).closest(".section-setValue").find(".gridVal");
+        var currentVal = inpVal.val().toString();
+
+        // console.log("inpValinpVal",currentVal)
+        inpVal.val(currentVal + '/');  // Append '/' to the input value
+        console.log("inpValinpVal",inpVal.val().toString())
+    });
+
+    // Event listener for the 'Enter' button to manually trigger the preview update
+    $(".enterBtn").on("click", function () {
+        updatePreview();  // Trigger preview update when the button is clicked
+    });
+
+    // Function to update the Answer Preview based on the input
+    function updatePreview() {
+        // var answerValue = $("#input_val").val(); // Get the input value
+        var answerValue =$("#input_val").val();
+        console.log("answerValue:", answerValue);  // Debugging: check the value of the input
+
+        var previewValue = answerValue;
+
+        // Check if the input contains a fraction (e.g., "10/10")
+        if (answerValue.includes('/')) {
+            var parts = answerValue.split('/');  // Split by '/'
+            var numerator = parseFloat(parts[0]);  // Get numerator (before '/')
+            var denominator = parseFloat(parts[1]);  // Get denominator (after '/')
+
+            console.log("Numerator:", numerator, "Denominator:", denominator);  // Debugging the split parts
+
+            // Validate if both parts are numbers and denominator is not zero
+            if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
+                previewValue = numerator / denominator;  // Calculate fraction
+            } else {
+                previewValue = "Invalid fraction";  // Optional: Show error for invalid fraction
+            }
+        } else if (!isNaN(answerValue)) {
+            // If the input is just a regular number
+            previewValue = parseFloat(answerValue);
         } else {
-            previewValue = "Invalid fraction";  // Optional: Show error for invalid fraction
+            previewValue = "Invalid input";  // Optional: Handle invalid input
         }
-    } else if (!isNaN(answerValue)) {
-        // If the input is just a regular number
-        previewValue = parseFloat(answerValue);
+
+        // Update the preview field with the calculated or entered value
+        $("#preview_value").val(previewValue);  // This updates the preview input field
     }
-
-    // Update the preview field with the calculated or entered value
-    $("#section-value30").val(previewValue);
-}
-
 
 
         /* /////////////// */
         /* But border out side the answer  */
         /* /////////////// */
-
 
         $(".chosen").each((elePar, valPar) => {
 
@@ -979,9 +1056,6 @@ function updatePreview() {
                 })
             })
         })
-
-
-
 
         /* /////////////// */
         /* Handel pagination question */
