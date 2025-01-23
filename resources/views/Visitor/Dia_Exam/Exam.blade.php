@@ -846,28 +846,28 @@ $page_name = 'Diagnostic Exam';
                     console.log("6666")
                 }
             }
-            $.ajax({
-                url: "{{ route('api_timer') }}",
-                type: "get",
-                data: {
-                    timer_val: $("#timer_val").val(),
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(data) {
-                    console.log("Timer session updated", data);
-                }
-            });
-            var timer_val = $("#timer_val").val();
-            $.ajax({
-                url: "{{ route('api_timer') }}",
-                type: "GET",
-                data: {
-                    timer_val: timer_val,
-                },
-                success: function(data) {
-                    console.log("data", data)
-                }
-            })
+            // $.ajax({
+            //     url: "{{ route('api_timer') }}",
+            //     type: "get",
+            //     data: {
+            //         timer_val: $("#timer_val").val(),
+            //         _token: "{{ csrf_token() }}"
+            //     },
+            //     success: function(data) {
+            //         console.log("Timer session updated", data);
+            //     }
+            // });
+            // var timer_val = $("#timer_val").val();
+            // $.ajax({
+            //     url: "{{ route('api_timer') }}",
+            //     type: "GET",
+            //     data: {
+            //         timer_val: timer_val,
+            //     },
+            //     success: function(data) {
+            //         console.log("data", data)
+            //     }
+            // })
         }
 
         function pad(val) {
@@ -878,31 +878,36 @@ $page_name = 'Diagnostic Exam';
                 return valString;
             }
         }
-
         /* Send Timer */
 $(".btn-sendQuizz").click(function() {
-            var Hours_quizz = $("#hour").text();
-            var Min_quizz = $("#minutes").text();
-            var Sec_quizz = $("#seconds").text();
-            var alltime = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
-            var objTim = alltime;
+    var Hours_quizz = $("#hour").text();
+    var Min_quizz = $("#minutes").text();
+    var Sec_quizz = $("#seconds").text();
+    var alltime = `${Hours_quizz}:${Min_quizz}:${Sec_quizz}`;
+    var objTim = alltime;
 
-            $("#timer_val").val(JSON.stringify(objTim));
-            var timer = $("#timer_val").val();
-            
-            $.ajax({
-                    url: "{{ route('api_timer') }}",
-                    type: "GET",
-                    data: {
-                            timer,
-                    },
-                    success: function(data) {
-                            console.log("data", data)
-                            timer.val = data;
-                    }
-            })
-    })
+    // Append the value to all matching inputs
+    $("input[name='timer_val']").each(function() {
+        var currentVal = $(this).val(); // Get current value
+        var newVal = currentVal ? currentVal + "," + objTim : objTim; // Append with a separator
+        $(this).val(newVal); // Update the input value
+    });
 
+    var timer = $("input[name='timer_val']").first().val(); // Use the first input's value for AJAX
+    $.ajax({
+        url: "{{ route('api_timer') }}",
+        type: "GET",
+        data: {
+            timer: timer, // Send the timer value
+        },
+        success: function(data) {
+            console.log("Timer data received:", data);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error sending timer data:", error);
+        }
+    });
+});
         /* Send Report about the question */
         $(".report_item").on("click", function() {
             console.log("Report id", $(this).find(".reportID").val())
