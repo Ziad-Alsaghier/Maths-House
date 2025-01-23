@@ -56,6 +56,7 @@
         cursor: pointer;
         transition: all 0.3s ease-in-out;
     }
+
     .#selImg:hover {
         background: #ae101d
     }
@@ -241,16 +242,16 @@
 
     /* Default flex direction (row) */
     .flex-container {
-    display: flex;
-    flex-direction: row;
-    column-gap: 1rem;
+        display: flex;
+        flex-direction: row;
+        column-gap: 1rem;
     }
 
     /* Media query for screens with a minimum width of 600px */
     @media (max-width: 600px) {
-    .flex-container {
-        flex-direction: column;
-    }
+        .flex-container {
+            flex-direction: column;
+        }
     }
 </style>
 <div class="wrapper">
@@ -287,36 +288,35 @@
                         <div class="payment_widget">
                             <div class="ui_kit_checkbox style2">
                                 @foreach ($payment_methods as $item)
-                                    <div class="custom-control custom-checkbox my-3">
-                                        <input type="radio" name="payment_method_id" value="{{ $item->id }}"
-                                            class="custom-control-input payment_method_radio"
-                                            id="customCheck80{{ $item->id }}" checked />
-                                        <label class="custom-control-label"
-                                            for="customCheck80{{ $item->id }}">{{ $item->payment }}
-                                            <img style="height:50px; width:70px;"
-                                                src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
-                                        </label>
-
-                                    </div>
-
-                                    <input type="file" id="reset_img{{ $item->id }}" name="image[]"
-                                        class="form-control d-none" />
-                                    <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
-                                        <div class="bt_details">
-                                            <p>
-                                                {{ $item->description }}
-                                            </p>
-                                        </div>
-                                        <label for="reset_img{{ $item->id }}" class="btn btn-info">
-                                            <i class="fa-solid fa-upload mr-2"></i>
-                                            Upload Reseipt
-                                        </label>
+                                <div class="custom-control custom-checkbox my-3">
+                                    <input type="radio" name="payment_method_id" value="{{ $item->id }}"
+                                        class="custom-control-input payment_method_radio"
+                                        id="customCheck80{{ $item->id }}" checked />
+                                    <label class="custom-control-label" for="customCheck80{{ $item->id }}">{{
+                                        $item->payment }}
+                                        <img style="height:50px; width:70px;"
+                                            src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
                                     </label>
+
+                                </div>
+
+                                <input type="file" id="reset_img{{ $item->id }}" name="image[]"
+                                    class="form-control d-none" />
+                                <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
+                                    <div class="bt_details">
+                                        <p>
+                                            {{ $item->description }}
+                                        </p>
+                                    </div>
+                                    <label for="reset_img{{ $item->id }}" class="btn btn-info">
+                                        <i class="fa-solid fa-upload mr-2"></i>
+                                        Upload Reseipt
+                                    </label>
+                                </label>
                                 @endforeach
                                 <div class="custom-control custom-checkbox">
                                     <input type="radio" name="payment_method_id" value="Wallet"
-                                        class="custom-control-input payment_method_radio" id="customCheck80"
-                                        checked />
+                                        class="custom-control-input payment_method_radio" id="customCheck80" checked />
                                     <label class="custom-control-label" for="customCheck80">
                                         <h3>
                                             Using Wallet
@@ -369,11 +369,11 @@
                         <span class="text-align-center">Product:</span>
                         <ul>
                             @foreach ($chapters as $chapter)
-                                <li>
-                                    <!-- <span class="text-align-center">{{ $chapter->chapter_name }}</span> -->
-                                    <span class="text-align-center" id="ch_Names"></span>
+                            <li>
+                                <!-- <span class="text-align-center">{{ $chapter->chapter_name }}</span> -->
+                                <span class="text-align-center" id="ch_Names"></span>
 
-                                </li>
+                            </li>
                             @endforeach
                             </>
                     </div>
@@ -392,20 +392,18 @@
                     <h3 style="color: #CF202F">Choose Payment Methods:</h3>
 
                     @foreach ($payment_methods as $item)
-                        {{-- <div class="custom-control custom-checkbox my-3">
+                    {{-- <div class="custom-control custom-checkbox my-3">
                         <input type="radio" name="payment_method_id" value="{{ $item->id }}"
-                            class="custom-control-input payment_method_radio"
-                            id="customCheck80{{ $item->id }}" checked />
-                        <label class="custom-control-label"
-                            for="customCheck80{{ $item->id }}">{{ $item->payment }}
-                            <img style="height:50px; width:70px;"
-                                src="{{ asset('images/payment/' . $item->logo) }}" class="pr15" />
+                            class="custom-control-input payment_method_radio" id="customCheck80{{ $item->id }}"
+                            checked />
+                        <label class="custom-control-label" for="customCheck80{{ $item->id }}">{{ $item->payment }}
+                            <img style="height:50px; width:70px;" src="{{ asset('images/payment/' . $item->logo) }}"
+                                class="pr15" />
                         </label>
 
                     </div> --}}
 
-                        {{-- <input type="file" id="reset_img{{ $item->id }}" name="image[]"
-                        class="form-control d-none" />
+                    {{-- <input type="file" id="reset_img{{ $item->id }}" name="image[]" class="form-control d-none" />
                     <label class="upload_img d-none" style="cursor: pointer;" for="reset_img">
                         <div class="bt_details">
                             <p>
@@ -419,37 +417,35 @@
                     </label> --}}
 
 
-                        <div class="radio-button">
-                            <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
-                                class="radio-button__input payment_method_radio" type="radio">
+                    <div class="radio-button">
+                        <input value="{{ $item->id }}" name="payment_method_id" id="radio{{ $item->id }}"
+                            class="radio-button__input payment_method_radio" type="radio">
 
-                            @if ($item->payment == 'Instapay')
-                            <label for="radio{{ $item->id }}" class="radio-button__label">
-                                <div class="">
-                                    <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
-                                        alt="">
-                                    <span class="radio-button__custom"></span>
-                                    <a class="btn btn-danger" target="_blank" href="{{ $item->description }}">
-                                        {{ $item->payment }}
-                                    </a>
-                                </div>
-                            </label>
-                            @else
-                            <label for="radio{{ $item->id }}" class="radio-button__label">
-                                <div class="">
-                                    <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}"
-                                        alt="">
-                                    <span class="radio-button__custom"></span>
-                                        {{ $item->payment }}
-                                </div>
-                            </label>
-                            @endif
-                            <!-- updated here : add secDescription -->
-                            <div class="col-6 secDescription d-none" data-method-id="{{ $item->id }}">
-                                <h3>Description {{ $item->payment }}:</h3>
-                                <p class="desPay">{{ $item->description }}</p>
+                        @if ($item->payment == 'Instapay')
+                        <label for="radio{{ $item->id }}" class="radio-button__label">
+                            <div class="">
+                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
+                                <span class="radio-button__custom"></span>
+                                <a class="btn btn-danger" target="_blank" href="{{ $item->description }}">
+                                    {{ $item->payment }}
+                                </a>
                             </div>
+                        </label>
+                        @else
+                        <label for="radio{{ $item->id }}" class="radio-button__label">
+                            <div class="">
+                                <img width="30px" src="{{ asset('images/payment/' . $item->logo) }}" alt="">
+                                <span class="radio-button__custom"></span>
+                                {{ $item->payment }}
+                            </div>
+                        </label>
+                        @endif
+                        <!-- updated here : add secDescription -->
+                        <div class="col-6 secDescription d-none" data-method-id="{{ $item->id }}">
+                            <h3>Description {{ $item->payment }}:</h3>
+                            <p class="desPay">{{ $item->description }}</p>
                         </div>
+                    </div>
                     @endforeach
 
                     {{-- Using Wallet --}}
@@ -464,16 +460,18 @@
                 </div>
             </div>
             {{-- Receipt && Phone --}}
-            <div class="col-9 d-none align-items-center justify-content-start upload_receipt flex-container" style="column-gap: 1rem">
-                <label for="img" id="selImg" class="d-flex align-items-center justify-content-center" style="column-gap: 0.3rem">
+            <div class="col-9 d-none align-items-center justify-content-start upload_receipt flex-container"
+                style="column-gap: 1rem">
+                <label for="img" id="selImg" class="d-flex align-items-center justify-content-center"
+                    style="column-gap: 0.3rem">
                     <h3 style="color: #fff;font-weight: 700">Upload Receipt</h3>
                     <img width="35px" src="{{ asset('images/payment/UploadIcon.svg') }}" alt="">
                 </label>
-                <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image"
-                    accept="image/*">
+                <input type="file" style="visibility: hidden;width: 2px;" id="img" name="image" accept="image/*">
 
-                <div class="d-flex align-items-center justify-content-start" style="column-gap: 0.6rem ;padding: 10px; background-color: #f8f9fa;border-radius: 5px;">
-                <h3 id="fileUrl" class="desPay"></h3>
+                <div class="d-flex align-items-center justify-content-start"
+                    style="column-gap: 0.6rem ;padding: 10px; background-color: #f8f9fa;border-radius: 5px;">
+                    <h3 id="fileUrl" class="desPay"></h3>
                 </div>
             </div>
 
@@ -484,29 +482,29 @@
         </form>
 
         <!-- Modal Structure -->
-<div id="orderModal" class="modal fade" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="orderModalLabel">Order Review</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        This process is under review and will be completed within 24 hours.
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="confirmBtn" class="btn btn-primary">OK</button>
-      </div>
-    </div>
-  </div>
-</div>
+        <div id="orderModal" class="modal fade" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLabel">Order Review</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        This process is under review and will be completed within 24 hours.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="confirmBtn" class="btn btn-primary">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 
     <a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 </div>
 <script>
-// Step 1: Retrieve the chapterDetails from localStorage
+    // Step 1: Retrieve the chapterDetails from localStorage
 const chapterDetailsJSON = localStorage.getItem('chapterDetails');
 // Step 2: Parse the JSON if it's stored as a string
 const chapterDetails = chapterDetailsJSON ? JSON.parse(chapterDetailsJSON) : {};
@@ -610,7 +608,10 @@ document.querySelectorAll('.payment_method_radio').forEach(radio => {
         if (selectedPaymentMethod === 'Wallet') {
             // If Wallet is selected, submit the form directly without showing the modal
             orderForm.submit();
-        } else {
+        } else if(selectedPaymentMethod === 'Paymob'){
+            // If Paymob is selected, submit the form directly without showing the modal
+            orderForm.submit();         
+        }else {
             // Show the modal for other payment methods
             orderModal.show();
         }

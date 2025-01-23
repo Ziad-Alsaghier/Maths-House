@@ -622,10 +622,12 @@ use PaymentPaymob;
             Mail::To('Payment@mathshouse.net')
             ->send(new PaymentEmail($req->all(), auth()->user()));
         }
-        $p_request = PaymentRequest::create($arr);
         if( $payment == "Paymob"){
              $user=auth()->user();
                 return $this->credit($user,$paymentMethod,$chapters,$price,'Chapters');
+        }else{
+        $p_request = PaymentRequest::create($arr);
+
         }
         if ( $req->payment_method_id == 'Wallet' ) {
             Wallet::create([
