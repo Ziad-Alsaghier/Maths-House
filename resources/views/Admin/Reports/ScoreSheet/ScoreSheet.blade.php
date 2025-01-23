@@ -118,7 +118,7 @@ return 'admin';
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('scor_sheet_exam', ['id' => $item->id]) }}" class="btn btn-primary">
+                        <a href="{{ route('scor_sheet_exam', ['user' => $item->id]) }}" class="btn btn-primary">
                             Exames
                         </a>
                     </td>

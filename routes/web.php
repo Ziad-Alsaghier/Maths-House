@@ -457,7 +457,8 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Report/ScoreSheet/Solve/{id}','ad_solve_parallel')->name('ad_solve_parallel');
         });
          Route::controller(ScoreSheetExamController::class)->group(function () {
-        Route::get('Report/ScoreSheet/student/{id}', 'index')->name('scor_sheet_exam'); // Fetch course score data
+        Route::get('Report/ScoreSheet/student/{user}', 'index')->name('scor_sheet_exam'); // Fetch course score data
+        Route::get('Report/ScoreSheet/get/courseExam/{user}', 'show')->name('course_exam'); // Get course score data
     });
     });
 
