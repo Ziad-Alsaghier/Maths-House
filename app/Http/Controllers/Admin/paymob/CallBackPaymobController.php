@@ -69,7 +69,7 @@ class CallBackPaymobController extends Controller
                    $timer = 5; // 3  seconds
                 $totalAmount = $data['amount_cents'] / 100;
               return view('Student.Payment.paymentSuccess',
-              compact('paymentRequest','totalAmount','message','redirectUrl','timer'));
+              compact('paymentRequest','totalAmount','message','data','redirectUrl','timer'));
             //    return redirect()->away($redirectUrl . '?' . http_build_query([
             //    'success' => true,
             //    'payment_id' => $payment_id,
@@ -77,16 +77,17 @@ class CallBackPaymobController extends Controller
             //    "alert('payment Success')"
             //    ]));
             } else {
-                // $payment_id = $data['order'];
-                // $payment =  $this->payment->with('orders','orders.plans','orders.extra','orders.domain')->where('transaction_id', $payment_id)->first();
+                    $transaction_id = $data['order'];
+                      $paymentRequest = $this->paymentRequest->where('transaction_id',$transaction_id)->first();
+                      $paymentRequest->update(['state'=>'Rejected']);
+                      
+                       $redirectUrl = route('student');;
+                       $message = 'Your payment is Failed. Please try again...';
+                       $timer = 3; // 3 seconds
+                       $totalAmount = $data['amount_cents'] / 100;
+                       return view('Student.Payment.paymentSuccess',
+                       compact('paymentRequest','totalAmount','message','redirectUrl','timer','data'));
 
-                // $payment->update([
-                //     'payment_id' => $data['id'],
-                //     'payment_status' => "Failed"
-                // ]);
-
-
-                return response()->json(['message' => 'Something Went Wrong Please Try Again']);
             }
         } else {
             return response()->json(['message' => 'Something Went Wrong Please Try Again']);
