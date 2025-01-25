@@ -24,6 +24,7 @@ class Session extends Model
         'from', 
         'to', 
         'lesson_id', 
+        'course_id', 
         'teacher_id', 
         'group_id',
         'type', 
@@ -31,11 +32,17 @@ class Session extends Model
         'price',
         'access_dayes',
         'repeat',
+        'session_types',
     ];
  
     public function lesson()
     {
         return $this->belongsTo(Lesson::class, 'lesson_id')->with('chapterMyLive');
+    }
+ 
+    public function course()
+    {
+        return $this->belongsTo(Lesson::class, 'course_id');
     }
  
     public function teacher()
@@ -51,6 +58,11 @@ class Session extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'session_students');
+    }
+ 
+    public function attendce()
+    {
+        return $this->belongsToMany(User::class, 'session_attendance');
     }
  
     public function user_attend()
@@ -78,7 +90,5 @@ class Session extends Model
 
     public function days(){
         return $this->hasMany(SessionDay::class, 'session_id');
-    } 
-
-
+    }
 }
