@@ -115,7 +115,7 @@ class Stu_LiveController extends Controller
         }
 
         $package = PaymentPackageOrder::
-        select('*', 'payment_package_order.id as payment_package_id')
+        select('*', 'payment_package_order.id as payment_package_id', 'payment_package_order.number as p_number')
         ->leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
         ->where('payment_package_order.number', '>', 0)
         ->where('payment_package_order.user_id', auth()->user()->id)
@@ -168,7 +168,7 @@ class Stu_LiveController extends Controller
                     PaymentPackageOrder::
                     where('id', $item->payment_package_id )
                     ->update([
-                        'number' => $item->number - 1
+                        'number' => $item->p_number - 1
                     ]);
             
                     SessionAttendance::create([
