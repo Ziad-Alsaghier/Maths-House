@@ -13,7 +13,7 @@ class TeacherReportController extends Controller
 {
     public function __construct(private Session $sessions, private User $users){}
     public function data(){
-        // /api/TeacherReport
+        // https://login.mathshouse.net/api/TeacherReport
         $teachers = $this->users
         ->with(['session_explanation' => function($query){
             return $query->withCount('attendce as student_count')
