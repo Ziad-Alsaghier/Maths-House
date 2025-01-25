@@ -115,7 +115,8 @@ class Stu_LiveController extends Controller
         }
 
         $package = PaymentPackageOrder::
-        leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
+        select('*', 'payment_package_order.id as payment_package_id')
+        ->leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
         ->where('payment_package_order.number', '>', 0)
         ->where('payment_package_order.user_id', auth()->user()->id)
         ->where('payment_package_order.state', 1)
@@ -165,7 +166,7 @@ class Stu_LiveController extends Controller
                 $newTime = Carbon::now()->subDays($item->package_live->duration);
                 if ( $item->number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson->chapter->course_id ) {
                     PaymentPackageOrder::
-                    where('id', $item->id )
+                    where('id', $item->payment_package_id )
                     ->update([
                         'number' => $item->number - 1
                     ]);
