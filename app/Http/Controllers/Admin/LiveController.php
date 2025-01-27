@@ -56,16 +56,19 @@ class LiveController extends Controller
 
     public function session_edit( $id, Request $req ){
         $arr = $req->only('link', 'name', 'date', 'from', 'to', 'lesson_id', 
-        'type', 'access_dayes', 'price', 'teacher_id', 'group_id', 'material_link');
+        'type', 'access_dayes', 'price', 'session_types','teacher_id', 'group_id', 'material_link');
         $req->validate([
             'link' => 'required',
             'date' => 'required',
             'from' => 'required',
             'to' => 'required',
-            'lesson_id' => 'required',
+            'lesson_id' => 'sometimes',
             'type' => 'required',
             'teacher_id' => 'required|numeric',
         ]);
+        if($arr['session_types'] == 'mistakes'){
+            $arr['lesson_id'] = Null;
+        }
         $sessions = Session::
         where('id', $id)
         ->update($arr);
@@ -184,7 +187,7 @@ class LiveController extends Controller
             'date' => 'required',
             'from' => 'required',
             'to' => 'required',
-            'lesson_id' => 'required',
+            'lesson_id' => 'sometimes',
             'type' => 'required',
             'teacher_id' => 'required',
         ]);
