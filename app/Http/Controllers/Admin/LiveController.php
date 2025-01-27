@@ -40,7 +40,7 @@ class LiveController extends Controller
         where('position', 'student')
         ->get();
         $groups = SessionGroup::get();
-        $types = ['rexplanation', 'explanation','mistake','other'];
+        $types = ['explanation','re_explanation', 'mistakes','other'];
         return view('Admin.Live.Live', 
         compact('sessions', 'groups', 'users', 'categories', 
         'courses', 'chapters', 'lessons','types', 'teachers'));
@@ -176,7 +176,7 @@ class LiveController extends Controller
     public function add_session( Request $req ){
          
         $arr = $req->only('link', 'date', 'from', 'to', 'lesson_id', 'name', 'material_link',
-        'type', 'teacher_id', 'price', 'access_dayes', 'group_id');
+        'type', 'teacher_id', 'price', 'course_id','session_types','access_dayes', 'group_id');
         
         $req->validate([
             'link' => 'required',
@@ -188,6 +188,9 @@ class LiveController extends Controller
             'type' => 'required',
             'teacher_id' => 'required',
         ]);
+        if($arr['session_types'] == 'mistake'){
+            $arr['lesson_id'] = Null;
+        }
         $session = Session::create($arr);
         
         if ( !empty($req->group_id) ) {

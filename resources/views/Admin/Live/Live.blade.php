@@ -273,15 +273,15 @@ return 'admin';
                                     </div>
 
                                     <!--begin::Input group-->
-                                 
+
                                     {{-- Start Make Type For Session Explnation Rexplenation Mistake --}}
-                                 
-                                    {{-- <div class="mb-5 fv-row sel_add_group" id="select_type_group">
+
+                                    <div class="mb-5 fv-row sel_add_group" id="select_type_group">
                                         <label>
                                             Type Session Relational
                                         </label>
                                         <select class="form-control sesstionGroup" id="select_type_session"
-                                            name="group_id">
+                                            name="session_types">
                                             <option value="">
                                                 Select Type Session ...
                                             </option>
@@ -292,7 +292,7 @@ return 'admin';
                                             @endforeach
                                         </select>
                                         <span class="sessionGroupFaild d-none mt-3">Please Chose Session Group</span>
-                                    </div> --}}
+                                    </div>
 
                                     {{-- End Make Type For Session Explnation Rexplenation Mistake --}}
 
@@ -315,7 +315,7 @@ return 'admin';
                                         <label>
                                             Course
                                         </label>
-                                        <select class="form-control sel_course1" id="select_course">
+                                        <select class="form-control sel_course1" name="course_id" id="select_course">
                                             <option value="">
                                                 Select Course ...
                                             </option>
@@ -497,13 +497,19 @@ return 'admin';
                     {{ $session->duration }}
                 </td> --}}
                 <td>
-                    {{ $session->lesson->chapter->course->category->cate_name }}
+                    {{ $session->lesson->chapter->course->category->cate_name ??
+                    $session->course_mistake->category->cate_name }}
                 </td>
                 <td>
-                    {{ $session->lesson->chapter->course->course_name }}
+                    {{ $session->lesson->chapter->course->course_name ?? $session->course_mistake->course_name }}
                 </td>
                 <td>
-                    {{ $session->lesson->lesson_name }}
+                    @if (empty($session->lesson->lesson_name))
+
+                    <small style="color:red">This Course Is Mistake and Don't Have Lesson</small>
+                    @else
+                    {{$session->lesson->lesson_name}}
+                    @endif
                 </td>
                 <td>
                     {{ $session->type }}
@@ -667,10 +673,11 @@ return 'admin';
                                                         </label>
                                                         <select class="form-control sel_cate2">
                                                             <option
-                                                                value="{{ $session->lesson->chapter->course->category->id }}"
+                                                                value="{{ $session->lesson->chapter->course->category->id  ?? $session->course_mistake->category->id}}"
                                                                 selected>
                                                                 {{
                                                                 $session->lesson->chapter->course->category->cate_name
+                                                                ?? $session->course_mistake->category->cate_name
                                                                 }}
                                                             </option>
                                                             @foreach ($categories as $category)
@@ -686,9 +693,11 @@ return 'admin';
                                                             Course
                                                         </label>
                                                         <select class="form-control sel_course2">
-                                                            <option value="{{ $session->lesson->chapter->course->id }}"
+                                                            <option
+                                                                value="{{ $session->lesson->chapter->course->id ?? $session->course_mistake->id }}"
                                                                 selected>
-                                                                {{ $session->lesson->chapter->course->course_name }}
+                                                                {{ $session->lesson->chapter->course->course_name ??
+                                                                $session->course_mistake->course_name}}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -698,9 +707,11 @@ return 'admin';
                                                             Chapter
                                                         </label>
                                                         <select class="form-control sel_chapter2">
-                                                            <option value="{{ $session->lesson->chapter->id }}"
-                                                                selected>
-                                                                {{ $session->lesson->chapter->chapter_name }}
+                                                            <option value="{{ $session->lesson->chapter->id ?? " This
+                                                                Session Is Mistake and Don\'t Have Lesson" }}" selected>
+                                                                {{ $session->lesson->chapter->chapter_name
+                                                                ??
+                                                                "This Session Is Mistake and Don\'t Have Lesson" }}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -711,7 +722,7 @@ return 'admin';
                                                         </label>
                                                         <select name="lesson_id" class="form-control sel_lesson2">
                                                             <option value="{{ $session->lesson_id }}" selected>
-                                                                {{ $session->lesson->lesson_name }}
+                                                                {{ $session->lesson->lesson_name ?? 'Lesson Name Empy'}}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -1359,7 +1370,7 @@ return 'admin';
             })
         })
     </script>
-    <script>
+    {{-- <script>
         $(document).ready(function () {
             // Initially hide all groups
             $('#select_category, #select_course, #select_chapter, .sel_lesson1').parent().show();
@@ -1378,13 +1389,17 @@ return 'admin';
             $(' #select_chapter, .sel_lesson1').parent().val();
                 // $('.sel_lesson1').parent().hide();
                     $('#select_course').parent().show();
+
+                    if(selectedType != ""){
+                        $(".details_btn").removeClass("disabled")
+                    }
                 }
                 // Trigger the change event to set the initial visibility
             });
             $('#select_type_session').trigger('change');
 
         });
-    </script>
+    </script> --}}
 
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('../../assets/vendor/libs/jquery/jquery.js') }}"></script>

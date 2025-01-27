@@ -44,6 +44,10 @@ class Session extends Model
     {
         return $this->belongsTo(Lesson::class, 'course_id');
     }
+
+    public function course_mistake(){
+        return $this->belongsTo(Course::class,'course_id');
+    }
  
     public function teacher()
     {
