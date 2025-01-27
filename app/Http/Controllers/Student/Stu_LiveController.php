@@ -47,7 +47,7 @@ class Stu_LiveController extends Controller
         return response()->file($path);
     }
 
-    public function v_live( Request $req ){
+    public function v_live( Request $req ){ 
         $categories = Category::all();
         $courses = Course::all();
         $sessions = [];
