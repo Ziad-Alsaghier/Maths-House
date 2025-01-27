@@ -188,7 +188,7 @@ class LiveController extends Controller
             'type' => 'required',
             'teacher_id' => 'required',
         ]);
-        if($arr['session_types'] == 'mistake'){
+        if($arr['session_types'] == 'mistakes'){
             $arr['lesson_id'] = Null;
         }
         $session = Session::create($arr);
