@@ -305,12 +305,14 @@ class V_ExamController extends Controller
     public function api_timer( Request $req ){
         Cookie::queue(Cookie::forget('timer'));
         Cookie::queue('timer', $req->timer_val, 1);
-        $timer = $req->timer_val;
+       $timerValue = $req->timer_val;
             session_destroy();
-            Session::put('timer', $timer);
-        return response()->json([
-            'success' => $timer
-        ]);
+       session(['timer' => $timerValue]);
+
+       return response()->json([
+       'message' => 'Timer session updated successfully',
+       'timer' => session('timer_val')
+       ]);
     }
 
 }

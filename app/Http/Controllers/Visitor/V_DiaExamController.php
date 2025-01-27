@@ -15,6 +15,7 @@ use App\Models\DaiExamMistake;
 use App\Models\ScoreList;
 use App\Models\MarketingPopup;
 use App\Models\ReportQuestionList;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 
 class V_DiaExamController extends Controller
@@ -153,19 +154,22 @@ class V_DiaExamController extends Controller
         //     ->first();
 
         // if (empty($stu_q)) {
+        $timer_val = json_decode(Session::get('timer')); // Start time from cookie
         
-        $timer_val = json_decode(session('timer'));
-        $endTiemer = date($timer_val);
-        $examtimer = date($exam->time);
-        $finalyTimer = strtotime($examtimer) - strtotime($endTiemer) ;
-        $dailyTime = date('i', $finalyTimer);
+       $startTime = Carbon::parse($timer_val ?? "00:00:00"); // Parse the start time using Carbon
+        $endTime = Carbon::parse($exam->time); // Get the current time using Carbon
+        // Calculate the difference
+        $difference = $startTime->diffForHumans($endTime);
+        // Output the result
+         $fullTime = $difference;
+
         $stu_exam = DiagnosticExamsHistory::create([
             'date' => now(),
             'user_id' => auth()->user()->id,
             'diagnostic_exams_id' => $exam->id,
             'score' => $score,
             'time' => $timer_val, 
-            'daily' => $dailyTime, 
+            'daily' => $fullTime, // Formats it as a readable date$fullTime,
             // 'dilay_timer' => $timer_val, 
             'r_questions' => $right_question,
         ]);
@@ -179,6 +183,7 @@ class V_DiaExamController extends Controller
         // }
         $dia_id = $stu_exam->id;
         // Make Daily Exam History
+            session_destroy();
         return view('Visitor.Dia_Exam.Grade', compact('deg', 'grade', 'score', 'exam', 
         'dia_id', 'right_question', 'total_question', 'mistakes','studentDiaExam'));
     }

@@ -97,10 +97,24 @@ $page_name = 'Grade';
                                 <tr>
                                     <td>Daily Time : </td>
                                     <td>
+                                        @if ($studentDiaExam->exam->time <= $exam->time)
+                                            <span style="color: green">
+                                                +{{ $studentDiaExam->exam->daily}}
+                                                <br>
+                                                Student solution time : - {{ date('i:s',
 
-                                        {{ $studentDiaExam->exam->daily }} min
-                                        <br>
-                                        Student solution time :{{ date('i:s', strtotime($studentDiaExam->exam->time)) }}
+                                                strtotime($studentDiaExam->exam->time)) }}
+                                            </span>
+                                            @else
+                                            <span style="color: red">
+                                                -{{ $studentDiaExam->exam->daily}}
+                                                <br>
+                                                Student solution time : - {{ date('i:s',
+
+                                                strtotime($studentDiaExam->exam->time)) }}
+                                            </span>
+                                            @endif
+
                                     </td>
                                 </tr>
                                 <tr>
