@@ -44,6 +44,7 @@ use App\Http\Controllers\Student\payment\PaymentPaymobController;
 Route::controller(TeacherReportController::class)
 ->prefix('TeacherReport')->group(function(){
     Route::get('/', 'data')->name('teacher_report');
+    Route::get('/Filter', 'filter')->name('teacher_report_filter');
 });
 Route::post('/question_type', [QuestionController::class, 'question_type'])->name('question_type');
 Route::get('/quize_data', [QuizzeController::class, 'quize_data'])->name('quize_data');

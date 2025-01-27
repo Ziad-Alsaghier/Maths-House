@@ -69,8 +69,12 @@ class PackagesController extends Controller
         compact('users', 'categories', 'courses'));
     }
 
-    public function stu_package_add( Request $req ){
-       
+    public function stu_package_add( Request $req ){ 
+        if ($req['student']['number'] < 0) {
+            return response()->json([
+                'errors' => 'Number must be greater than 0'
+            ], 400);
+        }
         SmallPackage::create([
             'module' => $req['student']['module'],
             'number' => $req['student']['number'],
@@ -136,6 +140,10 @@ class PackagesController extends Controller
     }
 
     public function add_small_package( Request $req ){
+        if ($req->number < 0) {            
+            session()->flash('faild', 'Number must be greater than 0');
+            return redirect()->back();
+        }
         SmallPackage::create([
             'user_id'  => $req->user_id,
             'category_id'   => $req->category_id,
