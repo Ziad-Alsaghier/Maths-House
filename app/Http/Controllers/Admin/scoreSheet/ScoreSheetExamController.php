@@ -15,7 +15,11 @@ class ScoreSheetExamController extends Controller
 
    
     public function index(User $user){
-        return view('Admin.scoreSheet.scoreSheetExam');
+        // This Function Return View Of Score Sheet Exam
+            if(!$user){
+                return redirect()->route('admin.dashboard')->with('error','User Not Found');
+            }
+        return view('Admin.scoreSheet.scoreSheetExam',compact('user'));
     }
 
     // public function show(User $user, Course $course){

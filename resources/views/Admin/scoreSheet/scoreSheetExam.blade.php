@@ -48,7 +48,8 @@ $ch_id = [];
         <div class="col-12 d-flex align-items-center justify-content-center">
             <span style="font-size: 1.6rem;font-weight: 600;color: #CF202F">Score Sheet Exam</span>
         </div>
-        <div class="col-12 d-flex align-items-center justify-content-start gap-2 py-6 px-4 rounded" style="background-color: #FEF5F3">
+        <div class="col-12 d-flex align-items-center justify-content-start gap-2 py-6 px-4 rounded"
+            style="background-color: #FEF5F3">
             <span class="col-3" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Student:
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
@@ -78,20 +79,28 @@ $ch_id = [];
                 <table class="table col-12  mt-2">
                     <thead>
                         <tr class="p-4 border border-t-2 border-b-2 " style="border:#CF202F;">
-                            <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.4rem;font-weight: 600;" scope="col">
+                            <th class="col-1"
+                                style="border-top: none !important; color: #CF202F; font-size: 1.4rem;font-weight: 600;"
+                                scope="col">
                             </th>
-                            <th class="col-3" style="border-top: none !important; color: #CF202F;font-size: 1.14rem;font-weight: 600; "
+                            <th class="col-3"
+                                style="border-top: none !important; color: #CF202F;font-size: 1.14rem;font-weight: 600; "
                                 scope="col">Test Name </th>
-                            <th class="col-3" style="border-top: none !important; color: #CF202F;font-size: 1.4rem; font-weight: 600;"
+                            <th class="col-3"
+                                style="border-top: none !important; color: #CF202F;font-size: 1.4rem; font-weight: 600;"
                                 scope="col">Score</th>
-                            <th class="col-3" style="border-top: none !important; color: #CF202F;font-size: 1.4rem; font-weight: 600;"
+                            <th class="col-3"
+                                style="border-top: none !important; color: #CF202F;font-size: 1.4rem; font-weight: 600;"
                                 scope="col">Time</th>
-                            {{-- <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
-                                scope="col">Date</th> --}}
-                            <th class="col-3" style="border-top: none !important; color: #CF202F;font-size: 1.4rem; font-weight: 600;"
+                            {{-- <th class="col-2"
+                                style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Date
+                            </th> --}}
+                            <th class="col-3"
+                                style="border-top: none !important; color: #CF202F;font-size: 1.4rem; font-weight: 600;"
                                 scope="col">Mistakes</th>
-                            {{-- <th class="col-3" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
-                                scope="col">Reports</th> --}}
+                            {{-- <th class="col-3"
+                                style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">
+                                Reports</th> --}}
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -100,7 +109,8 @@ $ch_id = [];
             </div>
             <!-- Add the button here -->
             <div class="d-flex align-items-center justify-content-center mt-3">
-                <button id="generatePdf"  style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
+                <button id="generatePdf"
+                    style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
                     Generate Mistakes PDF
                 </button>
             </div>
@@ -110,6 +120,7 @@ $ch_id = [];
 
 
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // let course_data = document.querySelector('.course_data');
         // let chapter_data = document.querySelector('.chapter_data');
@@ -151,16 +162,18 @@ $ch_id = [];
         //         }
         //     });
         // });
+
         $(document).ready(function() {
 
             // $("#selLesson").change(function() {
-
+                let user_id = {{ $user->id }}
                 // var lessonID = $(this).val()
                 $.ajax({
-                    url: "{{ route('course_exam') }}",
+                    
+                    url: "{{ route('course_exam',['user'=>$user->id]) }}",
                     type: "GET",
                     data: {
-                        user_id: {{ $user_id }},
+                        user_id: user_id,
                         // lesson_id: lessonID
                     },
                     success: function(data) {
