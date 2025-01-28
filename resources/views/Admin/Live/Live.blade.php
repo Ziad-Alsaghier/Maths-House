@@ -665,7 +665,31 @@ return 'admin';
                                                         <h1 class="fw-bold text-gray-900">Academic</h1>
                                                         <!--end::Title-->
                                                     </div>
+                                                    {{-- Start Make Type For Session Explnation Rexplenation Mistake
+                                                    --}}
 
+                                                    <div class="mb-5 fv-row sel_add_group" id="select_type_group">
+                                                        <label>
+                                                            Type Session Relational
+                                                        </label>
+                                                        <select class="form-control sesstionGroup"
+                                                            id="select_type_session" name="session_types">
+                                                            <option value="{{ $session->session_types }}">
+                                                             {{$session->session_types}}
+                                                            </option>
+                                                            @foreach ($types as $item)
+                                                            @if ($item != $session->session_types )
+                                                            <option value="{{ $item }}">
+                                                                {{ $item }}
+                                                            </option>
+                                                            @endif
+                                                            @endforeach
+                                                        </select>
+                                                        <span class="sessionGroupFaild d-none mt-3">Please Chose Session
+                                                            Group</span>
+                                                    </div>
+
+                                                    {{-- End Make Type For Session Explnation Rexplenation Mistake --}}
                                                     <!--begin::Input group-->
                                                     <div class="mb-5 fv-row">
                                                         <label>
