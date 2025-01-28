@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\LogoutUsersController;
 use App\Http\Controllers\Admin\PackagesController as Ad_PackagesController;
 use App\Http\Controllers\Admin\CurrencyController;
+
 use App\Http\Controllers\Admin\paymob\CallBackPaymobController;
 use App\Http\Controllers\Student\Stu_DashboardController;
 use App\Http\Controllers\Student\Stu_ProfileController;
@@ -438,26 +439,27 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
 
     // Reports
     Route::middleware('can:Reports')->group(function(){
+        // Teacher Report
+
         Route::controller(Ad_ReportsController::class)->group(function(){
+            Route::get('/Report/Live','ad_live_report')->name('ad_live_report');
+            Route::get('/Report/Grade','ad_grade_report')->name('ad_grade_report');
+            Route::get('/Report/Payment','ad_payment_report')->name('ad_payment_report');
+            Route::get('/Report/Course','ad_course_report')->name('ad_course_report');
+            Route::get('/Report/Question','ad_exam_report')->name('ad_question_report');
+            Route::get('/Report/ScoreSheet','ad_score_sheet_report')->name('ad_score_sheet_report');
+        
+            Route::get('/Report/ScoreSheet/Show/{id}','score_sheet_student')->name('score_sheet_student');
+            Route::get('/Report/Question/Filter','ad_report_filter_exam')->name('ad_report_filter_question');
 
-
-        Route::get('/Report/Live','ad_live_report')->name('ad_live_report');
-        Route::get('/Report/Grade','ad_grade_report')->name('ad_grade_report');
-        Route::get('/Report/Payment','ad_payment_report')->name('ad_payment_report');
-        Route::get('/Report/Course','ad_course_report')->name('ad_course_report');
-        Route::get('/Report/Question','ad_exam_report')->name('ad_question_report');
-        Route::get('/Report/ScoreSheet','ad_score_sheet_report')->name('ad_score_sheet_report');
-      
-        Route::get('/Report/ScoreSheet/Show/{id}','score_sheet_student')->name('score_sheet_student');
-        Route::get('/Report/Question/Filter','ad_report_filter_exam')->name('ad_report_filter_question');
-
-        Route::get('/Report/ScoreSheet/Show/Mistakes/{id}','ad_score_sheet_mistake')->name('ad_score_sheet_mistake');
-        Route::get('/Report/ScoreSheet/Answer/{id}','ad_score_question_answer')->name('ad_score_question_answer');
-        Route::get('/Report/ScoreSheet/Parallel/{id}','ad_question_parallel')->name('ad_question_parallel');
-        Route::post('/Report/ScoreSheet/Solve/{id}','ad_solve_parallel')->name('ad_solve_parallel');
+            Route::get('/Report/ScoreSheet/Show/Mistakes/{id}','ad_score_sheet_mistake')->name('ad_score_sheet_mistake');
+            Route::get('/Report/ScoreSheet/Answer/{id}','ad_score_question_answer')->name('ad_score_question_answer');
+            Route::get('/Report/ScoreSheet/Parallel/{id}','ad_question_parallel')->name('ad_question_parallel');
+            Route::post('/Report/ScoreSheet/Solve/{id}','ad_solve_parallel')->name('ad_solve_parallel');
         });
          Route::controller(ScoreSheetExamController::class)->group(function () {
-        Route::get('Report/ScoreSheet/student/{id}', 'index')->name('scor_sheet_exam'); // Fetch course score data
+        Route::get('Report/ScoreSheet/student/{user}', 'index')->name('scor_sheet_exam'); // Fetch course score data
+        Route::get('Report/ScoreSheet/get/courseExam/{user}', 'show')->name('course_exam'); // Get course score data
     });
     });
 

@@ -47,7 +47,7 @@ class Stu_LiveController extends Controller
         return response()->file($path);
     }
 
-    public function v_live( Request $req ){
+    public function v_live( Request $req ){ 
         $categories = Category::all();
         $courses = Course::all();
         $sessions = [];
@@ -115,7 +115,8 @@ class Stu_LiveController extends Controller
         }
 
         $package = PaymentPackageOrder::
-        leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
+        select('*', 'payment_package_order.id as payment_package_id', 'payment_package_order.number as p_number')
+        ->leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
         ->where('payment_package_order.number', '>', 0)
         ->where('payment_package_order.user_id', auth()->user()->id)
         ->where('payment_package_order.state', 1)
@@ -132,18 +133,8 @@ class Stu_LiveController extends Controller
         $small_package_count = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
         ->where('course_id', $session->lesson->chapter->course_id)
-        ->sum('number');
-        $small_package1 = SmallPackage::where('user_id', auth()->user()->id)
-        ->get();
-        $s_live = $small_package1->where('module', 'Live')->sum('number');
-        $live_count = PaymentPackageOrder::
-        leftJoin('payment_requests', 'payment_package_order.payment_request_id', '=', 'payment_requests.id')
-        ->leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
-        ->where('payment_package_order.state', 1)
-        ->where('packages.module', 'Live')
-        ->where('payment_package_order.user_id', auth()->user()->id)
-        ->sum('payment_package_order.number') + $s_live;
-        if ( !empty($small_package) && $small_package->number > 0 && $small_package_count > 0 && $live_count) {
+        ->sum('number'); 
+        if ( !empty($small_package) && $small_package->number > 0 && $small_package_count > 0 ) {
             $small_package->number = $small_package->number - 1; 
             $small_package->save();
             
@@ -163,11 +154,11 @@ class Stu_LiveController extends Controller
         foreach ( $package as $item ) {
             if ( $item->package_live != null ) {
                 $newTime = Carbon::now()->subDays($item->package_live->duration);
-                if ( $item->number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson->chapter->course_id ) {
+                if ( $item->p_number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson->chapter->course_id ) {
                     PaymentPackageOrder::
-                    where('id', $item->id )
+                    where('id', $item->payment_package_id )
                     ->update([
-                        'number' => $item->number - 1
+                        'number' => $item->p_number - 1
                     ]);
             
                     SessionAttendance::create([

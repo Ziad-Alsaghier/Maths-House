@@ -22,10 +22,16 @@
             text-align: center;
         }
 
-        .confirm-green-box {
+        .confirm-true-box {
             width: 100%;
             height: 140px;
             background: #d7f5da;
+        }
+
+        .confirm-false-box {
+            width: 100%;
+            height: 140px;
+            background: #d60e0e62;
         }
 
 
@@ -150,10 +156,14 @@
                             <h1 class="monserrat-font" style="color: Grey">Thank you for your order</h1>
                             <br>
 
-                            <div class="confirm-green-box">
+                            <div class="confirm-{{ $data['success'] }}-box">
                                 <br>
+
                                 <h5>ORDER CONFIRMATION BY {{ $paymentRequest->payment_method->name }}</h5>
-                                <p>Your order #{{ $paymentRequest->transaction_id }} has been sucessful!</p>
+                                <p>Your order #{{ $paymentRequest->transaction_id }} has been
+                                    {{ $data['success'] ? 'confirmed' : 'declined' }}.
+
+                                </p>
                                 <p>Thank you for choosing Wegostores . You will shortly receive a confirmation
                                     email.</p>
                             </div>

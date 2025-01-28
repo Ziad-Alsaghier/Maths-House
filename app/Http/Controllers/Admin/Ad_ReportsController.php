@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 use App\Models\SessionAttendance;
@@ -270,6 +271,25 @@ class Ad_ReportsController extends Controller
         compact('lessons', 'chapters', 'courses', 'student', 'user_id'));
     } 
 
+    // Start Genrate PDF 
+    // public function generate_pdf($user_id, $lesson_id){
+    //     $data = StudentQuizze::where('student_id', $user_id)
+    //     ->where('lesson_id', $lesson_id)
+    //     ->with('quizze',function($query){
+    //         $query->with('question', function($query){
+    //             $query->with('mcq')->with('q_ans')->with('g_ans');
+    //         });
+    //     })->get();
+    //     $arr = [];
+
+    //     foreach ( $data as $item ) {
+    //         $arr[$item->quizze_id] = $item;
+    //     }
+
+    //     $pdf = PDF::loadView('Admin.Reports.ScoreSheet.Student_ScoreSheet_Pdf', compact('arr'));
+    //     return $pdf->download('ScoreSheet.pdf');
+    // }
+    // End Genrate PDF
     public function ad_lesson_score_sheet( Request $req ) {
         $data = StudentQuizze::
         where('student_id', $req->user_id)

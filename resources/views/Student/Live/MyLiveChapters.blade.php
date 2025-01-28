@@ -434,11 +434,18 @@ $page_name = 'Lesson';
 
     <div style="row">
         {{-- @foreach ($sessions->unique('lesson_id') as $session) --}}
+        @php
+            $arr_chapters = [];
+        @endphp
         @foreach ($sessions as $session)
-        @if (
-        \Carbon\Carbon::now()->subDays(7) <= $session->date && $course_id == $session->lesson->chapter->course->id
+        @if ((\Carbon\Carbon::now()->subDays(7) <= $session->date && $course_id == $session->lesson->chapter->course->id
             or
             $session->lesson->getExtraDays() >= date('Y-m-d'))
+            && !in_array($session->lesson->chapter->id, $arr_chapters))
+            @php
+                $arr_chapters[] = $session->lesson->chapter->id;
+            @endphp
+
             <div class="col-xl-4 col-lg-6 col-md-6 col-12">
                 <div class="gridarea__wraper">
                     <div class="gridarea__img">

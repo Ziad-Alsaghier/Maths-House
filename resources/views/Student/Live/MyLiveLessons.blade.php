@@ -439,16 +439,22 @@ $page_name = 'Lesson';
                     <div class="accordion content__cirriculum__wrap" id="accordionExample">
 
                         {{-- @foreach ($sessions->unique('lesson_id') as $session) --}}
+                        @php
+                            $arr_lessons = [];
+                        @endphp
                         @foreach ($sessions as $session)
-                        @if ( (\Carbon\Carbon::now()->subDays(7) <= $session->date
+                        @if ( ((\Carbon\Carbon::now()->subDays(7) <= $session->date
                             &&
                             $chapter_id == $session->lesson->chapter->id)
                             or
                             ($session->lesson->getExtraDays() >= date('Y-m-d')
                             &&
-                            $chapter_id == $session->lesson->chapter->id)
+                            $chapter_id == $session->lesson->chapter->id))
+                            && !in_array($session->lesson->id, $arr_lessons)
                             )
-
+                            @php
+                                $arr_lessons[] = $session->lesson->id;
+                            @endphp
                             <div class="accordion-item">
                                 {{
                                 $chapter_id != $session->lesson->chapter->id }}
@@ -523,15 +529,22 @@ $page_name = 'Lesson';
         </div>
     </div>
     {{-- @foreach ($sessions->unique('lesson_id') as $session) --}}
+    @php
+        $arr_lessons = [];
+    @endphp
     @foreach ($sessions as $session)
     @if (
-    \Carbon\Carbon::now()->subDays(7) <= $session->date
-        &&
-        $chapter_id == $session->lesson->chapter->id
-        or
-        $session->lesson->getExtraDays() >= date('Y-m-d')
-        &&
-        $chapter_id == $session->lesson->chapter->id)
+    (\Carbon\Carbon::now()->subDays(7) <= $session->date
+    &&
+    $chapter_id == $session->lesson->chapter->id
+    or
+    $session->lesson->getExtraDays() >= date('Y-m-d')
+    &&
+    $chapter_id == $session->lesson->chapter->id)
+    && !in_array($session->lesson->id, $arr_lessons))       
+            @php
+                $arr_lessons[] = $session->lesson->id;
+            @endphp
         @foreach ($session->lesson->ideas as $idea)
         @if ( !empty($idea->pdf) )
         <a class="btn btn-success text-center m-2" href="{{asset('files\\lessons_pdf\\' . $idea->pdf)}}"
