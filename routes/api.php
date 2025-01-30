@@ -88,8 +88,12 @@ Route::get('/api_report_question', [Stu_MyCourseController::class, 'api_report_q
 Route::get('/teacher_courses', [LiveController::class, 'teacher_courses'])->name('teacher_courses');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    // return $request->user();
 });
+   Route::controller(Ad_ReportsController::class)->group(function(){
+             Route::post('/Report/ScoreSheet/generatePdf','generatePdf')->name('generate_mistakes_pdf');
+
+   });
 
 Route::prefix('v1')->group(function () {
 
