@@ -391,16 +391,8 @@ class Ad_ReportsController extends Controller
         }
         
     }
-    // Generate PDF with Blade view
-    $pdf = Pdf::loadView('questions', compact('questions', 'answers', 'user'));
-
-    // Return as download
-    return $pdf->download('ScoreSheet.pdf');
-    // Generate PDF with Blade view
-    $pdf = Pdf::loadView('questions', compact('questions'));
-
-    // Return as download
-    return $pdf->download('questions.pdf');
+ $pdf = Pdf::loadView('questions', compact('questions', 'answers'));
+ return $pdf->download('questions.pdf');
 }
 
 }
