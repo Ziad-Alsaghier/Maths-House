@@ -44,19 +44,39 @@ $ch_id = [];
         </div>
     </div> --}}
 
+    <style>
+
+        .title {
+            background-color: #FEF5F3;
+            /* padding: 10px 20px; */
+            /* border-radius: 10px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row
+        }
+        @media (max-width: 640px) { /* Tailwind's sm breakpoint is 640px */
+            .title {
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+
     <div class="col-12 mt-3 d-flex flex-column align-items-center gap-10">
         <div class="col-12 d-flex align-items-center justify-content-center">
             <span style="font-size: 1.6rem;font-weight: 600;color: #CF202F">Score Sheet Exam</span>
         </div>
-        <div class="col-12 d-flex align-items-center justify-content-start gap-2 py-6 px-4 rounded"
+        <div class="title col-12 d-flex justify-content-start gap-2 py-6 px-4 rounded"
             style="background-color: #FEF5F3">
             <span class="col-3" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Student:
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
-            <span class="col-3" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Course:
+            <span class="col-4" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Course:
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
-            <span class="col-3" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Date of join:
+            <span class="col-4" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Date of join:
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
         </div>
@@ -169,7 +189,7 @@ $ch_id = [];
                 let user_id = {{ $user->id }}
                 // var lessonID = $(this).val()
                 $.ajax({
-                    
+
                     url: "{{ route('course_exam',['user'=>$user->id]) }}",
                     type: "GET",
                     data: {

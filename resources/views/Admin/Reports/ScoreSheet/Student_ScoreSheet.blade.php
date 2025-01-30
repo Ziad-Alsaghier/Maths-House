@@ -112,10 +112,10 @@ $ch_id = [];
             <input type="hidden" value="{{ $lessons }}" class="lesson_data" />
         </div>
         <div class="col-12">
-            <div class="action-buttons mb-5">
+            {{-- <div class="action-buttons mb-5">
                 <button id="selectAll">Select All</button>
                 <button id="deselectAll">Deselect All</button>
-            </div>
+            </div> --}}
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <table class="table col-12  mt-2">
                     <thead>
@@ -230,18 +230,18 @@ $ch_id = [];
             })
 
             // Select All functionality
-            $("#selectAll").click(function () {
-                $(".row-checkbox").prop("checked", true); // Select all checkboxes
-                if ($(".row-checkbox:checked").length > 0) {
-                    $("#generatePdf").show(); // Show the button
-                }
-            });
+            // $("#selectAll").click(function () {
+            //     $(".row-checkbox").prop("checked", true); // Select all checkboxes
+            //     if ($(".row-checkbox:checked").length > 0) {
+            //         $("#generatePdf").show(); // Show the button
+            //     }
+            // });
 
             // Deselect All functionality
-            $("#deselectAll").click(function () {
-                $(".row-checkbox").prop("checked", false); // Deselect all checkboxes
-                $("#generatePdf").hide(); // Hide the button
-            });
+            // $("#deselectAll").click(function () {
+            //     $(".row-checkbox").prop("checked", false); // Deselect all checkboxes
+            //     $("#generatePdf").hide(); // Hide the button
+            // });
 
              // Show/Hide the "Generate Mistakes PDF" button based on checkbox selection
             $(document).on('change', '.row-checkbox', function () {
@@ -259,12 +259,22 @@ $ch_id = [];
                     selectedIds.push($(this).data('id'));
                 });
                 console.log("Selected IDs:", selectedIds);
+            });
 
-                // if (selectedIds.length > 0) {
-                //     const doc = new jsPDF();
-                //     doc.text("Selected Mistakes IDs: " + selectedIds.join(", "), 10, 10);
-                //     doc.save("Mistakes.pdf");
-                // }
+            // Send selected IDs via POST request
+            $.ajax({
+                // url: "{{ route('generate_mistakes_pdf') }}", // Replace with your API route
+                type: "POST",
+                data: {
+                    user_id: {{ $user_id }},
+                    // selected_ids: selectedIds
+                },
+                success: function(response) {
+                    console.log("PDF generated successfully:", response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error generating PDF:", error);
+                }
             });
 
 
