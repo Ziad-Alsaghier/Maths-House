@@ -40,7 +40,7 @@ class LiveController extends Controller
         where('position', 'student')
         ->get();
         $groups = SessionGroup::get();
-        $types = ['explanation','re_explanation', 'mistakes','other'];
+        $types = ['explanation','re_explanation', 'mistakes'];
         return view('Admin.Live.Live', 
         compact('sessions', 'groups', 'users', 'categories', 
         'courses', 'chapters', 'lessons','types', 'teachers'));
