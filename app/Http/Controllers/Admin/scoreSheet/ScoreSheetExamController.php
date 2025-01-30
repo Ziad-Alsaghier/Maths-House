@@ -46,7 +46,8 @@ class ScoreSheetExamController extends Controller
             $user = User::find($reqeust->user_id);
             $questionsIds = $reqeust->questions;
             $questions = $this->question->whereIn('id',$questionsIds)->get();
-        $exams = $questions->exam_questions;
+            $exams = $questions->exam_questions;
+            return view('Admin.scoreSheet.scoreSheetExamPdf',compact('user','questions','exams'));
 
     }
 }

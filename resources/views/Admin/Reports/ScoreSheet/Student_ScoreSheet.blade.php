@@ -267,13 +267,20 @@ $ch_id = [];
                 
             // Send selected IDs via POST request
             $.ajax({
-                url: "{{ route('generate_mistakes_pdf') }}", // Replace with your API route
+                url: "{{ route('generatePdf') }}", // Replace with your API route
                 type: "POST",
                 data: {
                     user_id: {{ $user_id }},
                     selected_ids: selectedIds
                 },
                 success: function(response) {
+                    // Create a temporary link element to download the PDF
+                    let link = document.createElement('a');
+                    link.href = response.pdf_url; // Assuming the response contains the URL to the generated PDF
+                    link.download = 'questions_pdf.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                     console.log("PDF generated successfully:", response);
                 },
                 error: function(xhr, status, error) {
