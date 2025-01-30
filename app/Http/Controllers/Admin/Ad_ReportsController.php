@@ -377,6 +377,7 @@ class Ad_ReportsController extends Controller
     
   public function generatePdf(Request $request)
 {
+    
     $user = User::find($request->user_id);
     $questionsIds = $request->selected_ids;
     $questions = $this->question->whereIn('id', $questionsIds)->with(['mcq', 'q_ans', 'g_ans'])->get();
@@ -391,7 +392,12 @@ class Ad_ReportsController extends Controller
         
     }
     // Generate PDF with Blade view
-    return $pdf = Pdf::loadView('questions', compact('questions'));
+    $pdf = Pdf::loadView('questions', compact('questions', 'answers', 'user'));
+
+    // Return as download
+    return $pdf->download('ScoreSheet.pdf');
+    // Generate PDF with Blade view
+    $pdf = Pdf::loadView('questions', compact('questions'));
 
     // Return as download
     return $pdf->download('questions.pdf');
