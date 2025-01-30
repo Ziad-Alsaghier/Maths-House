@@ -21,7 +21,10 @@ use App\Models\ReportVideoList;
 
 class Ad_ReportsController extends Controller
 {
-    
+     public function __construct(
+     private PaymentRequest $paymentRequest,
+     private Question $question
+     ){}
     public function ad_live_report( Request $req ){
         if ( !empty($req->from) && empty($req->to) ) {
             $students = SessionAttendance::
@@ -368,6 +371,16 @@ class Ad_ReportsController extends Controller
         }
         
         return view('Admin.Reports.ScoreSheet.Quiz.Solve_Parallel', compact('grade', 'question'));
+    }
+
+    public function generatePdf(Request $request){
+    // This Function Generate PDF Of Score Sheet Exam
+        return $request;
+    $user = User::find($reqeust->user_id);
+    $questionsIds = $reqeust->questions;
+    $questions = $this->question->whereIn('id',$questionsIds)->get();
+    $exams = $questions->exam_questions;
+
     }
 
 }
