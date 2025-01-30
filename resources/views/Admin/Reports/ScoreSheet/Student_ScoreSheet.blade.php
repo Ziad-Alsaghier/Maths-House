@@ -57,25 +57,28 @@ $ch_id = [];
             background: #CF202F !important;
             color: #FEF5F3 !important;
         }
+
         .action-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-    }
-    .action-buttons button {
-        padding: 10px 20px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #fff;
-        background-color: #CF202F;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .action-buttons button:hover {
-        background-color: #a11b24;
-    }
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .action-buttons button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #CF202F;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .action-buttons button:hover {
+            background-color: #a11b24;
+        }
     </style>
     <div class="col-12 mt-3 d-flex flex-column align-items-center gap-10">
         <div class="col-12 d-flex align-items-center justify-content-center">
@@ -120,7 +123,8 @@ $ch_id = [];
                 <table class="table col-12  mt-2">
                     <thead>
                         <tr>
-                            <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;" scope="col">
+                            <th class="col-1" style="border-top: none !important; color: #CF202F; font-size: 1.1rem;"
+                                scope="col">
                                 Select
                             </th>
                             <th class="col-2" style="border-top: none !important; color: #CF202F;font-size: 1.1rem; "
@@ -141,12 +145,13 @@ $ch_id = [];
                     </tbody>
                 </table>
             </div>
-              <!-- Add the button here -->
-                <div class="d-flex align-items-center justify-content-center mt-3">
-                    <button id="generatePdf"  style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
-                        Generate Mistakes PDF
-                    </button>
-                </div>
+            <!-- Add the button here -->
+            <div class="d-flex align-items-center justify-content-center mt-3">
+                <button id="generatePdf"
+                    style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
+                    Generate Mistakes PDF
+                </button>
+            </div>
         </div>
 
     </div>
@@ -263,11 +268,11 @@ $ch_id = [];
 
             // Send selected IDs via POST request
             $.ajax({
-                // url: "{{ route('generate_mistakes_pdf') }}", // Replace with your API route
+                url: "{{ route('generate_mistakes_pdf') }}", // Replace with your API route
                 type: "POST",
                 data: {
                     user_id: {{ $user_id }},
-                    // selected_ids: selectedIds
+                    selected_ids: selectedIds
                 },
                 success: function(response) {
                     console.log("PDF generated successfully:", response);
@@ -284,8 +289,8 @@ $ch_id = [];
 
 </x-default-layout>
 {{-- route('lesson_score_sheet')
-    data : {lesson_id : 1}
-    MyCourses/Mistakes/1
-    Quiz/Report/1
+data : {lesson_id : 1}
+MyCourses/Mistakes/1
+Quiz/Report/1
 
 --}}
