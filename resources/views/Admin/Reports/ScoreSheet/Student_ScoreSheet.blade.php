@@ -264,8 +264,7 @@ $ch_id = [];
                     selectedIds.push($(this).data('id'));
                 });
                 console.log("Selected IDs:", selectedIds);
-            });
-
+                
             // Send selected IDs via POST request
             $.ajax({
                 url: "{{ route('generate_mistakes_pdf') }}", // Replace with your API route
@@ -280,6 +279,8 @@ $ch_id = [];
                 error: function(xhr, status, error) {
                     console.error("Error generating PDF:", error);
                 }
+            });
+
             });
 
 
