@@ -127,7 +127,7 @@ use Carbon\Carbon;
                 <= date('H:i:s')) ) <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$item->session->lesson->lesson_name ?? "Session : Mistakes"}} {{
-                        $item->course->course_name }}</td>
+                        $item->course->course_name ?? null }}</td>
                     <td>{{$item->session->date}}</td>
                     <td>{{$item->session->from}}</td>
                     <td>{{$item->session->to}}</td>
