@@ -139,10 +139,12 @@ class Stu_LiveController extends Controller
             $small_package->save();
             
             // Return Live
-            LiveLesson::create([
-                'user_id' => auth()->user()->id,
-                'lesson_id' => $session->lesson_id
-            ]);
+            if (!empty($session->lesson_id)) {
+                LiveLesson::create([
+                    'user_id' => auth()->user()->id,
+                    'lesson_id' => $session->lesson_id
+                ]);
+            }
             SessionAttendance::create([
                 'user_id' => auth()->user()->id,
                 'session_id' => $id,
@@ -166,10 +168,12 @@ class Stu_LiveController extends Controller
                         'session_id' => $session->id
                     ]); 
 
-                    LiveLesson::create([
-                        'user_id' => auth()->user()->id,
-                        'lesson_id' => $session->lesson_id
-                    ]);
+                    if (!empty($session->lesson_id)) {
+                        LiveLesson::create([
+                            'user_id' => auth()->user()->id,
+                            'lesson_id' => $session->lesson_id
+                        ]);
+                    }
                     return redirect($session->link);
                 }
             }
