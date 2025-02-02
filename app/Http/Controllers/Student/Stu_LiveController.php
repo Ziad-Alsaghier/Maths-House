@@ -127,12 +127,12 @@ class Stu_LiveController extends Controller
 
         $small_package = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
-        ->where('course_id', $session->lesson?->chapter?->course_id?? $session->course->course_id)
+        ->where('course_id', $session->lesson?->chapter?->course_id?? $session->course?->course_id)
         ->where('number', '>', 0)
         ->first();
         $small_package_count = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
-        ->where('course_id', $session->lesson->chapter->course_id?? $session->course->course_id)
+        ->where('course_id', $session->lesson?->chapter?->course_id?? $session->course?->course_id)
         ->sum('number'); 
         if ( !empty($small_package) && $small_package->number > 0 && $small_package_count > 0 ) {
             $small_package->number = $small_package->number - 1; 
@@ -269,7 +269,7 @@ class Stu_LiveController extends Controller
 
         $small_package = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
-        ->where('course_id', $session->lesson?->chapter?->course_id ?? $session->course->course_id)
+        ->where('course_id', $session->lesson?->chapter?->course_id ?? $session->course?->course_id)
         ->where('number', '>', 0)
         ->first();
 
