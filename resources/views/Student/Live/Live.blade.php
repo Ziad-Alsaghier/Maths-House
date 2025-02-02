@@ -40,7 +40,7 @@ use Carbon\Carbon;
             >= date('H:i:s')) )
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$item->session->lesson?->lesson_name}}</td> 
+                <td>{{$item->session->lesson?->lesson_name ?? 'Mistakes Course ' . $item->session?->course?->course_name ?? null}}</td> 
                 <td>{{$item->session->date}}</td>
                 <td>{{$item->session->lesson?->chapter?->course?->course_name ?? $item->session?->course?->course_name}}</td>
                 <td>{{$item->session->teacher->nick_name}}</td>
