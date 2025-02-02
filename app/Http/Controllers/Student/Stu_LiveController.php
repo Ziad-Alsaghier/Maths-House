@@ -127,7 +127,7 @@ class Stu_LiveController extends Controller
 
         $small_package = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
-        ->where('course_id', $session->lesson->chapter->course_id?? $session->course->course_id)
+        ->where('course_id', $session->lesson?->chapter?->course_id?? $session->course->course_id)
         ->where('number', '>', 0)
         ->first();
         $small_package_count = SmallPackage::where('user_id', auth()->user()->id)
@@ -154,7 +154,7 @@ class Stu_LiveController extends Controller
         foreach ( $package as $item ) {
             if ( $item->package_live != null ) {
                 $newTime = Carbon::now()->subDays($item->package_live->duration);
-                if ( $item->p_number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson->chapter->course_id ?? $session->course->course_id ) {
+                if ( $item->p_number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson?->chapter?->course_id ?? $session->course->course_id ) {
                     PaymentPackageOrder::
                     where('id', $item->payment_package_id )
                     ->update([
@@ -269,7 +269,7 @@ class Stu_LiveController extends Controller
 
         $small_package = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
-        ->where('course_id', $session->lesson->chapter->course_id ?? $session->course->course_id)
+        ->where('course_id', $session->lesson?->chapter?->course_id ?? $session->course->course_id)
         ->where('number', '>', 0)
         ->first();
 
