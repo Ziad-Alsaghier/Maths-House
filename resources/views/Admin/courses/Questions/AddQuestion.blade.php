@@ -779,15 +779,27 @@
                      let letter_choice = document.querySelectorAll('.letter_choice');
                      let mcq_answer_radio = document.querySelectorAll('.mcq_answer_radio');
 
-                     for (let i = 0, end = letter_choice.length; i < end; i++) {
-                         letter_choice[i].addEventListener('input', function(e) {
-                             for (let j = 0; j < end; j++) {
-                                 if (e.target == letter_choice[j]) {
-                                     mcq_answer_radio[j].value = letter_choice[j].value;
-                                 }
-                             }
-                         });
-                     }
+                    //  for (let i = 0, end = letter_choice.length; i < end; i++) {
+                    //      letter_choice[i].addEventListener('input', function(e) {
+                    //          for (let j = 0; j < end; j++) {
+                    //              if (e.target == letter_choice[j]) {
+                    //                  mcq_answer_radio[j].value = letter_choice[j].value;
+                    //                  console.log(letter_choice[j].value)
+                    //              }
+                    //          }
+                    //      });
+                    //  }
+                    for (let i = 0, end = letter_choice.length; i < end; i++) {
+                        letter_choice[i].addEventListener('input', function(e) {
+                            for (let j = 0; j < end; j++) {
+                                if (e.target == letter_choice[j]) {
+                                    mcq_answer_radio[j].value = e.target.value; // Change the radio button's value
+                                    console.log(e.target.value); // Log the updated value to console
+                                }
+                            }
+                        });
+                    }
+
 
                      $(".addNewAnswer").click(function() {
                          $(this).toggleClass("d-none");
