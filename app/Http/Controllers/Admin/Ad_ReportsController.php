@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -18,12 +19,12 @@ use App\Models\ExamCodes;
 use App\Models\Exam;
 use App\Models\StudentQuizze;
 use App\Models\ReportVideoList;
-
 class Ad_ReportsController extends Controller
 {
      public function __construct(
      private PaymentRequest $paymentRequest,
-     private Question $question
+     private Exam $exam,
+    private Question $question
      ){}
     public function ad_live_report( Request $req ){
         if ( !empty($req->from) && empty($req->to) ) {
@@ -373,14 +374,25 @@ class Ad_ReportsController extends Controller
         return view('Admin.Reports.ScoreSheet.Quiz.Solve_Parallel', compact('grade', 'question'));
     }
 
-    public function generatePdf(Request $request){
-    // This Function Generate PDF Of Score Sheet Exam
-        return $request;
-    $user = User::find($reqeust->user_id);
-    $questionsIds = $reqeust->questions;
-    $questions = $this->question->whereIn('id',$questionsIds)->get();
-    $exams = $questions->exam_questions;
-
+    
+  public function generatePdf(Request $request)
+{
+    
+    $user = User::find($request->user_id);
+    $questionsIds = $request->selected_ids;
+    $questions = $this->question->whereIn('id', $questionsIds)->with(['mcq', 'q_ans', 'g_ans'])->get();
+    
+    $answers = [];
+    foreach ($questions as $question) {
+        if ($question->ans_type == 'MCQ') {
+            $answers[] = $question->mcq;
+        } elseif ($question->ans_type == 'Grid') {
+            $answers[] = $question->q_ans;
+        }
+        
     }
+ $pdf = Pdf::loadView('questions', compact('questions', 'answers'));
+ return $pdf->download('questions.pdf');
+}
 
 }

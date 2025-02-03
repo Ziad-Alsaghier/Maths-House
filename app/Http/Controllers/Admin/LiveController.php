@@ -40,7 +40,7 @@ class LiveController extends Controller
         where('position', 'student')
         ->get();
         $groups = SessionGroup::get();
-        $types = ['explanation','re_explanation', 'mistakes','other'];
+        $types = ['explanation','re_explanation', 'mistakes'];
         return view('Admin.Live.Live', 
         compact('sessions', 'groups', 'users', 'categories', 
         'courses', 'chapters', 'lessons','types', 'teachers'));
@@ -278,13 +278,15 @@ class LiveController extends Controller
 
         GroupDay::where('group_id', $req->id)
         ->delete();
-        for ($i=0, $end = count($req->day); $i < $end; $i++) { 
-            GroupDay::create([
-                'day' => $req->day[$i],
-                'from' => $req->from[$i],
-                'to' => $req->to[$i],
-                'group_id' => $req->id
-            ]);
+        if ($req->day) {
+            for ($i=0, $end = count($req->day); $i < $end; $i++) { 
+                GroupDay::create([
+                    'day' => $req->day[$i],
+                    'from' => $req->from[$i],
+                    'to' => $req->to[$i],
+                    'group_id' => $req->id
+                ]);
+            }
         }
         
         return redirect()->back();

@@ -127,22 +127,24 @@ class Stu_LiveController extends Controller
 
         $small_package = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
-        ->where('course_id', $session->lesson->chapter->course_id)
+        ->where('course_id', $session->lesson?->chapter?->course_id?? $session->course?->id)
         ->where('number', '>', 0)
         ->first();
         $small_package_count = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
-        ->where('course_id', $session->lesson->chapter->course_id)
+        ->where('course_id', $session->lesson?->chapter?->course_id?? $session->course?->id)
         ->sum('number'); 
         if ( !empty($small_package) && $small_package->number > 0 && $small_package_count > 0 ) {
             $small_package->number = $small_package->number - 1; 
             $small_package->save();
             
             // Return Live
-            LiveLesson::create([
-                'user_id' => auth()->user()->id,
-                'lesson_id' => $session->lesson_id
-            ]);
+            if (!empty($session->lesson_id)) {
+                LiveLesson::create([
+                    'user_id' => auth()->user()->id,
+                    'lesson_id' => $session->lesson_id
+                ]);
+            }
             SessionAttendance::create([
                 'user_id' => auth()->user()->id,
                 'session_id' => $id,
@@ -154,7 +156,7 @@ class Stu_LiveController extends Controller
         foreach ( $package as $item ) {
             if ( $item->package_live != null ) {
                 $newTime = Carbon::now()->subDays($item->package_live->duration);
-                if ( $item->p_number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson->chapter->course_id ) {
+                if ( $item->p_number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson?->chapter?->course_id ?? $session->course->id ) {
                     PaymentPackageOrder::
                     where('id', $item->payment_package_id )
                     ->update([
@@ -166,10 +168,12 @@ class Stu_LiveController extends Controller
                         'session_id' => $session->id
                     ]); 
 
-                    LiveLesson::create([
-                        'user_id' => auth()->user()->id,
-                        'lesson_id' => $session->lesson_id
-                    ]);
+                    if (!empty($session->lesson_id)) {
+                        LiveLesson::create([
+                            'user_id' => auth()->user()->id,
+                            'lesson_id' => $session->lesson_id
+                        ]);
+                    }
                     return redirect($session->link);
                 }
             }
@@ -269,7 +273,7 @@ class Stu_LiveController extends Controller
 
         $small_package = SmallPackage::where('user_id', auth()->user()->id)
         ->where('module', 'Live')
-        ->where('course_id', $session->lesson->chapter->course_id)
+        ->where('course_id', $session->lesson?->chapter?->course_id ?? $session->course?->id)
         ->where('number', '>', 0)
         ->first();
 

@@ -1,7 +1,6 @@
-
 @php
-    $page_name = 'Live';
-    use Carbon\Carbon;
+$page_name = 'Live';
+use Carbon\Carbon;
 @endphp
 @section('title','Live')
 @include('Student.inc.header')
@@ -26,71 +25,80 @@
         <thead>
             <th>#</th>
             <th>Name</th>
-            <th>Date</th> 
-            <th>Course</th> 
-            <th>Teacher</th> 
-            <th>From</th> 
+            <th>Date</th>
+            <th>Course</th>
+            <th>Teacher</th>
+            <th>From</th>
             <th>To</th>
             <th>Link</th>
         </thead>
 
         <tbody>
             @foreach( $sessions as $item )
-            
-            @if ( $item->session->date > date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to >= date('H:i:s')) )
+
+            @if ( $item->session->date > date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to
+            >= date('H:i:s')) )
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$item->session->lesson->lesson_name}}</td>
+                <td>{{$item->session->lesson?->lesson_name ?? 'Mistakes Course ' . $item->session?->course?->course_name ?? null}}</td> 
                 <td>{{$item->session->date}}</td>
-                <td>{{$item->session->lesson->chapter->course->course_name}}</td>
+                <td>{{$item->session->lesson?->chapter?->course?->course_name ?? $item->session?->course?->course_name}}</td>
                 <td>{{$item->session->teacher->nick_name}}</td>
                 <td>{{$item->session->from}}</td>
                 <td>{{$item->session->to}}</td>
                 <td>
                     <button class="btn btn-primary wallet_btn">
-                        Attend 
+                        Attend
                     </button>
 
-                    @if ( $item->session->date == date('Y-m-d') && ( Carbon::now()->addMinutes(10)->format('H:i:s') >= $item->session->from ) )
-                        
-                    <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+                    @if ( $item->session->date == date('Y-m-d') && ( Carbon::now()->addMinutes(10)->format('H:i:s') >=
+                    $item->session->from ) )
+
+                    <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1"
+                        style="display: block;" aria-modal="true" role="dialog">
                         <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="modalCenterTitle">Session</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalCenterTitle">Session</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure to attend now ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-label-secondary close_wallet_btn"
+                                        data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <a class="btn btn-success"
+                                        href="{{route('use_live', ['id' => $item->session->id])}}">
+                                        Start
+                                    </a>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                Are you sure to attend now ?
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-label-secondary close_wallet_btn" data-bs-dismiss="modal">
-                                Close
-                            </button>
-                            <a class="btn btn-success" href="{{route('use_live', ['id' => $item->session->id])}}">
-                                Start
-                            </a>
-                            </div>
-                        </div>
                         </div>
                     </div>
-                    @else    
-                    <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+                    @else
+                    <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1"
+                        style="display: block;" aria-modal="true" role="dialog">
                         <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="modalCenterTitle">Session</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalCenterTitle">Session</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    You can't attend this session right now please come again later
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-label-secondary close_wallet_btn"
+                                        data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                You can't attend this session right now please come again later
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-label-secondary close_wallet_btn" data-bs-dismiss="modal">
-                                Close
-                            </button>
-                            </div>
-                        </div>
                         </div>
                     </div>
                     @endif
@@ -107,27 +115,27 @@
         <thead>
             <th>#</th>
             <th>Name</th>
-            <th>Date</th> 
-            <th>From</th> 
+            <th>Date</th>
+            <th>From</th>
             <th>To</th>
             <th>Statue</th>
         </thead>
 
         <tbody>
             @foreach( $sessions as $item )
-            @if ( $item->session->date < date('Y-m-d') || 
-            ($item->session->date == date('Y-m-d') && $item->session->to <= date('H:i:s')) )
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$item->session->lesson->lesson_name}}</td>
-                <td>{{$item->session->date}}</td>
-                <td>{{$item->session->from}}</td>
-                <td>{{$item->session->to}}</td>
-                <td>
-                    {{count($item->session->user_attend) == 0 ? 'Missed' : 'Attend'}}</td>
-            </tr>
-            @endif
-            @endforeach
+            @if ( $item->session->date < date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to
+                <= date('H:i:s')) ) <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$item->session->lesson?->lesson_name ?? "Session : Mistakes"}} {{
+                        $item->session?->course?->course_name ?? null }}</td>
+                    <td>{{$item->session->date}}</td>
+                    <td>{{$item->session->from}}</td>
+                    <td>{{$item->session->to}}</td>
+                    <td>
+                        {{count($item->session->user_attend) == 0 ? 'Missed' : 'Attend'}}</td>
+                    </tr>
+                    @endif
+                    @endforeach
         </tbody>
     </table>
 </div>
