@@ -264,11 +264,14 @@ $ch_id = [];
                     selectedIds.push($(this).data('id'));
                 });
                 console.log("Selected IDs:", selectedIds);
-                
+
             // Send selected IDs via POST request
             $.ajax({
                 url: "{{ route('generate_mistakes_pdf') }}", // Replace with your API route
                 type: "POST",
+                headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}" // Include CSRF token if needed
+                    },
                 data: {
                     user_id: {{ $user_id }},
                     selected_ids: selectedIds
