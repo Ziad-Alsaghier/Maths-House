@@ -295,9 +295,25 @@ class Ad_ReportsController extends Controller
     // }
     // End Genrate PDF
     public function ad_lesson_score_sheet( Request $req ) {
+        $lessons = [];
+        if ($req->lesson_id && !empty($req->lesson_id)) {
+            $lessons = collect([$req->lesson_id]);
+        }
+        elseif ($req->chapter_id && !empty($req->chapter_id)) {
+            $lessons = Lesson::
+            where('chapter_id', $req->chapter_id)
+            ->pluck('id');
+        }
+        elseif ($req->course_id && !empty($req->course_id)) {
+            $lessons = Chapter::
+            where('course_id', $req->course_id)
+            ->with('lessons')
+            ->get();
+            $lessons = $lessons->pluck('lessons.id');
+        }
         $data = StudentQuizze::
         where('student_id', $req->user_id)
-        ->where('lesson_id', $req->lesson_id)
+        ->whereIn('lesson_id', $lessons)
         ->with('quizze',function($query){
             $query->with('question', function($query){
                 $query->with('mcq')->with('q_ans')->with('g_ans');
