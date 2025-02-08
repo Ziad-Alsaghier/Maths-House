@@ -183,7 +183,7 @@ class V_DiaExamController extends Controller
         // }
         $dia_id = $stu_exam->id;
         // Make Daily Exam History
-            session_destroy();
+          //  session_destroy();
         return view('Visitor.Dia_Exam.Grade', compact('deg', 'grade', 'score', 'exam', 
         'dia_id', 'right_question', 'total_question', 'mistakes','studentDiaExam'));
     }
