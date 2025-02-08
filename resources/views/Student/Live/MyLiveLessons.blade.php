@@ -533,24 +533,6 @@ $page_name = 'Lesson';
     @php
         $arr_lessons = [];
     @endphp
-    @foreach ($sessions as $session)
-    @if ($session->lesson?->chapter?->id
-    (\Carbon\Carbon::now()->subDays(7) <= $session->date
-    &&
-    $chapter_id == $session->lesson->chapter->id
-    or
-    $session->lesson->getExtraDays() >= date('Y-m-d')
-    &&
-    $chapter_id == $session->lesson->chapter->id)
-    && !in_array($session->lesson->id, $arr_lessons))       
-            @php
-                $arr_lessons[] = $session->lesson->id;
-            @endphp
-        @foreach ($session->lesson->ideas as $idea)
-  
-        @endforeach
-        @endif
-        @endforeach
         </div>
         <!-- tution__section__end -->
 
