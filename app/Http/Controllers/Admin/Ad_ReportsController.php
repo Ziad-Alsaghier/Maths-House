@@ -313,7 +313,7 @@ class Ad_ReportsController extends Controller
         }
         $data = StudentQuizze::
         where('student_id', $req->user_id)
-        ->whereIn('lesson_id', $lessons)
+        ->where('lesson_id', $req->lesson_id)
         ->with('quizze',function($query){
             $query->with('question', function($query){
                 $query->with('mcq')->with('q_ans')->with('g_ans');

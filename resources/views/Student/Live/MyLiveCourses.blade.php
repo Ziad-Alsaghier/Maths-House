@@ -488,16 +488,16 @@ $page_name = 'Lesson';
         @endphp
 
         @if ( \Carbon\Carbon::now()->subDays(7) <= $session->date &&
-            !in_array($session->lesson->chapter->course->id,$arr) or
-            (!in_array($session->lesson->chapter->course->id,$arr) && $session->lesson->getExtraDays() >=
+            !in_array($session->lesson?->chapter>->course?->id ?? null,$arr) or
+            (!in_array($session->lesson?->chapter?->course?->id ?? null,$arr) && $session->lesson->getExtraDays() >=
             date('Y-m-d')))
             <div class="col-xl-4 col-lg-6 col-md-6 col-12">
                 <div class="gridarea__wraper">
                     <div class="gridarea__img">
                         <a
-                            href="{{ route('stu_live_chapters', ['course_id' => $session->lesson->chapter->course->id]) }}">
+                            href="{{ route('stu_live_chapters', ['course_id' => $session->lesson?->chapter?->course?->id ?? null]) }}">
                             <img loading="lazy"
-                                src="{{ asset('images/courses/' . $session->lesson->chapter->course->course_url) }}"
+                                src="{{ asset('images/courses/' . $session->lesson?->chapter?->course?->course_url ?? null) }}"
                                 alt="grid"></a>
                         <div class="gridarea__small__button">
                             <div class="grid__badge">Data &amp; Tech</div>
@@ -515,8 +515,8 @@ $page_name = 'Lesson';
                         <div class="gridarea__heading">
                             <h3>
                                 <a
-                                    href="{{ route('stu_live_chapters', ['course_id' => $session->lesson->chapter->course->id]) }}">
-                                    {{ $session->lesson->chapter->course->course_name }}
+                                    href="{{ route('stu_live_chapters', ['course_id' => $session->lesson?->chapter?->course?->id ?? null]) }}">
+                                    {{ $session->lesson?->chapter?->course?->course_name ?? null }}
                                 </a>
                             </h3>
                         </div>
@@ -527,7 +527,7 @@ $page_name = 'Lesson';
                                     <img loading="lazy" src="../img/grid/grid_small_1.jpg" alt="grid">
                                     <div class="gridarea__small__content">
                                         <h6>
-                                            {{ $session->lesson->chapter->course->teacher->name }}
+                                            {{ $session->lesson?->chapter?->course?->teacher?->name  ?? null}}
                                         </h6>
                                     </div>
                                 </div>
@@ -579,7 +579,7 @@ $page_name = 'Lesson';
             </div> --}}
 
             @php
-            $arr[] = $session->lesson->chapter->course->id;
+            $arr[] = $session->lesson?->chapter?->course?->id ?? null;
             @endphp
             @endif
 

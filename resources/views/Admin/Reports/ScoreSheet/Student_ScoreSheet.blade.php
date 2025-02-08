@@ -198,6 +198,39 @@ $ch_id = [];
             });
         });
         $(document).ready(function() {
+            $("#selCourse").change(function() {
+                var lessonID = $(this).val()
+                $.ajax({
+                    url: "{{ route('ad_lesson_score_sheet') }}",
+                    type: "GET",
+                    data: {
+                        user_id: {{ $user_id }},
+                        lesson_id: lessonID
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        console.log(data.data)
+
+                        $(data.data).each((index, ele) => {
+                            console.log("ele", ele)
+                            var newRow = `<tr>
+                                <td style="padding-top: 15px !important">
+                                    <input type="checkbox" class="row-checkbox" data-id="${ele.id}">
+                                </td>
+                                <td style="padding-top: 15px !important">${ele.quizze.title}</td>
+                                <td style="padding-top: 15px !important">${ele.score + "/" + ele.quizze.score}</td>
+                                <td style="padding-top: 15px !important">${ele.time}</td>
+                                <td style="padding-top: 15px !important">${ele.date}</td>
+                                <td><a class="conBtn" href="Mistakes/${ele.id}">View Mistakes</a></td>
+                                <td><a class="conBtn" href="Quiz/Report/${ele.id}">Report</a></td>
+                            </tr>`;
+                            $("#myTable").append(newRow)
+                            console.log(ele)
+                        })
+
+                    }
+                })
+            })
 
             $("#selLesson").change(function() {
 
