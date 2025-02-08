@@ -534,7 +534,7 @@ $page_name = 'Lesson';
         $arr_lessons = [];
     @endphp
     @foreach ($sessions as $session)
-    @if (
+    @if ($session->lesson?->chapter?->id
     (\Carbon\Carbon::now()->subDays(7) <= $session->date
     &&
     $chapter_id == $session->lesson->chapter->id
