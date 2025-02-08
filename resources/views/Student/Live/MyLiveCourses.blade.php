@@ -487,9 +487,9 @@ $page_name = 'Lesson';
 
         @endphp
 
-        @if ( \Carbon\Carbon::now()->subDays(7) <= $session->date &&
+        @if ( $session->lesson?->chapter?->course?->id && \Carbon\Carbon::now()->subDays(7) <= $session->date &&
             !in_array($session->lesson?->chapter?->course?->id ?? null,$arr) or
-            (!in_array($session->lesson?->chapter?->course?->id ?? null,$arr) && $session->lesson->getExtraDays() >=
+            $session->lesson?->chapter?->course?->id && (!in_array($session->lesson?->chapter?->course?->id ?? null,$arr) && $session->lesson->getExtraDays() >=
             date('Y-m-d')))
             <div class="col-xl-4 col-lg-6 col-md-6 col-12">
                 <div class="gridarea__wraper">
