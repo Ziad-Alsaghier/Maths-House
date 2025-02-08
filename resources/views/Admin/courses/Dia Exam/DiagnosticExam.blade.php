@@ -291,7 +291,7 @@
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Houre: </span>
                                                 <input type="number" name="time_h" max="3" min="0"
-                                                    class="col-md-4 form-control">
+                                                    class="col-md-4 form-control" value="0">
                                             </div>
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
