@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\PaymentRequest;
 use App\Models\Question;
 use App\Models\ExamHistory;
+use App\Models\LiveCourse;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,7 @@ class ScoreSheetExamController extends Controller
         private Question $question,
         private Course $courses,
         private ExamHistory $exam_history,
+        private LiveCourse $stu_course,
         ){}
 
    
@@ -32,9 +34,16 @@ class ScoreSheetExamController extends Controller
         $exam_history = $this->exam_history
         ->where('user_id', $user->id)
         ->get();
+        $stu_course = $this->stu_course
+        ->where('user_id', $user->id)
+        ->orderByDesc('id')
+        ->first();
+        if (!empty($stu_course)) {
+            $stu_course = $stu_course->course;
+        }
 
         return view('Admin.scoreSheet.scoreSheetExam',
-        compact('user', 'courses', 'exam_history'));
+        compact('user', 'courses', 'exam_history', 'stu_course'));
     }
 
    

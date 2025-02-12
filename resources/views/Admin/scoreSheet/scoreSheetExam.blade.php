@@ -91,7 +91,7 @@ $ch_id = [];
             <span class="col-3" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Student: {{$user->nick_name}}
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
-            <span class="col-4" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Course:
+            <span class="col-4" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Course: {{$stu_course->course_name}}
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
             <span class="col-4" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Date of join: {{$user->created_at->format('d-m-Y')}}
