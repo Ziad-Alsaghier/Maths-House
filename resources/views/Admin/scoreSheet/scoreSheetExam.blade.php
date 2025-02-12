@@ -46,6 +46,24 @@ $ch_id = [];
 
     <style>
 
+.conBtn {
+            width: 100% !important;
+            background: #FEF5F3 !important;
+            color: #CF202F !important;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 5px 20px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .conBtn:hover {
+            background: #CF202F !important;
+            color: #FEF5F3 !important;
+        }
         .title {
             background-color: #FEF5F3;
             /* padding: 10px 20px; */
@@ -70,13 +88,13 @@ $ch_id = [];
         </div>
         <div class="title col-12 d-flex justify-content-start gap-2 py-6 px-4 rounded"
             style="background-color: #FEF5F3">
-            <span class="col-3" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Student:
+            <span class="col-3" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Student: {{$user->nick_name}}
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
             <span class="col-4" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Course:
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
-            <span class="col-4" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Date of join:
+            <span class="col-4" style="color: #CF202F;font-size: 1.4rem;font-weight: 600">Date of join: {{$user->created_at->format('d-m-Y')}}
                 {{-- {{ $student->f_name . ' ' . $student->l_name . '(' . $student->nick_name . ')' }} --}}
             </span>
         </div>
@@ -86,9 +104,9 @@ $ch_id = [];
                 style="width: 20%;font-size: 1.4rem;font-weight: 600; border: none;border-radius: 0;"
                 name="Course_Course" id="selCourse">
                 <option selected disabled>Select Course</option>
-                {{-- @foreach ($courses as $item)
+                @foreach ($courses as $item)
                 <option value="{{ $item->id }}">{{ $item->course_name }}</option>
-                @endforeach --}}
+                @endforeach
             </select>
             {{-- <input type="hidden" value="{{ $courses }}" class="course_data" />
             <input type="hidden" value="{{ $chapters }}" class="chapter_data" />
@@ -124,6 +142,41 @@ $ch_id = [];
                         </tr>
                     </thead>
                     <tbody id="myTable">
+                        @foreach ($exam_history as $item)
+                        <tr class="p-4 border border-t-2 border-b-2 " style="border:#CF202F;">
+                            <th class="col-1"
+                            style="border-top: none !important; color: #CF202F; font-size: 1.4rem;font-weight: 600;"
+                            scope="col">
+                                {{$loop->iteration}}
+                            </th>
+                            <th class="col-3"
+                            style="border-top: none !important; color: #CF202F;font-size: 1.14rem;font-weight: 600; "
+                            scope="col">
+                                {{$item->exams->title}} 
+                            </th>
+                            <th class="col-3"
+                            style="border-top: none !important; color: #CF202F;font-size: 1.4rem; font-weight: 600;"
+                            scope="col"> 
+                                {{$item->score}} 
+                            </th>
+                            <th class="col-3"
+                            style="border-top: none !important; color: #CF202F;font-size: 1.4rem; font-weight: 600;"
+                            scope="col">
+                                {{$item->time}} 
+                            </th>
+                            {{-- <th class="col-2"
+                                style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">Date
+                            </th> --}}
+                            {{-- Admin/Report/ScoreSheet/Show/Mistakes/3973 --}}
+                            
+                            <td>
+                                <a class="conBtn" href="{{route('ad_score_exam_mistake', $item->id)}}">View Mistakes</a>
+                            </td>
+                            {{-- <th class="col-3"
+                                style="border-top: none !important; color: #CF202F;font-size: 1.1rem; " scope="col">
+                                Reports</th> --}}
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

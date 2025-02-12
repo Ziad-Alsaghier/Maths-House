@@ -146,12 +146,19 @@ $ch_id = [];
                 </table>
             </div>
             <!-- Add the button here -->
-            <div class="d-flex align-items-center justify-content-center mt-3">
-                <button id="generatePdf"
-                    style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
-                    Generate Mistakes PDF
-                </button>
-            </div>
+            {{-- <form action="{{route('generatePdf')}}" method="post">
+                @csrf
+                <input type="hidden" name="user_id" value="{{$user_id}}" />
+                <input type="hidden" name="selected_ids" class="selected_ids" value="" /> --}}
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                    <button id="generatePdf"
+                        style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
+                        Generate Mistakes PDF
+                    </button>
+                    {{-- : {{  }},
+                    selected_ids: selectedIds --}}
+                </div>
+            {{-- </form> --}}
         </div>
 
     </div>

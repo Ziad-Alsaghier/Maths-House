@@ -453,6 +453,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
             Route::get('/Report/Question/Filter','ad_report_filter_exam')->name('ad_report_filter_question');
 
             Route::get('/Report/ScoreSheet/Show/Mistakes/{id}','ad_score_sheet_mistake')->name('ad_score_sheet_mistake');
+            Route::get('/Report/ScoreSheet/Exam/Mistakes/{id}','ad_score_exam_mistake')->name('ad_score_exam_mistake');
             Route::get('/Report/ScoreSheet/Answer/{id}','ad_score_question_answer')->name('ad_score_question_answer');
             Route::get('/Report/ScoreSheet/Parallel/{id}','ad_question_parallel')->name('ad_question_parallel');
             Route::post('/Report/ScoreSheet/Solve/{id}','ad_solve_parallel')->name('ad_solve_parallel');

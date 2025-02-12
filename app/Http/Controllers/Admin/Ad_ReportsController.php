@@ -16,6 +16,7 @@ use App\Models\Chapter;
 use App\Models\Lesson;
 use App\Models\Question;
 use App\Models\ExamCodes;
+use App\Models\ExamHistory;
 use App\Models\Exam;
 use App\Models\StudentQuizze;
 use App\Models\ReportVideoList;
@@ -339,6 +340,14 @@ class Ad_ReportsController extends Controller
         return view('Admin.Reports.ScoreSheet.Quiz.Quiz_Mistakes', compact('mistakes', 'questions'));
     }
 
+    public function ad_score_exam_mistake( $id ){
+        $mistakes = ExamHistory::where('id', $id)
+        ->first();
+        $questions = $mistakes->mistakes;
+
+        return view('Admin.Reports.ScoreSheet.Exam.Exam_Mistakes', compact('mistakes', 'questions'));
+    }
+
     public function ad_score_question_answer( $id ){
         if ( empty(auth()->user()) ) {
             if ( !session()->has('previous_page') ) {
@@ -392,24 +401,23 @@ class Ad_ReportsController extends Controller
     }
 
     
-  public function generatePdf(Request $request)
-{
-    
-    $user = User::find($request->user_id);
-    $questionsIds = $request->selected_ids;
-    $questions = $this->question->whereIn('id', $questionsIds)->with(['mcq', 'q_ans', 'g_ans'])->get();
-    
-    $answers = [];
-    foreach ($questions as $question) {
-        if ($question->ans_type == 'MCQ') {
-            $answers[] = $question->mcq;
-        } elseif ($question->ans_type == 'Grid') {
-            $answers[] = $question->q_ans;
-        }
+    public function generatePdf(Request $request) {
         
+        $user = User::find($request->user_id);
+        $questionsIds = $request->selected_ids;
+        $questions = $this->question->whereIn('id', $questionsIds)->with(['mcq', 'q_ans', 'g_ans'])->get();
+        
+        $answers = [];
+        foreach ($questions as $question) {
+            if ($question->ans_type == 'MCQ') {
+                $answers[] = $question->mcq;
+            } elseif ($question->ans_type == 'Grid') {
+                $answers[] = $question->q_ans;
+            }
+            
+        }
+        $pdf = Pdf::loadView('questions', compact('questions', 'answers'));
+        return $pdf->stream('questions.pdf');
     }
- $pdf = Pdf::loadView('questions', compact('questions', 'answers'));
- return $pdf->download('questions.pdf');
-}
 
 }
