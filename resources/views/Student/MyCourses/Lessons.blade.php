@@ -107,11 +107,32 @@
     background-color: #a31922;
 }
 
+
+/* Wrapper to Maintain Aspect Ratio */
+.responsive-video {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* Make Video Fill Container */
+.responsive-video video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures full coverage without scroll */
+    border: none;
+}
+
 /* General Button Styles */
-.btn-action {
-    background-color: #FEF5F3;  /* Light cream color */
-    color: #CF202F;  /* Red color */
-    border: 2px solid #CF202F;  /* Red border */
+/* .btn-action {
+    background-color: #FEF5F3;
+    color: #CF202F;
+    border: 2px solid #CF202F;
     font-weight: 500;
     font-size: 1rem;
     padding: 10px 20px;
@@ -122,7 +143,50 @@
     width: auto;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+} */
+
+/* Ensure the button and text remain responsive */
+.btn-action {
+    max-width: 100%;
+    min-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 }
+
+/* Make the lesson name truncation work properly */
+.lesson-name {
+    max-width: 50%; /* Adjust based on screen size */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .btn-action {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+    .lesson-name {
+        max-width: 40%;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-action {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+    .lesson-name {
+        max-width: 35%;
+    }
+}
+
 
 .btn-action:hover {
     background-color: #CF202F;  /* Red background on hover */
@@ -149,6 +213,13 @@
     background-color: #FEF5F3;  /* Light cream color hover */
     color: #CF202F;  /* Red text on hover */
 }
+
+/* .btn-action {
+    max-width: 600px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} */
 
 /* Icon Styling */
 .btn-action i {
@@ -803,33 +874,22 @@
                                                             @php
                                                                 $renderedIdeas[] = $ideas->id;
                                                             @endphp
-                                                        <div class="lesson__content__main mb-5 p-2 pt-4 pr-0 rounded shadow-lg" style="background-color: #f9f9f9; border: 1px solid #ddd;">
-                                                            <!-- Lesson Title -->
-                                                            <div class="mb-4 text-center">
-                                                                <h3 class="fw-bold" style="color: #CF202F; font-size: 1.8rem; letter-spacing: 1px;">
-                                                                    {{ $ideas->idea }}
-                                                                </h3>
-                                                            </div>
-
-                                                            <div class="video-player-wrapper position-relative rounded overflow-hidden shadow">
-                                                                <!-- Video Player -->
-                                                                <iframe
-                                                                    scrolling="no"
-                                                                    allowfullscreen
-                                                                    class="embed-responsive-item"
-                                                                    style="width:100%; height:350px; border: none;"
-                                                                    src="{{ $ideas->v_link }}"
-                                                                    title="YouTube video player"
-                                                                    frameborder="0"
-                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-                                                                </iframe>
-
-                                                                <!-- Play Icon Overlay (Optional) -->
-                                                                {{-- <div class="play-overlay position-absolute top-50 start-50 translate-middle">
-                                                                    <i class="fa-solid fa-play-circle text-white" style="font-size: 4rem; opacity: 0.7;"></i>
-                                                                </div> --}}
-                                                            </div>
+                                                    <div class="lesson__content__main d-none" style="margin-bottom: 80px;">
+                                                        <div class="mb-4 text-center">
+                                                            <h3 class="fw-bold" style="color: #CF202F; font-size: 1.8rem; letter-spacing: 1px;">
+                                                                {{ $ideas->idea }}
+                                                            </h3>
                                                         </div>
+
+                                                        <div class="plyr__video-embed">
+                                                            <iframe  scrolling="no" allowfullscreen style="width: 100%; margin-top: 45px;"
+                                                                src="{{ $ideas->v_link }}"
+                                                                title="YouTube video player"
+                                                                frameborder="0"
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                allowfullscreen></iframe>
+                                                        </div>
+                                                    </div>
 
                                                         @endif
                                                     @endforeach
@@ -846,12 +906,12 @@
                                             Select an Issue:
                                         </h4>
                                         <div class="dropdown" style="width: 70%">
-                                            <button 
-                                                class="btn dropdown-toggle text-white px-4 py-2" 
-                                                type="button" 
-                                                id="dropdownMenuButton" 
-                                                data-bs-toggle="dropdown" 
-                                                aria-expanded="false" 
+                                            <button
+                                                class="btn dropdown-toggle text-white px-4 py-2"
+                                                type="button"
+                                                id="dropdownMenuButton"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
                                                 style="background-color: #CF202F; border: none; border-radius: 5px;">
                                                 Report Issue
                                             </button>
@@ -866,14 +926,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                            
+
+
                                 @foreach ($arr2 as $idea)
                                     @if (!empty($idea->pdf))
                                         <!-- Button with Dropdown for PDF actions -->
-                                        <div class="btn-group m-2">
-                                            <button class="btn btn-action dropdown-toggle rounded shadow-sm" type="button" id="dropdownMenu{{$idea->id}}" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-file-pdf"></i> {{$idea->lesson->lesson_name}} {{$idea->idea}}
+                                        {{-- <div class="btn-group m-2">
+                                            <button class="btn btn-action dropdown-toggle rounded shadow-sm d-flex align-items-center"
+                                                    type="button"
+                                                    id="dropdownMenu{{$idea->id}}"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-file-pdf me-2"></i>
+                                                <span class="text-truncate" style="max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block;">
+                                                    {{$idea->lesson->lesson_name}}
+                                                </span>
+                                                {{$idea->idea}}
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{$idea->id}}">
                                                 <li>
@@ -887,11 +955,39 @@
                                                     </a>
                                                 </li>
                                             </ul>
+                                        </div> --}}
+
+                                        <div class="btn-group m-2 w-100">
+                                            <button class="btn btn-action dropdown-toggle rounded shadow-sm d-flex align-items-center w-100 text-start"
+                                                    type="button"
+                                                    id="dropdownMenu{{$idea->id}}"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-file-pdf me-2"></i>
+                                                <span class="lesson-name flex-grow-1 text-truncate">
+                                                    {{$idea->lesson->lesson_name}}
+                                                </span>
+                                                <span class="ms-2">{{$idea->idea}}</span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{$idea->id}}">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ asset('files\\lessons_pdf\\' . $idea->pdf) }}"
+                                                       download="{{ asset('files\\lessons_pdf' . $idea->pdf) }}">
+                                                        <i class="fas fa-download"></i> Download PDF
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" target="_blank" href="{{ route('stu_live_pdf', ['file_name' => $idea->pdf]) }}">
+                                                        <i class="fas fa-eye"></i> View PDF
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
+
                                         <br />
                                     @endif
                                 @endforeach
-                            
+
                             </div>
                         </div>
                     </div>
