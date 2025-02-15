@@ -443,12 +443,11 @@ $page_name = 'Lesson';
                             $arr_lessons = [];
                         @endphp
                         @foreach ($sessions as $session)
-                        @if ( $session->lesson?->chapter?->id && 
+                        @if ( $session->lesson?->chapter?->id &&
+                            $chapter_id == $session->lesson->chapter->id && 
                             ((\Carbon\Carbon::now()->subDays(7) <= $session->date
-                            &&
-                            $chapter_id == $session->lesson->chapter->id)
                             or
-                            ($session->lesson->getExtraDays() >= date('Y-m-d')
+                            ($session->lesson->getExtraDays() >= date('Y-m-d'))
                             &&
                             $chapter_id == $session->lesson->chapter->id))
                             && !in_array($session->lesson->id, $arr_lessons)

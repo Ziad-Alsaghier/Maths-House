@@ -438,7 +438,8 @@ $page_name = 'Lesson';
             $arr_chapters = [];
         @endphp
         @foreach ($sessions as $session)
-        @if ($session->lesson?->chapter?->course?->id && (\Carbon\Carbon::now()->subDays(7) <= $session->date && $course_id == $session->lesson->chapter->course->id
+        @if ($session->lesson?->chapter?->course?->id && $course_id == $session->lesson->chapter->course->id 
+        && (\Carbon\Carbon::now()->subDays(7) <= $session->date
             or
             $session->lesson->getExtraDays() >= date('Y-m-d'))
             && !in_array($session->lesson->chapter->id, $arr_chapters))

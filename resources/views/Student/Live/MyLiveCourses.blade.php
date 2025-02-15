@@ -474,9 +474,9 @@ $page_name = 'Lesson';
 
     <!-- tution__section__start -->
 
-    <div style="row d-flex">
+    <divarr style="row d-flex">
         @php
-        $arr = [];
+        $ = [];
         $arr_sessions = [];
         @endphp
         @foreach ($sessions as $session)
