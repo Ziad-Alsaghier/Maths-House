@@ -141,17 +141,26 @@ $ch_id = [];
                                 scope="col">Reports</th>
                         </tr>
                     </thead>
+
                     <tbody id="myTable">
                     </tbody>
                 </table>
             </div>
             <!-- Add the button here -->
-            <div class="d-flex align-items-center justify-content-center mt-3">
-                <button id="generatePdf"
-                    style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
-                    Generate Mistakes PDF
-                </button>
-            </div>
+            <form action="{{ route('generatePdf') }}" method="POST">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ $user_id }}">
+                <input type="hidden" name="selected_ids[]" id="selectedIdsInput">
+
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                    <button type="submit" id="generatePdf"
+                        style="display: none; background-color: #e43e4c; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, color 0.3s;">
+                        Generate Mistakes PDF
+                    </button>
+                </div>
+            </form>
+
+
         </div>
 
     </div>
@@ -282,49 +291,74 @@ $ch_id = [];
             // });
 
              // Show/Hide the "Generate Mistakes PDF" button based on checkbox selection
+            // $(document).on('change', '.row-checkbox', function () {
+            //     if ($('.row-checkbox:checked').length > 0) {
+            //         $('#generatePdf').show(); // Show the button if at least one checkbox is selected
+            //     } else {
+            //         $('#generatePdf').hide(); // Hide the button if no checkboxes are selected
+            //     }
+            // });
+
+
             $(document).on('change', '.row-checkbox', function () {
-                if ($('.row-checkbox:checked').length > 0) {
-                    $('#generatePdf').show(); // Show the button if at least one checkbox is selected
-                } else {
-                    $('#generatePdf').hide(); // Hide the button if no checkboxes are selected
-                }
-            });
+    let selectedIds = [];
+    $('.row-checkbox:checked').each(function () {
+        selectedIds.push($(this).data('id')); // Collect selected IDs
+    });
+
+    // Clear any previous hidden inputs
+    $('#selectedIdsInput').remove();
+
+    // Append hidden inputs for each selected ID
+    selectedIds.forEach(id => {
+        $('form').append(`<input type="hidden" name="selected_ids[]" value="${id}" class="selected-id">`);
+    });
+
+    // Show the button if at least one checkbox is selected
+    if (selectedIds.length > 0) {
+        $('#generatePdf').show();
+    } else {
+        $('#generatePdf').hide();
+    }
+});
+
+
 
             // Handle the click event of the "Generate Mistakes PDF" button
-            $('#generatePdf').click(function () {
-                let selectedIds = [];
-                $('.row-checkbox:checked').each(function () {
-                    selectedIds.push($(this).data('id'));
-                });
-                console.log("Selected IDs:", selectedIds);
+            // $('#generatePdf').click(function () {
+            //     let selectedIds = [];
+            //     $('.row-checkbox:checked').each(function () {
+            //         selectedIds.push($(this).data('id'));
+            //     });
+            //     console.log("Selected IDs:", selectedIds);
 
-            // Send selected IDs via POST request
-            $.ajax({
-                url: "{{ route('generatePdf') }}", // Replace with your API route
-                type: "POST",
-                headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}" // Include CSRF token if needed
-                    },
-                data: {
-                    user_id: {{ $user_id }},
-                    selected_ids: selectedIds
-                },
-                success: function(response) {
-                    // Create a temporary link element to download the PDF
-                    let link = document.createElement('a');
-                    link.href = response.pdf_url; // Assuming the response contains the URL to the generated PDF
-                    link.download = 'questions_pdf.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    console.log("PDF generated successfully:", response);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error generating PDF:", error);
-                }
-            });
+            // // Send selected IDs via POST request
+            // // $.ajax({
+            // //     url: "{{ route('generatePdf') }}", // Replace with your API route
+            // //     type: "POST",
+            // //     headers: {
+            // //             "X-CSRF-TOKEN": "{{ csrf_token() }}" // Include CSRF token if needed
+            // //         },
+            // //     data: {
+            // //         user_id: {{ $user_id }},
+            // //         selected_ids: selectedIds
+            // //     },
+            // //     success: function(response) {
+            // //         // Create a temporary link element to download the PDF
+            // //         let link = document.createElement('a');
+            // //         link.href = response.pdf_url; // Assuming the response contains the URL to the generated PDF
+            // //         link.download = 'questions_pdf.pdf';
+            // //         document.body.appendChild(link);
+            // //         link.click();
+            // //         document.body.removeChild(link);
+            // //         console.log("PDF generated successfully:", response);
+            // //     },
+            // //     error: function(xhr, status, error) {
+            // //         console.error("Error generating PDF:", error);
+            // //     }
+            // // });
 
-            });
+            // });
 
 
         })

@@ -931,7 +931,7 @@
                                 @foreach ($arr2 as $idea)
                                     @if (!empty($idea->pdf))
                                         <!-- Button with Dropdown for PDF actions -->
-                                        {{-- <div class="btn-group m-2">
+                                         {{-- <div class="btn-group m-2">
                                             <button class="btn btn-action dropdown-toggle rounded shadow-sm d-flex align-items-center"
                                                     type="button"
                                                     id="dropdownMenu{{$idea->id}}"
