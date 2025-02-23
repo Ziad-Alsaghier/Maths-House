@@ -404,7 +404,7 @@ class Ad_ReportsController extends Controller
     public function generatePdf(Request $request) {
         
         $user = User::find($request->user_id);
-        $questionsIds = $request->selected_ids;
+        $questionsIds = is_string($request->selected_ids) ? json_decode($request->selected_ids): $request->selected_ids;
         $questions = $this->question->whereIn('id', $questionsIds)->with(['mcq', 'q_ans', 'g_ans'])->get();
         
         $answers = [];
