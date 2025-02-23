@@ -63,7 +63,7 @@ class ScoreSheetExamController extends Controller
      public function generatePdf(Request $reqeust){
             // This Function Generate PDF Of Score Sheet Exam
             $user = User::find($reqeust->user_id);
-            $questionsIds = $reqeust->questions;
+            $questionsIds = is_string($reqeust->questions) ? json_decode($reqeust->questions):$reqeust->questions;
             $questions = $this->question->whereIn('id',$questionsIds)->get();
             $exams = $questions->exam_questions;
             return view('Admin.scoreSheet.scoreSheetExamPdf',compact('user','questions','exams'));
