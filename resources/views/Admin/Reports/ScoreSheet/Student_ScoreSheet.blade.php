@@ -224,7 +224,7 @@ $ch_id = [];
                             console.log("ele", ele)
                             var newRow = `<tr>
                                 <td style="padding-top: 15px !important">
-                                    <input type="checkbox" class="row-checkbox" data-id="${ele.id}">
+                                    <input type="checkbox" class="row-checkbox" data-quizze-id="${ele["quizze_id"]}">
                                 </td>
                                 <td style="padding-top: 15px !important">${ele.quizze.title}</td>
                                 <td style="padding-top: 15px !important">${ele.score + "/" + ele.quizze.score}</td>
@@ -259,7 +259,7 @@ $ch_id = [];
                             console.log("ele", ele)
                             var newRow = `<tr>
                                 <td style="padding-top: 15px !important">
-                                    <input type="checkbox" class="row-checkbox" data-id="${ele.id}">
+                                    <input type="checkbox" class="row-checkbox" data-quizze-id="${ele["quizze_id"]}">
                                 </td>
                                 <td style="padding-top: 15px !important">${ele.quizze.title}</td>
                                 <td style="padding-top: 15px !important">${ele.score + "/" + ele.quizze.score}</td>
@@ -300,27 +300,26 @@ $ch_id = [];
             // });
 
 
-            $(document).on('change', '.row-checkbox', function () {
-    let selectedIds = [];
+$(document).on('change', '.row-checkbox', function () {
+    let selectedQuizzeIds = [];
     $('.row-checkbox:checked').each(function () {
-        selectedIds.push($(this).data('id')); // Collect selected IDs
+        selectedQuizzeIds.push($(this).data('quizze-id'));
     });
 
-    // Clear any previous hidden inputs
-    $('#selectedIdsInput').remove();
+    console.log("Selected Quizze IDs:", selectedQuizzeIds);
 
-    // Append hidden inputs for each selected ID
-    selectedIds.forEach(id => {
-        $('form').append(`<input type="hidden" name="selected_ids[]" value="${id}" class="selected-id">`);
+    // Remove previous hidden inputs
+    $('.selected-quizze-id').remove();
+
+    // Append hidden inputs for each selected quizze_id
+    selectedQuizzeIds.forEach(quizzeId => {
+        $('form').append(`<input type="hidden" name="selected_ids[]" value="${quizzeId}" class="selected-quizze-id">`);
     });
 
     // Show the button if at least one checkbox is selected
-    if (selectedIds.length > 0) {
-        $('#generatePdf').show();
-    } else {
-        $('#generatePdf').hide();
-    }
+    $('#generatePdf').toggle(selectedQuizzeIds.length > 0);
 });
+
 
 
 
