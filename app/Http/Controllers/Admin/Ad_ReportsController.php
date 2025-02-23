@@ -20,12 +20,15 @@ use App\Models\ExamHistory;
 use App\Models\Exam;
 use App\Models\StudentQuizze;
 use App\Models\ReportVideoList;
+use App\Models\quizze;
+
 class Ad_ReportsController extends Controller
 {
      public function __construct(
-     private PaymentRequest $paymentRequest,
-     private Exam $exam,
-    private Question $question
+        private PaymentRequest $paymentRequest,
+        private Exam $exam,
+        private Question $question,
+        private quizze $quizzes
      ){}
     public function ad_live_report( Request $req ){
         if ( !empty($req->from) && empty($req->to) ) {
@@ -405,8 +408,12 @@ class Ad_ReportsController extends Controller
         
         $user = User::find($request->user_id);
         $questionsIds = is_string($request->selected_ids) ? json_decode($request->selected_ids): $request->selected_ids;
-        $questions = $this->question->whereIn('id', $questionsIds)->with(['mcq', 'q_ans', 'g_ans'])->get();
-        
+        $questions = $this->quizzes
+        ->whereIn('id', $questionsIds)
+        ->with(['question' => function($query){
+            $query->with(['mcq', 'q_ans', 'g_ans']);
+        }])->get();
+        $questions = $questions->pluck('question');
         $answers = [];
         foreach ($questions as $question) {
             if ($question->ans_type == 'MCQ') {
