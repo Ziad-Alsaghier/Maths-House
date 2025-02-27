@@ -146,6 +146,7 @@ class UserController extends Controller
             return redirect()->back();
         }  
         $sessions = Session::where('lesson_id', $lesson_id)
+        ->orderByDesc('id')
         ->pluck('id')->toArray();
         $course_id = Lesson::where('id', $lesson_id)
         ->first()->chapter->course_id;
@@ -188,10 +189,13 @@ class UserController extends Controller
                 'lesson_id' => $lesson_id,
             ]);
             foreach ($sessions as $key => $item) {
-                $mysession = SessionAttendance::create([
-                    'user_id' => $users_id,
-                    'session_id' => $item
-                ]);
+                if ($item->session_types == 'explanation') {
+                    $mysession = SessionAttendance::create([
+                        'user_id' => $users_id,
+                        'session_id' => $item
+                    ]);
+                    break;
+                }
             }
             return redirect()->back();
         }
