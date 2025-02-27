@@ -35,11 +35,11 @@ class Ad_ReportsController extends Controller
         $query = SessionAttendance::query();
     
         if (!empty($req->from)) {
-            $query->where('created_at', '>=', $req->from);
+            $query->whereDate('created_at', '>=', $req->from);
         }
     
         if (!empty($req->to)) {
-            $query->where('created_at', '<=', $req->to);
+            $query->whereDate('created_at', '<=', $req->to);
         }
     
         $students = $query->simplePaginate(10)->appends($req->all());
