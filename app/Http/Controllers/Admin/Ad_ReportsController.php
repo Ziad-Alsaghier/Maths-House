@@ -30,40 +30,22 @@ class Ad_ReportsController extends Controller
         private Question $question,
         private quizze $quizzes
      ){}
-    public function ad_live_report( Request $req ){
-        if ( !empty($req->from) && empty($req->to) ) {
-            $students = SessionAttendance::
-            where('created_at', '>=', $req->from)
-            ->simplePaginate(10);
-            $stu_count = SessionAttendance::
-            where('created_at', '>=', $req->from)
-            ->get();
+    public function ad_live_report( Request $req )
+    {
+        $query = SessionAttendance::query();
+    
+        if (!empty($req->from)) {
+            $query->where('created_at', '>=', $req->from);
         }
-        elseif ( empty($req->from) && !empty($req->to) ) {
-            $students = SessionAttendance::
-            where('created_at', '<=', $req->to)
-            ->simplePaginate(10);
-            $stu_count = SessionAttendance::
-            where('created_at', '<=', $req->to)
-            ->get();
+    
+        if (!empty($req->to)) {
+            $query->where('created_at', '<=', $req->to);
         }
-        elseif ( !empty($req->from) && !empty($req->to) ) {
-            $students = SessionAttendance::
-            where('created_at', '>=', $req->from)
-            ->where('created_at', '<=', $req->to)
-            ->simplePaginate(10);
-            $stu_count = SessionAttendance::
-            where('created_at', '>=', $req->from)
-            ->where('created_at', '<=', $req->to)
-            ->get();
-        }
-        else{
-            $students = SessionAttendance::simplePaginate(10);
-            $stu_count = SessionAttendance::get();
-        }
-        $data = $req->all();
-
-        return view('Admin.Reports.Live.Live', compact('students', 'data', 'stu_count'));
+    
+        $students = $query->simplePaginate(10)->appends($req->all());
+        $stu_count = $query->get();
+        
+        return view('Admin.Reports.Live.Live', compact('students', 'stu_count'))->with('data', $req->all());
     }
 
     public function ad_grade_report( Request $req ){
@@ -413,16 +395,15 @@ class Ad_ReportsController extends Controller
         ->with(['question' => function($query){
             $query->with(['mcq', 'q_ans', 'g_ans']);
         }])->get();
-        return $questionsIds;
         $questions = $questions->pluck('question');
         $answers = [];
+        $questions = count($questions) > 0 ?$questions[0]:$questions;
         foreach ($questions as $question) {
             if ($question->ans_type == 'MCQ') {
                 $answers[] = $question->mcq;
             } elseif ($question->ans_type == 'Grid') {
                 $answers[] = $question->q_ans;
             }
-            
         }
         $pdf = Pdf::loadView('questions', compact('questions', 'answers'));
         return $pdf->stream('questions.pdf');
