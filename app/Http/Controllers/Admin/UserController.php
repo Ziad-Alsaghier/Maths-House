@@ -189,7 +189,7 @@ class UserController extends Controller
                 'lesson_id' => $lesson_id,
             ]);
             foreach ($sessions as $key => $item) {
-                if ($item->session_types == 'explanation') {
+                if ($item['session_types'] == 'explanation') {
                     $mysession = SessionAttendance::create([
                         'user_id' => $users_id,
                         'session_id' => $item->id
