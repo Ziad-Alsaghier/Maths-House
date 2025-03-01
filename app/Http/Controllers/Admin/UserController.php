@@ -145,9 +145,10 @@ class UserController extends Controller
         if ($req->old_state == 'Attend' && $req->attend == 'Attend') {
             return redirect()->back();
         }  
-        $sessions = Session::where('lesson_id', $lesson_id)
+        $sessions_data = Session::where('lesson_id', $lesson_id)
         ->orderByDesc('id')
-        ->pluck('id')->toArray();
+        ->get();
+        $sessions = $sessions_data->pluck('id')->toArray();
         $course_id = Lesson::where('id', $lesson_id)
         ->first()->chapter->course_id;
         if ($req->attend != 'Attend') {
@@ -188,11 +189,11 @@ class UserController extends Controller
                 'user_id' => $users_id,
                 'lesson_id' => $lesson_id,
             ]);
-            foreach ($sessions as $key => $item) {
-                if ($item['session_types'] == 'explanation') {
+            foreach ($sessions_data as $key => $item) {
+                if ($item->session_types == 'explanation') {
                     $mysession = SessionAttendance::create([
                         'user_id' => $users_id,
-                        'session_id' => $item['id']
+                        'session_id' => $item->id,
                     ]);
                     break;
                 }
