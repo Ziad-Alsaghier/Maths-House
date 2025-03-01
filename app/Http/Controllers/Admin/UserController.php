@@ -192,7 +192,7 @@ class UserController extends Controller
                 if ($item->session_types == 'explanation') {
                     $mysession = SessionAttendance::create([
                         'user_id' => $users_id,
-                        'session_id' => $item
+                        'session_id' => $item->id
                     ]);
                     break;
                 }
