@@ -140,10 +140,10 @@ class PackagesController extends Controller
     }
 
     public function add_small_package( Request $req ){
-        if ($req->number < 0) {            
-            session()->flash('faild', 'Number must be greater than 0');
-            return redirect()->back();
-        }
+        // if ($req->number < 0) {            
+        //     session()->flash('faild', 'Number must be greater than 0');
+        //     return redirect()->back();
+        // }
         SmallPackage::create([
             'user_id'  => $req->user_id,
             'category_id'   => $req->category_id,
