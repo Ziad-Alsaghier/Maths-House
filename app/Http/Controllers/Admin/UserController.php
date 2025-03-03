@@ -175,7 +175,7 @@ class UserController extends Controller
         ->where('module', 'Live')
         ->where('number', '>', 0)
         ->first();
-        $small_package_count = SmallPackage::where('user_id', auth()->user()->id)
+        $small_package_count = SmallPackage::where('user_id', $users_id)
         ->where('module', 'Live')
         ->where('course_id', $course_id)
         ->sum('number'); 
