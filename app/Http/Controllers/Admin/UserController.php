@@ -144,7 +144,7 @@ class UserController extends Controller
     public function live_attend( $users_id, $lesson_id, Request $req ){  
         if ($req->old_state == 'Attend' && $req->attend == 'Attend') {
             return redirect()->back();
-        }  
+        }
         $sessions_data = Session::where('lesson_id', $lesson_id)
         ->orderByDesc('id')
         ->get();
@@ -175,14 +175,14 @@ class UserController extends Controller
         ->where('module', 'Live')
         ->where('number', '>', 0)
         ->first();
+        $small_package_count = SmallPackage::where('user_id', auth()->user()->id)
+        ->where('module', 'Live')
+        ->where('course_id', $course_id)
+        ->sum('number'); 
 
-        if ( !empty($small_package) ) {
-            SmallPackage::where('user_id', $users_id)
-            ->where('module', 'Live')
-            ->where('number', '>', 0)
-            ->update([
-                'number' => $small_package->number - 1
-            ]);
+        if ( !empty($small_package) && $small_package_count > 0 ) {
+            $small_package->number = $small_package->number - 1; 
+            $small_package->save();
             
             // Make Live Attend
             LiveLesson::create([

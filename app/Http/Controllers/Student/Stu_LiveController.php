@@ -115,14 +115,12 @@ class Stu_LiveController extends Controller
         }
 
         $package = PaymentPackageOrder::
-        select('*', 'payment_package_order.id as payment_package_id', 'payment_package_order.number as p_number')
-        ->leftJoin('packages', 'payment_package_order.package_id', '=', 'packages.id')
-        ->where('payment_package_order.number', '>', 0)
-        ->where('payment_package_order.user_id', auth()->user()->id)
-        ->where('payment_package_order.state', 1)
+        where('number', '>', 0)
+        ->where('user_id', auth()->user()->id)
+        ->where('state', 1)
         ->where('packages.module', 'Live')
         ->with('package_live')
-        ->orderByDesc('payment_package_order.id')
+        ->orderByDesc('id')
         ->get();
 
         $small_package = SmallPackage::where('user_id', auth()->user()->id)
@@ -156,11 +154,11 @@ class Stu_LiveController extends Controller
         foreach ( $package as $item ) {
             if ( $item->package_live != null ) {
                 $newTime = Carbon::now()->subDays($item->package_live->duration);
-                if ( $item->p_number > 0 && $item->date >= $newTime && $item->package_live->course_id == $session->lesson?->chapter?->course_id ?? $session->course->id ) {
+                if ( $item->date >= $newTime && $item->package_live->course_id == $session->lesson?->chapter?->course_id ?? $session->course->id ) {
                     PaymentPackageOrder::
-                    where('id', $item->payment_package_id )
+                    where('id', $item->id )
                     ->update([
-                        'number' => $item->p_number - 1
+                        'number' => $item->number - 1
                     ]);
             
                     SessionAttendance::create([
