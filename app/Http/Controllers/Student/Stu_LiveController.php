@@ -118,7 +118,7 @@ class Stu_LiveController extends Controller
         where('number', '>', 0)
         ->where('user_id', auth()->user()->id)
         ->where('state', 1)
-        ->where('packages.module', 'Live')
+        ->whereHas('package_live')
         ->with('package_live')
         ->orderByDesc('id')
         ->get();

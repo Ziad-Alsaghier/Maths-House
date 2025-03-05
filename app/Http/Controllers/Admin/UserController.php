@@ -167,6 +167,7 @@ class UserController extends Controller
         where('number', '>', 0)
         ->where('user_id', $users_id)
         ->where('state', 1)
+        ->whereHas('package_live')
         ->with('package_live')
         ->orderByDesc('id')
         ->get();
