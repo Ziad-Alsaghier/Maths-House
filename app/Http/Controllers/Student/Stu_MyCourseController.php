@@ -212,7 +212,7 @@ class Stu_MyCourseController extends Controller
             ->first();
             $quiz_item = 0;
             foreach ($stu_quizze as $item) {
-                if ($item->quizze->quizze_order > $quiz_item && 
+                if ($item?->quizze?->quizze_order > $quiz_item && 
                 $item->quizze->lesson_id == $quizze->lesson_id &&
                 $item->score >= $quizze->pass_score ) {
                     $quiz_item = $item->quizze->quizze_order;
