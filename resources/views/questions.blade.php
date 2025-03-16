@@ -67,7 +67,13 @@
                 @foreach($questions as $question)
                 <tr>
                     <td>{{ $question->question }}</td>
-                    <td>{{ $question->answer ?? 'N/A' }}</td>
+                    <td>
+                        @if (!empty($question->mcq))
+                            {{ $question->mcq[0]->mcq_answers }}
+                        @elseif(!empty($question->g_ans))
+                            {{ $question->g_ans[0]->grid_ans }}
+                        @endif
+                    </td>
                     <td>
                         @if (!empty($question->q_url))
                             <img src="{{ asset('images/questions/' . $question->q_url) }}" class="question-image" alt="Question Image">
