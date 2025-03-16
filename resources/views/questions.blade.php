@@ -74,7 +74,7 @@
             <tr>
                 <td>{{ $question->question }}</td>
                 @if (!empty($question->q_url))
-                    <img src="{{ asset($question->q_url) }}" />
+                    <img src="{{ asset( 'images/questions/' . $question->q_url) }}" />
                 @endif
                 <td>{{ $question->answer }}</td> 
             </tr>
