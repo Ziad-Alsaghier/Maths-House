@@ -489,9 +489,11 @@ $page_name = 'Lesson';
                                             <button class="scc__wrap btn">
                                                 <div class="scc__info">
                                                     <i class="icofont-video-alt"></i>
-                                                    <h5> <span>
+                                                    <h5> 
+                                                        <span>
                                                             {{ $idea->idea }}
-                                                        </span> </h5>
+                                                        </span> 
+                                                    </h5>
                                                 </div>
                                             </button>
                                         </form>
