@@ -516,18 +516,20 @@
                                         <div class="accordion-body">
 
                                             @foreach ($session->lesson->ideas as $idea)
-                                            <form action="{{route('stu_live_lesson')}}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="idea" value="{{$idea->id}}">
-                                                <button class="scc__wrap btn">
-                                                    <div class="scc__info">
-                                                        <i class="icofont-video-alt"></i>
-                                                        <h5> <span>
-                                                                {{ $idea->idea }}
-                                                            </span> </h5>
-                                                    </div>
-                                                </button>
-                                            </form>
+                                            @if ($chapter_id == $idea?->lesson?->chapter?->id ?? 0)
+                                                <form action="{{route('stu_live_lesson')}}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="idea" value="{{$idea->id}}">
+                                                    <button class="scc__wrap btn">
+                                                        <div class="scc__info">
+                                                            <i class="icofont-video-alt"></i>
+                                                            <h5> <span>
+                                                                    {{ $idea->idea }}
+                                                                </span> </h5>
+                                                        </div>
+                                                    </button>
+                                                </form>
+                                            @endif
                                             @endforeach
 
                                             <hr />
