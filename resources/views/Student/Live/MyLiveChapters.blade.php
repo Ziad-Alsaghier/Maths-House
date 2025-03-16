@@ -438,7 +438,7 @@ $page_name = 'Lesson';
             $arr_chapters = [];
         @endphp
         @foreach ($sessions as $session)
-        @if ($session->lesson?->chapter?->course?->id && $course_id == $session->lesson->chapter->course->id 
+        @if (is_numeric($session->lesson?->chapter?->course?->id) && $course_id == $session->lesson->chapter->course->id 
         && (\Carbon\Carbon::now()->subDays(7) <= $session->date
             or
             $session->lesson->getExtraDays() >= date('Y-m-d'))
@@ -481,7 +481,7 @@ $page_name = 'Lesson';
                                     <img loading="lazy" src="{{asset('img/grid/grid_small_1.jpg')}}" alt="grid">
                                     <div class="gridarea__small__content">
                                         <h6>
-                                            {{ $session->lesson->chapter->course->teacher->name }}
+                                            {{ $session->lesson?->chapter?->course?->teacher?->name }}
                                         </h6>
                                     </div>
                                 </div>

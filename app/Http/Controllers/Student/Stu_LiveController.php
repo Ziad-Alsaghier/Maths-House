@@ -215,9 +215,8 @@ class Stu_LiveController extends Controller
         $idea = IdeaLesson::where('id', $request->idea)
         ->first();
         $reports = ReportVideoList::all();
-        $chapter_id = $idea?->lesson?->chapter?->id ?? 0;
 
-        return view('Student.Live.Idea', compact('sessions', 'idea_num', 'idea', 'reports', 'chapter_id'));
+        return view('Student.Live.Idea', compact('sessions', 'idea_num', 'idea', 'reports'));
     }
 
     public function stu_private_req(){
