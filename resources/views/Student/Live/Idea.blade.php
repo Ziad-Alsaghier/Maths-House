@@ -500,8 +500,22 @@
 
                     <div class="accordion content__cirriculum__wrap" id="accordionExample">
 
+                        @php
+                            $arr_lessons = [];
+                        @endphp
                         @foreach ($sessions as $session)
-                        @if (  \Carbon\Carbon::now()->subDays($session->duration) <= $session->date )
+                        @if ( $session->lesson?->chapter?->id &&
+                            $chapter_id == $session->lesson->chapter->id && 
+                            ((\Carbon\Carbon::now()->subDays(7) <= $session->date
+                            or
+                            ($session->lesson->getExtraDays() >= date('Y-m-d'))
+                            &&
+                            $chapter_id == $session->lesson->chapter->id))
+                            && !in_array($session->lesson->id, $arr_lessons)
+                            )
+                            @php
+                                $arr_lessons[] = $session->lesson->id;
+                            @endphp
                             
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingFour">
