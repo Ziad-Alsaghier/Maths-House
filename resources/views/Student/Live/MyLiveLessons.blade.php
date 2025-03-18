@@ -482,15 +482,15 @@ $page_name = 'Lesson';
                                                     </span> </h5>
                                             </div>
                                         </a>
-                                        @foreach ($session->lesson->ideas as $idea)
+                                        @foreach ($session->lesson->ideas as $idea_item)
                                         <form action="{{route('stu_live_lesson')}}" method="post">
                                             @csrf
-                                            <input type="hidden" name="idea" value="{{$idea->id}}">
+                                            <input type="hidden" name="idea" value="{{$idea_item->id}}">
                                             <button class="scc__wrap btn">
                                                 <div class="scc__info">
                                                     <i class="icofont-video-alt"></i>
                                                     <h5> <span>
-                                                            {{ $idea->idea }}
+                                                            {{ $idea_item->idea }}
                                                         </span> </h5>
                                                 </div>
                                             </button>
@@ -545,15 +545,15 @@ $page_name = 'Lesson';
             @php
                 $arr_lessons[] = $session->lesson->id;
             @endphp
-        @foreach ($session->lesson->ideas as $idea)
-        @if ( !empty($idea->pdf) )
-        <a class="btn btn-success text-center m-2" href="{{asset('files\\lessons_pdf\\' . $idea->pdf)}}"
-            download="{{asset('files\\lessons_pdf\\' . $idea->pdf)}}">
-            PDF {{$idea->lesson->lesson_name}} {{$idea->idea}}
+        @foreach ($session->lesson->ideas as $idea_item)
+        @if ( !empty($idea_item->pdf) )
+        <a class="btn btn-success text-center m-2" href="{{asset('files\\lessons_pdf\\' . $idea_item->pdf)}}"
+            download="{{asset('files\\lessons_pdf\\' . $idea_item->pdf)}}">
+            PDF {{$idea_item->lesson->lesson_name}} {{$idea_item->idea}}
         </a>
         <a class="btn btn-info text-center m-2" target="_blank"
-            href="{{route('stu_live_pdf', ['file_name' => $idea->pdf])}}" />
-        Show {{$idea->lesson->lesson_name}} {{$idea->idea}}
+            href="{{route('stu_live_pdf', ['file_name' => $idea_item->pdf])}}" />
+        Show {{$idea_item->lesson->lesson_name}} {{$idea_item->idea}}
         </a>
         <br />
         @endif

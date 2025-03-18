@@ -529,15 +529,15 @@
                                         aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
 
-                                            @foreach ($session->lesson->ideas as $idea)
+                                            @foreach ($session->lesson->ideas as $idea_item)
                                             <form action="{{route('stu_live_lesson')}}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="idea" value="{{$idea->id}}">
+                                                <input type="hidden" name="idea" value="{{$idea_item->id}}">
                                                 <button class="scc__wrap btn">
                                                     <div class="scc__info">
                                                         <i class="icofont-video-alt"></i>
                                                         <h5> <span>
-                                                                {{ $idea->idea }}
+                                                                {{ $idea_item->idea }}
                                                             </span> </h5>
                                                     </div>
                                                 </button>
