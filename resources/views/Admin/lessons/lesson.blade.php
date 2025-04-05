@@ -365,12 +365,12 @@ return "admin";
                                                 <div class='my-3'>
                                                     <label>Teacher</label>
                                                     <select name="teacher_id" class="form-control">
-                                                        <option value="{{ $lesson->teacher->id }}">
-                                                            {{ $lesson->teacher->name }}
+                                                        <option value="{{ $lesson?->teacher?->id }}">
+                                                            {{ $lesson?->teacher?->nick_name }}
                                                         </option>
                                                         @foreach ($teachers as $teacher)
                                                         <option value="{{ $teacher->id }}">
-                                                            {{ $teacher->name }}
+                                                            {{ $teacher->nick_name }}
                                                         </option>
                                                         @endforeach
                                                     </select>
@@ -670,7 +670,7 @@ return "admin";
                                                     name="teacher_id">
                                                     <option disabled selected>Select Teacher...</option>
                                                     @foreach ($teachers as $teacher)
-                                                    <option value="{{ $teacher->id }}">{{ $teacher->name }}
+                                                    <option value="{{ $teacher->id }}">{{ $teacher->nick_name }}
                                                     </option>
                                                     @endforeach
                                                 </select>
