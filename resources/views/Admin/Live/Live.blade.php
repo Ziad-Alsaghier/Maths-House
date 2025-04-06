@@ -515,7 +515,7 @@ return 'admin';
                     {{ $session->type }}
                 </td>
                 <td>
-                    {{ $session->teacher->nick_name }}
+                    {{ $session?->teacher?->nick_name }}
                 </td>
 
                 <td>
