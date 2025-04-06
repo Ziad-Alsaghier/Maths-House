@@ -758,8 +758,8 @@ return 'admin';
                                                         </label>
                                                         <select class="form-control teacher_session_2"
                                                             name="teacher_id">
-                                                            <option value="{{ $session->teacher->id }}" selected>
-                                                                {{ $session->teacher->nick_name }}
+                                                            <option value="{{ $session?->teacher?->id }}" selected>
+                                                                {{ $session?->teacher?->nick_name }}
                                                             </option>
                                                             @foreach ($teachers as $teacher)
                                                             <option value="{{ $teacher->id }}">
