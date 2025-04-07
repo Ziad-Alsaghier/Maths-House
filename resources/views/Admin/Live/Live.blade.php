@@ -902,18 +902,20 @@ return 'admin';
                             </option>
                             `;
                                 data.teacher.forEach(item => {
-                                    if (item.user.id == teacher_id) {
-                                        teacher_session_2[j].innerHTML += `
-                                    <option value="${item.user.id}" selected>
-                                        ${item.user.nick_name}
-                                    </option>
-                                    `;
-                                    } else {
-                                        teacher_session_2[j].innerHTML += `
-                                    <option value="${item.user.id}">
-                                        ${item.user.nick_name}
-                                    </option>
-                                    `;
+                                    if (item.user != null) {
+                                        if (item.user.id == teacher_id) {
+                                            teacher_session_2[j].innerHTML += `
+                                        <option value="${item.user.id}" selected>
+                                            ${item.user.nick_name}
+                                        </option>
+                                        `;
+                                        } else {
+                                            teacher_session_2[j].innerHTML += `
+                                        <option value="${item.user.id}">
+                                            ${item.user.nick_name}
+                                        </option>
+                                        `;
+                                        }
                                     }
                                 });
                             }
@@ -940,18 +942,20 @@ return 'admin';
                             </option>
                             `;
                                 data.teacher.forEach(item => {
-                                    if (item.user.id == teacher_id) {
-                                        teacher_session_2[j].innerHTML += `
-                                    <option value="${item.user.id}" selected>
-                                        ${item.user.nick_name}
-                                    </option>
-                                    `;
-                                    } else {
-                                        teacher_session_2[j].innerHTML += `
-                                    <option value="${item.user.id}">
-                                        ${item.user.nick_name}
-                                    </option>
-                                    `;
+                                    if (item.user != null) {
+                                        if (item.user.id == teacher_id) {
+                                            teacher_session_2[j].innerHTML += `
+                                        <option value="${item.user.id}" selected>
+                                            ${item.user.nick_name}
+                                        </option>
+                                        `;
+                                        } else {
+                                            teacher_session_2[j].innerHTML += `
+                                        <option value="${item.user.id}">
+                                            ${item.user.nick_name}
+                                        </option>
+                                        `;
+                                        }
                                     }
                                 });
                             }
@@ -1043,18 +1047,20 @@ return 'admin';
                     </option>
                     `;
                     data.teacher.forEach(item => {
-                        if (item.user.id == teacher_id) {
-                            teacher_session.innerHTML += `
-                            <option value="${item.user.id}" selected>
-                                ${item.user.nick_name}
-                            </option>
-                            `;
-                        } else {
-                            teacher_session.innerHTML += `
-                            <option value="${item.user.id}">
-                                ${item.user.nick_name}
-                            </option>
-                            `;
+                        if (item.user != null) {
+                            if (item.user.id == teacher_id) {
+                                teacher_session.innerHTML += `
+                                <option value="${item.user.id}" selected>
+                                    ${item.user.nick_name}
+                                </option>
+                                `;
+                            } else {
+                                teacher_session.innerHTML += `
+                                <option value="${item.user.id}">
+                                    ${item.user.nick_name}
+                                </option>
+                                `;
+                            }
                         }
                     });
                 }
