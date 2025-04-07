@@ -119,35 +119,53 @@
         .question-card {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            justify-content: center;
+            gap: 20px;
             background-color: #fff;
             padding: 40px;
+            padding-top: 80px;
             margin-bottom: 30px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             height: 100%;
         }
-        .question-text {
-            font-size: 18px;
-            font-weight: bold;
-            color: #444;
-            margin-bottom: 10px;
-        }
-        .question-answer {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 10px;
-        }
+
         .question-image {
             max-width: 100%;
             height: auto;
-            margin-top: 15px;
+            margin-bottom: 15px;
             border-radius: 6px;
             display: block;
         }
+
         .no-image {
             font-style: italic;
             color: #999;
+            margin-bottom: 15px;
         }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #009879;
+            margin-bottom: 5px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .question-answer {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .no-answer {
+            font-style: italic;
+            color: #aaa;
+        }
+
     </style>
 </head>
 <body>
@@ -155,24 +173,31 @@
         <div class="headtitle">
             <h2>Questions Report</h2>
         </div>
-
         @foreach($questions as $question)
         <div class="question-card">
-            <div class="question-text">{{ $question->question }}</div>
-            <div class="question-answer">
-                @if (!empty($question->mcq))
-                    {{ $question->mcq[0]->mcq_answers }}
-                @elseif(!empty($question->g_ans))
-                    {{ $question->g_ans[0]->grid_ans }}
-                @else
-                    <span class="no-answer">No Answer</span>
-                @endif
-            </div>
             @if (!empty($question->q_url))
                 <img src="{{ asset('images/questions/' . $question->q_url) }}" class="question-image" alt="Question Image">
             @else
                 <div class="no-image">No Image</div>
             @endif
+
+            <div class="question-section">
+                <div class="section-title">Question:</div>
+                <div class="question-text">{{ $question->question }}</div>
+            </div>
+
+            <div class="answer-section">
+                <div class="section-title">Answer:</div>
+                <div class="question-answer">
+                    @if (!empty($question->mcq))
+                        {{ $question->mcq[0]->mcq_answers }}
+                    @elseif(!empty($question->g_ans))
+                        {{ $question->g_ans[0]->grid_ans }}
+                    @else
+                        <span class="no-answer">No Answer</span>
+                    @endif
+                </div>
+            </div>
         </div>
         @endforeach
 
