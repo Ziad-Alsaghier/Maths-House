@@ -189,7 +189,7 @@
             <div class="answer-section">
                 <div class="section-title">Answer:</div>
                 <div class="question-answer">
-                    @if (!empty($question->mcq))
+                    @if (!empty($question->mcq) && count($question->mcq) > 0)
                         {{ $question->mcq[0]->mcq_answers }}
                     @elseif(!empty($question->g_ans))
                         {{ $question->g_ans[0]->grid_ans }}
