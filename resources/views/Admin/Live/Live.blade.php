@@ -403,6 +403,21 @@ return 'admin';
                                             </div>
                                         </div>
                                     </div>
+                                    <!--end::Heading-->
+                                    <!--begin::Input group-->
+                                    <div class="ideas" id="ideas">
+
+                                        <div class="idea">
+                                            <div class="section_syllabus">
+                                                <span>Teacher Material Link</span>
+                                                <input name="teacher_material" value=""
+                                                    class="form-control form-control-lg teacher_material">
+                                                <span class="material_linkFaild d-none mt-3">Please Set Teacher Material
+                                                    Link</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="mt-3"
                                     style="display: flex;align-items: center;justify-content: space-between;">
@@ -803,6 +818,19 @@ return 'admin';
                                                                 <input name="material_link"
                                                                     value="{{ $session->material_link }}"
                                                                     class="form-control form-control-lg form-control-solid">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="ideas" id="ideas">
+
+                                                        <div class="idea">
+                                                            <div class="section_syllabus">
+                                                                <span>Teacher Material Link</span>
+                                                                <input name="teacher_material" value="{{ $session->teacher_material }}"
+                                                                    class="form-control form-control-lg teacher_material">
+                                                                <span class="material_linkFaild d-none mt-3">Please Set Teacher Material
+                                                                    Link</span>
                                                             </div>
                                                         </div>
                                                     </div>

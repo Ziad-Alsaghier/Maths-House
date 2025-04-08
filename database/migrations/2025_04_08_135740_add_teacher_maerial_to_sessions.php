@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('currancies', function (Blueprint $table) {
-            $table->id();
-            $table->string('currency');
-            $table->float('amount');
-            $table->timestamps();
+        Schema::table('sessions', function (Blueprint $table) {
+            $table->string('teacher_material')->nullable();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('currancies');
+        Schema::table('sessions', function (Blueprint $table) {
+            //
+        });
     }
 };

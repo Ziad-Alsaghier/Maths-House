@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 use App\Models\User;
 use App\Models\Lesson;
@@ -33,8 +34,16 @@ class Session extends Model
         'access_dayes',
         'repeat',
         'session_types',
+        'teacher_material',
     ];
+    protected $appends = ['day'];
  
+    public function getDayAttribute(){
+        $date = $this->date;
+        $day = Carbon::parse($date)->format('l'); // 'l' = اسم اليوم كامل
+        return $day;
+    }
+
     public function lesson()
     {
         return $this->belongsTo(Lesson::class, 'lesson_id')->with('chapterMyLive');

@@ -16,7 +16,6 @@ class Q_ans extends Model
         'Q_id',
     ];
 
-
     public function question()
     {
         return $this->belongsTo(Question::class, 'Q_id');

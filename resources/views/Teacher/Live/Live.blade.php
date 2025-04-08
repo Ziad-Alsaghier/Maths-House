@@ -24,9 +24,11 @@
     <thead>
         <th>#</th>
         <th>Name</th>
-        <th>Date</th> 
+        <th>Date</th>
+        <th>Day</th>
         <th>From</th> 
         <th>To</th>
+        <th>Material</th>
         <th>Link</th>
     </thead>
 
@@ -37,8 +39,14 @@
             <td>{{$loop->iteration}}</td>
             <td>{{$item->name}}</td>
             <td>{{$item->date}}</td>
+            <td>{{$item->day}}</td>
             <td>{{$item->from}}</td>
             <td>{{$item->to}}</td>
+            <td>
+                <a href="{{ $item->teacher_material }}" class="btn btn-info">
+                    Material 
+                </a>
+            </td>
             <td>
                 <button class="btn btn-primary wallet_btn">
                     Attend 
@@ -98,7 +106,8 @@
     <thead>
         <th>#</th>
         <th>Name</th>
-        <th>Date</th> 
+        <th>Date</th>
+        <th>Day</th>
         <th>From</th> 
         <th>To</th>
         <th>Statue</th>
@@ -111,6 +120,7 @@
             <td>{{$loop->iteration}}</td>
             <td>{{$item->name}}</td>
             <td>{{$item->date}}</td>
+            <td>{{$item->day}}</td>
             <td>{{$item->from}}</td>
             <td>{{$item->to}}</td>
             <td>
