@@ -153,8 +153,8 @@ return 'admin';
                                             <div class='my-3'>
                                                 <label>Teachers</label>
                                                 <select name="teacher_id" class="form-control">
-                                                    <option value="{{ $item->teacher->id }}">
-                                                        {{ $item->teacher->name }}
+                                                    <option value="{{ $item?->teacher?->id }}">
+                                                        {{ $item?->teacher?->name }}
                                                     </option>
                                                     @foreach ($teachers as $teacher)
                                                     <option value="{{ $teacher->id }}">

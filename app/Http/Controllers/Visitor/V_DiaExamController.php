@@ -157,7 +157,7 @@ class V_DiaExamController extends Controller
         $timer_val = json_decode(Session::get('timer')); // Start time from cookie
         
        $startTime = Carbon::parse($timer_val ?? "00:00:00"); // Parse the start time using Carbon
-      $endTime = Carbon::parse($exam->time); // Get the current time using Carbon
+       $endTime = Carbon::parse($exam->time); // Get the current time using Carbon
         // Calculate the difference
         $difference = $startTime->diffForHumans($endTime);
         // Output the result
