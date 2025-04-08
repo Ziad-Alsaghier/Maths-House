@@ -36,8 +36,8 @@ use Carbon\Carbon;
         <tbody>
             @foreach( $sessions as $item )
 
-            @if ( $item->session->date > date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to
-            >= date('H:i:s')) )
+            @if ( $item->session && ($item->session->date > date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to
+            >= date('H:i:s'))) )
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$item->session->lesson?->lesson_name ?? 'Mistakes Course ' . $item->session?->course?->course_name ?? null}}</td> 
@@ -123,8 +123,8 @@ use Carbon\Carbon;
 
         <tbody>
             @foreach( $sessions as $item )
-            @if ( $item->session->date < date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to
-                <= date('H:i:s')) ) <tr>
+            @if ( $item->session && ($item->session->date < date('Y-m-d') || ($item->session->date == date('Y-m-d') && $item->session->to
+                <= date('H:i:s'))) ) <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$item->session->lesson?->lesson_name ?? "Session : Mistakes"}} {{
                         $item->session?->course?->course_name ?? null }}</td>

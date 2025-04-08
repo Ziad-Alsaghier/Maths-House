@@ -76,7 +76,7 @@ $page_name = 'Courses';
                                                                         src="../img/grid/grid_small_1.jpg" alt="grid">
                                                                     <div class="gridarea__small__content">
                                                                         <h6>
-                                                                            {{ $course->teacher->name }}
+                                                                            {{ $course?->teacher?->name }}
                                                                         </h6>
                                                                     </div>
                                                                 </div>
