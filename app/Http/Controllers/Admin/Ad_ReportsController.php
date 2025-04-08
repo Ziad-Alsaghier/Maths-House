@@ -406,7 +406,7 @@ class Ad_ReportsController extends Controller
             }
         }
         $pdf = Pdf::loadView('questions', compact('questions', 'answers'));
-        return $pdf->stream('questions.pdf');
+        return $pdf->setPaper('a4', 'portrait')->stream('questions.pdf');
     }
 
 }
