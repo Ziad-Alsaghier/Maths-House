@@ -405,10 +405,8 @@ class Ad_ReportsController extends Controller
                 $answers[] = $question->q_ans;
             }
         }
-        $customPaper = array(0, 0, 1200, 600); // الطول × العرض بوحدة الـ points
         $pdf = Pdf::loadView('questions', compact('questions', 'answers'));
-        return $pdf->setPaper($customPaper, 'landscape')->stream('questions.pdf');
-
+        return $pdf->setPaper('a4', 'landscape')->stream('questions.pdf');
     }
 
 }
