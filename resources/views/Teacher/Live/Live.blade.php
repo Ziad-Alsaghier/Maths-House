@@ -52,7 +52,7 @@
                     Attend 
                 </button>
 
-                @if ( $item->date == date('Y-m-d') && ( Carbon::now()->addMinutes(10)->format('H:i:s') >= $item->session->from ) )
+                @if ( $item->date == date('Y-m-d') && ( Carbon::now()->addMinutes(10)->format('H:i:s') >= $item->from ) )
                     
                 <div class="modal show_wallet fade show d-none" id="modalCenter" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
                     <div class="modal-dialog modal-dialog-centered" role="document">
