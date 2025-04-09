@@ -34,7 +34,7 @@
 
     <tbody>
         @foreach( $sessions as $item )
-        @if ( $item->date >= now() )
+        @if ( $item->date . ' ' . $item->from >= now() )
         <tr>
             <td>{{$loop->iteration}}</td>
             <td>{{$item->name}}</td>
@@ -115,7 +115,7 @@
 
     <tbody>
         @foreach( $sessions as $item )
-        @if ( $item->date <= now() )
+        @if ( $item->date . ' ' . $item->from <= now() )
         <tr>
             <td>{{$loop->iteration}}</td>
             <td>{{$item->name}}</td>
