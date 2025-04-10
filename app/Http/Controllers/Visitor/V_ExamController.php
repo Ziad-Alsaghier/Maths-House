@@ -237,7 +237,7 @@ class V_ExamController extends Controller
                 $question = Question::where('id', $grid_item->q_id)
                 ->first();
                 $grid_ans = @$question->g_ans[0]->grid_ans;
-                $answer = $req->q_grid_ans[$i];
+                $answer = isset($req->q_grid_ans[$i]) ? $req->q_grid_ans[$i]: '0';
                 if ( strpos($answer, '/') ) {
                     $arr_ans = explode('/', $answer);
                     try {
