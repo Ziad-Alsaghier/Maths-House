@@ -148,7 +148,7 @@
                                         </option>
                                         @foreach ($teachers as $teacher)
                                             <option value="{{ $teacher->id }}">
-                                                {{ $teacher->name }}
+                                                {{ $teacher->nick_name }}
                                             </option>
                                         @endforeach
                                     </select>

@@ -222,11 +222,11 @@ return 'admin';
                                                 <label>Teachers</label>
                                                 <select name="teacher_id" class="form-control teacher_id">
                                                     <option value="{{ @$item->teacher->id }}">
-                                                        {{ @$item->teacher->name }}
+                                                        {{ @$item->teacher->nick_name }}
                                                     </option>
                                                     @foreach ($teachers as $teacher)
                                                     <option value="{{ $teacher->id }}">
-                                                        {{ $teacher->name }}
+                                                        {{ $teacher->nick_name }}
                                                     </option>
                                                     @endforeach
                                                 </select>
