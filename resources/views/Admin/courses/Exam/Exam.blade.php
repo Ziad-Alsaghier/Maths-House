@@ -343,13 +343,13 @@
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Houre: </span>
-                                                <input value="0" type="number" name="time_h" max="3"
+                                                <input value="00" type="number" name="time_h" max="3"
                                                     min="0" class="col-md-4 form-control">
                                             </div>
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Minets: </span>
-                                                <input type="number" value="0" name="time_m" max="60"
+                                                <input type="number" value="00" name="time_m" max="60"
                                                     min="0" class="col-md-4 form-control">
                                             </div>
                                         </div>
