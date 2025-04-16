@@ -387,7 +387,7 @@ Route::middleware(['auth','auth.Admin'])->prefix('Admin')->group(function(){
         Route::post('/Diagnostic_Exam/Add','add_diaexam')->name('add_diaexam');
         Route::get('/Diagnostic_Exam/edit_q_dia_exam','edit_q_dia_exam')->name('edit_q_dia_exam');
         Route::get('/Diagnostic_Exam/Del/{id}','del_dia_exam')->name('del_dia_exam');
-        Route::post('/Diagnostic_Exam/Edit/{id}','edit_dia_exam_item')->name('edit_dia_exam');
+        Route::post('/Diagnostic_Exam/Edit/{id}','edit_dia_exam_item')->name('edit_dia_exam_item');
     });
 
     // Exam

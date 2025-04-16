@@ -290,14 +290,18 @@
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Houre: </span>
-                                                <input type="number" name="time_h" max="3" min="0"
-                                                    class="col-md-4 form-control" value="00">
+                                                <input type="number" name="time_h_1" max="9" min="0"
+                                                    class=" form-control" value="0">
+                                                <input type="number" name="time_h_2" max="9" min="0"
+                                                    class="col-md-4 form-control" value="0">
                                             </div>
                                             <div class="d-flex col-md-2"
                                                 style="align-items: center;padding: 0;  column-gap: 10px">
                                                 <span>Minets: </span>
-                                                <input type="number" name="time_m" max="60" min="0"
-                                                    class="col-md-4 form-control" value="00" />
+                                                <input type="number" name="time_m_1" max="5" min="0"
+                                                    class="col-md-4 form-control" value="0" />
+                                                <input type="number" name="time_m_2" max="9" min="0"
+                                                    class="col-md-4 form-control" value="0" />
                                             </div>
                                         </div>
                                     </div>
@@ -638,7 +642,7 @@
                                     role="document">
                                     <div class="modal-content" style="border-radius: 15px;">
                                         <form class="form_editquizze"
-                                            action="{{ route('edit_dia_exam', ['id' => $item->id]) }}"
+                                            action="{{ route('edit_dia_exam_item', ['id' => $item->id]) }}"
                                             method="POST">
                                             @csrf
                                             <input type="hidden" value="{{ $item->id }}" id="dia_id">
